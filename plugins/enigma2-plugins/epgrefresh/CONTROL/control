@@ -1,0 +1,6 @@
+Package: enigma2-plugin-extensions-epgrefresh
+Version: 1.5-git
+Description: Plugin to refresh EPG Data when Receiver is inactive
+Maintainer: OpenPLi Team, dima73
+Homepage: www.openpli.org
+Depends: enigma2, python3-codecs, python3-xml, enigma2-plugin-systemplugins-mphelp, python3-difflib

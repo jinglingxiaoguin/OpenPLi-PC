@@ -1,0 +1,21 @@
+#Y#Left#W#	Move settings cursor left
+#Y#Right#W#	Move settings cursor right
+
+#Y#Up#W#	Change setting item to previous value
+#Y#Down#W#	Change setting item to next value
+
+#Y#<#W#	Change setting item to first value
+#Y#>#W#	Change setting item to last value
+#Y#0#W#	Change setting item to default value
+
+#Y#Red#W#	Reset all settings to default
+#Y#Green#W#	Save settings
+#Y#Yellow#W#	Change delay to '0'
+#Y#Blue#W#	Pick a line from subtitle file to start with
+
+#Y#Info#W#	Show information about current subtitle file/timing
+
+#Y#Menu#W#	More Subtitle Options
+
+#Y#OK#W#	Exit Subtitle
+#Y#Exit#W#	Exit Subtitle

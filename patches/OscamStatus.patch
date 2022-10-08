@@ -1,0 +1,63 @@
+diff -ruN a/plugin/plugin.py b/plugin/plugin.py
+--- a/plugin/plugin.py	2022-07-26 21:59:30.000000000 +0300
++++ b/plugin/plugin.py	2022-09-14 13:38:10.256320174 +0300
+@@ -592,7 +592,7 @@
+ 			self["progress%d" % i].setValue(val)
+ 
+ 	def yellowPressed(self):
+-		if self.type is not "clients" and self.protocol.startswith("cccam"):
++		if self.type != "clients" and self.protocol.startswith("cccam"):
+ 			part = "entitlement&label=" + self.name
+ 			self.session.open(ReaderDataScreen, part, self.oServer)
+ 
+@@ -2232,7 +2232,7 @@
+ 			index = self["data"].getCurrent()[6]
+ 		else:
+ 			index = self["data"].getCurrent()[5]
+-		if index is not None:
++		if index != None:
+ 			self.timer.stop()
+ 			self.session.openWithCallback(self.backCB, ClientDataScreen, self.type, self.oServer, self.status[index])
+ 
+@@ -2337,23 +2337,23 @@
+ 
+ 	def action(self):
+ 		returnValue = self["menu"].getCurrent()[2]
+-		if returnValue is not None:
+-			if returnValue is "clients":
++		if returnValue != None:
++			if returnValue == "clients":
+ 				self.session.open(StatusDataScreen, "clients", "status", self.oServer)
+-			elif returnValue is "allClients":
++			elif returnValue == "allClients":
+ 				self.session.open(UserstatsScreen, "userstats", self.oServer)
+-			elif returnValue is "readers":
++			elif returnValue == "readers":
+ 				self.session.open(StatusDataScreen, "readers", "status", self.oServer)
+-			elif returnValue is "allReaders":
++			elif returnValue == "allReaders":
+ 				# part=readerlist erst ab 5773 ...
+ 				self.session.open(ReaderlistScreen, "readerlist", self.oServer)
+-			elif returnValue is "log":
++			elif returnValue == "log":
+ 				self.session.open(LogDataScreen, "status&appendlog=1", self.oServer)
+-			elif returnValue is "info":
++			elif returnValue == "info":
+ 				self.session.open(OscamDataScreen, "status", self.oServer)
+-			elif returnValue is "setup":
++			elif returnValue == "setup":
+ 				self.session.openWithCallback(self.SetupCB, OscamServerEntriesListConfigScreen)
+-			elif returnValue is "restart":
++			elif returnValue == "restart":
+ 				self.session.open(OscamRestartScreen, "status", self.oServer)
+ 
+ 	def SetupCB(self, entry):
+@@ -2370,7 +2370,7 @@
+ 		self.instance.move(ePoint(x, 0))
+ 
+ 	def findPicon(self, service=None):
+-		if service is not None:
++		if service != None:
+ 			sname = ':'.join(service.split(':')[:11])
+ 			pos = sname.rfind(':')
+ 			if pos != -1:

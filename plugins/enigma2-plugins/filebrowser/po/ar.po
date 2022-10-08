@@ -1,0 +1,137 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Enigma 2 Filebrowser Plugin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-16 16:27+0430\n"
+"PO-Revision-Date: 2020-10-15 15:22+0300\n"
+"Last-Translator: mosad - مساعد الجعيد <abo-mishal@hotmail.com>\n"
+"Language-Team: mosad - مساعد الجعيد\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 2.4.1\n"
+"X-Poedit-SearchPath-0: ../src\n"
+
+msgid "Add plugin to Extensionmenu"
+msgstr "إضافة البلجن إلى ملحقات القائمة"
+
+msgid "Add plugin to Mainmenu"
+msgstr "إضافة البلجن إلى القائمة الرئيسية"
+
+msgid "Cancel"
+msgstr "إلغاء"
+
+msgid "Copy"
+msgstr "نسخ"
+
+msgid "Copy directory"
+msgstr "نسخ المسار"
+
+msgid "Copy file"
+msgstr "نسخ الملف"
+
+msgid "Count directory content size"
+msgstr "حساب حجم محتوى المسار"
+
+msgid "Create directory"
+msgstr "إنشاء المسار"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Delete directory"
+msgstr "حذف المسار"
+
+msgid "Delete file"
+msgstr "حذف الملف"
+
+msgid "Filebrowser"
+msgstr "متصفح الملفات"
+
+msgid "Left panel position"
+msgstr "مكان لوحة التحكم اليسرى"
+
+msgid "Move"
+msgstr "تحريك"
+
+msgid "Move directory"
+msgstr "نقل المسار"
+
+msgid "Move file"
+msgstr "نقل الملف"
+
+msgid "OK"
+msgstr "موافق"
+
+msgid "Rename"
+msgstr "إعادة التسميه"
+
+msgid "Rename directory"
+msgstr "إعادة تسمية المسار"
+
+msgid "Rename file"
+msgstr "إعادة تسمية الملف"
+
+msgid "Right panel position"
+msgstr "مكان لوحة التحكم اليمنى"
+
+msgid "Save path positions on exit"
+msgstr "حفظ موقع المسار عند الخروج"
+
+msgid "Select location"
+msgstr "حدد الموقع"
+
+msgid "Select operation:"
+msgstr "حدد العملية:"
+
+msgid "Settings"
+msgstr "إعدادات"
+
+msgid "copying directory, wait please ..."
+msgstr "نسخ المسار، والانتظار من فضلك ..."
+
+msgid "copying file ..."
+msgstr "نسخ الملف ..."
+
+msgid "creating directory ..."
+msgstr "إنشاء المسار ..."
+
+msgid "deleting directory ..."
+msgstr "حذف الدليل ..."
+
+msgid "deleting file ..."
+msgstr "حذف الملف ..."
+
+msgid "from"
+msgstr "من"
+
+msgid "from dir"
+msgstr "من المسار"
+
+msgid "manage local Files"
+msgstr "إدارة الملفات"
+
+msgid "moving directory, wait please ..."
+msgstr "نقل المسار, إنتظر من فضلك ..."
+
+msgid "moving file ..."
+msgstr "نقل الملف ..."
+
+msgid "no Viewer installed for this mimetype!"
+msgstr "لا يوجد شي مثبت لهذا النوع المحاكي!"
+
+msgid "renaming directory ..."
+msgstr "إعادة تسمية المسار ..."
+
+msgid "renaming file ..."
+msgstr "إعادة تسمية الملف ..."
+
+msgid "to"
+msgstr "إلى"
+
+msgid "to dir"
+msgstr "إلى المسار"

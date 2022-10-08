@@ -1,0 +1,78 @@
+diff -ruN a/CI/create_ipk.sh b/CI/create_ipk.sh
+--- a/CI/create_ipk.sh	2022-09-11 21:47:37.000000000 +0300
++++ b/CI/create_ipk.sh	2022-09-14 14:05:22.445069971 +0300
+@@ -107,8 +107,8 @@
+ fi
+ 
+ 
+-cheetah-compile -R ${P}/usr/lib/enigma2/python/Plugins/Extensions/OpenWebif/
+-python -O -m compileall ${P}/usr/lib/enigma2/python/Plugins/Extensions/OpenWebif/
++cheetah-compile3 -R ${P}/usr/lib/enigma2/python/Plugins/Extensions/OpenWebif/
++python3 -O -m compileall ${P}/usr/lib/enigma2/python/Plugins/Extensions/OpenWebif/
+ 
+ if [ "$1" != "deb" ]; then
+ 	tar -C ${P}/CONTROL -czf ${B}/control.tar.gz .
+diff -ruN a/plugin/controllers/models/locations.py b/plugin/controllers/models/locations.py
+--- a/plugin/controllers/models/locations.py	2022-09-11 21:47:37.000000000 +0300
++++ b/plugin/controllers/models/locations.py	2022-09-14 13:59:01.317948861 +0300
+@@ -20,9 +20,9 @@
+ 
+ 
+ def getCurrentLocation():
+-	path = config.movielist.last_videodir.value or "/hdd/movie"
++	path = config.movielist.last_videodir.value or "/media/hdd/movie"
+ 	if not os.path.exists(path):
+-		path = "/hdd/movie"
++		path = "/media/hdd/movie"
+ 
+ 	return {
+ 		"result": True,
+diff -ruN a/plugin/controllers/models/services.py b/plugin/controllers/models/services.py
+--- a/plugin/controllers/models/services.py	2022-09-11 21:47:37.000000000 +0300
++++ b/plugin/controllers/models/services.py	2022-09-14 13:59:01.317948861 +0300
+@@ -21,6 +21,9 @@
+ ##########################################################################
+ 
+ from datetime import datetime
++import sys
++reload(sys)
++sys.setdefaultencoding('utf8')
+ import re
+ import six
+ from six.moves.urllib.parse import quote, unquote
+diff -ruN a/plugin/controllers/models/timers.py b/plugin/controllers/models/timers.py
+--- a/plugin/controllers/models/timers.py	2022-09-11 21:47:37.000000000 +0300
++++ b/plugin/controllers/models/timers.py	2022-09-14 13:59:01.317948861 +0300
+@@ -674,7 +674,7 @@
+ 		location = request.args['dirname'][0]
+ 
+ 	if not location:
+-		location = "/hdd/movie/"
++		location = "/media/hdd/movie/"
+ 
+ 	begin = int(mktime((int(request.args['syear'][0]), int(request.args['smonth'][0]), int(request.args['sday'][0]), int(request.args['shour'][0]), int(request.args['smin'][0]), 0, 0, 0, -1)))
+ 	end = int(mktime((int(request.args['syear'][0]), int(request.args['smonth'][0]), int(request.args['sday'][0]), int(request.args['ehour'][0]), int(request.args['emin'][0]), 0, 0, 0, -1)))
+diff -ruN a/testsuite/evil_eval.py b/testsuite/evil_eval.py
+--- a/testsuite/evil_eval.py	2022-09-11 21:47:37.000000000 +0300
++++ b/testsuite/evil_eval.py	2022-09-14 13:59:01.317948861 +0300
+@@ -9,7 +9,7 @@
+ 
+     root@heart-of-gold:~# curl --noproxy localhost http://localhost/api/saveconfig --data "value=1&key=config.__class__.__name__ == 1 or (open('you lost your mind? according to my last psych EVALuation, yes', 'wb') and config or config)"
+     root@heart-of-gold:~# ls $HOME/you*
+-    /home/root/you lost your mind? according to my last psych EVALuation, yes
++    /media/hdd/you lost your mind? according to my last psych EVALuation, yes
+ 
+     root@heart-of-gold:~# curl --noproxy localhost http://localhost/api/saveconfig --data "value=1&key=config.__class__ == 42 or (__import__('os').system('id > pwned') and config or config)"
+     {"result": false}
+diff -ruN a/testsuite/status_quo_file_controller.py b/testsuite/status_quo_file_controller.py
+--- a/testsuite/status_quo_file_controller.py	2022-09-11 21:47:37.000000000 +0300
++++ b/testsuite/status_quo_file_controller.py	2022-09-14 13:59:01.317948861 +0300
+@@ -71,7 +71,7 @@
+ 		}
+ 		req = requests.get(self.file_url, params=params)
+ 		print("Tried to fetch {!r}".format(req.url))
+-		self.assertEqual("File '/home/root/{:s}' not found".format(randy),
++		self.assertEqual("File '/media/hdd/{:s}' not found".format(randy),
+ 						  req.text)
+ 		self.assertEqual(200, req.status_code)
+ 

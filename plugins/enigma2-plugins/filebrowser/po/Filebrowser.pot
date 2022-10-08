@@ -1,0 +1,138 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-08-13 18:34+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Add plugin to Extensionmenu"
+msgstr ""
+
+msgid "Add plugin to Mainmenu"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Copy"
+msgstr ""
+
+msgid "Copy directory"
+msgstr ""
+
+msgid "Copy file"
+msgstr ""
+
+msgid "Count directory content size"
+msgstr ""
+
+msgid "Create directory"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "Delete directory"
+msgstr ""
+
+msgid "Delete file"
+msgstr ""
+
+msgid "Filebrowser"
+msgstr ""
+
+msgid "Left panel position"
+msgstr ""
+
+msgid "Move"
+msgstr ""
+
+msgid "Move directory"
+msgstr ""
+
+msgid "Move file"
+msgstr ""
+
+msgid "OK"
+msgstr ""
+
+msgid "Rename"
+msgstr ""
+
+msgid "Rename directory"
+msgstr ""
+
+msgid "Rename file"
+msgstr ""
+
+msgid "Right panel position"
+msgstr ""
+
+msgid "Save path positions on exit"
+msgstr ""
+
+msgid "Select location"
+msgstr ""
+
+msgid "Select operation:"
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "copying directory, wait please ..."
+msgstr ""
+
+msgid "copying file ..."
+msgstr ""
+
+msgid "creating directory ..."
+msgstr ""
+
+msgid "deleting directory ..."
+msgstr ""
+
+msgid "deleting file ..."
+msgstr ""
+
+msgid "from"
+msgstr ""
+
+msgid "from dir"
+msgstr ""
+
+msgid "manage local Files"
+msgstr ""
+
+msgid "moving directory, wait please ..."
+msgstr ""
+
+msgid "moving file ..."
+msgstr ""
+
+msgid "no Viewer installed for this mimetype!"
+msgstr ""
+
+msgid "renaming directory ..."
+msgstr ""
+
+msgid "renaming file ..."
+msgstr ""
+
+msgid "to"
+msgstr ""
+
+msgid "to dir"
+msgstr ""

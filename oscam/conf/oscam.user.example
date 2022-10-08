@@ -1,0 +1,6 @@
+[account]
+user                          = root
+description                   = dvbapi
+group                         = 1
+ident                         = CAID:IDENT;CAID:IDENT
+

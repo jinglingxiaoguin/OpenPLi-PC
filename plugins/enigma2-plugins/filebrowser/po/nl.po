@@ -1,0 +1,142 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: enigma2 - Filebrowser Plugin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-16 16:27+0430\n"
+"PO-Revision-Date: 2020-05-22 18:23+0200\n"
+"Last-Translator: Frenske <voorzitter@openpli.org>\n"
+"Language-Team: PLi\n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.0.6\n"
+
+msgid "Add plugin to Extensionmenu"
+msgstr "Voeg de plug-in aan het applicatiemenu toe."
+
+msgid "Add plugin to Mainmenu"
+msgstr "Voeg de plug-in aan het Hoofdmenu toe"
+
+msgid "Cancel"
+msgstr "Annuleren"
+
+msgid "Copy"
+msgstr "Kopieer"
+
+msgid "Copy directory"
+msgstr "Kopieer de map"
+
+msgid "Copy file"
+msgstr "Kopieer het bestand"
+
+msgid "Count directory content size"
+msgstr ""
+
+#, fuzzy
+msgid "Create directory"
+msgstr "Verwijder de map"
+
+msgid "Delete"
+msgstr "Verwijder"
+
+msgid "Delete directory"
+msgstr "Verwijder de map"
+
+msgid "Delete file"
+msgstr "Verwijder het bestand"
+
+msgid "Filebrowser"
+msgstr "Filebrowser"
+
+msgid "Left panel position"
+msgstr "Positie linker scherm"
+
+msgid "Move"
+msgstr "Verplaats"
+
+msgid "Move directory"
+msgstr "Verplaats de map"
+
+msgid "Move file"
+msgstr "Verplaats een bestand"
+
+msgid "OK"
+msgstr "Ok"
+
+msgid "Rename"
+msgstr "Hernoemen"
+
+msgid "Rename directory"
+msgstr "Hernoem de map"
+
+msgid "Rename file"
+msgstr "Hernoem het bestand"
+
+msgid "Right panel position"
+msgstr "Positie rechter scherm"
+
+msgid "Save path positions on exit"
+msgstr "Sla de positie(s) op bij het beëindigen van het programma"
+
+msgid "Select location"
+msgstr "Kies de locatie"
+
+#, fuzzy
+msgid "Select operation:"
+msgstr "Kies de locatie"
+
+msgid "Settings"
+msgstr "Instellingen"
+
+msgid "copying directory, wait please ..."
+msgstr "kopieer de map, een moment aub ..."
+
+msgid "copying file ..."
+msgstr "kopieer het bestand ..."
+
+#, fuzzy
+msgid "creating directory ..."
+msgstr "hernoemd de map ..."
+
+msgid "deleting directory ..."
+msgstr "verwijderen van de map ..."
+
+msgid "deleting file ..."
+msgstr "verwijder het bestand ..."
+
+msgid "from"
+msgstr "van"
+
+msgid "from dir"
+msgstr "vanuit de map"
+
+msgid "manage local Files"
+msgstr "Beheer de locale bestanden"
+
+msgid "moving directory, wait please ..."
+msgstr "verplaatsen van de map, een moment aub ..."
+
+msgid "moving file ..."
+msgstr "verplaatsen van het bestand ..."
+
+msgid "no Viewer installed for this mimetype!"
+msgstr "geen Viewer geïnstalleerd voor dit mimetype!"
+
+msgid "renaming directory ..."
+msgstr "hernoemd de map ..."
+
+msgid "renaming file ..."
+msgstr "hernoemd het bestand ..."
+
+msgid "to"
+msgstr "naar"
+
+msgid "to dir"
+msgstr "naar map"

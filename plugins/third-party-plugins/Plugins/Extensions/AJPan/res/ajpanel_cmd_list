@@ -1,0 +1,58 @@
+# File Location:
+#	When the Terminal starts, this file will be automatically copied to the Backup directory.
+#	You can then customize the file in your Backup directory to suit your needs.
+# File Rules:
+#	One or more words can be used. If more than one word, separate them by ",".
+#	Text starting with "#" will be ignored.
+#	Empty lines will be ignored.
+#	Comments can be added to line using "#". Commented text will be ignored.
+#	You can use any letter cases (small-letters and capital letters will work).
+
+# Directory
+pwd                 # Current Dir
+cd                   # Home
+cd ..                # Up
+cd /                 # Root
+cd /home          # Home
+cd /home/root   # User Dir
+cd /tmp            # /tmp
+cd ~                # Home
+
+# File List
+ls
+ls --full-time
+ls -1
+ls -als
+ls -ls
+
+# Search
+find / -iname FILE_NAME
+find / -size +10000k
+grep -r PATTERN dir
+grep PATTERN FILES
+
+# System
+date
+hostname
+hostname -i
+uname
+uptime
+whoami
+
+# User
+id
+last
+who
+
+# Network
+ifconfig
+netstat
+ping google.com -c 3        # 3 seconds
+
+# File Permission
+chmod 755 /tmp/FILE_NAME
+chmod 766 /tmp/FILE_NAME
+chmod 777 /tmp/FILE_NAME
+
+# Disk usage
+df -h
