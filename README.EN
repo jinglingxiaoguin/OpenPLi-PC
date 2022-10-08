@@ -1,5 +1,5 @@
 Attention! Make a full backup of your system.
 =============================================
 
-This is a modified version of https://github.com/ag1455/OpenPLi-PC to work with the /proc virtual file system.
-It doesn't improve anything.
+This only works on Ubunu 22.04 using Python-3.10 and sigc-3 with the /proc virtual file system.
+Intended for development only. There are few plugins yet, but this will probably help developers.
