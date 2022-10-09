@@ -114,9 +114,19 @@ recordinfobar/meta/Makefile
 recordinfobar/po/Makefile
 recordinfobar/src/Makefile
 
+satipclient/Makefile
+satipclient/meta/Makefile
+satipclient/po/Makefile
+satipclient/src/Makefile
+
 servicemp3/Makefile
 servicemp3/plugin/Makefile
 servicemp3/servicemp3/Makefile
+
+systemtime/Makefile
+systemtime/meta/Makefile
+systemtime/po/Makefile
+systemtime/src/Makefile
 
 ])
 AC_OUTPUT
