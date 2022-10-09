@@ -5,7 +5,7 @@ from enigma import eServiceReference
 from Components.config import config
 from Components.NimManager import nimmanager
 from time import localtime
-from OrderedSet import OrderedSet
+from .OrderedSet import OrderedSet
 from ServiceReference import ServiceReference
 from Tools.XMLTools import stringToXML
 try:
