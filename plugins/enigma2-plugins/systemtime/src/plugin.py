@@ -16,7 +16,7 @@ from Screens.MessageBox import MessageBox
 from Screens.Standby import TryQuitMainloop
 from Screens.Screen import Screen
 from Tools.Directories import fileExists
-from NTPSyncPoller import NTPSyncPoller
+from .NTPSyncPoller import NTPSyncPoller
 import os
 import time
 from calendar import isleap
