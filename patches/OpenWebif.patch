@@ -1,6 +1,6 @@
 diff -ruN a/CI/create_ipk.sh b/CI/create_ipk.sh
---- a/CI/create_ipk.sh	2022-09-11 21:47:37.000000000 +0300
-+++ b/CI/create_ipk.sh	2022-09-14 14:05:22.445069971 +0300
+--- a/CI/create_ipk.sh	2022-09-21 14:30:27.000000000 +0300
++++ b/CI/create_ipk.sh	2022-10-09 14:37:55.935181140 +0300
 @@ -107,8 +107,8 @@
  fi
  
@@ -12,10 +12,280 @@ diff -ruN a/CI/create_ipk.sh b/CI/create_ipk.sh
  
  if [ "$1" != "deb" ]; then
  	tar -C ${P}/CONTROL -czf ${B}/control.tar.gz .
+diff -ruN a/contrib/model_movies/compare_functions.py b/contrib/model_movies/compare_functions.py
+--- a/contrib/model_movies/compare_functions.py	2022-09-21 14:30:27.000000000 +0300
++++ b/contrib/model_movies/compare_functions.py	2022-10-09 14:37:55.935181140 +0300
+@@ -1,6 +1,6 @@
+ #!/usr/bin/python
+ # -*- coding: utf-8 -*-
+-from __future__ import print_function
++
+ import os
+ import sys
+ import pprint
+diff -ruN a/doc/source/conf.py b/doc/source/conf.py
+--- a/doc/source/conf.py	2022-09-21 14:30:27.000000000 +0300
++++ b/doc/source/conf.py	2022-10-09 14:37:55.935181140 +0300
+@@ -19,14 +19,14 @@
+ 
+ # -- Project information -----------------------------------------------------
+ 
+-project = u'e2openplugin-OpenWebif'
+-copyright = u'2018, E2OpenPlugins'
+-author = u'E2OpenPlugins'
++project = 'e2openplugin-OpenWebif'
++copyright = '2018, E2OpenPlugins'
++author = 'E2OpenPlugins'
+ 
+ # The short X.Y version
+-version = u'1.3.2'
++version = '1.3.2'
+ # The full version, including alpha/beta/rc tags
+-release = u'1.3.1'
++release = '1.3.1'
+ 
+ 
+ # -- General configuration ---------------------------------------------------
+@@ -137,8 +137,8 @@
+ # (source start file, target name, title,
+ #  author, documentclass [howto, manual, or own class]).
+ latex_documents = [
+-    (master_doc, 'e2openplugin-OpenWebif.tex', u'e2openplugin-OpenWebif Documentation',
+-     u'E2OpenPlugins', 'manual'),
++    (master_doc, 'e2openplugin-OpenWebif.tex', 'e2openplugin-OpenWebif Documentation',
++     'E2OpenPlugins', 'manual'),
+ ]
+ 
+ 
+@@ -147,7 +147,7 @@
+ # One entry per manual page. List of tuples
+ # (source start file, name, description, authors, manual section).
+ man_pages = [
+-    (master_doc, 'e2openplugin-openwebif', u'e2openplugin-OpenWebif Documentation',
++    (master_doc, 'e2openplugin-openwebif', 'e2openplugin-OpenWebif Documentation',
+      [author], 1)
+ ]
+ 
+@@ -158,7 +158,7 @@
+ # (source start file, target name, title, author,
+ #  dir menu entry, description, category)
+ texinfo_documents = [
+-    (master_doc, 'e2openplugin-OpenWebif', u'e2openplugin-OpenWebif Documentation',
++    (master_doc, 'e2openplugin-OpenWebif', 'e2openplugin-OpenWebif Documentation',
+      author, 'e2openplugin-OpenWebif', 'One line description of project.',
+      'Miscellaneous'),
+ ]
+diff -ruN a/locale/updateallpo-multiOS.sh b/locale/updateallpo-multiOS.sh
+--- a/locale/updateallpo-multiOS.sh	2022-09-21 14:30:27.000000000 +0300
++++ b/locale/updateallpo-multiOS.sh	2022-10-09 14:37:55.935181140 +0300
+@@ -48,7 +48,7 @@
+ 	printf "Possible options are:\n"
+ 	printf " -r | --remote to specify the remote git to use,   default[origin]\n" 
+ 	printf " -b | --branch to specify the branch to translate, default[develop]\n"
+-	printf " -p | --python to specify the python runtime name, default[python]\n"
++	printf " -p | --python3 to specify the python3 runtime name, default[python]\n"
+ 	printf " -h | --help   this text\n\n"
+ 	printf "To translate for the develop branch simply run this script without any option.\n"
+ 	printf "To translate for the rc branch simply specify:\n"
+diff -ruN a/locale/updateallpo.sh b/locale/updateallpo.sh
+--- a/locale/updateallpo.sh	2022-09-21 14:30:27.000000000 +0300
++++ b/locale/updateallpo.sh	2022-10-09 14:37:55.935181140 +0300
+@@ -46,7 +46,7 @@
+ find $findoptions .. -name "*.py" -exec xgettext --no-wrap -L Python --from-code=UTF-8 -kpgettext:1c,2 --add-comments="TRANSLATORS:" -d $Plugin -s -o $Plugin-py.pot {} \+
+ $localgsed --in-place $Plugin-py.pot --expression=s/CHARSET/UTF-8/
+ printf "Creating temporary file $Plugin-xml.pot\n"
+-find $findoptions .. -name "*.xml" -exec python xml2po.py {} \+ > $Plugin-xml.pot
++find $findoptions .. -name "*.xml" -exec python3 xml2po.py {} \+ > $Plugin-xml.pot
+ printf "Merging pot files to create: $Plugin.pot\n"
+ cat $Plugin-py.pot $Plugin-xml.pot | msguniq --no-wrap -o $Plugin.pot -
+ OLDIFS=$IFS
+diff -ruN a/locale/updatepot.sh b/locale/updatepot.sh
+--- a/locale/updatepot.sh	2022-09-21 14:30:27.000000000 +0300
++++ b/locale/updatepot.sh	2022-10-09 14:37:55.935181140 +0300
+@@ -46,7 +46,7 @@
+ printf "Creating temporary file $Plugin-xml.pot\n"
+ which python
+ if [ $? -eq 0 ]; then
+-	find $findoptions ../plugin -name "*.xml" -exec python xml2po.py {} \+ > $Plugin-xml.pot
++	find $findoptions ../plugin -name "*.xml" -exec python3 xml2po.py {} \+ > $Plugin-xml.pot
+ else
+ 	find $findoptions ../plugin -name "*.xml" -exec python3 xml2po.py {} \+ > $Plugin-xml.pot
+ fi
+diff -ruN a/locale/xml2po.py b/locale/xml2po.py
+--- a/locale/xml2po.py	2022-09-21 14:30:27.000000000 +0300
++++ b/locale/xml2po.py	2022-10-09 14:37:55.935181140 +0300
+@@ -1,6 +1,6 @@
+ #!/usr/bin/python
+ # -*- coding: utf-8 -*-
+-from __future__ import print_function
++
+ import sys
+ import os
+ import six
+diff -ruN a/plugin/backport/OrderedDict.py b/plugin/backport/OrderedDict.py
+--- a/plugin/backport/OrderedDict.py	2022-09-21 14:30:27.000000000 +0300
++++ b/plugin/backport/OrderedDict.py	2022-10-09 14:37:55.935181140 +0300
+@@ -4,9 +4,9 @@
+ # Passes Python2.7's test suite and incorporates all the latest updates.
+ 
+ try:
+-	from thread import get_ident as _get_ident
++	from _thread import get_ident as _get_ident
+ except ImportError:
+-	from dummy_thread import get_ident as _get_ident
++	from _dummy_thread import get_ident as _get_ident
+ 
+ try:
+ 	from _abcoll import KeysView, ValuesView, ItemsView
+@@ -79,7 +79,7 @@
+ 	def clear(self):
+ 		'od.clear() -> None.  Remove all items from od.'
+ 		try:
+-			for node in self.__map.itervalues():
++			for node in self.__map.values():
+ 				del node[:]
+ 			root = self.__root
+ 			root[:] = [root, root, None]
+@@ -159,12 +159,12 @@
+ 			for key in other:
+ 				self[key] = other[key]
+ 		elif hasattr(other, 'keys'):
+-			for key in other.keys():
++			for key in list(other.keys()):
+ 				self[key] = other[key]
+ 		else:
+ 			for key, value in other:
+ 				self[key] = value
+-		for key, value in kwds.items():
++		for key, value in list(kwds.items()):
+ 			self[key] = value
+ 
+ 	__update = update  # let subclasses override update without breaking __init__
+@@ -199,7 +199,7 @@
+ 		try:
+ 			if not self:
+ 				return '%s()' % (self.__class__.__name__,)
+-			return '%s(%r)' % (self.__class__.__name__, self.items())
++			return '%s(%r)' % (self.__class__.__name__, list(self.items()))
+ 		finally:
+ 			del _repr_running[call_key]
+ 
+@@ -232,7 +232,7 @@
+ 		while comparison to a regular mapping is order-insensitive.
+ 		'''
+ 		if isinstance(other, OrderedDict):
+-			return len(self) == len(other) and self.items() == other.items()
++			return len(self) == len(other) and list(self.items()) == list(other.items())
+ 		return dict.__eq__(self, other)
+ 
+ 	def __ne__(self, other):
+diff -ruN a/plugin/controllers/base.py b/plugin/controllers/base.py
+--- a/plugin/controllers/base.py	2022-09-21 14:30:27.000000000 +0300
++++ b/plugin/controllers/base.py	2022-10-09 14:37:55.935181140 +0300
+@@ -20,7 +20,7 @@
+ # Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
+ ##########################################################################
+ 
+-from __future__ import print_function
++
+ import os
+ import imp
+ import json
+diff -ruN a/plugin/controllers/BouquetEditor.py b/plugin/controllers/BouquetEditor.py
+--- a/plugin/controllers/BouquetEditor.py	2022-09-21 14:30:27.000000000 +0300
++++ b/plugin/controllers/BouquetEditor.py	2022-10-09 14:37:55.935181140 +0300
+@@ -8,7 +8,7 @@
+ # http://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to Creative
+ # Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA.
+ 
+-from __future__ import print_function
++
+ from Plugins.Extensions.OpenWebif.controllers.i18n import _
+ from enigma import eServiceReference, eServiceCenter, eDVBDB
+ from Components.Sources.Source import Source
+diff -ruN a/plugin/controllers/defaults.py b/plugin/controllers/defaults.py
+--- a/plugin/controllers/defaults.py	2022-09-21 14:30:27.000000000 +0300
++++ b/plugin/controllers/defaults.py	2022-10-09 14:37:55.939181140 +0300
+@@ -1,5 +1,5 @@
+ # -*- coding: utf-8 -*-
+-from __future__ import print_function
++
+ import os
+ import sys
+ import glob
+diff -ruN a/plugin/controllers/ER.py b/plugin/controllers/ER.py
+--- a/plugin/controllers/ER.py	2022-09-21 14:30:27.000000000 +0300
++++ b/plugin/controllers/ER.py	2022-10-09 14:37:55.939181140 +0300
+@@ -20,7 +20,7 @@
+ # Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
+ ##########################################################################
+ 
+-from __future__ import print_function
++
+ from twisted.web import resource, http
+ import six
+ 
+diff -ruN a/plugin/controllers/models/config.py b/plugin/controllers/models/config.py
+--- a/plugin/controllers/models/config.py	2022-09-21 14:30:27.000000000 +0300
++++ b/plugin/controllers/models/config.py	2022-10-09 14:37:55.943181140 +0300
+@@ -20,7 +20,7 @@
+ # Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
+ ##########################################################################
+ 
+-from __future__ import print_function
++
+ from enigma import eEnv
+ from Components.SystemInfo import SystemInfo
+ from Components.config import config
+diff -ruN a/plugin/controllers/models/control.py b/plugin/controllers/models/control.py
+--- a/plugin/controllers/models/control.py	2022-09-21 14:30:27.000000000 +0300
++++ b/plugin/controllers/models/control.py	2022-10-09 14:37:55.943181140 +0300
+@@ -20,7 +20,7 @@
+ # Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
+ ##########################################################################
+ 
+-from __future__ import print_function
++
+ from Components.config import config
+ from enigma import eServiceReference, eActionMap, eServiceCenter
+ from Plugins.Extensions.OpenWebif.controllers.models.services import getProtection
+diff -ruN a/plugin/controllers/models/grab.py b/plugin/controllers/models/grab.py
+--- a/plugin/controllers/models/grab.py	2022-09-21 14:30:27.000000000 +0300
++++ b/plugin/controllers/models/grab.py	2022-10-09 14:37:55.943181140 +0300
+@@ -20,7 +20,7 @@
+ # Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
+ ##########################################################################
+ 
+-from __future__ import print_function
++
+ from enigma import eConsoleAppContainer
+ from ServiceReference import ServiceReference
+ from Components.config import config
+diff -ruN a/plugin/controllers/models/info.py b/plugin/controllers/models/info.py
+--- a/plugin/controllers/models/info.py	2022-09-21 14:30:27.000000000 +0300
++++ b/plugin/controllers/models/info.py	2022-10-09 14:37:55.943181140 +0300
+@@ -20,7 +20,7 @@
+ # Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
+ ##########################################################################
+ 
+-from __future__ import print_function
++
+ import os
+ import six
+ import time
+@@ -754,7 +754,7 @@
+ 		if six.PY2:
+ 			desc = desc.decode('utf-8')
+ 		if len(desc) > 220:
+-			desc = desc + u"..."
++			desc = desc + "..."
+ 		if six.PY2:
+ 			desc = desc.encode('utf-8')
+ 		statusinfo['currservice_description'] = desc
 diff -ruN a/plugin/controllers/models/locations.py b/plugin/controllers/models/locations.py
---- a/plugin/controllers/models/locations.py	2022-09-11 21:47:37.000000000 +0300
-+++ b/plugin/controllers/models/locations.py	2022-09-14 13:59:01.317948861 +0300
-@@ -20,9 +20,9 @@
+--- a/plugin/controllers/models/locations.py	2022-09-21 14:30:27.000000000 +0300
++++ b/plugin/controllers/models/locations.py	2022-10-09 14:37:55.943181140 +0300
+@@ -21,9 +21,9 @@
  
  
  def getCurrentLocation():
@@ -27,22 +297,75 @@ diff -ruN a/plugin/controllers/models/locations.py b/plugin/controllers/models/l
  
  	return {
  		"result": True,
+diff -ruN a/plugin/controllers/models/movies.py b/plugin/controllers/models/movies.py
+--- a/plugin/controllers/models/movies.py	2022-09-21 14:30:27.000000000 +0300
++++ b/plugin/controllers/models/movies.py	2022-10-09 14:37:55.943181140 +0300
+@@ -20,7 +20,7 @@
+ # Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
+ ##########################################################################
+ 
+-from __future__ import print_function
++
+ import os
+ import struct
+ import six
+diff -ruN a/plugin/controllers/models/owibranding.py b/plugin/controllers/models/owibranding.py
+--- a/plugin/controllers/models/owibranding.py	2022-09-21 14:30:27.000000000 +0300
++++ b/plugin/controllers/models/owibranding.py	2022-10-09 14:37:55.943181140 +0300
+@@ -27,6 +27,7 @@
+ import os
+ import hashlib
+ import re
++from functools import reduce
+ 
+ try:
+ 	from Components.About import about
+@@ -62,7 +63,7 @@
+ 
+ 
+ def bin2long(s):
+-	return reduce(lambda x, y: (x << 8) + y, map(ord, s))
++	return reduce(lambda x, y: (x << 8) + y, list(map(ord, s)))
+ 
+ 
+ def long2bin(l):
 diff -ruN a/plugin/controllers/models/services.py b/plugin/controllers/models/services.py
---- a/plugin/controllers/models/services.py	2022-09-11 21:47:37.000000000 +0300
-+++ b/plugin/controllers/models/services.py	2022-09-14 13:59:01.317948861 +0300
+--- a/plugin/controllers/models/services.py	2022-09-21 14:30:27.000000000 +0300
++++ b/plugin/controllers/models/services.py	2022-10-09 14:38:14.659181214 +0300
 @@ -21,6 +21,9 @@
  ##########################################################################
  
  from datetime import datetime
 +import sys
-+reload(sys)
-+sys.setdefaultencoding('utf8')
++import importlib
++importlib.reload(sys)
  import re
  import six
  from six.moves.urllib.parse import quote, unquote
+@@ -98,9 +101,9 @@
+ 	if val is not None:
+ 		if encode is True:
+ 			if PY3:
+-				return html_escape(val, quote=True).replace(u'\x8a', '\n')
++				return html_escape(val, quote=True).replace('\x8a', '\n')
+ 			else:
+-				return html_escape(six.text_type(val, 'utf_8', errors='ignore').encode('utf_8', 'ignore'), quote=True).replace(u'\x8a', '\n')
++				return html_escape(six.text_type(val, 'utf_8', errors='ignore').encode('utf_8', 'ignore'), quote=True).replace('\x8a', '\n')
+ 		else:
+ 			# remove control chars
+ 			val = removeBadChars(six.ensure_binary(val))
 diff -ruN a/plugin/controllers/models/timers.py b/plugin/controllers/models/timers.py
---- a/plugin/controllers/models/timers.py	2022-09-11 21:47:37.000000000 +0300
-+++ b/plugin/controllers/models/timers.py	2022-09-14 13:59:01.317948861 +0300
+--- a/plugin/controllers/models/timers.py	2022-09-21 14:30:27.000000000 +0300
++++ b/plugin/controllers/models/timers.py	2022-10-09 14:37:56.027181140 +0300
+@@ -20,7 +20,7 @@
+ # Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
+ ##########################################################################
+ 
+-from __future__ import print_function
++
+ import six
+ from enigma import eServiceReference
+ from Components.UsageConfig import preferredTimerPath, preferredInstantRecordPath
 @@ -674,7 +674,7 @@
  		location = request.args['dirname'][0]
  
@@ -52,9 +375,96 @@ diff -ruN a/plugin/controllers/models/timers.py b/plugin/controllers/models/time
  
  	begin = int(mktime((int(request.args['syear'][0]), int(request.args['smonth'][0]), int(request.args['sday'][0]), int(request.args['shour'][0]), int(request.args['smin'][0]), 0, 0, 0, -1)))
  	end = int(mktime((int(request.args['syear'][0]), int(request.args['smonth'][0]), int(request.args['sday'][0]), int(request.args['ehour'][0]), int(request.args['emin'][0]), 0, 0, 0, -1)))
+diff -ruN a/plugin/controllers/utilities.py b/plugin/controllers/utilities.py
+--- a/plugin/controllers/utilities.py	2022-09-21 14:30:27.000000000 +0300
++++ b/plugin/controllers/utilities.py	2022-10-09 14:37:56.027181140 +0300
+@@ -1,6 +1,6 @@
+ #!/usr/bin/python
+ # -*- coding: utf-8 -*-
+-from __future__ import print_function
++
+ import re
+ import six
+ import sys
+@@ -291,7 +291,7 @@
+ 		if k in list(request.args.keys()):
+ 			return six.ensure_str(request.args[k][0])
+ 	else:
+-		if key in request.args.keys():
++		if key in list(request.args.keys()):
+ 			return request.args[key][0]
+ 	return default
+ 
+@@ -302,7 +302,7 @@
+ 		if k in list(args.keys()):
+ 			return six.ensure_str(args[k][0])
+ 	else:
+-		if key in args.keys():
++		if key in list(args.keys()):
+ 			return args[key][0]
+ 	return default
+ 
+diff -ruN a/plugin/controllers/web.py b/plugin/controllers/web.py
+--- a/plugin/controllers/web.py	2022-09-21 14:30:27.000000000 +0300
++++ b/plugin/controllers/web.py	2022-10-09 14:37:56.027181140 +0300
+@@ -21,7 +21,7 @@
+ # Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
+ ##########################################################################
+ 
+-from __future__ import absolute_import, division
++
+ from re import match
+ from six import ensure_str, ensure_binary
+ from Components.config import config as comp_config
+diff -ruN a/plugin/httpserver.py b/plugin/httpserver.py
+--- a/plugin/httpserver.py	2022-09-21 14:30:27.000000000 +0300
++++ b/plugin/httpserver.py	2022-10-09 14:37:56.027181140 +0300
+@@ -20,7 +20,7 @@
+ # Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
+ ##########################################################################
+ 
+-from __future__ import print_function
++
+ import enigma
+ from Screens.MessageBox import MessageBox
+ from Components.config import config
+diff -ruN a/plugin/sslcertificate.py b/plugin/sslcertificate.py
+--- a/plugin/sslcertificate.py	2022-09-21 14:30:27.000000000 +0300
++++ b/plugin/sslcertificate.py	2022-10-09 14:37:56.027181140 +0300
+@@ -20,7 +20,7 @@
+ # Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
+ ##########################################################################
+ 
+-from __future__ import print_function
++
+ from OpenSSL import crypto
+ from socket import gethostname
+ from time import time
+diff -ruN a/plugin/vtiaddon.py b/plugin/vtiaddon.py
+--- a/plugin/vtiaddon.py	2022-09-21 14:30:27.000000000 +0300
++++ b/plugin/vtiaddon.py	2022-10-09 14:37:56.027181140 +0300
+@@ -1,5 +1,5 @@
+ # -*- coding: utf-8 -*-
+-from __future__ import print_function
++
+ 
+ from Components.config import config, ConfigYesNo, ConfigSelection
+ from Plugins.Extensions.OpenWebif.controllers.utilities import getUrlArg
+diff -ruN a/setup_translate.py b/setup_translate.py
+--- a/setup_translate.py	2022-09-21 14:30:27.000000000 +0300
++++ b/setup_translate.py	2022-10-09 14:37:56.027181140 +0300
+@@ -2,7 +2,7 @@
+ 
+ # Language extension for distutils Python scripts. Based on this concept:
+ # http://wiki.maemo.org/Internationalize_a_Python_application
+-from __future__ import print_function
++
+ from distutils import cmd
+ from distutils.command.build import build as _build
+ import glob
 diff -ruN a/testsuite/evil_eval.py b/testsuite/evil_eval.py
---- a/testsuite/evil_eval.py	2022-09-11 21:47:37.000000000 +0300
-+++ b/testsuite/evil_eval.py	2022-09-14 13:59:01.317948861 +0300
+--- a/testsuite/evil_eval.py	2022-09-21 14:30:27.000000000 +0300
++++ b/testsuite/evil_eval.py	2022-10-09 14:37:56.027181140 +0300
 @@ -9,7 +9,7 @@
  
      root@heart-of-gold:~# curl --noproxy localhost http://localhost/api/saveconfig --data "value=1&key=config.__class__.__name__ == 1 or (open('you lost your mind? according to my last psych EVALuation, yes', 'wb') and config or config)"
@@ -65,8 +475,8 @@ diff -ruN a/testsuite/evil_eval.py b/testsuite/evil_eval.py
      root@heart-of-gold:~# curl --noproxy localhost http://localhost/api/saveconfig --data "value=1&key=config.__class__ == 42 or (__import__('os').system('id > pwned') and config or config)"
      {"result": false}
 diff -ruN a/testsuite/status_quo_file_controller.py b/testsuite/status_quo_file_controller.py
---- a/testsuite/status_quo_file_controller.py	2022-09-11 21:47:37.000000000 +0300
-+++ b/testsuite/status_quo_file_controller.py	2022-09-14 13:59:01.317948861 +0300
+--- a/testsuite/status_quo_file_controller.py	2022-09-21 14:30:27.000000000 +0300
++++ b/testsuite/status_quo_file_controller.py	2022-10-09 14:37:56.027181140 +0300
 @@ -71,7 +71,7 @@
  		}
  		req = requests.get(self.file_url, params=params)

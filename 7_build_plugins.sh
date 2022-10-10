@@ -148,43 +148,41 @@ if [ "$release" = "22.04" ]; then
 		fi
 
 		# Build e2openplugin-OpenWebif
-#		if [ ! -d e2openplugin-AddStreamUrl ]; then
-#		if [ ! -d e2openplugin-SystemTools ]; then
-#			set -e
-#			set -o pipefail
-#		else
-#			echo ""
-#			echo "**************************** OK. Go to the next step. ******************************"
-#			echo ""
-#			PKG="e2openplugin-OpenWebif"
-#			PKG_="OpenWebif"
-#			VER="ad56862ec4265e746ed5da30340f7691bd166373"
-#			if [ -d $PKG ]; then
-#				rm -rf $PKG
-#			fi
-#			if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
-#				rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
-#			fi
-#			wget https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
-#			unzip $VER.zip
-#			rm $VER.zip
-#			mv $PKG-$VER $PKG
-#			cd ../..
-#			cp -fv patches/$PKG_.patch plugins/e2openplugin/$PKG
-#			cd plugins/e2openplugin/$PKG
-#			patch -p1 < $PKG_.patch
-#			mv CI/create_ipk.sh create_ipk.sh
-#			./create_ipk.sh
-#			ar -x *.ipk
-#			tar -xvf data.tar.gz
-#			mv -f usr/lib/enigma2/python/Plugins/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
-#			rm -rf debian-binary usr *.gz *.ipk
-#			cd ..
-#		fi
+		if [ ! -d e2openplugin-AddStreamUrl ]; then
+			set -e
+			set -o pipefail
+		else
+			echo ""
+			echo "**************************** OK. Go to the next step. ******************************"
+			echo ""
+			PKG="e2openplugin-OpenWebif"
+			PKG_="OpenWebif"
+			VER="50e162b3fbfc85052968b4aaf52fc9bcca6d426a"
+			if [ -d $PKG ]; then
+				rm -rf $PKG
+			fi
+			if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
+				rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
+			fi
+			wget https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
+			unzip $VER.zip
+			rm $VER.zip
+			mv $PKG-$VER $PKG
+			cd ../..
+			cp -fv patches/$PKG_.patch plugins/e2openplugin/$PKG
+			cd plugins/e2openplugin/$PKG
+			patch -p1 < $PKG_.patch
+			mv CI/create_ipk.sh create_ipk.sh
+			./create_ipk.sh
+			ar -x *.ipk
+			tar -xvf data.tar.gz
+			mv -f usr/lib/enigma2/python/Plugins/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
+			rm -rf debian-binary usr *.gz *.ipk
+			cd ..
+		fi
 
 		# Build e2openplugin-SetPicon
-#		if [ ! -d e2openplugin-OpenWebif ]; then
-		if [ ! -d e2openplugin-AddStreamUrl ]; then
+		if [ ! -d e2openplugin-OpenWebif ]; then
 			set -e
 			set -o pipefail
 		else
