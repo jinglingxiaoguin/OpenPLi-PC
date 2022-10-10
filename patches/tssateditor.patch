@@ -1,0 +1,47 @@
+diff -ruN a/src/plugin.py b/src/plugin.py
+--- a/src/plugin.py	2022-10-10 14:47:37.636418148 +0300
++++ b/src/plugin.py	2022-10-10 21:48:27.421459936 +0300
+@@ -1,5 +1,4 @@
+-#!/usr/bin/python
+-# -*- coding: utf-8 -*-
++#!/usr/bin/python3
+ 
+ from . import _
+ from Components.NimManager import nimmanager
+@@ -57,7 +56,7 @@
+ 				elif choice[1] == "enable":
+ 					os.system("mv /etc/enigma2/satellites.xml.disabled /etc/enigma2/satellites.xml")
+ 				elif choice[1] == "createdefault":
+-					os.system("cp /etc/tuxbox/satellites.xml /etc/enigma2/satellites.xml")
++					os.system("cp /etc/tuxbox/satellites.xml /usr/local/e2/etc/tuxbox/satellites.xml")
+ 				elif choice[1] == "removedvbt":
+ 					os.system("rm /etc/enigma2/terrestrial.xml")
+ 				elif choice[1] == "removedvbc":
+diff -ruN a/src/satedit.py b/src/satedit.py
+--- a/src/satedit.py	2022-10-10 14:47:37.640418148 +0300
++++ b/src/satedit.py	2022-10-10 21:55:40.069461654 +0300
+@@ -1,6 +1,3 @@
+-from __future__ import print_function
+-from __future__ import division
+-
+ from . import _
+ from Components.ActionMap import ActionMap
+ from Components.Button import Button
+@@ -178,7 +175,7 @@
+                         print('transponderDoctor: Transponderdaten muessen vom Type DICT sein')
+                         print(transponder)
+                         return
+-                param = transponder.keys()
++                param = list(transponder.keys())
+                 transParam = {}
+                 for x in param:
+                         transParam[x] = x.lower()
+@@ -995,7 +992,7 @@
+ 
+         def createConfig(self):
+                 self.configSatelliteName = ConfigText(default=self.satelliteName, visible_width=50, fixed_size=False)
+-                self.configSatelliteName.setUseableChars(u"0,?!&@=*'+\()$~% 1.:;/-_#abc2ABCdef3DEFghi4GHIjkl5JKLmno6MNOpqrs7PQRStuv8TUVwxyz9WXYZ")
++                self.configSatelliteName.setUseableChars("0,?!&@=*'+\()$~% 1.:;/-_#abc2ABCdef3DEFghi4GHIjkl5JKLmno6MNOpqrs7PQRStuv8TUVwxyz9WXYZ")
+                 self.configSatellitePosition = ConfigFloat(default=self.satellitePosition, limits=[(0, 180), (0, 9)])
+                 self.configSatelliteOrientation = ConfigSelection([('east', 'East'), ('west', 'West')], self.satelliteOrientation)
+                 options = self.satelliteFlags in (1, 3, 5, 7) and True or False

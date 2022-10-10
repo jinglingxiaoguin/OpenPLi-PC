@@ -59,8 +59,37 @@ if [ "$release" = "22.04" ]; then
 			mkdir e2openplugin
 		fi
 
-		# Build e2openplugin-StreamInterface:
+		# Build enigma2-plugin-extensions-ts-sateditor:
 		if [ ! -d enigma2-plugins/servicemp3 ]; then
+			set -e
+			set -o pipefail
+		else
+			echo ""
+			echo "**************************** OK. Go to the next step. ******************************"
+			echo ""
+			cd e2openplugin
+			PKG="enigma2-plugin-extensions-ts-sateditor"
+			VER="7a930d688ccfb540d5213c9df8e337d5c45f5a5b"
+			if [ -d $PKG ]; then
+				rm -rf $PKG
+			fi
+			if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Plugins/Extensions/TSsatEditor/$PKG ]; then
+				rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG
+			fi
+			wget https://github.com/Dima73/enigma2-plugin-extensions-ts-sateditor/archive/7a930d688ccfb540d5213c9df8e337d5c45f5a5b.zip
+			unzip $VER.zip
+			rm $VER.zip
+			mv $PKG-$VER $PKG
+			cp patches/tssateditor.patch $PKG
+			cd $PKG
+			patch -p1 < tssateditor.patch
+			python3 setup_translate.py
+			python3 setup.py install
+			cd ..
+		fi
+
+		# Build e2openplugin-StreamInterface:
+		if [ ! -d enigma2-plugin-extensions-ts-sateditor ]; then
 			set -e
 			set -o pipefail
 		else
@@ -83,7 +112,6 @@ if [ "$release" = "22.04" ]; then
 			cd $PKG
 			python3 setup.py install
 			mv -f /usr/local/lib/python3.10/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
-			mv -f /usr/local/lib/python3.10/dist-packages/enigma2_plugin_extensions_streaminterface* $INSTALL_E2DIR/lib/enigma2/python/Plugins
 			cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 			cd ..
 		fi
@@ -115,7 +143,6 @@ if [ "$release" = "22.04" ]; then
 			patch -p1 < $PKG_.patch
 			python3 setup.py install
 			mv -f /usr/local/lib/python3.10/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
-			mv -f /usr/local/lib/python3.10/dist-packages/enigma2_plugin_extensions_systemtools* $INSTALL_E2DIR/lib/enigma2/python/Plugins
 			cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 			cd ..
 		fi
@@ -143,7 +170,6 @@ if [ "$release" = "22.04" ]; then
 			cd $PKG
 			python3 setup.py install
 			mv -f /usr/local/lib/python3.10/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
-			mv -f /usr/local/lib/python3.10/dist-packages/enigma2_plugin_extensions_addstreamurl* $INSTALL_E2DIR/lib/enigma2/python/Plugins
 			cd ..
 		fi
 
@@ -208,7 +234,6 @@ if [ "$release" = "22.04" ]; then
 			patch -p1 < $PKG_.patch
 			python3 setup.py install
 			mv -f /usr/local/lib/python3.10/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
-			mv -f /usr/local/lib/python3.10/dist-packages/enigma2_plugin_extensions_setpicon* $INSTALL_E2DIR/lib/enigma2/python/Plugins
 			cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 			cd ..
 		fi
@@ -240,7 +265,6 @@ if [ "$release" = "22.04" ]; then
 #			patch -p1 < $PKG_.patch
 #			python3 setup.py install
 #			mv -f /usr/local/lib/python3.10/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
-#			mv -f /usr/local/lib/python3.10/dist-packages/enigma2_plugin_extensions_snmpagent* $INSTALL_E2DIR/lib/enigma2/python/Plugins
 #			cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 #			cd ..
 #		fi
@@ -273,7 +297,6 @@ if [ "$release" = "22.04" ]; then
 			patch -p1 < $PKG_.patch
 			python3 setup.py install
 			mv -f /usr/local/lib/python3.10/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
-			mv -f /usr/local/lib/python3.10/dist-packages/enigma2_plugin_extensions_simpleumount* $INSTALL_E2DIR/lib/enigma2/python/Plugins
 			cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 			cd ..
 		fi
@@ -303,7 +326,6 @@ if [ "$release" = "22.04" ]; then
 			rpl -F "\x1b" "KEY_ESC" plugin/keymap.xml
 			python3 setup.py install
 			mv -f /usr/local/lib/python3.10/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
-			mv -f /usr/local/lib/python3.10/dist-packages/enigma2_plugin_extensions_foreca* $INSTALL_E2DIR/lib/enigma2/python/Plugins
 			cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 			cd ..
 		fi
@@ -331,7 +353,6 @@ if [ "$release" = "22.04" ]; then
 			cd $PKG
 			python3 setup.py install
 			mv -f /usr/local/lib/python3.10/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
-			mv -f /usr/local/lib/python3.10/dist-packages/enigma2_plugin_extensions_youtube* $INSTALL_E2DIR/lib/enigma2/python/Plugins
 			cp -rfv build/lib/Extensions/YouTube/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 			cd ..
 		fi
@@ -363,7 +384,6 @@ if [ "$release" = "22.04" ]; then
 			find plugin/locale -name "*.mo" -exec rm {} \;
 			python3 setup.py install
 			mv -f /usr/local/lib/python3.10/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
-			mv -f /usr/local/lib/python3.10/dist-packages/enigma2_plugin_extensions_oscamstatus* $INSTALL_E2DIR/lib/enigma2/python/Plugins
 			cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 			cd ..
 		fi
@@ -396,7 +416,6 @@ if [ "$release" = "22.04" ]; then
 #			cd src
 #			python3 setup.py install
 #			mv -f /usr/local/lib/python3.10/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
-#			mv -f /usr/local/lib/python3.10/dist-packages/enigma2_plugin_extensions_xmltvimport* $INSTALL_E2DIR/lib/enigma2/python/Plugins
 #			cp -rfv $PKG_/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 #			cd ../..
 #		fi
@@ -424,7 +443,6 @@ if [ "$release" = "22.04" ]; then
 			cd $PKG
 			python3 setup.py install
 			mv -f /usr/local/lib/python3.10/dist-packages/SystemPlugins/$PKG $INSTALL_E2DIR/lib/enigma2/python/Plugins/SystemPlugins
-			mv -f /usr/local/lib/python3.10/dist-packages/enigma2_plugin_systemplugins_mountmanager-1.9.egg-info $INSTALL_E2DIR/lib/enigma2/python/Plugins
 			cd ..
 		fi
 
@@ -466,7 +484,6 @@ if [ "$release" = "22.04" ]; then
 			python3 setup_translate.py
 			python3 setup.py install
 			mv -f /usr/local/lib/python3.10/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
-			mv -f /usr/local/lib/python3.10/dist-packages/enigma2_plugin_extensions_iptvplayer* $INSTALL_E2DIR/lib/enigma2/python/Plugins
 			cp -rfv IPTVPlayer/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 			wget http://iptvplayer.vline.pl/resources/bin/i686/_subparser.so
 			chmod 755 _subparser.so
@@ -535,6 +552,11 @@ if [ "$release" = "22.04" ]; then
 
 		if [ ! -f /usr/local/bin/bitrate ]; then
 			ln -sf $INSTALL_E2DIR/bin/bitrate /usr/local/bin
+		fi
+
+		# Temporarily
+		if [ ! -f $INSTALL_E2DIR/lib/enigma2/python/Plugins/*.egg-info ]; then
+			rm -f $INSTALL_E2DIR/lib/enigma2/python/Plugins/*.egg-info
 		fi
 
 		# Create folder for softam keys and symlink for plugin 'navibar'
