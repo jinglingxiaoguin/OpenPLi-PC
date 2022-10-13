@@ -204,7 +204,7 @@ if [ "$release" = "22.04" ]; then
 			./create_ipk.sh
 			ar -x *.ipk
 			tar -xvf data.tar.gz
-			mv -f /usr/lib/enigma2/python/Plugins/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
+			mv -f usr/lib/enigma2/python/Plugins/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions # usr/ is not the root folder !
 			rm -rf debian-binary usr *.gz *.ipk
 			cd ..
 		fi
