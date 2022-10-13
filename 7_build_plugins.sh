@@ -355,7 +355,7 @@ if [ "$release" = "22.04" ]; then
 			cd $PKG
 			python3 setup.py install
 			mv -f /usr/local/lib/python3.10/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
-			cp -rfv build/lib/Extensions/PKG/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
+			cp -rfv build/lib/Extensions/$PKG/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 			cd ..
 		fi
 
