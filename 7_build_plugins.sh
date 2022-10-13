@@ -69,22 +69,25 @@ if [ "$release" = "22.04" ]; then
 			echo ""
 			cd e2openplugin
 			PKG="enigma2-plugin-extensions-ts-sateditor"
+			PKG_="TSsatEditor"
 			VER="7a930d688ccfb540d5213c9df8e337d5c45f5a5b"
 			if [ -d $PKG ]; then
 				rm -rf $PKG
 			fi
-			if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Plugins/Extensions/TSsatEditor/$PKG ]; then
-				rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG
+			if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/SystemPlugins/$PKG_ ]; then
+				rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/SystemPlugins/$PKG_
 			fi
 			wget https://github.com/Dima73/enigma2-plugin-extensions-ts-sateditor/archive/7a930d688ccfb540d5213c9df8e337d5c45f5a5b.zip
 			unzip $VER.zip
 			rm $VER.zip
 			mv $PKG-$VER $PKG
-			cp patches/tssateditor.patch $PKG
-			cd $PKG
+			cd ../..
+			cp patches/tssateditor.patch plugins/e2openplugin/$PKG
+			cd plugins/e2openplugin/$PKG
 			patch -p1 < tssateditor.patch
 			python3 setup_translate.py
 			python3 setup.py install
+			mv -f /usr/local/lib/python3.10/dist-packages/SystemPlugins/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/SystemPlugins
 			cd ..
 		fi
 
@@ -96,7 +99,6 @@ if [ "$release" = "22.04" ]; then
 			echo ""
 			echo "**************************** OK. Go to the next step. ******************************"
 			echo ""
-			cd e2openplugin
 			PKG="e2openplugin-StreamInterface"
 			PKG_="StreamInterface"
 			if [ -d $PKG ]; then
@@ -202,7 +204,7 @@ if [ "$release" = "22.04" ]; then
 			./create_ipk.sh
 			ar -x *.ipk
 			tar -xvf data.tar.gz
-			mv -f usr/lib/enigma2/python/Plugins/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
+			mv -f /usr/lib/enigma2/python/Plugins/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 			rm -rf debian-binary usr *.gz *.ipk
 			cd ..
 		fi
@@ -353,7 +355,7 @@ if [ "$release" = "22.04" ]; then
 			cd $PKG
 			python3 setup.py install
 			mv -f /usr/local/lib/python3.10/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
-			cp -rfv build/lib/Extensions/YouTube/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
+			cp -rfv build/lib/Extensions/PKG/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 			cd ..
 		fi
 
@@ -429,12 +431,13 @@ if [ "$release" = "22.04" ]; then
 			echo "**************************** OK. Go to the next step. ******************************"
 			echo ""
 			PKG="enigma2-plugin-mountmanager"
+			PKG_="MountManager"
 			VER="63646c2e38ae187aa69fe3be3d8b94e3c479541b"
 			if [ -d $PKG ]; then
 				rm -rf $PKG
 			fi
-			if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
-				rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
+			if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/SystemPlugins/$PKG_ ]; then
+				rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/SystemPlugins/$PKG_
 			fi
 			wget https://github.com/Dima73/$PKG/archive/$VER.zip
 			unzip $VER.zip
@@ -442,7 +445,7 @@ if [ "$release" = "22.04" ]; then
 			mv $PKG-$VER $PKG
 			cd $PKG
 			python3 setup.py install
-			mv -f /usr/local/lib/python3.10/dist-packages/SystemPlugins/$PKG $INSTALL_E2DIR/lib/enigma2/python/Plugins/SystemPlugins
+			mv -f /usr/local/lib/python3.10/dist-packages/SystemPlugins/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/SystemPlugins
 			cd ..
 		fi
 
@@ -534,11 +537,6 @@ if [ "$release" = "22.04" ]; then
 
 		cd ../..
 
-		# Temporarily
-		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/PLi ]; then
-			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/PLi
-		fi
-
 		# For use *.m3u8 in the /tmp folder
 		chown $(who | gawk '{print $1}'):$(who | gawk '{print $1}') /tmp
 
@@ -552,11 +550,6 @@ if [ "$release" = "22.04" ]; then
 
 		if [ ! -f /usr/local/bin/bitrate ]; then
 			ln -sf $INSTALL_E2DIR/bin/bitrate /usr/local/bin
-		fi
-
-		# Temporarily
-		if [ ! -f $INSTALL_E2DIR/lib/enigma2/python/Plugins/*.egg-info ]; then
-			rm -f $INSTALL_E2DIR/lib/enigma2/python/Plugins/*.egg-info
 		fi
 
 		# Create folder for softam keys and symlink for plugin 'navibar'

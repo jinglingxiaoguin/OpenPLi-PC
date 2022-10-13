@@ -53,7 +53,6 @@ AM_CONDITIONAL(UPDATE_PO, test "$with_po" = "yes")
 AC_CONFIG_FILES([
 Makefile
 
-
 antiscrollbar/Makefile
 antiscrollbar/meta/Makefile
 antiscrollbar/src/Makefile
@@ -63,6 +62,10 @@ automaticvolumeadjustment/Makefile
 automaticvolumeadjustment/meta/Makefile
 automaticvolumeadjustment/src/Makefile
 automaticvolumeadjustment/po/Makefile
+
+bitrate/Makefile
+bitrate/po/Makefile
+bitrate/bitratetool/Makefile
 
 epgrefresh/Makefile
 epgrefresh/meta/Makefile
@@ -127,6 +130,7 @@ systemtime/Makefile
 systemtime/meta/Makefile
 systemtime/po/Makefile
 systemtime/src/Makefile
+systemtime/src/images/Makefile
 
 ])
 AC_OUTPUT
