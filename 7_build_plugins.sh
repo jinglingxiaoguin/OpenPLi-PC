@@ -4,6 +4,7 @@
 
 release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 INSTALL_E2DIR="/usr/local/e2"
+P3_PACKAGES="/usr/local/lib/python3.10/dist-packages"
 MAKE_J="9"
 
 if [ "$release" = "22.04" ]; then
@@ -85,9 +86,8 @@ if [ "$release" = "22.04" ]; then
 			cp patches/tssateditor.patch plugins/e2openplugin/$PKG
 			cd plugins/e2openplugin/$PKG
 			patch -p1 < tssateditor.patch
-			python3 setup_translate.py
 			python3 setup.py install
-			mv -f /usr/local/lib/python3.10/dist-packages/SystemPlugins/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/SystemPlugins
+			mv $P3_PACKAGES/SystemPlugins/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/SystemPlugins
 			cd ..
 		fi
 
@@ -112,9 +112,8 @@ if [ "$release" = "22.04" ]; then
 			rm python3.zip
 			mv $PKG-python3 $PKG
 			cd $PKG
-			python3 setup.py install
-			mv -f /usr/local/lib/python3.10/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
-			cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
+			python3 setup.py install && python3 setup.py install # It's right
+			mv $P3_PACKAGES/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 			cd ..
 		fi
 
@@ -143,9 +142,8 @@ if [ "$release" = "22.04" ]; then
 			cp -fv patches/$PKG_.patch plugins/e2openplugin/$PKG
 			cd plugins/e2openplugin/$PKG
 			patch -p1 < $PKG_.patch
-			python3 setup.py install
-			mv -f /usr/local/lib/python3.10/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
-			cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
+			python3 setup.py install && python3 setup.py install # It's right
+			mv $P3_PACKAGES/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 			cd ..
 		fi
 
@@ -171,7 +169,7 @@ if [ "$release" = "22.04" ]; then
 			mv $PKG-python3 $PKG
 			cd $PKG
 			python3 setup.py install
-			mv -f /usr/local/lib/python3.10/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
+			mv $P3_PACKAGES/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 			cd ..
 		fi
 
@@ -204,7 +202,7 @@ if [ "$release" = "22.04" ]; then
 			./create_ipk.sh
 			ar -x *.ipk
 			tar -xvf data.tar.gz
-			mv -f usr/lib/enigma2/python/Plugins/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions # usr/ is not the root folder !
+			mv usr/lib/enigma2/python/Plugins/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions # It's right
 			rm -rf debian-binary usr *.gz *.ipk
 			cd ..
 		fi
@@ -234,9 +232,8 @@ if [ "$release" = "22.04" ]; then
 			cp -fv patches/$PKG_.patch plugins/e2openplugin/$PKG
 			cd plugins/e2openplugin/$PKG
 			patch -p1 < $PKG_.patch
-			python3 setup.py install
-			mv -f /usr/local/lib/python3.10/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
-			cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
+			python3 setup.py install && python3 setup.py install # It's right
+			mv $P3_PACKAGES/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 			cd ..
 		fi
 
@@ -266,8 +263,7 @@ if [ "$release" = "22.04" ]; then
 #			cd plugins/e2openplugin/$PKG
 #			patch -p1 < $PKG_.patch
 #			python3 setup.py install
-#			mv -f /usr/local/lib/python3.10/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
-#			cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
+#			mv $P3_PACKAGES/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 #			cd ..
 #		fi
 
@@ -297,9 +293,8 @@ if [ "$release" = "22.04" ]; then
 			cp -fv patches/$PKG_.patch plugins/e2openplugin/$PKG
 			cd plugins/e2openplugin/$PKG
 			patch -p1 < $PKG_.patch
-			python3 setup.py install
-			mv -f /usr/local/lib/python3.10/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
-			cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
+			python3 setup.py install && python3 setup.py install # It's right
+			mv $P3_PACKAGES/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 			cd ..
 		fi
 
@@ -323,12 +318,12 @@ if [ "$release" = "22.04" ]; then
 			unzip python3.zip
 			rm python3.zip
 			mv $PKG-python3 $PKG
-			cd $PKG
-			rpl "Foreca - прогноз погоды" "'Foreca' - Прогноз погоды" plugin/locale/ru/LC_MESSAGES/Foreca.po
-			rpl -F "\x1b" "KEY_ESC" plugin/keymap.xml
-			python3 setup.py install
-			mv -f /usr/local/lib/python3.10/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
-			cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
+			cd ../..
+			cp patches/$PKG_.patch plugins/e2openplugin/$PKG
+			cd plugins/e2openplugin/$PKG
+			patch -p1 < $PKG_.patch
+			python3 setup.py install && python3 setup.py install # It's right
+			mv $P3_PACKAGES/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 			cd ..
 		fi
 
@@ -354,8 +349,7 @@ if [ "$release" = "22.04" ]; then
 			mv $PKG-master $PKG
 			cd $PKG
 			python3 setup.py install
-			mv -f /usr/local/lib/python3.10/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
-			cp -rfv build/lib/Extensions/$PKG/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
+			mv $P3_PACKAGES/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 			cd ..
 		fi
 
@@ -383,10 +377,8 @@ if [ "$release" = "22.04" ]; then
 			cp -fv patches/$PKG_.patch plugins/e2openplugin/$PKG
 			cd plugins/e2openplugin/$PKG
 			patch -p1 < $PKG_.patch
-			find plugin/locale -name "*.mo" -exec rm {} \;
 			python3 setup.py install
-			mv -f /usr/local/lib/python3.10/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
-			cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
+			mv $P3_PACKAGES/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 			cd ..
 		fi
 
@@ -417,8 +409,7 @@ if [ "$release" = "22.04" ]; then
 #			patch -p1 < $PKG_.patch
 #			cd src
 #			python3 setup.py install
-#			mv -f /usr/local/lib/python3.10/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
-#			cp -rfv $PKG_/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
+#			mv $P3_PACKAGES/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 #			cd ../..
 #		fi
 
@@ -445,7 +436,7 @@ if [ "$release" = "22.04" ]; then
 			mv $PKG-$VER $PKG
 			cd $PKG
 			python3 setup.py install
-			mv -f /usr/local/lib/python3.10/dist-packages/SystemPlugins/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/SystemPlugins
+			mv $P3_PACKAGES/SystemPlugins/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/SystemPlugins
 			cd ..
 		fi
 
@@ -484,37 +475,36 @@ if [ "$release" = "22.04" ]; then
 			cd plugins/e2openplugin/$PKG
 			patch -p1 < $PKG__.patch
 			rm -f IPTVPlayer/locale/ru/LC_MESSAGES/.gitkeep
-			python3 setup_translate.py
 			python3 setup.py install
-			mv -f /usr/local/lib/python3.10/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
+			mv $P3_PACKAGES/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 			cp -rfv IPTVPlayer/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 			wget http://iptvplayer.vline.pl/resources/bin/i686/_subparser.so
 			chmod 755 _subparser.so
-			mv -f _subparser.so $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/libs/iptvsubparser
+			mv _subparser.so $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/libs/iptvsubparser
 			wget http://iptvplayer.vline.pl/resources/bin/i686/duk
 			chmod 755 duk
-			mv -f duk $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/bin
+			mv duk $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/bin
 			rm -f /usr/bin/duk
 			wget http://iptvplayer.vline.pl/resources/bin/i686/hlsdl_static_curl_openssl.1.0.2
 			chmod 755 hlsdl_static_curl_openssl.1.0.2
-			mv -f hlsdl_static_curl_openssl.1.0.2 $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/bin/hlsdl
+			mv hlsdl_static_curl_openssl.1.0.2 $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/bin/hlsdl
 			rm -f /usr/bin/hlsdl
 			wget http://iptvplayer.vline.pl/resources/bin/i686/f4mdump_openssl.1.0.2
 			chmod 755 f4mdump_openssl.1.0.2
-			mv -f f4mdump_openssl.1.0.2 $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/bin/f4mdump
+			mv f4mdump_openssl.1.0.2 $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/bin/f4mdump
 			rm -f /usr/bin/f4mdump
 			wget http://iptvplayer.vline.pl/resources/bin/i686/uchardet
 			chmod 755 uchardet
-			mv -f uchardet $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/bin
+			mv uchardet $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/bin
 			wget http://iptvplayer.vline.pl/resources/bin/i686/wget_openssl.1.0.2
 			chmod 755 wget_openssl.1.0.2
-			mv -f wget_openssl.1.0.2 $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/bin/fullwget
+			mv wget_openssl.1.0.2 $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/bin/fullwget
 			cd ..
 			if [ -d e2iplayer ]; then
 				wget http://iptvplayer.vline.pl/resources/bin/i686/gstplayer_gstreamer1.0
-				mv -f gstplayer_gstreamer1.0 gstplayer
+				mv gstplayer_gstreamer1.0 gstplayer
 				chmod 755 gstplayer
-				mv -f gstplayer $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/bin
+				mv gstplayer $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/bin
 				rm -f /usr/bin/gstplayer
 			fi
 			if grep "config.plugins.iptvplayer.wgetpath=/usr/bin/wget" $INSTALL_E2DIR/etc/enigma2/settings; then

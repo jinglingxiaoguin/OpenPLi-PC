@@ -1,6 +1,15 @@
-diff -ruN o/plugin/locale/ru/LC_MESSAGES/SetPicon.po pc/plugin/locale/ru/LC_MESSAGES/SetPicon.po
---- o/plugin/locale/ru/LC_MESSAGES/SetPicon.po	2021-04-14 16:42:49.000000000 +0300
-+++ pc/plugin/locale/ru/LC_MESSAGES/SetPicon.po	2021-05-06 13:30:14.005555880 +0300
+diff -ruN a/plugin/__init__.py b/plugin/__init__.py
+--- a/plugin/__init__.py	2022-07-21 04:39:04.000000000 +0300
++++ b/plugin/__init__.py	2022-10-14 15:26:20.640614303 +0300
+@@ -1,5 +1,3 @@
+-# -*- coding: utf-8 -*-
+-from __future__ import print_function
+ from Components.Language import language
+ from Tools.Directories import resolveFilename, SCOPE_PLUGINS, SCOPE_LANGUAGE
+ from os import environ as os_environ
+diff -ruN a/plugin/locale/ru/LC_MESSAGES/SetPicon.po b/plugin/locale/ru/LC_MESSAGES/SetPicon.po
+--- a/plugin/locale/ru/LC_MESSAGES/SetPicon.po	2022-10-12 23:10:26.447989600 +0300
++++ b/plugin/locale/ru/LC_MESSAGES/SetPicon.po	2022-10-14 15:25:43.664614156 +0300
 @@ -1,17 +1,22 @@
 +# SOME DESCRIPTIVE TITLE.
 +# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -241,3 +250,36 @@ diff -ruN o/plugin/locale/ru/LC_MESSAGES/SetPicon.po pc/plugin/locale/ru/LC_MESS
  
  msgid "Are You sure delete picon?\n%s"
  msgstr "Вы уверены, что хотите удалить пикон?\n%s"
+diff -ruN a/plugin/plugin.py b/plugin/plugin.py
+--- a/plugin/plugin.py	2022-07-21 04:39:04.000000000 +0300
++++ b/plugin/plugin.py	2022-10-14 15:26:50.476614421 +0300
+@@ -1,4 +1,3 @@
+-from __future__ import absolute_import
+ # for localized messages  	 
+ from . import _
+ #
+diff -ruN a/plugin/ui.py b/plugin/ui.py
+--- a/plugin/ui.py	2022-07-21 04:39:04.000000000 +0300
++++ b/plugin/ui.py	2022-10-14 15:26:33.776614355 +0300
+@@ -1,4 +1,3 @@
+-from __future__ import print_function
+ # for localized messages  	 
+ from . import _
+ #
+diff -ruN a/setup_translate.py b/setup_translate.py
+--- a/setup_translate.py	2022-07-21 04:39:04.000000000 +0300
++++ b/setup_translate.py	2022-10-14 19:48:33.984676773 +0300
+@@ -1,4 +1,3 @@
+-from __future__ import print_function
+ # Language extension for distutils Python scripts. Based on this concept:
+ # http://wiki.maemo.org/Internationalize_a_Python_application
+ from distutils import cmd
+@@ -24,7 +23,7 @@
+ 						dest = os.path.join(lc, f[:-2] + 'mo')
+ 						print("Language compile %s -> %s" % (src, dest))
+ 						if os.system("msgfmt '%s' -o '%s'" % (src, dest)) != 0:
+-							raise (Exception, "Failed to compile: " + src)
++							raise Exception("Failed to compile: " + src)
+ 
+ class build(_build):
+ 	sub_commands = _build.sub_commands + [('build_trans', None)]

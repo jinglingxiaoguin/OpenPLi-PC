@@ -1,6 +1,6 @@
 diff -ruN a/plugin/locale/ru/LC_MESSAGES/SystemTools.po b/plugin/locale/ru/LC_MESSAGES/SystemTools.po
 --- a/plugin/locale/ru/LC_MESSAGES/SystemTools.po	1970-01-01 03:00:00.000000000 +0300
-+++ b/plugin/locale/ru/LC_MESSAGES/SystemTools.po	2022-09-14 00:10:18.158389970 +0300
++++ b/plugin/locale/ru/LC_MESSAGES/SystemTools.po	2022-10-14 22:04:37.187936748 +0300
 @@ -0,0 +1,311 @@
 +# SOME DESCRIPTIVE TITLE.
 +# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -314,9 +314,16 @@ diff -ruN a/plugin/locale/ru/LC_MESSAGES/SystemTools.po b/plugin/locale/ru/LC_ME
 +msgid "System Tools"
 +msgstr "Системные инструменты"
 diff -ruN a/plugin/plugin.py b/plugin/plugin.py
---- a/plugin/plugin.py	2022-09-14 00:07:51.412338777 +0300
-+++ b/plugin/plugin.py	2022-09-14 01:00:19.621222494 +0300
-@@ -27,6 +27,26 @@
+--- a/plugin/plugin.py	2022-10-14 13:38:19.259034345 +0300
++++ b/plugin/plugin.py	2022-10-14 22:04:37.187936748 +0300
+@@ -1,5 +1,4 @@
+-from __future__ import absolute_import
+-from __future__ import print_function
++
+ # System Tools e2plugin
+ # This Tools are made To have system tools Integrated into skin.
+ # For prober skin integration, skin.xml needs to be adapted to have the screens fit into it.
+@@ -27,6 +26,26 @@
  import os
  from enigma import eTimer, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, gFont, gRGB, eListboxPythonMultiContent
  
@@ -326,16 +333,16 @@ diff -ruN a/plugin/plugin.py b/plugin/plugin.py
 +import gettext
 +
 +def localeInit():
-+    lang = language.getLanguage()[:2] # getLanguage returns e.g. "fi_FI" for "language_country"
-+    os_environ["LANGUAGE"] = lang # Enigma doesn't set this (or LC_ALL, LC_MESSAGES, LANG). gettext needs it!
-+    gettext.bindtextdomain("SystemTools", resolveFilename(SCOPE_PLUGINS, "Extensions/SystemTools/locale"))
++	lang = language.getLanguage()[:2] # getLanguage returns e.g. "fi_FI" for "language_country"
++	os_environ["LANGUAGE"] = lang # Enigma doesn't set this (or LC_ALL, LC_MESSAGES, LANG). gettext needs it!
++	gettext.bindtextdomain("SystemTools", resolveFilename(SCOPE_PLUGINS, "Extensions/SystemTools/locale"))
 +
 +def _(txt):
-+    t = gettext.dgettext("SystemTools", txt)
-+    if t == txt:
-+        print("[SystemTools] fallback to default translation for", txt)
-+        t = gettext.gettext(txt)
-+    return t
++	t = gettext.dgettext("SystemTools", txt)
++	if t == txt:
++		print("[SystemTools] fallback to default translation for", txt)
++		t = gettext.gettext(txt)
++	return t
 +
 +localeInit()
 +language.addCallback(localeInit)
@@ -343,7 +350,7 @@ diff -ruN a/plugin/plugin.py b/plugin/plugin.py
  ##############################################################################
  config.SystemTools = ConfigSubsection()
  config.SystemTools.mainmenu = ConfigYesNo(default=False)
-@@ -53,17 +73,17 @@
+@@ -53,17 +72,17 @@
  	</screen>"""
  
  	def __init__(self, session):
@@ -365,30 +372,7 @@ diff -ruN a/plugin/plugin.py b/plugin/plugin.py
  		self["actions"] = ActionMap(["WizardActions", "ColorActions"],
  		{
  			"red": self.keyCancel,
-@@ -76,7 +96,7 @@
- 		self.list.append(getConfigListEntry(_("Show SystemTools in System menu"), config.SystemTools.systemmenu))
- 		self.list.append(getConfigListEntry(_("Show SystemTools in Setup menu"), config.SystemTools.setupmenu))
- 		self.list.append(getConfigListEntry(_("Show SystemTools in Plugin menu restart enigma to activate"), config.SystemTools.applicationmenu))
--	
-+
- 		self["config"].list = self.list
- 		self["config"].l.setList(self.list)
- 
-@@ -87,11 +107,11 @@
- 		for x in self["config"].list:
- 			x[1].save()
- 		self.close()
--		
-+
- 	def keyCancel(self):
- 		for x in self["config"].list:
- 			x[1].cancel()
--		self.close()	
-+		self.close()
- 
- 
- class SystemToolsSc(Screen):
-@@ -111,46 +131,46 @@
+@@ -111,46 +130,46 @@
  		Screen.__init__(self, session)
  		#self.ListEntry = []
  		self.list = []
@@ -453,16 +437,7 @@ diff -ruN a/plugin/plugin.py b/plugin/plugin.py
  		if returnValue is not None:
  			if returnValue == "com_one":
  				msg = _("Please wait, restarting softcam")
-@@ -176,7 +196,7 @@
- 				self.prombt("sync; echo 3 > /proc/sys/vm/drop_caches")
- 			elif returnValue == "com_eight":
- 				self.prombt("init 4; sleep 5; init 3")
--						
-+
- 			else:
- 				print("\n[SystemToolsSc] cancel\n")
- 				self.close(None)
-@@ -184,18 +204,18 @@
+@@ -184,18 +203,18 @@
  	def prombt(self, com):
  		self.session.open(SystemToolsConsole, _("start shell com: %s") % (com), ["%s" % com])
  
@@ -484,7 +459,7 @@ diff -ruN a/plugin/plugin.py b/plugin/plugin.py
  		os.system('sleep 3')
  		if self.mbox:
  			self.mbox.close()
-@@ -205,14 +225,14 @@
+@@ -205,14 +224,14 @@
  
  	def EcmInfo(self):
  		if fileExists("/tmp/ecm.info"):
@@ -502,7 +477,7 @@ diff -ruN a/plugin/plugin.py b/plugin/plugin.py
  	def info(self):
  		self.session.open(SystemToolsInf)
  
-@@ -237,27 +257,27 @@
+@@ -237,27 +256,27 @@
  		self.skin = SystemToolsInf.skin
  		Screen.__init__(self, session)
  		self.list = []
@@ -542,317 +517,15 @@ diff -ruN a/plugin/plugin.py b/plugin/plugin.py
  		self.list.append((_("  Exit"), "exit"))
  
  		self["entries"] = MenuList(self.list)
-@@ -265,17 +285,17 @@
- 	def go(self):
- 		returnValue = self["entries"].l.getCurrentSelection()[1]
- 		print("\n[SystemToolsInf] returnValue: " + returnValue + "\n")
--		
-+
- 		if returnValue is not None:
- 			if returnValue == "com_infone":
- 				memscriptfile = "sh "
- 				memscriptfile += resolveFilename(SCOPE_PLUGINS)
- 				memscriptfile += "/Extensions/SystemTools/memorysimple.sh"
- 				self.prombt(memscriptfile)
--								
-+
- 			elif returnValue == "com_inftwo":
- 				self.prombtbox("list_smargo")
--					
-+
- 			elif returnValue == "com_inftree":
- 				title = "Mounted Devices"
- 				msg = self.mountedDevInf()
-@@ -334,13 +354,13 @@
- 	def prombt(self, com):
- 		self.session.open(SystemToolsConsole, _("start shell com: %s") % (com), ["%s" % com])
- 
--	def prombtbox(self, com):	
-+	def prombtbox(self, com):
- 		self.session.open(ConsoleBox, _("start shell com: %s") % (com), ["%s" % com])
- 
--	
-+
- 	def setWindowTitle(self):
- 		self.setTitle(self.name)
--	
-+
- 	def cancel(self):
- 		print("\n[SystemToolsInf] cancel\n")
- 		self.close(None)
-@@ -359,28 +379,28 @@
- 		self.skin = SystemToolsSwap.skin
- 		Screen.__init__(self, session)
- 		self.list = []
--		
--		self.name = "Swap File Tools Menu"
-+
-+		self.name = _("Swap File Tools Menu")
- 		self.onShown.append(self.setWindowTitle)
- 		self["key_red"] = Label(_("Cancel"))
- 		self["key_green"] = Label(_("OK"))
--				
-+
- 		self["actions"] = ActionMap(["OkCancelActions", "WizardActions", "ColorActions"],
- 		{
- 			"ok": self.go,
- 			"cancel": self.cancel,
--			"red": self.cancel,			
-+			"red": self.cancel,
- 			"green": self.go,
- 		}, -1)
--		
--		self.list.append(("  Show Aktif Swap", "com_swapone"))
--		self.list.append(("  De-activate Swap", "com_swapten"))
--		self.list.append(("  Create swap file on hdd", "com_swaptwo"))
--		self.list.append(("  Create swap file on cf ", "com_swaptree"))
--		self.list.append(("  Create swap file on usb", "com_swapfour"))
--		self.list.append(("  Aktivate swap on HDD", "com_swapsix"))
--		self.list.append(("  Aktivate swap on CF", "com_swapseven"))
--		self.list.append(("  Aktivate swap on USB", "com_swapeight"))
-+
-+		self.list.append((_("  Show Aktif Swap"), "com_swapone"))
-+		self.list.append((_("  De-activate Swap"), "com_swapten"))
-+		self.list.append((_("  Create swap file on hdd"), "com_swaptwo"))
-+		self.list.append((_("  Create swap file on cf "), "com_swaptree"))
-+		self.list.append((_("  Create swap file on usb"), "com_swapfour"))
-+		self.list.append((_("  Aktivate swap on HDD"), "com_swapsix"))
-+		self.list.append((_("  Aktivate swap on CF"), "com_swapseven"))
-+		self.list.append((_("  Aktivate swap on USB"), "com_swapeight"))
- 		self.list.append((_("  Exit"), "exit"))
- 
- 		self["entries"] = MenuList(self.list)
-@@ -388,48 +408,48 @@
- 	def go(self):
- 		returnValue = self["entries"].l.getCurrentSelection()[1]
- 		print("\n[SystemToolsSwap] returnValue: " + returnValue + "\n")
--		
-+
- 		if returnValue is not None:
- 			if returnValue == "com_swapone":
--				title = "Aktif Swap"
-+				title = _("Aktif Swap")
- 				msg = self.aktswapscreen()
- 				self.session.open(SystemToolsTextBox, msg, title)
--				
-+
- 			elif returnValue == "com_swaptwo":
- 				msg = _("Please wait : Creating swap File on hdd")
- 				self.mbox = self.session.open(MessageBox, msg, MessageBox.TYPE_INFO)
- 				self.activityTimer = eTimer()
--				self.activityTimer.timeout.get().append(self.createswaphdd)				
-+				self.activityTimer.timeout.get().append(self.createswaphdd)
- 				self.activityTimer.start(100, False)
- 
- 			elif returnValue == "com_swaptree":
- 				msg = _("Please wait : Creating swap File on cf")
- 				self.mbox = self.session.open(MessageBox, msg, MessageBox.TYPE_INFO)
- 				self.activityTimer = eTimer()
--				self.activityTimer.timeout.get().append(self.createswapcf)				
-+				self.activityTimer.timeout.get().append(self.createswapcf)
- 				self.activityTimer.start(100, False)
--				
-+
- 			elif returnValue == "com_swapfour":
- 				msg = _("Please wait : Creating swap File on usb")
- 				self.mbox = self.session.open(MessageBox, msg, MessageBox.TYPE_INFO)
- 				self.activityTimer = eTimer()
--				self.activityTimer.timeout.get().append(self.createswapusb)				
-+				self.activityTimer.timeout.get().append(self.createswapusb)
- 				self.activityTimer.start(100, False)
- 
- 			elif returnValue == "com_swapsix":
- 				self.activateswaphdd()
--				
-+
- 			elif returnValue == "com_swapseven":
- 				self.activateswapcf()
--				
-+
- 			elif returnValue == "com_swapeight":
- 				self.activateswapusb()
--				
-+
- 			elif returnValue == "com_swapten":
- 				msg = _("Swap is De-activated")
- 				self.mbox = self.session.open(MessageBox, msg, MessageBox.TYPE_INFO)
- 				os.system("swapoff -a; sed -i '\/swapfile/d' /etc/fstab")
--					
-+
- 			else:
- 				print("\n[SystemToolsSwap] cancel\n")
- 				self.close(None)
-@@ -454,7 +474,7 @@
- 						if len(entry[1]) > lengthList[1]:
- 							lengthList[1] = len(entry[1])
- 						if len(entry[2]) > lengthList[2]:
--							lengthList[2] = len(entry[2])					
-+							lengthList[2] = len(entry[2])
- 						if len(entry[3]) > lengthList[3]:
- 							lengthList[3] = len(entry[3])
- 						counter = counter+1
-@@ -466,10 +486,10 @@
- 			if swapentrylist != []:
- 				return '\n'.join(swapentrylist)
- 			else:
--				return "Swapfile is Not Aktivated !"
-+				return _("Swapfile is Not Aktivated !")
- 		else:
--			return "SwapFile is Not Aktif ! or /proc/swaps is missing"		
--	
-+			return _("SwapFile is Not Aktif ! or /proc/swaps is missing")
-+
- 	def createswapcf(self):
- 		self.activityTimer.stop()
- 		del self.activityTimer
-@@ -493,14 +513,14 @@
- 	def createswaphdd(self):
- 		self.activityTimer.stop()
- 		del self.activityTimer
--		if fileExists("/media/hdd/swapfile"):
-+		if fileExists("/swapfile"):
- 			msg = _("Swap File was already created ! You can activate the SWAP on HDD if not done yet")
- 			self.mbox2 = self.session.open(MessageBox, msg, MessageBox.TYPE_INFO)
- 			self.mbox.close()
- 		else:
--			if pathExists("/media/hdd"):
-+			if pathExists("/"):
- 				os.system('sleep 1')
--				os.system('dd if=/dev/zero of=/media/hdd/swapfile bs=1048576 count=128; mkswap /media/hdd/swapfile')
-+				os.system('dd if=/dev/zero of=/swapfile bs=1M count=2000; mkswap /swapfile; chmod 600 /swapfile')
- 				os.system('sleep 1')
- 				msg = _("Done! You can now activate the SWAP on HDD")
- 				self.mbox2 = self.session.open(MessageBox, msg, MessageBox.TYPE_INFO)
-@@ -508,7 +528,7 @@
- 			else:
- 				msg = _("No hard drive mounted on /media/hdd")
- 				self.mbox2 = self.session.open(MessageBox, msg, MessageBox.TYPE_INFO)
--				self.mbox.close()				
-+				self.mbox.close()
- 
- 	def createswapusb(self):
- 		self.activityTimer.stop()
-@@ -537,7 +557,7 @@
- 			msg = _("Swap is activated on HDD")
- 			self.mbox = self.session.open(MessageBox, msg, MessageBox.TYPE_INFO)
- 		else:
--			msg = ("There is no swap file found on HDD. Create it first")
-+			msg = _("There is no swap file found on HDD. Create it first")
- 			self.mbox = self.session.open(MessageBox, msg, MessageBox.TYPE_INFO)
- 
- 	def activateswapcf(self):
-@@ -547,9 +567,9 @@
- 			msg = _("Swap is activated on CF")
- 			self.mbox = self.session.open(MessageBox, msg, MessageBox.TYPE_INFO)
- 		else:
--			msg = ("There is no swap file found on CF. Create it first")
-+			msg = _("There is no swap file found on CF. Create it first")
- 			self.mbox = self.session.open(MessageBox, msg, MessageBox.TYPE_INFO)
--			
-+
- 	def activateswapusb(self):
- 		if fileExists("/media/usb/swapfile"):
- 			os.system("swapoff -a; sed -i '\/swapfile/d' /etc/fstab; swapon /media/usb/swapfile")
-@@ -557,19 +577,19 @@
- 			msg = _("Swap is activated on USB")
- 			self.mbox = self.session.open(MessageBox, msg, MessageBox.TYPE_INFO)
- 		else:
--			msg = ("There is no swap file found on USB. Create it first")
-+			msg = _("There is no swap file found on USB. Create it first")
- 			self.mbox = self.session.open(MessageBox, msg, MessageBox.TYPE_INFO)
- 			
- 	def prombt(self, com):
- 		self.session.open(Console, _("start shell com: %s") % (com), ["%s" % com])
- 
--	def prombtbox(self, com):	
-+	def prombtbox(self, com):
- 		self.session.open(ConsoleBox, _("start shell com: %s") % (com), ["%s" % com])
- 
--	
-+
- 	def setWindowTitle(self):
- 		self.setTitle(self.name)
--	
-+
- 	def cancel(self):
- 		print("\n[SystemToolsSwap] cancel\n")
- 		self.close()
-@@ -578,14 +598,14 @@
- 
- 
- def main(session, **kwargs):
--	print("\n[SystemToolsSc] start\n")	
-+	print("\n[SystemToolsSc] start\n")
- 	session.open(SystemToolsSc)
- 
- 
- def menu(menuid, **kwargs):
- 	if menuid == "mainmenu" and config.SystemTools.mainmenu.value == True :
- 		return [(_("System Tools"), main, "tools_setup", 45)]
--	
-+
- 	if menuid == "system" and config.SystemTools.systemmenu.value == True :
- 		return [(_("System Tools"), main, "tools_setup", 45)]
- 
-@@ -597,11 +617,11 @@
- 
- def Plugins(**kwargs):
- 	if config.SystemTools.applicationmenu.value == True :
--		return [PluginDescriptor(name = "System Tools", description = "basic toolsmenu", where = PluginDescriptor.WHERE_PLUGINMENU, fnc = main),
--			PluginDescriptor(name = "System Tools", description = "basic toolsmenu", where = PluginDescriptor.WHERE_MENU, fnc = menu),
--			PluginDescriptor(name = "System Tools", description = "basic toolsmenu", where = PluginDescriptor.WHERE_EXTENSIONSMENU, fnc = main)]
--	
--	return [PluginDescriptor(name = "System Tools", description = "basic toolsmenu", where = PluginDescriptor.WHERE_MENU, fnc = menu),
--		PluginDescriptor(name = "System Tools", description = "basic toolsmenu", where = PluginDescriptor.WHERE_EXTENSIONSMENU, fnc = main)]
--	
-+		return [PluginDescriptor(name = _("System Tools"), description = "basic toolsmenu", where = PluginDescriptor.WHERE_PLUGINMENU, fnc = main),
-+			PluginDescriptor(name = _("System Tools"), description = "basic toolsmenu", where = PluginDescriptor.WHERE_MENU, fnc = menu),
-+			PluginDescriptor(name = _("System Tools"), description = "basic toolsmenu", where = PluginDescriptor.WHERE_EXTENSIONSMENU, fnc = main)]
-+
-+	return [PluginDescriptor(name = _("System Tools"), description = "basic toolsmenu", where = PluginDescriptor.WHERE_MENU, fnc = menu),
-+		PluginDescriptor(name = _("System Tools"), description = "basic toolsmenu", where = PluginDescriptor.WHERE_EXTENSIONSMENU, fnc = main)]
-+
- 
 diff -ruN a/plugin/SystemToolsConsole.py b/plugin/SystemToolsConsole.py
---- a/plugin/SystemToolsConsole.py	2022-09-14 00:07:51.412338777 +0300
-+++ b/plugin/SystemToolsConsole.py	2022-09-14 00:33:08.766364953 +0300
-@@ -10,7 +10,7 @@
- 		<screen position="center,center" size="1220,640" title="Command execution..." >
- 			<widget name="text" position="5,5" size="1210,620" font="Console;20" />
- 		</screen>"""
--		
-+
- 	def __init__(self, session, title = "ConsoleBox", cmdlist = None, finishedCallback = None, closeOnSuccess = False):
- 		Screen.__init__(self, session)
- 
-@@ -18,21 +18,21 @@
- 		self.closeOnSuccess = closeOnSuccess
- 
- 		self["text"] = ScrollLabel("")
--		self["actions"] = ActionMap(["WizardActions", "DirectionActions", "ColorActions"], 
-+		self["actions"] = ActionMap(["WizardActions", "DirectionActions", "ColorActions"],
- 		{
- 			"ok": self.cancel,
- 			"back": self.cancel,
- 			"up": self["text"].pageUp,
- 			"down": self["text"].pageDown,
--			"red": self.cancel,			
-+			"red": self.cancel,
- 			"green": self.cancel
- 		}, -1)
--		
-+
- 		self.cmdlist = cmdlist
- 		self.newtitle = title
--		
-+
- 		self.onShown.append(self.updateTitle)
--		
-+
- 		self.container = eConsoleAppContainer()
- 		self.run = 0
- 		self.container.appClosed.append(self.runFinished)
-@@ -43,7 +43,6 @@
+--- a/plugin/SystemToolsConsole.py	2022-10-14 13:38:19.255034345 +0300
++++ b/plugin/SystemToolsConsole.py	2022-10-14 22:04:37.187936748 +0300
+@@ -1,4 +1,3 @@
+-from __future__ import print_function
+ from enigma import eConsoleAppContainer
+ from Screens.Screen import Screen
+ from Components.ActionMap import ActionMap
+@@ -43,7 +42,6 @@
  		self.setTitle(self.newtitle)
  
  	def startRun(self):
@@ -860,43 +533,7 @@ diff -ruN a/plugin/SystemToolsConsole.py b/plugin/SystemToolsConsole.py
  		print("Console: executing in run", self.run, " the command:", self.cmdlist[self.run])
  		if self.container.execute(self.cmdlist[self.run]): #start of container application failed...
  			self.runFinished(-1) # so we must call runFinished manual
-@@ -80,7 +79,7 @@
- 		<screen position="center,center" size="1220,640" title="Command execution..." >
- 			<widget name="text" position="5,5" size="1210,620" font="Console;20" />
- 		</screen>"""
--		
-+
- 	def __init__(self, session, title = "ConsoleBox", cmdlist = None, finishedCallback = None, closeOnSuccess = False):
- 		Screen.__init__(self, session)
- 
-@@ -88,21 +87,21 @@
- 		self.closeOnSuccess = closeOnSuccess
- 
- 		self["text"] = ScrollLabel("")
--		self["actions"] = ActionMap(["WizardActions", "DirectionActions", "ColorActions"], 
-+		self["actions"] = ActionMap(["WizardActions", "DirectionActions", "ColorActions"],
- 		{
- 			"ok": self.cancel,
- 			"back": self.cancel,
- 			"up": self["text"].pageUp,
- 			"down": self["text"].pageDown,
--			"red": self.cancel,			
-+			"red": self.cancel,
- 			"green": self.cancel
- 		}, -1)
--		
-+
- 		self.cmdlist = cmdlist
- 		self.newtitle = title
--		
-+
- 		self.onShown.append(self.updateTitle)
--		
-+
- 		self.container = eConsoleAppContainer()
- 		self.run = 0
- 		self.container.appClosed.append(self.runFinished)
-@@ -113,7 +112,6 @@
+@@ -113,7 +111,6 @@
  		self.setTitle(self.newtitle)
  
  	def startRun(self):
@@ -905,23 +542,26 @@ diff -ruN a/plugin/SystemToolsConsole.py b/plugin/SystemToolsConsole.py
  		if self.container.execute(self.cmdlist[self.run]): #start of container application failed...
  			self.runFinished(-1) # so we must call runFinished manual
 diff -ruN a/setup.py b/setup.py
---- a/setup.py	2022-09-14 00:07:51.412338777 +0300
-+++ b/setup.py	2022-09-14 00:11:48.991680341 +0300
-@@ -1,4 +1,5 @@
+--- a/setup.py	2022-10-14 13:38:19.259034345 +0300
++++ b/setup.py	2022-10-14 22:04:37.187936748 +0300
+@@ -1,10 +1,12 @@
  from distutils.core import setup, Extension
 +import setup_translate
  
  pkg = 'Extensions.SystemTools'
  setup (name = 'enigma2-plugin-extensions-systemtools',
-@@ -7,4 +8,5 @@
+        version = '0.7',
+-       description = 'SystemTools for enigma2 stb',
++       description = 'SystemTools for enigma2',
         packages = [pkg],
         package_dir = {pkg: 'plugin'},
-        package_data = {pkg: ['memorysimple.sh', 'maintainer.info']},
+-       package_data = {pkg: ['memorysimple.sh', 'maintainer.info']},
++       package_data = {pkg: ['memorysimple.sh', 'maintainer.info', 'locale/*/LC_MESSAGES/*.mo']},
 +       cmdclass = setup_translate.cmdclass, # for translation
        )
 diff -ruN a/setup_translate.py b/setup_translate.py
 --- a/setup_translate.py	1970-01-01 03:00:00.000000000 +0300
-+++ b/setup_translate.py	2022-09-14 00:52:47.135920548 +0300
++++ b/setup_translate.py	2022-10-14 22:04:37.187936748 +0300
 @@ -0,0 +1,37 @@
 +# Language extension for distutils Python scripts. Based on this concept:
 +# http://wiki.maemo.org/Internationalize_a_Python_application

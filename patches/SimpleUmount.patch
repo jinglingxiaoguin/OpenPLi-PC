@@ -1,6 +1,16 @@
-diff -ruN o/plugin/locale/ru.po n/plugin/locale/ru.po
---- o/plugin/locale/ru.po	2019-07-09 15:41:50.916366255 +0300
-+++ n/plugin/locale/ru.po	2019-07-09 15:58:25.891327480 +0300
+diff -ruN a/plugin/__init__.py b/plugin/__init__.py
+--- a/plugin/__init__.py	2021-08-08 13:57:08.000000000 +0300
++++ b/plugin/__init__.py	2022-10-14 22:12:44.612434431 +0300
+@@ -1,5 +1,4 @@
+-# -*- coding: utf-8 -*-
+-from __future__ import print_function
++
+ from Components.Language import language
+ from Tools.Directories import resolveFilename, SCOPE_PLUGINS, SCOPE_LANGUAGE
+ import os, gettext
+diff -ruN a/plugin/locale/ru.po b/plugin/locale/ru.po
+--- a/plugin/locale/ru.po	2022-10-13 02:02:39.188150817 +0300
++++ b/plugin/locale/ru.po	2022-10-14 18:41:35.600660818 +0300
 @@ -1,17 +1,19 @@
  msgid ""
  msgstr ""
@@ -66,3 +76,38 @@ diff -ruN o/plugin/locale/ru.po n/plugin/locale/ru.po
  msgid "Show only removable devices"
  msgstr "Показывать только съемные устройства"
 -
+diff -ruN a/plugin/plugin.py b/plugin/plugin.py
+--- a/plugin/plugin.py	2021-08-08 13:57:08.000000000 +0300
++++ b/plugin/plugin.py	2022-10-14 22:12:34.152434390 +0300
+@@ -1,5 +1,3 @@
+-# -*- coding: utf-8 -*-
+-
+ #
+ #                             <<< SimpleUmount >>>
+ #
+@@ -22,7 +20,7 @@
+ # GitHub repo: https://github.com/ambrosa/e2openplugin-SimpleUmount
+ #
+ 
+-from __future__ import print_function
++
+ PLUGIN_VERSION = "0.11"
+ from . import _
+ from Screens.Screen import Screen
+diff -ruN a/setup_translate.py b/setup_translate.py
+--- a/setup_translate.py	2021-08-08 13:57:08.000000000 +0300
++++ b/setup_translate.py	2022-10-14 19:15:13.280668829 +0300
+@@ -1,4 +1,3 @@
+-from __future__ import print_function
+ # Language extension for distutils Python scripts. Based on this concept:
+ # http://wiki.maemo.org/Internationalize_a_Python_application
+ from distutils import cmd
+@@ -30,7 +29,7 @@
+ 						dest = os.path.join(destdir, lang_domain[:-3] + 'mo')
+ 						print("Language compile %s -> %s" % (src, dest))
+ 						if os.system("msgfmt '%s' -o '%s'" % (src, dest)) != 0:
+-							raise (Exception, "Failed to compile: " + src)
++							raise Exception("Failed to compile: " + src)
+ 		else:
+ 			print("we got no domain -> no translation was compiled")
+ 

@@ -1,0 +1,85 @@
+diff -ruN a/plugin/__init__.py b/plugin/__init__.py
+--- a/plugin/__init__.py	2022-10-14 15:01:39.988608424 +0300
++++ b/plugin/__init__.py	2022-10-14 15:10:47.392610597 +0300
+@@ -1,4 +1,3 @@
+-# -*- coding: utf-8 -*-
+ 
+ from Components.Language import language
+ from Tools.Directories import resolveFilename, SCOPE_PLUGINS
+diff -ruN a/plugin/keymap.xml b/plugin/keymap.xml
+--- a/plugin/keymap.xml	2022-10-14 15:01:40.824608427 +0300
++++ b/plugin/keymap.xml	2022-10-14 15:10:47.392610597 +0300
+@@ -26,7 +26,7 @@
+ 		<key id="KEY_8" mapto="8" flags="m" />
+ 		<key id="KEY_9" mapto="9" flags="m" />
+ 		<key id="KEY_0" mapto="0" flags="m" />
+-		                                       
++
+ 		<key id="KEY_NEXT" mapto="next" flags="m" />
+ 		<key id="KEY_PREVIOUS" mapto="previous" flags="m" />
+ 
+@@ -42,6 +42,6 @@
+ 		<key id="KEY_HOME" mapto="cancel" flags="m" />
+ 		<key id="KEY_INFO" mapto="showEventInfo" flags="m" />
+ 		<key id="KEY_HELP" mapto="contextMenu" flags="m" />
+-		<key id="\x1b" mapto="cancel" flags="m" />
++		<key id="KEY_ESC" mapto="cancel" flags="m" />
+ 	</map>
+ </keymap>
+diff -ruN a/plugin/locale/ru/LC_MESSAGES/Foreca.po b/plugin/locale/ru/LC_MESSAGES/Foreca.po
+--- a/plugin/locale/ru/LC_MESSAGES/Foreca.po	2022-10-14 15:01:41.504608430 +0300
++++ b/plugin/locale/ru/LC_MESSAGES/Foreca.po	2022-10-14 15:10:47.392610597 +0300
+@@ -234,7 +234,7 @@
+ 
+ #: ../plugin.py:21 ../plugin.py:27 ../ui.py:635 ../ui.py:654
+ msgid "Foreca Weather Forecast"
+-msgstr "Foreca - прогноз погоды"
++msgstr "'Foreca' - Прогноз погоды"
+ 
+ #: ../ui.py:1124
+ msgid "Forecast"
+diff -ruN a/plugin/plugin.py b/plugin/plugin.py
+--- a/plugin/plugin.py	2022-10-14 15:01:42.240608433 +0300
++++ b/plugin/plugin.py	2022-10-14 15:10:47.392610597 +0300
+@@ -1,4 +1,4 @@
+-from __future__ import absolute_import
++
+ # for localized messages
+ from . import _
+ 
+diff -ruN a/plugin/ui.py b/plugin/ui.py
+--- a/plugin/ui.py	2022-10-14 15:01:42.888608435 +0300
++++ b/plugin/ui.py	2022-10-14 15:10:47.392610597 +0300
+@@ -1,4 +1,3 @@
+-# -*- coding: UTF-8 -*-
+ #
+ #  $Id$
+ #
+@@ -11,8 +10,8 @@
+ #
+ #        We wish all users wonderful weather!
+ #
+-from __future__ import absolute_import
+-from __future__ import print_function
++
++
+ VERSION = "3.2.6"
+ #
+ #                    04.10.2017
+diff -ruN a/setup_translate.py b/setup_translate.py
+--- a/setup_translate.py	2022-10-14 15:01:44.328608441 +0300
++++ b/setup_translate.py	2022-10-14 15:41:14.544617852 +0300
+@@ -1,4 +1,3 @@
+-from __future__ import print_function
+ # Language extension for distutils Python scripts. Based on this concept:
+ # http://wiki.maemo.org/Internationalize_a_Python_application
+ from distutils import cmd
+@@ -26,7 +25,7 @@
+ 						dest = os.path.join(lc, f[:-2] + 'mo')
+ 						print("Language compile %s -> %s" % (src, dest))
+ 						if os.system("msgfmt '%s' -o '%s'" % (src, dest)) != 0:
+-							raise (Exception, "Failed to compile: " + src)
++							raise Exception("Failed to compile: " + src)
+ 
+ 
+ class build(_build):
