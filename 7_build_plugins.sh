@@ -167,8 +167,11 @@ if [ "$release" = "22.04" ]; then
 			unzip python3.zip
 			rm python3.zip
 			mv $PKG-python3 $PKG
-			cd $PKG
-			python3 setup.py install
+			cd ../..
+			cp -fv patches/$PKG_.patch plugins/e2openplugin/$PKG
+			cd plugins/e2openplugin/$PKG
+			patch -p1 < $PKG_.patch
+			python3 setup.py install && python3 setup.py install # It's right
 			mv $P3_PACKAGES/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 			cd ..
 		fi
