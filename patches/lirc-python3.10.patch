@@ -1,6 +1,6 @@
-diff -ruN o/debian/changelog pc/debian/changelog
---- o/debian/changelog	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/changelog	2021-01-15 14:58:06.941541528 +0300
+diff -ruN a/debian/changelog b/debian/changelog
+--- a/debian/changelog	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/changelog	2022-10-15 15:04:44.364723812 +0300
 @@ -0,0 +1,1719 @@
 +lirc (0.10.1-6-e2pc) unstable; urgency=medium
 +
@@ -1721,14 +1721,14 @@ diff -ruN o/debian/changelog pc/debian/changelog
 +  * Initial Release.
 +
 + -- Tom Lees <tom@debian.org>  Thu, 30 Mar 2000 19:30:57 +0100
-diff -ruN o/debian/compat pc/debian/compat
---- o/debian/compat	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/compat	2021-01-15 14:58:06.941541528 +0300
+diff -ruN a/debian/compat b/debian/compat
+--- a/debian/compat	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/compat	2022-10-15 15:04:44.364723812 +0300
 @@ -0,0 +1 @@
 +10
-diff -ruN o/debian/control pc/debian/control
---- o/debian/control	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/control	2021-01-15 14:58:06.941541528 +0300
+diff -ruN a/debian/control b/debian/control
+--- a/debian/control	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/control	2022-10-15 15:04:44.364723812 +0300
 @@ -0,0 +1,179 @@
 +Source: lirc
 +Section: utils
@@ -1909,9 +1909,9 @@ diff -ruN o/debian/control pc/debian/control
 +  - irxevent: Allows controlling X applications with a remote control.
 +  - xmode2:   Shows the IR waveform of the remote controller without an
 +              oscilloscope. Unneeded for TV cards or the Irman.
-diff -ruN o/debian/copyright pc/debian/copyright
---- o/debian/copyright	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/copyright	2021-01-15 14:58:06.941541528 +0300
+diff -ruN a/debian/copyright b/debian/copyright
+--- a/debian/copyright	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/copyright	2022-10-15 15:04:44.364723812 +0300
 @@ -0,0 +1,283 @@
 +Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 +Upstream-Name: lirc
@@ -2196,16 +2196,16 @@ diff -ruN o/debian/copyright pc/debian/copyright
 + CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 + TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 + SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-diff -ruN o/debian/docs pc/debian/docs
---- o/debian/docs	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/docs	2021-01-15 14:58:06.941541528 +0300
+diff -ruN a/debian/docs b/debian/docs
+--- a/debian/docs	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/docs	2022-10-15 15:04:44.364723812 +0300
 @@ -0,0 +1,3 @@
 +NEWS
 +README
 +README.conf.d
-diff -ruN o/debian/install pc/debian/install
---- o/debian/install	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/install	2021-01-15 14:58:06.942541540 +0300
+diff -ruN a/debian/install b/debian/install
+--- a/debian/install	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/install	2022-10-15 15:04:44.364723812 +0300
 @@ -0,0 +1,60 @@
 +#! /usr/bin/dh-exec
 +
@@ -2267,28 +2267,28 @@ diff -ruN o/debian/install pc/debian/install
 +usr/share/man/man1/irw.1*
 +[linux-any] usr/share/man/man1/irpipe.1*
 +var/lib/lirc
-diff -ruN o/debian/liblirc0.install pc/debian/liblirc0.install
---- o/debian/liblirc0.install	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/liblirc0.install	2021-01-15 14:58:06.942541540 +0300
+diff -ruN a/debian/liblirc0.install b/debian/liblirc0.install
+--- a/debian/liblirc0.install	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/liblirc0.install	2022-10-15 15:04:44.364723812 +0300
 @@ -0,0 +1,3 @@
 +usr/lib/*/libirrecord.so.*
 +usr/lib/*/liblirc_driver.so.*
 +usr/lib/*/liblirc.so.*
-diff -ruN o/debian/liblirc-client0.install pc/debian/liblirc-client0.install
---- o/debian/liblirc-client0.install	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/liblirc-client0.install	2021-01-15 14:58:06.942541540 +0300
+diff -ruN a/debian/liblirc-client0.install b/debian/liblirc-client0.install
+--- a/debian/liblirc-client0.install	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/liblirc-client0.install	2022-10-15 15:04:44.364723812 +0300
 @@ -0,0 +1 @@
 +debian/tmp/usr/lib/*/liblirc_client.so.*
-diff -ruN o/debian/liblirc-dev.install pc/debian/liblirc-dev.install
---- o/debian/liblirc-dev.install	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/liblirc-dev.install	2021-01-15 14:58:06.942541540 +0300
+diff -ruN a/debian/liblirc-dev.install b/debian/liblirc-dev.install
+--- a/debian/liblirc-dev.install	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/liblirc-dev.install	2022-10-15 15:04:44.364723812 +0300
 @@ -0,0 +1,3 @@
 +usr/lib/*/lib*.so
 +usr/lib/*/pkgconfig
 +usr/include
-diff -ruN o/debian/lirc-doc.doc-base pc/debian/lirc-doc.doc-base
---- o/debian/lirc-doc.doc-base	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/lirc-doc.doc-base	2021-01-15 14:58:06.942541540 +0300
+diff -ruN a/debian/lirc-doc.doc-base b/debian/lirc-doc.doc-base
+--- a/debian/lirc-doc.doc-base	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/lirc-doc.doc-base	2022-10-15 15:04:44.364723812 +0300
 @@ -0,0 +1,9 @@
 +Document: lirc
 +Title: LIRC (Linux Infrared Remote Control)
@@ -2299,20 +2299,20 @@ diff -ruN o/debian/lirc-doc.doc-base pc/debian/lirc-doc.doc-base
 +Format: HTML
 +Index: /usr/share/doc/lirc/lirc.org/html/index.html
 +Files: /usr/share/doc/lirc/lirc.org/html/*.html /usr/share/doc/lirc/lirc.org/api-docs/html/*
-diff -ruN o/debian/lirc-doc.install pc/debian/lirc-doc.install
---- o/debian/lirc-doc.install	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/lirc-doc.install	2021-01-15 14:58:06.942541540 +0300
+diff -ruN a/debian/lirc-doc.install b/debian/lirc-doc.install
+--- a/debian/lirc-doc.install	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/lirc-doc.install	2022-10-15 15:04:44.364723812 +0300
 @@ -0,0 +1 @@
 +usr/share/doc
-diff -ruN o/debian/lirc.docs pc/debian/lirc.docs
---- o/debian/lirc.docs	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/lirc.docs	2021-01-15 14:58:06.942541540 +0300
+diff -ruN a/debian/lirc.docs b/debian/lirc.docs
+--- a/debian/lirc.docs	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/lirc.docs	2022-10-15 15:04:44.364723812 +0300
 @@ -0,0 +1,2 @@
 +NEWS
 +README
-diff -ruN o/debian/lirc.irexec.init pc/debian/lirc.irexec.init
---- o/debian/lirc.irexec.init	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/lirc.irexec.init	2021-01-15 14:58:06.942541540 +0300
+diff -ruN a/debian/lirc.irexec.init b/debian/lirc.irexec.init
+--- a/debian/lirc.irexec.init	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/lirc.irexec.init	2022-10-15 15:04:44.364723812 +0300
 @@ -0,0 +1,69 @@
 +#!/bin/sh
 +### BEGIN INIT INFO
@@ -2383,9 +2383,9 @@ diff -ruN o/debian/lirc.irexec.init pc/debian/lirc.irexec.init
 +esac
 +
 +exit 0
-diff -ruN o/debian/lirc.lircd.init pc/debian/lirc.lircd.init
---- o/debian/lirc.lircd.init	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/lirc.lircd.init	2021-01-15 14:58:06.942541540 +0300
+diff -ruN a/debian/lirc.lircd.init b/debian/lirc.lircd.init
+--- a/debian/lirc.lircd.init	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/lirc.lircd.init	2022-10-15 15:04:44.364723812 +0300
 @@ -0,0 +1,64 @@
 +#!/bin/sh
 +### BEGIN INIT INFO
@@ -2451,9 +2451,9 @@ diff -ruN o/debian/lirc.lircd.init pc/debian/lirc.lircd.init
 +esac
 +
 +exit 0
-diff -ruN o/debian/lirc.lircmd.init pc/debian/lirc.lircmd.init
---- o/debian/lirc.lircmd.init	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/lirc.lircmd.init	2021-01-15 14:58:06.942541540 +0300
+diff -ruN a/debian/lirc.lircmd.init b/debian/lirc.lircmd.init
+--- a/debian/lirc.lircmd.init	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/lirc.lircmd.init	2022-10-15 15:04:44.364723812 +0300
 @@ -0,0 +1,59 @@
 +#!/bin/sh
 +### BEGIN INIT INFO
@@ -2514,9 +2514,9 @@ diff -ruN o/debian/lirc.lircmd.init pc/debian/lirc.lircmd.init
 +esac
 +
 +exit 0
-diff -ruN o/debian/lirc-old2new pc/debian/lirc-old2new
---- o/debian/lirc-old2new	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/lirc-old2new	2021-01-15 14:58:06.942541540 +0300
+diff -ruN a/debian/lirc-old2new b/debian/lirc-old2new
+--- a/debian/lirc-old2new	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/lirc-old2new	2022-10-15 15:04:44.364723812 +0300
 @@ -0,0 +1,250 @@
 +#!/usr/bin/env python3
 +
@@ -2768,17 +2768,17 @@ diff -ruN o/debian/lirc-old2new pc/debian/lirc-old2new
 +
 +
 +# vim: set expandtab ts=4 sw=4:
-diff -ruN o/debian/lirc-x.install pc/debian/lirc-x.install
---- o/debian/lirc-x.install	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/lirc-x.install	2021-01-15 14:58:06.942541540 +0300
+diff -ruN a/debian/lirc-x.install b/debian/lirc-x.install
+--- a/debian/lirc-x.install	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/lirc-x.install	2022-10-15 15:04:44.364723812 +0300
 @@ -0,0 +1,4 @@
 +usr/bin/xmode2
 +usr/bin/irxevent
 +usr/share/man/man1/xmode2.1*
 +usr/share/man/man1/irxevent.1*
-diff -ruN o/debian/NEWS pc/debian/NEWS
---- o/debian/NEWS	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/NEWS	2021-01-15 14:58:06.942541540 +0300
+diff -ruN a/debian/NEWS b/debian/NEWS
+--- a/debian/NEWS	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/NEWS	2022-10-15 15:04:44.364723812 +0300
 @@ -0,0 +1,23 @@
 +lirc (0.9.4c-5) unstable; urgency=medium
 +
@@ -2803,9 +2803,9 @@ diff -ruN o/debian/NEWS pc/debian/NEWS
 +   documentation and support tools presumes the preferred systemd setup.
 +
 + -- Alec Leamas  <leamas.alec@gmail.com>  Mon, 5 Oct 2015 11:14:25 +0100
-diff -ruN o/debian/patches/e2pc.patch pc/debian/patches/e2pc.patch
---- o/debian/patches/e2pc.patch	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/patches/e2pc.patch	2021-01-15 14:58:06.942541540 +0300
+diff -ruN a/debian/patches/e2pc.patch b/debian/patches/e2pc.patch
+--- a/debian/patches/e2pc.patch	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/patches/e2pc.patch	2022-10-15 15:04:44.364723812 +0300
 @@ -0,0 +1,39 @@
 +diff -ruN n/lib/lirc/receive.h o/lib/lirc/receive.h
 +--- n/lib/lirc/receive.h	2017-09-10 11:52:58.000000000 +0300
@@ -2846,9 +2846,9 @@ diff -ruN o/debian/patches/e2pc.patch pc/debian/patches/e2pc.patch
 + /**
 +  * Set update mode, where recorded pre_data is verified to match
 +  * the template pre_data. By defaulöt false.
-diff -ruN o/debian/patches/lircd-Fix-connect-option-parsing-error-343.patch pc/debian/patches/lircd-Fix-connect-option-parsing-error-343.patch
---- o/debian/patches/lircd-Fix-connect-option-parsing-error-343.patch	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/patches/lircd-Fix-connect-option-parsing-error-343.patch	2021-01-15 14:58:06.942541540 +0300
+diff -ruN a/debian/patches/lircd-Fix-connect-option-parsing-error-343.patch b/debian/patches/lircd-Fix-connect-option-parsing-error-343.patch
+--- a/debian/patches/lircd-Fix-connect-option-parsing-error-343.patch	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/patches/lircd-Fix-connect-option-parsing-error-343.patch	2022-10-15 15:04:44.364723812 +0300
 @@ -0,0 +1,22 @@
 +From: Alec Leamas <leamas.alec@gmail.com>
 +Date: Sun, 30 Dec 2018 21:26:15 +0100
@@ -2872,9 +2872,9 @@ diff -ruN o/debian/patches/lircd-Fix-connect-option-parsing-error-343.patch pc/d
 + 
 + 	if (peern < MAX_PEERS) {
 + 		peers[peern] = (struct peer_connection*) malloc(sizeof(
-diff -ruN o/debian/patches/lirc.org-Remove-non-free-advertising.patch pc/debian/patches/lirc.org-Remove-non-free-advertising.patch
---- o/debian/patches/lirc.org-Remove-non-free-advertising.patch	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/patches/lirc.org-Remove-non-free-advertising.patch	2021-01-15 14:58:06.943541552 +0300
+diff -ruN a/debian/patches/lirc.org-Remove-non-free-advertising.patch b/debian/patches/lirc.org-Remove-non-free-advertising.patch
+--- a/debian/patches/lirc.org-Remove-non-free-advertising.patch	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/patches/lirc.org-Remove-non-free-advertising.patch	2022-10-15 15:04:44.364723812 +0300
 @@ -0,0 +1,111 @@
 +From: Alec Leamas <leamas@nowhere.net>
 +Date: Tue, 6 Oct 2015 01:56:21 +0200
@@ -2987,9 +2987,9 @@ diff -ruN o/debian/patches/lirc.org-Remove-non-free-advertising.patch pc/debian/
 +               </TD>
 +               <TD WIDTH="70%">
 +                 <P>
-diff -ruN o/debian/patches/lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch pc/debian/patches/lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch
---- o/debian/patches/lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/patches/lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch	2021-01-15 14:58:06.943541552 +0300
+diff -ruN a/debian/patches/lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch b/debian/patches/lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch
+--- a/debian/patches/lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/patches/lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch	2022-10-15 15:04:44.364723812 +0300
 @@ -0,0 +1,20 @@
 +From: Alec Leamas <leamas.alec@gmail.com>
 +Date: Fri, 12 Oct 2018 20:49:58 +0200
@@ -3011,9 +3011,9 @@ diff -ruN o/debian/patches/lirc-setup-Fix-crash-on-start-on-missing-lirc.config.
 + nodist_py_pkg_PYTHON    = python-pkg/lirc/config.py
 + 
 + if HAVE_PYTHON35
-diff -ruN o/debian/patches/logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch pc/debian/patches/logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch
---- o/debian/patches/logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/patches/logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch	2021-01-15 14:58:06.943541552 +0300
+diff -ruN a/debian/patches/logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch b/debian/patches/logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch
+--- a/debian/patches/logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/patches/logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch	2022-10-15 15:04:44.364723812 +0300
 @@ -0,0 +1,24 @@
 +From: Alec Leamas <leamas.alec@gmail.com>
 +Date: Fri, 23 Nov 2018 23:04:35 -0500
@@ -3039,9 +3039,9 @@ diff -ruN o/debian/patches/logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch p
 + 	} else {
 + 		lf = fopen(logfile, "a");
 + 		if (lf == NULL) {
-diff -ruN o/debian/patches/series pc/debian/patches/series
---- o/debian/patches/series	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/patches/series	2021-01-15 17:19:22.633543082 +0300
+diff -ruN a/debian/patches/series b/debian/patches/series
+--- a/debian/patches/series	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/patches/series	2022-10-15 15:04:44.364723812 +0300
 @@ -0,0 +1,6 @@
 +lirc.org-Remove-non-free-advertising.patch
 +lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch
@@ -3049,9 +3049,9 @@ diff -ruN o/debian/patches/series pc/debian/patches/series
 +lircd-Fix-connect-option-parsing-error-343.patch
 +systemd-support-Notify-systemd-on-successful-startup.patch
 +e2pc.patch
-diff -ruN o/debian/patches/systemd-support-Notify-systemd-on-successful-startup.patch pc/debian/patches/systemd-support-Notify-systemd-on-successful-startup.patch
---- o/debian/patches/systemd-support-Notify-systemd-on-successful-startup.patch	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/patches/systemd-support-Notify-systemd-on-successful-startup.patch	2021-01-15 14:58:06.943541552 +0300
+diff -ruN a/debian/patches/systemd-support-Notify-systemd-on-successful-startup.patch b/debian/patches/systemd-support-Notify-systemd-on-successful-startup.patch
+--- a/debian/patches/systemd-support-Notify-systemd-on-successful-startup.patch	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/patches/systemd-support-Notify-systemd-on-successful-startup.patch	2022-10-15 15:04:44.368723812 +0300
 @@ -0,0 +1,43 @@
 +From: William Manley <will@williammanley.net>
 +Date: Thu, 9 Aug 2018 18:26:44 +0100
@@ -3096,9 +3096,9 @@ diff -ruN o/debian/patches/systemd-support-Notify-systemd-on-successful-startup.
 + ExecStart=/usr/sbin/lircd --nodaemon
 + ; User=lirc
 + ; Group=lirc
-diff -ruN o/debian/pbuilder-test/007-lintian pc/debian/pbuilder-test/007-lintian
---- o/debian/pbuilder-test/007-lintian	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/pbuilder-test/007-lintian	2021-01-15 14:58:06.943541552 +0300
+diff -ruN a/debian/pbuilder-test/007-lintian b/debian/pbuilder-test/007-lintian
+--- a/debian/pbuilder-test/007-lintian	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/pbuilder-test/007-lintian	2022-10-15 15:04:44.368723812 +0300
 @@ -0,0 +1,11 @@
 +#!/bin/sh
 +
@@ -3111,9 +3111,9 @@ diff -ruN o/debian/pbuilder-test/007-lintian pc/debian/pbuilder-test/007-lintian
 +    /tmp/buildd/*.changes; :" - pbuilder
 +
 +echo "+++ end of lintian output +++"
-diff -ruN o/debian/postinst pc/debian/postinst
---- o/debian/postinst	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/postinst	2021-01-15 14:58:06.943541552 +0300
+diff -ruN a/debian/postinst b/debian/postinst
+--- a/debian/postinst	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/postinst	2022-10-15 15:04:44.368723812 +0300
 @@ -0,0 +1,14 @@
 +#!/bin/sh
 +
@@ -3129,9 +3129,9 @@ diff -ruN o/debian/postinst pc/debian/postinst
 +
 +
 +#DEBHELPER#
-diff -ruN o/debian/postrm pc/debian/postrm
---- o/debian/postrm	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/postrm	2021-01-15 14:58:06.943541552 +0300
+diff -ruN a/debian/postrm b/debian/postrm
+--- a/debian/postrm	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/postrm	2022-10-15 15:04:44.368723812 +0300
 @@ -0,0 +1,14 @@
 +#!/bin/sh
 +
@@ -3147,9 +3147,9 @@ diff -ruN o/debian/postrm pc/debian/postrm
 +
 +#DEBHELPER#
 +
-diff -ruN o/debian/prerm pc/debian/prerm
---- o/debian/prerm	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/prerm	2021-01-15 14:58:06.943541552 +0300
+diff -ruN a/debian/prerm b/debian/prerm
+--- a/debian/prerm	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/prerm	2022-10-15 15:04:44.368723812 +0300
 @@ -0,0 +1,12 @@
 +#!/bin/sh
 +
@@ -3163,15 +3163,15 @@ diff -ruN o/debian/prerm pc/debian/prerm
 +
 +
 +#DEBHELPER#
-diff -ruN o/debian/README pc/debian/README
---- o/debian/README	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/README	2021-01-15 14:58:06.943541552 +0300
+diff -ruN a/debian/README b/debian/README
+--- a/debian/README	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/README	2022-10-15 15:04:44.368723812 +0300
 @@ -0,0 +1,2 @@
 +The debian packaging files has been moved to the separate branch
 +'debian' according to established debian workflows.
-diff -ruN o/debian/README.Debian pc/debian/README.Debian
---- o/debian/README.Debian	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/README.Debian	2021-01-15 14:58:06.943541552 +0300
+diff -ruN a/debian/README.Debian b/debian/README.Debian
+--- a/debian/README.Debian	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/README.Debian	2022-10-15 15:04:44.368723812 +0300
 @@ -0,0 +1,171 @@
 +## 0.9.4 disruptive update
 +
@@ -3344,9 +3344,9 @@ diff -ruN o/debian/README.Debian pc/debian/README.Debian
 +    - The rule has never worked with multiple /dev/lirc* devices.
 +
 +-- Alec Leamas <al@jessie.nowhere.net>  Wed, 2 Nov 2016 19:02:10 +0100
-diff -ruN o/debian/rules pc/debian/rules
---- o/debian/rules	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/rules	2021-01-15 14:58:06.943541552 +0300
+diff -ruN a/debian/rules b/debian/rules
+--- a/debian/rules	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/rules	2022-10-15 15:04:44.368723812 +0300
 @@ -0,0 +1,87 @@
 +#!/usr/bin/make -f
 +
@@ -3435,20 +3435,20 @@ diff -ruN o/debian/rules pc/debian/rules
 +override_dh_fixperms-arch:
 +	dh_fixperms
 +	chmod 755 debian/lirc/usr/share/lirc/contrib/irman2lirc
-diff -ruN o/debian/source/format pc/debian/source/format
---- o/debian/source/format	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/source/format	2021-01-15 14:58:06.943541552 +0300
+diff -ruN a/debian/source/format b/debian/source/format
+--- a/debian/source/format	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/source/format	2022-10-15 15:04:44.368723812 +0300
 @@ -0,0 +1 @@
 +3.0 (quilt)
-diff -ruN o/debian/watch pc/debian/watch
---- o/debian/watch	1970-01-01 03:00:00.000000000 +0300
-+++ pc/debian/watch	2021-01-15 14:58:06.944541564 +0300
+diff -ruN a/debian/watch b/debian/watch
+--- a/debian/watch	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/watch	2022-10-15 15:04:44.368723812 +0300
 @@ -0,0 +1,2 @@
 +version=3
 +opts="uversionmangle=s/rc/~rc/" http://sf.net/lirc/lirc-([0-9].+)\.tar\.gz
-diff -ruN o/plugins/default.c pc/plugins/default.c
---- o/plugins/default.c	2017-09-10 11:52:19.000000000 +0300
-+++ pc/plugins/default.c	2021-01-15 14:56:45.704924148 +0300
+diff -ruN a/plugins/default.c b/plugins/default.c
+--- a/plugins/default.c	2017-09-10 11:52:19.000000000 +0300
++++ b/plugins/default.c	2022-10-15 15:04:44.368723812 +0300
 @@ -324,10 +324,6 @@
  	rec_buffer_init();
  	send_buffer_init();
@@ -3460,3 +3460,69 @@ diff -ruN o/plugins/default.c pc/plugins/default.c
  	if (stat(drv.device, &s) == -1) {
  		log_error("could not get file information for %s", drv.device);
  		log_perror_err("default_init()");
+diff -ruN a/python-pkg/lirc/async_client.py b/python-pkg/lirc/async_client.py
+--- a/python-pkg/lirc/async_client.py	2017-09-10 11:52:19.000000000 +0300
++++ b/python-pkg/lirc/async_client.py	2022-10-15 15:07:39.548724508 +0300
+@@ -63,7 +63,7 @@
+ 
+         self._conn = connection
+         self._loop = loop
+-        self._queue = asyncio.Queue(loop=self._loop)
++        self._queue = asyncio.Queue()
+         self._loop.add_reader(self._conn.fileno(), read_from_fd)
+ 
+     def close(self):
+diff -ruN a/python-pkg/lirc/client.py b/python-pkg/lirc/client.py
+--- a/python-pkg/lirc/client.py	2017-09-10 11:52:19.000000000 +0300
++++ b/python-pkg/lirc/client.py	2022-10-15 15:07:39.644724508 +0300
+@@ -219,10 +219,10 @@
+     def readline(self, timeout: float = None) -> str:
+         ''' Implements AbstractConnection.readline(). '''
+         if timeout:
+-            start = time.clock()
++            start = time.perf_counter()
+         while b'\n' not in self._buffer:
+             ready = self._select.select(
+-                start + timeout - time.clock() if timeout else timeout)
++                start + timeout - time.perf_counter() if timeout else timeout)
+             if ready == []:
+                 if timeout:
+                     raise TimeoutException(
+diff -ruN a/python-pkg/lirc/database.py b/python-pkg/lirc/database.py
+--- a/python-pkg/lirc/database.py	2017-09-10 11:52:19.000000000 +0300
++++ b/python-pkg/lirc/database.py	2022-10-15 15:07:39.720724508 +0300
+@@ -99,7 +99,7 @@
+         self.lircmd_conf = ""     ## Name of lircmd.conf file
+         self.label = ""           ## Label for driver + device
+         if cf:
+-            for key, value in cf.items():
++            for key, value in list(cf.items()):
+                 setattr(self, key, value)
+ 
+     @property
+@@ -141,7 +141,7 @@
+         with open(os.path.join(yamlpath, "drivers.yaml")) as f:
+             cf = yaml.load(f.read())
+         db['drivers'].update(cf['drivers'].copy())
+-        for key, d in db['drivers'].items():
++        for key, d in list(db['drivers'].items()):
+             d['id'] = key
+             hint = d['device_hint']
+             if not hint:
+@@ -199,14 +199,14 @@
+ 
+     def driver_by_remote(self, remote):
+         ''' Return the driver (possibly None) suggested for a remote. '''
+-        for driver, files in self.db['lircd_by_driver'].items():
++        for driver, files in list(self.db['lircd_by_driver'].items()):
+             if remote in files:
+                 return self.db['drivers'][driver]
+         return None
+ 
+     def find_config(self, key, value):
+         ''' Return item (a config) in configs where config[key] == value. '''
+-        found = [c for c in self.db['configs'].values()
++        found = [c for c in list(self.db['configs'].values())
+                  if key in c and c[key] == value]
+         if len(found) > 1:
+             raise ItemLookupError(
