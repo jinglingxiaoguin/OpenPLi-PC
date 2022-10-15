@@ -66,7 +66,7 @@ if [ -f $CONF/lircd.conf.d/devinput.lircd.conf ]; then
 	mv -b $CONF/lircd.conf.d/devinput.lircd.conf /etc/lirc/lircd.conf.d/devinput.lircd.conf.dist
 fi
 if [ -f $CONF/irexec.lircrc ]; then
-	mv - b$CONF/irexec.lircrc $CONF/irexec.lircrc.dist
+	mv -b $CONF/irexec.lircrc $CONF/irexec.lircrc.dist
 fi
 if [ -f $CONF/irexec.lircrc ];then
 	rm -f $CONF/irexec.lircrc
