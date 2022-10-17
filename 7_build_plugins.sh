@@ -536,7 +536,7 @@ if [ "$release" = "22.04" ]; then
 		# Copy files to $INSTALL_E2DIR
 		echo ""
 		echo "******************************** Copy  plugins E2PC ********************************"
-		cp -rfv plugins/third-party-plugins/Plugins $INSTALL_E2DIR/lib/enigma2/python
+		cp -rfv plugins/third-party-plugins/* $INSTALL_E2DIR/lib/enigma2/python
 		cp -rfv pre/epgimport $INSTALL_E2DIR/etc
 		cp -rfv pre/xmltvimport $INSTALL_E2DIR/etc
 		cp -rfv skins/* $INSTALL_E2DIR
