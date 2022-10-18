@@ -382,32 +382,8 @@ else
 	cd ..
 fi
 
-# Build and install python3-wifi:
-if [ ! -d twistedsnmp ]; then
-	set -e
-	set -o pipefail
-else
-	PKG="pythonwifi"
-	VER="cdb8bc92cdef351f15f1924019f41f634e16618a"
-	echo ""
-	echo "**************************** OK. Go to the next step. ******************************"
-	echo ""
-	echo "                    *** Build and install $PKG ***"
-	echo ""
-	if [ -d $PKG ]; then
-		rm -rf $PKG
-	fi
-	wget https://github.com/Opvolger/pythonwifi/archive/$VER.zip
-	unzip $VER.zip
-	rm $VER.zip
-	mv $PKG-$VER $PKG
-	cd $PKG
-	python3 setup.py install
-	cd ..
-fi
-
 # Build and install python3-attrs:
-if [ ! -d pythonwifi ]; then
+if [ ! -d twistedsnmp ]; then
 	set -e
 	set -o pipefail
 else
@@ -530,78 +506,6 @@ else
 	python3 setup.py install
 	cd ..
 fi
-
-# Build and install python3-websocket-client:
-#if [ ! -d Js2Py ]; then
-#	set -e
-#	set -o pipefail
-#else
-#	PKG="websocket-client"
-#	VER="37429a3efa1238cb5b6e5c056dd4e9190575d5ca"
-#	echo ""
-#	echo "**************************** OK. Go to the next step. ******************************"
-#	echo ""
-#	echo "                    *** Build and install $PKG ***"
-#	echo ""
-#	if [ -d $PKG ]; then
-#		rm -rf $PKG
-#	fi
-#	wget https://github.com/websocket-client/websocket-client/archive/$VER.zip
-#	unzip $VER.zip
-#	rm $VER.zip
-#	mv $PKG-$VER $PKG
-#	cd $PKG
-#	python3 setup.py install
-#	cd ..
-#fi
-
-# Build and install python3-attrs:
-#if [ ! -d pythonwifi ]; then
-#	set -e
-#	set -o pipefail
-#else
-#	PKG="attrs"
-#	VER="c20a9dc7b9cd4902c247b665519ef9b416cac470"
-#	echo ""
-#	echo "**************************** OK. Go to the next step. ******************************"
-#	echo ""
-#	echo "                    *** Build and install $PKG ***"
-#	echo ""
-#	if [ -d $PKG ]; then
-#		rm -rf $PKG
-#	fi
-#	wget https://github.com/python-attrs/attrs/archive/$VER.zip
-#	unzip $VER.zip
-#	rm $VER.zip
-#	mv $PKG-$VER $PKG
-#	cd $PKG
-#	python3 setup.py install
-#	cd ..
-#fi
-
-# Build and install python3-pysnmp-se:
-#if [ ! -d ipaddress ]; then
-#	set -e
-#	set -o pipefail
-#else
-#	PKG="python3-pysnmp-se"
-#	VER="b2799591bde5fe7ef47464524066c66744bb3ba7"
-#	echo ""
-#	echo "**************************** OK. Go to the next step. ******************************"
-#	echo ""
-#	echo "                    *** Build and install $PKG ***"
-#	echo ""
-#	if [ -d $PKG ]; then
-#		rm -rf $PKG
-#	fi
-#	wget https://github.com/Hains/python3-pysnmp-se/archive/$VER.zip
-#	unzip $VER.zip
-#	rm $VER.zip
-#	mv $PKG-$VER $PKG
-#	cd $PKG
-#	python3 setup.py install
-#	cd ..
-#fi
 
 # Message if error at any point of script
 if [ ! -d PythonDaap ]; then

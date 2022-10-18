@@ -1,6 +1,6 @@
 diff -ruN a/agentprotocol.py b/agentprotocol.py
---- a/agentprotocol.py	2022-09-16 16:03:19.000000000 +0300
-+++ b/agentprotocol.py	2022-09-17 15:09:23.563178324 +0300
+--- a/agentprotocol.py	2006-04-25 06:02:53.000000000 +0400
++++ b/agentprotocol.py	2022-10-18 15:01:58.713084357 +0300
 @@ -64,9 +64,9 @@
  			try:
  				request.decode(datagram)
@@ -13,9 +13,25 @@ diff -ruN a/agentprotocol.py b/agentprotocol.py
  				log.error( 'Malformed inbound message dropped: %s', why )
  				continue
  			else:
+@@ -96,7 +96,7 @@
+ 			)
+ 	def requestType( self, request ):
+ 		"""Retrieve the request-type from the request"""
+-		return request['pdu'].keys()[0]
++		return list(request['pdu'].keys())[0]
+ 	def send(self, response, address):
+ 		"""Send a request (string) to the network"""
+ 		self.transport.write(response, address)
 diff -ruN a/agent.py b/agent.py
---- a/agent.py	2022-09-16 16:03:19.000000000 +0300
-+++ b/agent.py	2022-09-17 15:09:14.755178289 +0300
+--- a/agent.py	2006-04-25 06:02:53.000000000 +0400
++++ b/agent.py	2022-10-18 15:01:58.689084357 +0300
+@@ -1,5 +1,5 @@
+ """SNMP Logic for Agent(Server)-side implementations"""
+-from __future__ import generators
++
+ import weakref
+ from twistedsnmp import datatypes
+ from twistedsnmp.pysnmpproto import v2c,v1, error, resolveVersion, oid
 @@ -53,7 +53,7 @@
  		pdu = response.apiGenGetPdu()
  		try:
@@ -79,13 +95,24 @@ diff -ruN a/agent.py b/agent.py
  					# XXX is the use of base here correct?
  					oid = base
  					value = v2c.EndOfMibView()
-@@ -356,11 +356,11 @@
+@@ -345,7 +345,7 @@
+ 	def findTrapHandlers( self, genericType=None, specificType=None ):
+ 		"""Yield set of paths to handlers for given types"""
+ 		if genericType is None:
+-			for key in self._trapRegistry.keys():
++			for key in list(self._trapRegistry.keys()):
+ 				if key is not None:
+ 					for path in self.findTrapHandlers( key, specificType ):
+ 						yield path 
+@@ -354,13 +354,13 @@
+ 				specifics = self._trapRegistry.get( gType )
+ 				if specifics:
  					if specificType is None:
- 						for key,value in specifics.items():
+-						for key,value in specifics.items():
++						for key,value in list(specifics.items()):
  							if value:
--								yield gType, key, value 
+ 								yield gType, key, value 
 -					elif specifics.has_key( specificType ):
-+								yield gType, key, value
 +					elif specificType in specifics:
  						if specifics[ specificType ]:
  							yield gType, specificType, specifics[ specificType ]
@@ -120,9 +147,34 @@ diff -ruN a/agent.py b/agent.py
  					pass
  		return count
  	def sendTrap(
+@@ -401,7 +401,7 @@
+ 		for (generic,specific,values) in self.findTrapHandlers(
+ 			genericType, specificType
+ 		):
+-			for handler in values.values():
++			for handler in list(values.values()):
+ 				# XXX need to be able to add more data!
+ 				handler.send( 
+ 					self, 
+@@ -442,7 +442,7 @@
+ 			trap.apiAlphaSetSpecificTrap( specificType )
+ 			if pdus:
+ 				if hasattr( pdus, 'items' ):
+-					pdus = pdus.items()
++					pdus = list(pdus.items())
+ 				pdus = [
+ 					(oid.OID(key),datatypes.typeCoerce(value, v1))
+ 					for key,value in pdus 
 diff -ruN a/bisectoidstore.py b/bisectoidstore.py
---- a/bisectoidstore.py	2022-09-16 16:03:19.000000000 +0300
-+++ b/bisectoidstore.py	2022-09-17 15:09:32.143178358 +0300
+--- a/bisectoidstore.py	2006-04-25 06:02:53.000000000 +0400
++++ b/bisectoidstore.py	2022-10-18 15:01:58.789084358 +0300
+@@ -1,5 +1,5 @@
+ """In-memory OIDStore based on the standard bisect module"""
+-from __future__ import generators
++
+ import bisect
+ from twistedsnmp import agent, oidstore, errors
+ from twistedsnmp.pysnmpproto import v2c,v1, error, oid
 @@ -69,7 +69,7 @@
  			if oid != base:
  				try:
@@ -160,8 +212,17 @@ diff -ruN a/bisectoidstore.py b/bisectoidstore.py
  				else:
  					return sortableToOID(key),self.returnValue(value,key)
 diff -ruN a/bsdoidstore.py b/bsdoidstore.py
---- a/bsdoidstore.py	2022-09-16 16:03:19.000000000 +0300
-+++ b/bsdoidstore.py	2022-09-17 15:09:40.091178390 +0300
+--- a/bsdoidstore.py	2006-04-25 06:02:53.000000000 +0400
++++ b/bsdoidstore.py	2022-10-18 15:01:58.821084358 +0300
+@@ -75,7 +75,7 @@
+ 		XXX patches bug in Python 2.3.x set_location for
+ 		bsddb objects as a side-effect
+ 		"""
+-		if isinstance( filename, (str,unicode)):
++		if isinstance( filename, str):
+ 			filename = bsddb.btopen( filename, mode )
+ 			if sys.version >= '2.3':
+ 				# need to patch bug in 2.3's set_location
 @@ -92,7 +92,7 @@
  		inclusive operation).
  		"""
@@ -180,7 +241,7 @@ diff -ruN a/bsdoidstore.py b/bsdoidstore.py
  			try:
  				old = self.btree[ oid ]
  			except KeyError:
-@@ -134,7 +134,7 @@
+@@ -134,16 +134,16 @@
  			encoded = oidToSortable( base )
  			oid, value = self.btree.set_location(encoded)
  			oid = sortableToOID( oid )
@@ -189,9 +250,11 @@ diff -ruN a/bsdoidstore.py b/bsdoidstore.py
  			raise errors.OIDNameError(
  				base,
  				message="OID not found in database"
-@@ -143,7 +143,7 @@
+ 			)
+ 		if oid == base:
  			try:
- 				oid,value = self.btree.next()
+-				oid,value = self.btree.next()
++				oid,value = next(self.btree)
  				oid = sortableToOID( oid )
 -			except KeyError, err:
 +			except KeyError as err:
@@ -199,8 +262,8 @@ diff -ruN a/bsdoidstore.py b/bsdoidstore.py
  					base,
  					message="OID appears to be last in database"
 diff -ruN a/doc/examples/simpleget.py b/doc/examples/simpleget.py
---- a/doc/examples/simpleget.py	2022-09-16 16:03:19.000000000 +0300
-+++ b/doc/examples/simpleget.py	2022-09-17 15:02:29.219176679 +0300
+--- a/doc/examples/simpleget.py	2006-04-25 06:02:53.000000000 +0400
++++ b/doc/examples/simpleget.py	2022-10-18 15:01:59.105084359 +0300
 @@ -15,12 +15,12 @@
  	return df
  
@@ -226,8 +289,8 @@ diff -ruN a/doc/examples/simpleget.py b/doc/examples/simpleget.py
  	ipAddress = sys.argv[1]
  	# choose random port in range 25000 to 30000
 diff -ruN a/doc/examples/simplegettable.py b/doc/examples/simplegettable.py
---- a/doc/examples/simplegettable.py	2022-09-16 16:03:19.000000000 +0300
-+++ b/doc/examples/simplegettable.py	2022-09-17 15:02:44.495176740 +0300
+--- a/doc/examples/simplegettable.py	2006-04-25 06:02:53.000000000 +0400
++++ b/doc/examples/simplegettable.py	2022-10-18 15:01:59.121084359 +0300
 @@ -15,12 +15,12 @@
  	return df
  
@@ -235,8 +298,7 @@ diff -ruN a/doc/examples/simplegettable.py b/doc/examples/simplegettable.py
 -	print 'Results:'
 +	print('Results:')
  	pprint.pprint( result )
--	return result
-+	return(result)
+ 	return result
  
  def errorReporter( err ):
 -	print 'ERROR', err.getTraceback()
@@ -254,8 +316,17 @@ diff -ruN a/doc/examples/simplegettable.py b/doc/examples/simplegettable.py
  	ipAddress = sys.argv[1]
  	# choose random port in range 25000 to 30000
 diff -ruN a/doc/examples/simpleserver.py b/doc/examples/simpleserver.py
---- a/doc/examples/simpleserver.py	2022-09-16 16:03:19.000000000 +0300
-+++ b/doc/examples/simpleserver.py	2022-09-17 15:14:57.963179652 +0300
+--- a/doc/examples/simpleserver.py	2006-04-25 06:02:53.000000000 +0400
++++ b/doc/examples/simpleserver.py	2022-10-18 15:01:59.137084359 +0300
+@@ -11,7 +11,7 @@
+ 	bsdoidstore = None
+ 
+ def createAgent( oids ):
+-	ports = [161]+range(20000,25000)
++	ports = [161]+list(range(20000,25000))
+ 	for port in ports:
+ 		try:
+ 			agentObject = reactor.listenUDP(
 @@ -47,7 +47,7 @@
  
  def main(oids=testingOIDs):
@@ -266,8 +337,8 @@ diff -ruN a/doc/examples/simpleserver.py b/doc/examples/simpleserver.py
  if __name__ == "__main__":
  	reactor.callWhenRunning( main )
 diff -ruN a/doc/examples/simpleset.py b/doc/examples/simpleset.py
---- a/doc/examples/simpleset.py	2022-09-16 16:03:19.000000000 +0300
-+++ b/doc/examples/simpleset.py	2022-09-17 15:02:58.371176795 +0300
+--- a/doc/examples/simpleset.py	2006-04-25 06:02:53.000000000 +0400
++++ b/doc/examples/simpleset.py	2022-10-18 15:01:59.153084359 +0300
 @@ -21,12 +21,12 @@
  	return df
  
@@ -293,18 +364,54 @@ diff -ruN a/doc/examples/simpleset.py b/doc/examples/simpleset.py
  	ipAddress = sys.argv[1]
  	# choose random port in range 25000 to 30000
 diff -ruN a/doc/pydoc/pydoc2.py b/doc/pydoc/pydoc2.py
---- a/doc/pydoc/pydoc2.py	2022-09-16 16:03:19.000000000 +0300
-+++ b/doc/pydoc/pydoc2.py	2022-09-17 15:03:11.811176848 +0300
+--- a/doc/pydoc/pydoc2.py	2006-04-25 06:02:53.000000000 +0400
++++ b/doc/pydoc/pydoc2.py	2022-10-18 19:19:15.616399737 +0300
+@@ -1,7 +1,7 @@
+ """Pydoc sub-class for generating documentation for entire packages"""
+ import pydoc, inspect, os, string
+ import sys, imp, os, stat, re, types, inspect
+-from repr import Repr
++from reprlib import Repr
+ from string import expandtabs, find, join, lower, split, strip, rfind, rstrip
+ 
+ 
 @@ -52,7 +52,7 @@
  				module = sys.modules.get(modname)
  				if modname != name and module and hasattr(module, key):
  					if getattr(module, key) is base:
 -						if not cdict.has_key(key):
-+						if not key in cdict:
++						if key not in cdict:
  							cdict[key] = cdict[base] = modname + '.html#' + key
  		
  		funcs, fdict = [], {}
-@@ -244,7 +244,7 @@
+@@ -91,14 +91,13 @@
+ ##				'Package Contents', '#ffffff', '#aa55cc', contents)
+ 			result = result + self.moduleSection( object, packageContext)
+ 		elif modules:
+-			contents = self.multicolumn(
+-				modules, lambda (key, value), s=self: s.modulelink(value))
++			contents = self.multicolumn(modules, lambda s=self: s.modulelink(value))
+ 			result = result + self.bigsection(
+ 				'Modules', '#fffff', '#aa55cc', contents)
+ 
+ 		
+ 		if classes:
+-			classlist = map(lambda (key, value): value, classes)
++			classlist = [key_value[1] for key_value in classes]
+ 			contents = [
+ 				self.formattree(inspect.getclasstree(classlist, 1), name)]
+ 			for key, value in classes:
+@@ -190,8 +189,7 @@
+ 			result = self.bigsection(
+ 				'Package Contents', '#ffffff', '#aa55cc', contents)
+ 		elif modules:
+-			contents = self.multicolumn(
+-				modules, lambda (key, value), s=self: s.modulelink(value))
++			contents = self.multicolumn(modules, lambda s=self: s.modulelink(value))
+ 			result = self.bigsection(
+ 				'Modules', '#fffff', '#aa55cc', contents)
+ 		else:
+@@ -244,7 +242,7 @@
  		for exclusion in exclusions:
  			try:
  				self.exclusions[ exclusion ]= pydoc.locate ( exclusion)
@@ -313,7 +420,7 @@ diff -ruN a/doc/pydoc/pydoc2.py b/doc/pydoc/pydoc2.py
  				self.warn( """Unable to import the module %s which was specified as an exclusion module"""% (repr(exclusion)))
  		self.formatter = formatter or DefaultFormatter()
  		for base in baseModules:
-@@ -254,18 +254,18 @@
+@@ -254,13 +252,13 @@
  		self.warnings.append (message)
  	def info (self, message):
  		"""Information/status report"""
@@ -329,13 +436,7 @@ diff -ruN a/doc/pydoc/pydoc2.py b/doc/pydoc/pydoc2.py
  			self.warn( """Unable to import the module %s which was specified as a base module"""% (repr(specifier)))
  	def addInteresting( self, specifier):
  		"""Add a module to the list of interesting modules"""
- 		if self.checkScope( specifier):
--##			print "addInteresting", specifier
-+##			print("addInteresting", specifier)
- 			self.pending.append (specifier)
- 		else:
- 			self.completed[ specifier] = 1
-@@ -297,7 +297,7 @@
+@@ -297,20 +295,20 @@
  		try:
  			while self.pending:
  				try:
@@ -344,8 +445,15 @@ diff -ruN a/doc/pydoc/pydoc2.py b/doc/pydoc/pydoc2.py
  						raise AlreadyDone( self.pending[0] )
  					self.info( """Start %s"""% (repr(self.pending[0])))
  					object = pydoc.locate ( self.pending[0] )
-@@ -310,7 +310,7 @@
- 				except (SystemError, SystemExit), value:
+ 					self.info( """   ... found %s"""% (repr(object.__name__)))
+ 				except AlreadyDone:
+ 					pass
+-				except pydoc.ErrorDuringImport, value:
++				except pydoc.ErrorDuringImport as value:
+ 					self.info( """   ... FAILED %s"""% (repr( value)))
+ 					self.warn( """Unable to import the module %s"""% (repr(self.pending[0])))
+-				except (SystemError, SystemExit), value:
++				except (SystemError, SystemExit) as value:
  					self.info( """   ... FAILED %s"""% (repr( value)))
  					self.warn( """Unable to import the module %s"""% (repr(self.pending[0])))
 -				except Exception, value:
@@ -353,7 +461,7 @@ diff -ruN a/doc/pydoc/pydoc2.py b/doc/pydoc/pydoc2.py
  					self.info( """   ... FAILED %s"""% (repr( value)))
  					self.warn( """Unable to import the module %s"""% (repr(self.pending[0])))
  				else:
-@@ -335,7 +335,7 @@
+@@ -335,14 +333,14 @@
  				del self.pending[0]
  		finally:
  			for item in self.warnings:
@@ -362,9 +470,32 @@ diff -ruN a/doc/pydoc/pydoc2.py b/doc/pydoc/pydoc2.py
  			
  	def clean (self, objectList, object):
  		"""callback from the formatter object asking us to remove
+ 		those items in the key, value pairs where the object is
+ 		imported from one of the excluded modules"""
+ 		for key, value in objectList[:]:
+-			for excludeObject in self.exclusions.values():
++			for excludeObject in list(self.exclusions.values()):
+ 				if hasattr( excludeObject, key ) and excludeObject is not object:
+ 					if (
+ 						getattr( excludeObject, key) is value or
 diff -ruN a/logs.py b/logs.py
---- a/logs.py	2022-09-16 16:03:19.000000000 +0300
-+++ b/logs.py	2022-09-17 15:09:49.671178428 +0300
+--- a/logs.py	2006-04-25 06:02:53.000000000 +0400
++++ b/logs.py	2022-10-18 15:01:58.869084358 +0300
+@@ -12,12 +12,12 @@
+ XXX If there's a decent standard logging to twisted logging
+ bridge, should use that...
+ """
+-import traceback, cStringIO, logging
++import traceback, io, logging
+ 
+ def getException(error):
+ 	"""Get formatted exception"""
+ 	exception = str(error)
+-	file = cStringIO.StringIO()
++	file = io.StringIO()
+ 	try:
+ 		traceback.print_exc( limit=10, file = file )
+ 		exception = file.getvalue()
 @@ -43,5 +43,5 @@
  agentprotocol_log.setLevel( logging.DEBUG )
  try:
@@ -373,20 +504,43 @@ diff -ruN a/logs.py b/logs.py
 +except Exception as err:
  	pass
 diff -ruN a/massretriever.py b/massretriever.py
---- a/massretriever.py	2022-09-16 16:03:19.000000000 +0300
-+++ b/massretriever.py	2022-09-17 15:10:03.663178483 +0300
+--- a/massretriever.py	2006-04-25 06:02:53.000000000 +0400
++++ b/massretriever.py	2022-10-18 15:01:58.905084358 +0300
+@@ -1,5 +1,5 @@
+ """Utility mechanism to retrieve OIDs/tables from large numbers of agents"""
+-from __future__ import generators, nested_scopes
++
+ from twisted.internet import defer, reactor, error
+ from twisted.python import failure
+ from twistedsnmp import agentproxy
 @@ -193,7 +193,7 @@
  			self.result[key] = set = {}
  		for oidObject in oids:
  			oidObject = oid.OID( oidObject )
 -			if not set.has_key( oidObject ):
-+			if not oidObject in set:
++			if oidObject not in set:
  				set[oidObject] = None
  		return None
  	def printStats( self ):
 diff -ruN a/oidstore.py b/oidstore.py
---- a/oidstore.py	2022-09-16 16:03:19.000000000 +0300
-+++ b/oidstore.py	2022-09-17 15:10:11.879178516 +0300
+--- a/oidstore.py	2006-04-25 06:02:53.000000000 +0400
++++ b/oidstore.py	2022-10-18 15:01:58.921084358 +0300
+@@ -1,5 +1,5 @@
+ """Abstract interface for OID Storage objects"""
+-from __future__ import generators
++
+ from twistedsnmp import errors
+ __metaclass__ = type
+ 
+@@ -62,7 +62,7 @@
+ 			Will require a first() method for all OIDStores
+ 		"""
+ 		if hasattr( valueSet, 'items' ):
+-			valueSet = valueSet.items()
++			valueSet = list(valueSet.items())
+ 		if not valueSet:
+ 			return 0
+ 		# okay, now should be list of tuples or an OIDStore
 @@ -87,7 +87,7 @@
  			while oid:
  				oid,value = self.nextOID( oid )
@@ -397,8 +551,8 @@ diff -ruN a/oidstore.py b/oidstore.py
  
  def dumbPrefix( key, oid ):
 diff -ruN a/pysnmpproto.py b/pysnmpproto.py
---- a/pysnmpproto.py	2022-09-16 16:03:19.000000000 +0300
-+++ b/pysnmpproto.py	2022-09-17 15:10:19.307178545 +0300
+--- a/pysnmpproto.py	2006-04-25 06:02:53.000000000 +0400
++++ b/pysnmpproto.py	2022-10-18 15:01:58.949084358 +0300
 @@ -24,16 +24,16 @@
  		USE_STRING_OIDS = False
  		# This seems to slow down rather than speed up the OID class...
@@ -429,34 +583,20 @@ diff -ruN a/pysnmpproto.py b/pysnmpproto.py
  else:
  	from pysnmp.asn1 import base
 diff -ruN a/setup.py b/setup.py
---- a/setup.py	2022-09-16 16:03:19.000000000 +0300
-+++ b/setup.py	2022-09-17 15:10:27.655178579 +0300
-@@ -10,11 +10,11 @@
- 	import sys,os, string
- 	from distutils.sysconfig import *
- 	from distutils.core import setup
--	
-+	from distutils.command.install_data import install_data
+--- a/setup.py	2006-04-25 06:02:53.000000000 +0400
++++ b/setup.py	2022-10-18 15:01:58.969084358 +0300
+@@ -14,7 +14,7 @@
  	# don't want to use import because there might be an installed version 
  	# and current path is often not in import directories, whereas we *know*
  	# the file is right next to setup.py in the source archive.
 -	execfile( 'version.py', globals())
-+	exec(compile(open("version.py").read(), "version.py", 'exec'))
++	exec(compile(open( 'version.py', "rb").read(), 'version.py', 'exec'), globals())
  
  	##############
  	## Following is from Pete Shinners,
-@@ -22,7 +22,7 @@
- 	## some unix machines where the data files are copied
- 	## to weird locations if the user's configuration options
- 	## were entered during the wrong phase of the moon :) .
--	from distutils.command.install_data import install_data
-+
- 	class smart_install_data(install_data):
- 		def run(self):
- 			#need to change self.install_dir to the library dir
 diff -ruN a/snmpprotocol.py b/snmpprotocol.py
---- a/snmpprotocol.py	2022-09-16 16:03:19.000000000 +0300
-+++ b/snmpprotocol.py	2022-09-17 15:10:36.635178614 +0300
+--- a/snmpprotocol.py	2006-04-25 06:02:53.000000000 +0400
++++ b/snmpprotocol.py	2022-10-18 15:01:59.017084359 +0300
 @@ -54,7 +54,7 @@
  			return
  		try:
@@ -466,6 +606,15 @@ diff -ruN a/snmpprotocol.py b/snmpprotocol.py
  			key = None
  		if key in self.requests:
  			df,timer = self.requests[key]
+@@ -76,7 +76,7 @@
+ 				"""Unexpected request key %r, %r requests pending %s""",
+ 				key,
+ 				len(self.requests),
+-				repr(self.requests.keys())[:100],
++				repr(list(self.requests.keys()))[:100],
+ 			)
+ 	def handleTrap( self, request, address ):
+ 		"""Handle a trap message from an agent"""
 @@ -84,9 +84,9 @@
  		traps = getattr( self, '_trapRegistry', None )
  		if not traps:
@@ -515,6 +664,17 @@ diff -ruN a/snmpprotocol.py b/snmpprotocol.py
  			pass
  		return None
  
+@@ -189,8 +189,8 @@
+ 		instance available as port.protocol on that object
+ 	"""
+ 	if portNumber == -1:
+-		ports = xrange(25000,30000)
+-	elif isinstance( portNumber, (int,long)):
++		ports = range(25000,30000)
++	elif isinstance( portNumber, int):
+ 		ports = [portNumber]
+ 	else:
+ 		ports = portNumber
 @@ -214,13 +214,13 @@
  		"205.207.149.252", 161, protocol = port.protocol,
  	)
@@ -522,7 +682,8 @@ diff -ruN a/snmpprotocol.py b/snmpprotocol.py
 -		print 'Success:'
 +		print('Success:')
  		if isinstance( value, dict ):
- 			value = value.items()
+-			value = value.items()
++			value = list(value.items())
  		for key,item in value:
 -			print key, len(item)
 +			print(key, len(item))
@@ -533,8 +694,8 @@ diff -ruN a/snmpprotocol.py b/snmpprotocol.py
  	d.addCallbacks( onSuccess, onFailure )
  
 diff -ruN a/tableretriever.py b/tableretriever.py
---- a/tableretriever.py	2022-09-16 16:03:19.000000000 +0300
-+++ b/tableretriever.py	2022-09-17 15:10:43.803178643 +0300
+--- a/tableretriever.py	2006-04-25 06:02:53.000000000 +0400
++++ b/tableretriever.py	2022-10-18 15:01:59.081084359 +0300
 @@ -85,7 +85,7 @@
  						if current is None:
  							self.values[ root ] = current = {}
@@ -571,6 +732,15 @@ diff -ruN a/tableretriever.py b/tableretriever.py
  				if getattr(self,'df',None) and not self.df.called:
  					self.df.errback( err )
  					del self.df
+@@ -276,7 +276,7 @@
+ 				# okay, now newOIDs is just the set of old OIDs with the
+ 				# exhausted ones removed...
+ 			else:
+-				errorStatus = str(response['pdu'].values()[0]['error_status'])
++				errorStatus = str(list(response['pdu'].values())[0]['error_status'])
+ 				if errorIndex < len(newOIDs):
+ 					raise error.ProtoError(errorStatus + ' at ' + \
+ 										   str(newOIDs[errorIndex][0]))
 @@ -314,7 +314,7 @@
  						for l in newOIDs, repeatingRoots:
  							del l[idx]
@@ -580,9 +750,30 @@ diff -ruN a/tableretriever.py b/tableretriever.py
  					raise error.ProtoError( """Incorrectly formed table response: %s : %s"""%(newOIDs,err))
  
  		# Decide whether to request next item...
+diff -ruN a/test/basetestcase.py b/test/basetestcase.py
+--- a/test/basetestcase.py	2006-04-25 06:02:53.000000000 +0400
++++ b/test/basetestcase.py	2022-10-18 15:01:59.293084360 +0300
+@@ -18,7 +18,7 @@
+ 	ALLOW_CACHE = True
+ 	def setUp( self ):
+ 		"""Set up the agent to query as self.agent"""
+-		ports = [161]+range(20000,25000)
++		ports = [161]+list(range(20000,25000))
+ 		self.response = None
+ 		self.success = None
+ 		for port in ports:
 diff -ruN a/test/simpleagent.py b/test/simpleagent.py
---- a/test/simpleagent.py	2022-09-16 16:03:19.000000000 +0300
-+++ b/test/simpleagent.py	2022-09-17 15:08:08.995178028 +0300
+--- a/test/simpleagent.py	2006-04-25 06:02:53.000000000 +0400
++++ b/test/simpleagent.py	2022-10-18 15:01:59.309084360 +0300
+@@ -9,7 +9,7 @@
+ logging.getLogger("twsnmp.agentprotocol").setLevel( logging.DEBUG )
+ 
+ def main( ):
+-	ports = [161]+range(20000,25000)
++	ports = [161]+list(range(20000,25000))
+ 	for port in ports:
+ 		try:
+ 			reactor.listenUDP(
 @@ -20,7 +20,7 @@
  					),
  				),
@@ -592,9 +783,42 @@ diff -ruN a/test/simpleagent.py b/test/simpleagent.py
  			return port
  		except twisted_error.CannotListenError:
  			pass
+@@ -38,7 +38,7 @@
+ 		('.1.3.6.1.2.1.2.4.0', v1.OctetString('From Octet String')),
+ 	] + [
+ 		('.1.3.6.1.2.1.3.%s.0'%i, 32)
+-		for i in xrange( 512 )
++		for i in range( 512 )
+ 	] + [
+ 		('.1.3.6.2.1.0', 'Hello world!'),
+ 		('.1.3.6.2.2.0', 32),
+diff -ruN a/test/test_basic.py b/test/test_basic.py
+--- a/test/test_basic.py	2006-04-25 06:02:53.000000000 +0400
++++ b/test/test_basic.py	2022-10-18 15:01:59.341084360 +0300
+@@ -1,4 +1,4 @@
+-from __future__ import nested_scopes
++
+ from twisted.internet import reactor
+ import unittest
+ from twistedsnmp.test import basetestcase
 diff -ruN a/test/test_get.py b/test/test_get.py
---- a/test/test_get.py	2022-09-16 16:03:19.000000000 +0300
-+++ b/test/test_get.py	2022-09-17 15:08:19.099178068 +0300
+--- a/test/test_get.py	2006-04-25 06:02:53.000000000 +0400
++++ b/test/test_get.py	2022-10-18 15:01:59.417084360 +0300
+@@ -1,4 +1,4 @@
+-from __future__ import nested_scopes
++
+ from twisted.internet import reactor
+ import socket, unittest
+ from twistedsnmp import agent, agentprotocol, twinetables, agentproxy
+@@ -21,7 +21,7 @@
+ 			('.1.3.6.1.2.1.2.4.0', v1.OctetString('From Octet String')),
+ 		] + [
+ 			('.1.3.6.1.2.1.3.%s.0'%i, 32)
+-			for i in xrange( 512 )
++			for i in range( 512 )
+ 		] + [
+ 			('.1.3.6.2.1.0', 'Hello world!'),
+ 			('.1.3.6.2.2.0', 32),
 @@ -39,7 +39,7 @@
  
  		assert self.success, self.response
@@ -631,7 +855,7 @@ diff -ruN a/test/test_get.py b/test/test_get.py
  		assert isinstance(tableData, dict)
  		# won't have this key because started later...
 -		assert not tableData.has_key(oid.OID('.1.3.6.1.2.1.1.1.0')), tableData
-+		assert not oid.OID('.1.3.6.1.2.1.1.1.0') in tableData, tableData
++		assert oid.OID('.1.3.6.1.2.1.1.1.0') not in tableData, tableData
  		# should (only) have this key because started at 3...
 -		assert tableData.has_key(oid.OID('.1.3.6.1.2.1.1.4.0')), tableData
 +		assert oid.OID('.1.3.6.1.2.1.1.4.0') in tableData, tableData
@@ -654,25 +878,52 @@ diff -ruN a/test/test_get.py b/test/test_get.py
 -			assert self.response.has_key( oid.OID(oidObject) )
 -		assert not self.response.has_key( oid.OID(oids[-1]) ), self.response
 +			assert oid.OID(oidObject) in self.response
-+		assert not oid.OID(oids[-1]) in self.response, self.response
++		assert oid.OID(oids[-1]) not in self.response, self.response
  	#good
  	def test_tableGetErrorReported( self ):
  		oids = [
-diff -ruN a/test/test.py b/test/test.py
---- a/test/test.py	2022-09-16 16:03:19.000000000 +0300
-+++ b/test/test.py	2022-09-17 15:15:28.267179772 +0300
-@@ -45,7 +45,7 @@
- 			import gc
- 			while 1:
- 				unittest.TextTestRunner(verbosity=2).run( suite )
--				#print 'collection', gc.collect()
-+				#print('collection', gc.collect())
- 				
- 		else:
- 			unittest.TextTestRunner(verbosity=2).run( suite )
+@@ -317,7 +313,7 @@
+ 		] )
+ 		self.doUntilFinish( d )
+ 		assert self.success, """Failed to retrieve"""
+-		perRecord = twinetables.twineTables( self.response, self.response.keys())
++		perRecord = twinetables.twineTables( self.response, list(self.response.keys()))
+ 		assert len(perRecord) == 1024, """Didn't get 1024 records, got %r"""%(len(perRecord))
+ 		
+ class LargeTableTestv2c( LargeTableTest ):
+diff -ruN a/test/test_storage.py b/test/test_storage.py
+--- a/test/test_storage.py	2006-04-25 06:02:53.000000000 +0400
++++ b/test/test_storage.py	2022-10-18 15:01:59.541084361 +0300
+@@ -127,7 +127,7 @@
+ 				]
+ 			)
+ 		)
+-		self.failUnlessRaises(
++		self.assertRaises(
+ 			errors.OIDNameError,
+ 			store.firstOID,
+ 		)
+@@ -195,7 +195,7 @@
+ 			[
+ 			]
+ 		)
+-		self.failUnlessRaises(
++		self.assertRaises(
+ 			errors.OIDNameError,
+ 			store.nextOID,
+ 			'.1.3.6.1',
+@@ -208,7 +208,7 @@
+ 			)
+ 		)
+ 		subStorage = store.getExactOID( '.1.3.6.1.2.1.1.3')[1]
+-		self.failUnlessRaises(
++		self.assertRaises(
+ 			errors.OIDNameError,
+ 			store.nextOID,
+ 			'.1.3.6.1',
 diff -ruN a/test/test_trap.py b/test/test_trap.py
---- a/test/test_trap.py	2022-09-16 16:03:19.000000000 +0300
-+++ b/test/test_trap.py	2022-09-17 15:08:28.255178105 +0300
+--- a/test/test_trap.py	2006-04-25 06:02:53.000000000 +0400
++++ b/test/test_trap.py	2022-10-18 15:01:59.565084361 +0300
 @@ -36,7 +36,7 @@
  			genericType=6, specificType=8,
  			callback = self.storeTrap,
@@ -701,8 +952,31 @@ diff -ruN a/test/test_trap.py b/test/test_trap.py
  
  class TrapTestsV2c( TrapTestsV1 ):
 diff -ruN a/twinetables.py b/twinetables.py
---- a/twinetables.py	2022-09-16 16:03:19.000000000 +0300
-+++ b/twinetables.py	2022-09-17 15:13:39.727179341 +0300
+--- a/twinetables.py	2006-04-25 06:02:53.000000000 +0400
++++ b/twinetables.py	2022-10-18 15:01:59.089084359 +0300
+@@ -33,7 +33,7 @@
+ 	result = {}
+ 	for oid in oids:
+ 		table = oidTable.get( oid, {} )
+-		for key,value in table.iteritems():
++		for key,value in table.items():
+ 			subKey = key[len(oid):]
+ 			record = result.get( subKey ) or {}
+ 			record[ oid ] = value
+@@ -50,11 +50,11 @@
+ 	
+ 	yields (suffix,record) with record as dict with passed oids as keys
+ 	"""
+-	tables = oidTable.items()
++	tables = list(oidTable.items())
+ 	def nextItem( ):
+ 		while tables:
+ 			(key,table) = tables[0]
+-			nextKey = table.iterkeys().next()
++			nextKey = next(iter(table.keys()))
+ 			yield nextKey[len(key):]
+ 			while tables and not tables[0][1]:
+ 				del tables[0]
 @@ -63,6 +63,6 @@
  		for oid,table in tables:
  			try:
@@ -712,8 +986,8 @@ diff -ruN a/twinetables.py b/twinetables.py
  				pass 
  		yield suffix, record 
 diff -ruN a/utilities/mirroragent.py b/utilities/mirroragent.py
---- a/utilities/mirroragent.py	2022-09-16 16:03:19.000000000 +0300
-+++ b/utilities/mirroragent.py	2022-09-17 15:08:40.311178152 +0300
+--- a/utilities/mirroragent.py	2006-04-25 06:02:53.000000000 +0400
++++ b/utilities/mirroragent.py	2022-10-18 15:01:59.577084361 +0300
 @@ -6,18 +6,18 @@
  	"""Do a getTable on proxy for OIDs and store in oidStore"""
  	oidStore = openStore( oidStore )
@@ -746,8 +1020,8 @@ diff -ruN a/utilities/mirroragent.py b/utilities/mirroragent.py
  	ipAddress = sys.argv[1]
  	port = reactor.listenUDP(
 diff -ruN a/utilities/synchronous.py b/utilities/synchronous.py
---- a/utilities/synchronous.py	2022-09-16 16:03:19.000000000 +0300
-+++ b/utilities/synchronous.py	2022-09-17 15:08:50.147178191 +0300
+--- a/utilities/synchronous.py	2006-04-25 06:02:53.000000000 +0400
++++ b/utilities/synchronous.py	2022-10-18 15:01:59.605084361 +0300
 @@ -71,11 +71,11 @@
  if __name__ == "__main__":
  	import sys
@@ -776,13 +1050,12 @@ diff -ruN a/utilities/synchronous.py b/utilities/synchronous.py
  		)
  		proxy.verbose = 1
 -		print synchronous( 0, proxy.getTable, ('.1.3.6.1.2.1.1',) )
--		
-\ В конце файла нет новой строки
 +		print(synchronous( 0, proxy.getTable, ('.1.3.6.1.2.1.1',) ))
-+		
+ 		
+\ В конце файла нет новой строки
 diff -ruN a/v3/agentproxy.py b/v3/agentproxy.py
---- a/v3/agentproxy.py	2022-09-16 16:03:19.000000000 +0300
-+++ b/v3/agentproxy.py	2022-09-17 15:09:02.519178241 +0300
+--- a/v3/agentproxy.py	2006-04-25 06:02:53.000000000 +0400
++++ b/v3/agentproxy.py	2022-10-18 15:01:59.685084361 +0300
 @@ -80,12 +80,12 @@
  			request = self.encode(oids, self.community)
  			key = self.getRequestKey( request )
@@ -798,6 +1071,15 @@ diff -ruN a/v3/agentproxy.py b/v3/agentproxy.py
  				log.error( """Failure converting query results %r to dictionary: %s""", value, err )
  				return {}
  		df = defer.Deferred()
+@@ -105,7 +105,7 @@
+ 		if not self.protocol:
+ 			raise ValueError( """Expected a non-null protocol object! Got %r"""%(self.protocol,))
+ 		if hasattr( oids, "items"):
+-			oids = oids.items()
++			oids = list(oids.items())
+ 		request = self.encode(oids, self.community, set=1)
+ 		key = self.getRequestKey( request )
+ 		def raiseOnError( response ):
 @@ -115,7 +115,7 @@
  			return response
  		try:
@@ -824,3 +1106,57 @@ diff -ruN a/v3/agentproxy.py b/v3/agentproxy.py
 +		except Exception as err:
  			df.errback( failure.Failure() )
  		
+diff -ruN a/v4/agentproxy.py b/v4/agentproxy.py
+--- a/v4/agentproxy.py	2006-04-25 06:02:53.000000000 +0400
++++ b/v4/agentproxy.py	2022-10-18 15:01:59.741084361 +0300
+@@ -16,7 +16,7 @@
+ class BaseProxy:
+ 	"""Base class for all proxies based on SNMP v4.x"""
+ 	_targetCache = {}
+-	_newTargetName = targetNames().next
++	_newTargetName = targetNames().__next__
+ 	def __init__( self, engine, targetName, snmpVersion='3' ):
+ 		"""Initialize the Proxy object's core parameters"""
+ 		self.engine = engine 
+@@ -181,20 +181,20 @@
+ 			if not foundRoots or not foundNonNull:
+ 				df.callback( result )
+ 			else:
+-				roots[:] = foundRoots.keys()
++				roots[:] = list(foundRoots.keys())
+ 				if self.snmpVersion != '1':
+ 					cmdgen.BulkCommandGenerator().sendReq(
+ 						self.engine, self.targetName, 
+ 						0, # nonRepeaters (count)
+ 						maxRepetitions,
+-						[(r,None) for r in foundRoots.values()], # varBinds
++						[(r,None) for r in list(foundRoots.values())], # varBinds
+ 						_onTabularResult, 
+ 						df,
+ 					)
+ 				else:
+ 					cmdgen.NextCommandGenerator().sendReq(
+ 						self.engine, self.targetName, 
+-						[(r,None) for r in foundRoots.values()], 
++						[(r,None) for r in list(foundRoots.values())], 
+ 						_onTabularResult, df
+ 					)
+ 		if self.snmpVersion != '1':
+@@ -232,7 +232,7 @@
+ class AgentProxy(BaseProxy):
+ 	"""Proxy object for querying a remote agent"""
+ 	_v1ParamCache = {}
+-	_newV1Name = targetNames().next
++	_newV1Name = targetNames().__next__
+ 	def __init__(
+ 		self, ip, port=161, 
+ 		community='public', snmpVersion = '1', 
+@@ -313,7 +313,7 @@
+ 		False:config.usmNoPrivProtocol,
+ 	}
+ 	_v3paramCache = {}
+-	_newV3Name = targetNames().next
++	_newV3Name = targetNames().__next__
+ 	def __init__(
+ 		self, ip, port=161, 
+ 		engine=None, 
