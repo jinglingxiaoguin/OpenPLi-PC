@@ -105,7 +105,6 @@ mv $PKG*.* $PKG
 cd $PKG
 dpkg -i *.deb
 rm -f *.tar.xz
-make distclean
 cd ..
 
 # Build and install libxmlccwrap-git:
@@ -137,7 +136,6 @@ else
 	cd $PKG
 	dpkg -i *.deb
 	rm -f *.tar.gz
-	make distclean
 	cd ..
 fi
 
@@ -175,7 +173,6 @@ else
 	./configure --prefix=/usr --enable-sse2
 	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.2.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
 	rm -f *.tgz
-	make distclean
 	cd ..
 fi
 
@@ -222,7 +219,6 @@ else
 	./configure --prefix=/usr --with-boxtype=generic DVB_API_VERSION=5
 	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
 	rm -f *.tgz
-	make distclean
 	cd ..
 fi
 
@@ -244,7 +240,6 @@ else
 	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
 	find $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/Tuxtxt -name "*.py[o]" -exec rm {} \;
 	rm -f *.tgz
-	make distclean
 	cd ../..
 fi
 
@@ -275,7 +270,6 @@ else
 	./configure --prefix=/usr
 	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
 	rm -f *.tgz
-	make distclean
 	cd ..
 fi
 
@@ -308,7 +302,6 @@ else
 	./configure --prefix=/usr --with-wma --with-wmv --with-pcm --with-dtsdownmix --with-eac3 --with-mpeg4 --with-mpeg4v2 --with-h263 --with-h264 --with-h265
 	checkinstall -D --install=yes --default --pkgname=$LIB --pkgversion=1.0.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
 	rm -f *.tgz
-	make distclean
 	cd ..
 fi
 
@@ -348,7 +341,6 @@ else
 	./configure --prefix=/usr
 	checkinstall -D --install=yes --default --pkgname=$LIB --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
 	rm -f *.tgz
-	make distclean
 	cd ..
 fi
 
@@ -382,7 +374,7 @@ else
 	cd ..
 fi
 
-# Build and install python3-attrs:
+# Build and install python3-Js2Py:
 if [ ! -d twistedsnmp ]; then
 	set -e
 	set -o pipefail
@@ -401,7 +393,10 @@ else
 	unzip $VER.zip
 	rm $VER.zip
 	mv $PKG-$VER $PKG
-	cd $PKG
+	cd ..
+	cp patches/$PKG.patch libs/$PKG
+	cd libs/$PKG
+	patch -p1 < $PKG.patch
 	python3 setup.py install
 	cd ..
 fi
@@ -425,7 +420,10 @@ else
 	unzip $VER.zip
 	rm $VER.zip
 	mv $PKG-$VER $PKG
-	cd $PKG
+	cd ..
+	cp patches/$PKG.patch libs/$PKG
+	cd libs/$PKG
+	patch -p1 < $PKG.patch
 	python3 setup.py install
 	cd ..
 fi
@@ -454,61 +452,8 @@ else
 	cd ..
 fi
 
-# Build and install python3-pyusb:
-if [ ! -d livestreamersrv ]; then
-	set -e
-	set -o pipefail
-else
-	PKG="pyusb"
-	VER="777dea9d718e70d7323c821d4497c706b35742da"
-	echo ""
-	echo "**************************** OK. Go to the next step. ******************************"
-	echo ""
-	echo "                    *** Build and install $PKG ***"
-	echo ""
-	if [ -d $PKG ]; then
-		rm -rf $PKG
-	fi
-	wget https://github.com/pyusb/pyusb/archive/$VER.zip
-	unzip $VER.zip
-	rm $VER.zip
-	mv $PKG-$VER $PKG
-	cd $PKG
-	python3 setup.py install
-	cd ..
-fi
-
-# Build and install PythonDaap:
-if [ ! -d pyusb ]; then
-	set -e
-	set -o pipefail
-else
-	PKG="PythonDaap"
-	VER="fe13e119841550f5ac0c87a1f81b07021d4a78d3"
-	echo ""
-	echo "**************************** OK. Go to the next step. ******************************"
-	echo ""
-	echo "                    *** Build and install $PKG ***"
-	echo ""
-	if [ -d $PKG ]; then
-		rm -rf $PKG
-	fi
-	wget https://github.com/abdelgmartinezl/PythonDaap/archive/$VER.zip
-	unzip $VER.zip
-	rm $VER.zip
-	mv $PKG-$VER $PKG
-	cd ..
-	cp patches/python-daap.patch libs/$PKG
-	cp patches/The-member-ob_type-is-not-present-in-the-pcapobject.patch libs/$PKG
-	cd libs/$PKG
-	patch -p1 < python-daap.patch
-	patch -p1 < The-member-ob_type-is-not-present-in-the-pcapobject.patch
-	python3 setup.py install
-	cd ..
-fi
-
 # Message if error at any point of script
-if [ ! -d PythonDaap ]; then
+if [ ! -d ipaddress ]; then
 	set -e
 	set -o pipefail
 	echo ""
@@ -529,7 +474,7 @@ else
 	fi
 	cd ..
 	pip install pysmb zope.interface pycryptodomex pysocks rbtranslations soco tenjin tcpbridge pyserial PyHamcrest \
-	pyexecjs py3amf pillow gdata-python3 futures3 cocy circuits-bricks cfscrape bluetool pyopenssl
+	pyexecjs py3amf pillow gdata-python3 futures3 cocy circuits-bricks cfscrape bluetool pyopenssl pyusb
 	python3 -m pip install pysha3
 	echo ""
 	echo "************************************ DONE! *****************************************"

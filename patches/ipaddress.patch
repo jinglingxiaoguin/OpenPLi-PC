@@ -1,0 +1,47 @@
+diff -ruN a/ipaddress.py b/ipaddress.py
+--- a/ipaddress.py	2019-10-18 04:30:15.000000000 +0300
++++ b/ipaddress.py	2022-10-19 11:45:17.239111155 +0300
+@@ -8,7 +8,7 @@
+ 
+ """
+ 
+-from __future__ import unicode_literals
++
+ 
+ 
+ import itertools
+@@ -19,11 +19,11 @@
+ # Compatibility functions
+ _compat_int_types = (int,)
+ try:
+-    _compat_int_types = (int, long)
++    _compat_int_types = (int, int)
+ except NameError:
+     pass
+ try:
+-    _compat_str = unicode
++    _compat_str = str
+ except NameError:
+     _compat_str = str
+     assert bytes != str
+@@ -1263,7 +1263,7 @@
+ 
+         try:
+             return _compat_int_from_byte_vals(
+-                map(cls._parse_octet, octets), 'big')
++                list(map(cls._parse_octet, octets)), 'big')
+         except ValueError as exc:
+             raise AddressValueError("%s in %r" % (exc, ip_str))
+ 
+diff -ruN a/test_ipaddress.py b/test_ipaddress.py
+--- a/test_ipaddress.py	2019-10-18 04:30:15.000000000 +0300
++++ b/test_ipaddress.py	2022-10-19 11:45:18.003111158 +0300
+@@ -3,7 +3,7 @@
+ 
+ """Unittest for ipaddress module."""
+ 
+-from __future__ import unicode_literals
++
+ 
+ import contextlib
+ import operator
