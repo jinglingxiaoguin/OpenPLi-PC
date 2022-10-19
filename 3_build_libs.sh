@@ -453,7 +453,7 @@ else
 fi
 
 # Message if error at any point of script
-if [ ! -d ipaddress ]; then
+if [ ! -d livestreamersrv ]; then
 	set -e
 	set -o pipefail
 	echo ""
