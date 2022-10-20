@@ -1,0 +1,74 @@
+diff -ruN a/daap.py b/daap.py
+--- a/daap.py	2015-11-15 00:01:58.000000000 +0300
++++ b/daap.py	2022-10-20 16:33:42.185283093 +0300
+@@ -419,15 +419,17 @@
+         # this returns an HTTP response object
+         response    = self._get_response(r, params)
+         status = response.status
+-        content = response.read()
+-        # if we got gzipped data base, gunzip it.
+-        if response.getheader("Content-Encoding") == "gzip":
+-            log.debug("gunzipping data")
+-            old_len = len(content)
+-            compressedstream = StringIO( content )
+-            gunzipper = gzip.GzipFile(fileobj=compressedstream)
+-            content = gunzipper.read()
+-            log.debug("expanded from %s bytes to %s bytes", old_len, len(content))
++        #Dr.Best --> fix 
++        if status == 200:
++            content = response.read()
++            # if we got gzipped data base, gunzip it.
++            if response.getheader("Content-Encoding") == "gzip":
++                log.debug("gunzipping data")
++                old_len = len(content)
++                compressedstream = StringIO( content )
++                gunzipper = gzip.GzipFile(fileobj=compressedstream)
++                content = gunzipper.read()
++                log.debug("expanded from %s bytes to %s bytes", old_len, len(content))
+         # close this, we're done with it
+         response.close()
+ 
+@@ -513,7 +515,7 @@
+ # the atoms we want. Making this list smaller reduces memory footprint,
+ # and speeds up reading large libraries. It also reduces the metainformation
+ # available to the client.
+-daap_atoms = "dmap.itemid,dmap.itemname,daap.songalbum,daap.songartist,daap.songformat,daap.songtime,daap.songsize,daap.songgenre,daap.songyear,daap.songtracknumber"
++daap_atoms = "dmap.itemid,dmap.itemname,daap.songalbum,daap.songartist,daap.songformat,daap.songtime,daap.songsize,daap.songgenre,daap.songyear,daap.songtracknumber,daap.songtrackcount,daap.songbitrate"
+ 
+ class DAAPDatabase(object):
+ 
+@@ -562,7 +564,12 @@
+         'id':'miid',
+         'type':'asfm',
+         'time':'astm',
+-        'size':'assz'}
++        'size':'assz',
++        'year':'asyr',
++        'genre':'asgn',
++        'tracknr': 'astn',
++        'trackcount': 'astc',
++        'bitrate': 'asbr'}
+ 
+     def __init__(self, database, atom):
+         self.database = database
+diff -ruN a/md5module.c b/md5module.c
+--- a/md5module.c	2015-11-15 00:01:58.000000000 +0300
++++ b/md5module.c	2022-10-20 16:34:20.925283247 +0300
+@@ -19,7 +19,7 @@
+ 
+ static PyTypeObject MD5type;
+ 
+-#define is_md5object(v)		((v)->ob_type == &MD5type)
++#define is_md5object(v)		(Py_TYPE(v) == &MD5type)
+ 
+ static md5object *
+ newmd5object(void)
+@@ -259,7 +259,7 @@
+ {
+ 	PyObject *m, *d;
+ 
+-        MD5type.ob_type = &PyType_Type;
++        Py_TYPE(&MD5type) = &PyType_Type;
+ 	m = Py_InitModule3("md5daap", md5_functions, module_doc);
+ 	d = PyModule_GetDict(m);
+ 	PyDict_SetItemString(d, "MD5Type", (PyObject *)&MD5type);

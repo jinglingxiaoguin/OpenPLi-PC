@@ -474,8 +474,34 @@ else
 	cd ..
 fi
 
-# Build and install python3-livestreamersrv:
+# Build and install PythonDaap:
 if [ ! -d ipaddress ]; then
+	set -e
+	set -o pipefail
+else
+	PKG="PythonDaap"
+	echo ""
+	echo "**************************** OK. Go to the next step. ******************************"
+	echo ""
+	echo "                    *** Build and install $PKG ***"
+	echo ""
+	if [ -d $PKG ]; then
+		rm -rf $PKG
+	fi
+	wget https://github.com/abdelgmartinezl/PythonDaap/archive/refs/heads/master.zip
+	unzip master.zip
+	rm -f master.zip
+	mv $PKG-master $PKG
+	cd ..
+	cp patches/$PKG.patch libs/$PKG
+	cd libs/$PKG
+	patch -p1 < $PKG.patch
+	python3 setup.py install
+	cd ..
+fi
+
+# Build and install python3-livestreamersrv:
+if [ ! -d PythonDaap ]; then
 	set -e
 	set -o pipefail
 else
@@ -494,7 +520,6 @@ else
 	rm $VER.zip
 	mv $PKG-$VER $PKG
 	# Place for cp?
-	cd ..
 fi
 
 # Message if error at any point of script
