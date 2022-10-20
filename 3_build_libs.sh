@@ -95,6 +95,9 @@ if [ -n "$I" ]; then
 else
 	echo "$LIB not installed"
 fi
+if [ -d $PKG ]; then
+	rm -rf $PKG
+fi
 #git clone https://github.com/OpenDMM/$PKG.git
 git clone --depth 1 git://git.opendreambox.org/git/obi/$PKG.git
 cd $PKG
@@ -124,11 +127,16 @@ else
 	else
 		echo "$PKG not installed"
 	fi
+	if [ -d $PKG ]; then
+		rm -rf $PKG
+	fi
 	git clone https://github.com/OpenDMM/$PKG.git
 #	git clone git://git.opendreambox.org/git/obi/$PKG.git
 	cd $PKG
 	rpl '5' '10' debian/compat
 	rpl 'Source-Version' 'binary:Version' debian/control
+	sed -i 's/-$(MAKE) clean//g' debian/rules
+	sed -i 's/-$(MAKE) distclean//g' debian/rules
 #	autoupdate
 	dpkg-buildpackage -b -d -uc -us
 	cd ..
@@ -163,6 +171,9 @@ else
 		dpkg -r $PKG1 $PKG-dev tsdecrypt
 	else
 		echo "$PKG1 not installed"
+	fi
+	if [ -d $PKG ]; then
+		rm -rf $PKG
 	fi
 	wget https://code.videolan.org/videolan/$PKG/-/archive/$VER/$PKG-$VER.zip
 	unzip $PKG-$VER.zip
@@ -201,6 +212,9 @@ else
 	if [ ! -d $INSTALL_E2DIR/lib/enigma2 ]; then
 		mkdir -p $INSTALL_E2DIR/lib/enigma2
 		ln -s $INSTALL_E2DIR/lib/enigma2 /usr/lib
+	fi
+	if [ -d $SOURCE ]; then
+		rm -rf $SOURCE
 	fi
 	wget https://github.com/OpenPLi/$PKG_/archive/$VER.zip
 	unzip $VER.zip
@@ -261,6 +275,9 @@ else
 	else
 		echo "$PKG not installed"
 	fi
+	if [ -d $PKG ]; then
+		rm -rf $PKG
+	fi
 	wget https://github.com/OpenPLi/$PKG/archive/$VER.zip
 	unzip $VER.zip
 	rm $VER.zip
@@ -291,6 +308,9 @@ else
 		dpkg -r $LIB
 	else
 		echo "$LIB not installed"
+	fi
+	if [ -d $PKG ]; then
+		rm -rf $PKG
 	fi
 	wget https://github.com/OpenPLi/$PKG/archive/$VER.zip
 	unzip $VER.zip
@@ -323,6 +343,9 @@ else
 		dpkg -r $LIB
 	else
 		echo "$LIB not installed"
+	fi
+	if [ -d $PKG ]; then
+		rm -rf $PKG
 	fi
 	wget https://github.com/OpenPLi/$PKG/archive/$VER.zip
 	unzip $VER.zip
@@ -374,8 +397,31 @@ else
 	cd ..
 fi
 
-# Build and install python3-Js2Py:
+# Build and install python3-pythonwifi:
 if [ ! -d twistedsnmp ]; then
+	set -e
+	set -o pipefail
+else
+	PKG="pythonwifi"
+	echo ""
+	echo "**************************** OK. Go to the next step. ******************************"
+	echo ""
+	echo "                    *** Build and install $PKG ***"
+	echo ""
+	if [ -d $PKG ]; then
+		rm -rf $PKG
+	fi
+	wget https://github.com/athoik/pythonwifi/archive/refs/heads/master.zip
+	unzip master.zip
+	rm -f master.zip
+	mv $PKG-master $PKG
+	cd $PKG
+	python3 setup.py install
+	cd ..
+fi
+
+# Build and install python3-Js2Py:
+if [ ! -d pythonwifi ]; then
 	set -e
 	set -o pipefail
 else
@@ -447,8 +493,7 @@ else
 	unzip $VER.zip
 	rm $VER.zip
 	mv $PKG-$VER $PKG
-	cd $PKG
-	python3 setup.py install
+	# Place for cp?
 	cd ..
 fi
 
