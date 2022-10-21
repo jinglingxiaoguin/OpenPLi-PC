@@ -570,8 +570,8 @@ else
 	fi
 	cd ..
 	pip install pysmb zope.interface pycryptodomex pysocks rbtranslations soco tenjin tcpbridge pyserial PyHamcrest \
-	pip install -U pyopenssl
 	pyexecjs py3amf pillow gdata-python3 futures3 cocy circuits-bricks cfscrape bluetool pyopenssl pyusb
+	pip install -U pyopenssl
 	python3 -m pip install pysha3
 	echo ""
 	echo "************************************ DONE! *****************************************"
