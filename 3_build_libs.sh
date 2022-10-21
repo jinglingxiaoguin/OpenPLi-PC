@@ -40,12 +40,12 @@ if [[ "$release" = "22.04" ]]; then
 	echo "************************************************************************************"
 	echo ""
 	REQPKG="flake8 gcc-11 g++-11 libdca-dev libssl3 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev libffi7 libfuture-perl ntpsec pycodestyle \
-	sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 streamlink yamllint ntpsec-ntpdate neurodebian-popularity-contest popularity-contest  pylint \
+	sqlite3 sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 streamlink yamllint ntpsec-ntpdate neurodebian-popularity-contest popularity-contest  pylint \
 	python3-transmissionrpc python3-sabyenc python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 \
 	python3-pymysql python3-sphinxcontrib.websupport python3-sphinxcontrib.httpdomain python3-langdetect python3-restructuredtext-lint python3-ntplib python3-ntp python3-pysnmp4 python3-asn1crypto \
 	python3-attr python3-autobahn python3-biplist python3-cheroot python3-cheetah python3-cherrypy3 python3-circuits python3-cssselect python3-dnspython python3-feedparser python3-fuzzywuzzy \
 	python3-guessit python3-icalendar python3-isodate python3-ndg-httpsclient python3-notify2 python3-pbkdf2 python3-puremagic python3-pycountry python3-setuptools-scm-git-archive \
-	python3-singledispatch python3-sphinx-rtd-theme python3-streamlink python3-levenshtein python3-sgmllib3k python3-ujson \
+	python3-singledispatch python3-sphinx-rtd-theme python3-streamlink python3-levenshtein python3-sgmllib3k python3-ujson python3-willow python3-num2words python3-pprintpp \
 	"
 
 # Unfortunately e2pc doesn't work with wayland
@@ -500,8 +500,34 @@ else
 	cd ..
 fi
 
-# Build and install python3-livestreamersrv:
+# Build and install python3-pyload:
 if [ ! -d PythonDaap ]; then
+	set -e
+	set -o pipefail
+else
+	PKG="pyload"
+	echo ""
+	echo "**************************** OK. Go to the next step. ******************************"
+	echo ""
+	echo "                    *** Build and install $PKG ***"
+	echo ""
+	if [ -d $PKG ]; then
+		rm -rf $PKG
+	fi
+	wget https://github.com/pyload/pyload/archive/refs/heads/main.zip
+	unzip main.zip
+	rm main.zip
+	mv $PKG-main $PKG
+	cd ..
+	cp patches/$PKG.patch libs/$PKG
+	cd libs/$PKG
+	patch -p1 < $PKG.patch
+	python3 setup.py install
+	cd ..
+fi
+
+# Build and install python3-livestreamersrv:
+if [ ! -d pyload ]; then
 	set -e
 	set -o pipefail
 else
@@ -544,6 +570,7 @@ else
 	fi
 	cd ..
 	pip install pysmb zope.interface pycryptodomex pysocks rbtranslations soco tenjin tcpbridge pyserial PyHamcrest \
+	pip install -U pyopenssl
 	pyexecjs py3amf pillow gdata-python3 futures3 cocy circuits-bricks cfscrape bluetool pyopenssl pyusb
 	python3 -m pip install pysha3
 	echo ""
