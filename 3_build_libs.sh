@@ -39,18 +39,28 @@ if [[ "$release" = "22.04" ]]; then
 	echo "                             *** release 22.04 ***"
 	echo "************************************************************************************"
 	echo ""
-	REQPKG="flake8 gcc-11 g++-11 libdca-dev libssl3 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev libffi7 libfuture-perl ntpsec pycodestyle \
-	sqlite3 sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 streamlink yamllint ntpsec-ntpdate neurodebian-popularity-contest popularity-contest  pylint \
+	############# Temporarily! #############
+	PKG="libdvbcsa"
+	dpkg -s $PKG | grep -iw ok > /dev/null
+	if [ $? -eq 0 ]; then
+		echo "'$PKG' will be removed"
+		dpkg -P $PKG
+	else
+		echo "'$PKG' not installed"
+	fi
+	########################################
+	REQPKG="flake8 gcc-11 g++-11 libdvbcsa1 libdvbcsa-dev libssl3 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev libffi7 libfuture-perl ntpsec \
+	pycodestyle sqlite3 sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 streamlink yamllint ntpsec-ntpdate neurodebian-popularity-contest popularity-contest  pylint \
 	python3-transmissionrpc python3-sabyenc python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 \
 	python3-pymysql python3-sphinxcontrib.websupport python3-sphinxcontrib.httpdomain python3-langdetect python3-restructuredtext-lint python3-ntplib python3-ntp python3-pysnmp4 python3-asn1crypto \
 	python3-attr python3-autobahn python3-biplist python3-cheroot python3-cheetah python3-cherrypy3 python3-circuits python3-cssselect python3-dnspython python3-feedparser python3-fuzzywuzzy \
 	python3-guessit python3-icalendar python3-isodate python3-ndg-httpsclient python3-notify2 python3-pbkdf2 python3-puremagic python3-pycountry python3-setuptools-scm-git-archive \
-	python3-singledispatch python3-sphinx-rtd-theme python3-streamlink python3-levenshtein python3-sgmllib3k python3-ujson python3-willow python3-num2words python3-pprintpp \
+	python3-singledispatch python3-sphinx-rtd-theme python3-streamlink python3-levenshtein python3-sgmllib3k python3-ujson python3-willow python3-num2words python3-pprintpp  \
 	"
 
-# Unfortunately e2pc doesn't work with wayland
-#	cp -fv /etc/gdm3/custom.conf /etc/gdm3/custom.conf~
-#	rpl '#WaylandEnable=false' 'WaylandEnable=false' /etc/gdm3/custom.conf
+	# Unfortunately e2pc doesn't work with wayland
+	#	cp -fv /etc/gdm3/custom.conf /etc/gdm3/custom.conf~
+	#	rpl '#WaylandEnable=false' 'WaylandEnable=false' /etc/gdm3/custom.conf
 fi
 
 for p in $REQPKG; do
@@ -77,23 +87,26 @@ tar -xvjf dvb-firmwares.tar.bz2 -C /lib/firmware
 rm -f dvb-firmwares.tar.bz2
 
 if [ -d $BUILD_DIR ]; then
-	rm -rfv $BUILD_DIR
+	rm -rf $BUILD_DIR
 fi
 mkdir -v $BUILD_DIR
 cd $BUILD_DIR
 
 # Build and install libdvbsi++-git:
 LIB="libdvbsi++1"
-#PKG="libdvbsi-"
 PKG="libdvbsi++"
+#PKG="libdvbsi-"
 echo ""
 echo "                    *** Build and install $PKG ***"
 echo ""
-I=`dpkg -s $LIB | grep "Status"`
-if [ -n "$I" ]; then
-	dpkg -r $PKG $PKG-dev
+dpkg -s $PKG-dev | grep -iw ok > /dev/null
+if [ $? -eq 0 ]; then
+	echo "'$LIB' '$PKG-dev' '$LIB-dbgsym' will be removed"
+	dpkg -P $PKG-dev
+	dpkg -P $LIB-dbgsym
+	dpkg -P $LIB
 else
-	echo "$LIB not installed"
+	echo "'$LIB' '$PKG-dev' '$LIB-dbgsym' not installed"
 fi
 if [ -d $PKG ]; then
 	rm -rf $PKG
@@ -111,21 +124,25 @@ rm -f *.tar.xz
 cd ..
 
 # Build and install libxmlccwrap-git:
-if [ ! -f libdvbsi++/libdvbsi++1_0.3.9_amd64.deb ]; then
+if [ ! -d libdvbsi++ ]; then
 	set -e
 	set -o pipefail
 else
 	PKG="libxmlccwrap"
+	PKG_="libxmlccwrap-dbgsym"
 	echo ""
 	echo "**************************** OK. Go to the next step. ******************************"
 	echo ""
 	echo "                     *** Build and install $PKG ***"
 	echo ""
-	I=`dpkg -s $PKG | grep "Status"`
-	if [ -n "$I" ]; then
-		dpkg -r $PKG $PKG-dev
+	dpkg -s $PKG | grep -iw ok > /dev/null
+	if [ $? -eq 0 ]; then
+	echo "'$PKG' '$PKG-dev' '$PKG_' will be removed"
+	dpkg -P $PKG_
+	dpkg -P $PKG-dev
+	dpkg -P $PKG
 	else
-		echo "$PKG not installed"
+	echo "'$PKG' '$PKG-dev' '$PKG_' not installed"
 	fi
 	if [ -d $PKG ]; then
 		rm -rf $PKG
@@ -147,48 +164,8 @@ else
 	cd ..
 fi
 
-# Build and install libdvbcsa-git:
-if [ ! -f libxmlccwrap/libxmlccwrap_0.0.12-1_amd64.deb ]; then
-	set -e
-	set -o pipefail
-else
-	PKG="libdvbcsa"
-	PKG1="libdvbcsa1"
-	VER="bc6c0b164a87ce05e9925785cc6fb3f54c02b026"
-	echo ""
-	echo "**************************** OK. Go to the next step. ******************************"
-	echo ""
-	echo "                       *** Build and install $PKG ***"
-	echo ""
-	I=`dpkg -s $PKG | grep "Status"`
-	if [ -n "$I" ]; then
-		dpkg -r $PKG $PKG-dev tsdecrypt
-	else
-		echo "$PKG not installed"
-	fi
-	I=`dpkg -s $PKG1 | grep "Status"`
-	if [ -n "$I" ]; then
-		dpkg -r $PKG1 $PKG-dev tsdecrypt
-	else
-		echo "$PKG1 not installed"
-	fi
-	if [ -d $PKG ]; then
-		rm -rf $PKG
-	fi
-	wget https://code.videolan.org/videolan/$PKG/-/archive/$VER/$PKG-$VER.zip
-	unzip $PKG-$VER.zip
-	rm $PKG-$VER.zip
-	mv $PKG-$VER $PKG
-	cd $PKG
-	./bootstrap
-	./configure --prefix=/usr --enable-sse2
-	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.2.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
-	rm -f *.tgz
-	cd ..
-fi
-
 # Build and install libtuxtxt:
-if [ ! -f libdvbcsa/*.deb ]; then
+if [ ! -d libxmlccwrap ]; then
 	set -e
 	set -o pipefail
 else
@@ -202,6 +179,13 @@ else
 	echo ""
 	echo "                       *** Build and install $PKG ***"
 	echo ""
+	dpkg -s $PKG | grep -iw ok > /dev/null
+	if [ $? -eq 0 ]; then
+		echo "'$PKG' will be removed"
+		dpkg -P $PKG
+	else
+		echo "'$PKG' not installed"
+	fi
 	if [ ! -d $INSTALL_E2DIR ]; then
 		mkdir -p $INSTALL_E2DIR/lib/enigma2
 	fi
@@ -237,7 +221,7 @@ else
 fi
 
 # Build and install tuxtxt:
-if [ ! -f libtuxtxt/*.deb ]; then
+if [ ! -d libtuxtxt ]; then
 	set -e
 	set -o pipefail
 else
@@ -247,6 +231,13 @@ else
 	echo ""
 	echo "                        *** Build and install $PKG ***"
 	echo ""
+	dpkg -s $PKG | grep -iw ok > /dev/null
+	if [ $? -eq 0 ]; then
+		echo "'$PKG' will be removed"
+		dpkg -P $PKG
+	else
+		echo "'$PKG' not installed"
+	fi
 	cd $PKG
 #	autoupdate
 	autoreconf -i
@@ -258,7 +249,7 @@ else
 fi
 
 # Build and install aio-grab-git:
-if [ ! -f tuxtxt-git/tuxtxt/*.deb ]; then
+if [ ! -d tuxtxt-git/tuxtxt ]; then
 	set -e
 	set -o pipefail
 else
@@ -269,11 +260,12 @@ else
 	echo ""
 	echo "                       *** Build and install $PKG ***"
 	echo ""
-	I=`dpkg -s $PKG | grep "Status"`
-	if [ -n "$I" ]; then
-		dpkg -r $PKG
+	dpkg -s $PKG | grep -iw ok > /dev/null
+	if [ $? -eq 0 ]; then
+		echo "'$PKG' will be removed"
+		dpkg -P $PKG
 	else
-		echo "$PKG not installed"
+		echo "'$PKG' not installed"
 	fi
 	if [ -d $PKG ]; then
 		rm -rf $PKG
@@ -303,11 +295,12 @@ else
 	echo ""
 	echo "                 *** Build and install $PKG ***"
 	echo ""
-	I=`dpkg -s $LIB | grep "Status"`
-	if [ -n "$I" ]; then
-		dpkg -r $LIB
+	dpkg -s $LIB | grep -iw ok > /dev/null
+	if [ $? -eq 0 ]; then
+		echo "'$LIB' will be removed"
+		dpkg -P $LIB
 	else
-		echo "$LIB not installed"
+		echo "'$LIB' not installed"
 	fi
 	if [ -d $PKG ]; then
 		rm -rf $PKG
@@ -338,11 +331,12 @@ else
 	echo ""
 	echo "                    *** Build and install $PKG ***"
 	echo ""
-	I=`dpkg -s $LIB | grep "Status"`
-	if [ -n "$I" ]; then
-		dpkg -r $LIB
+	dpkg -s $LIB | grep -iw ok > /dev/null
+	if [ $? -eq 0 ]; then
+		echo "'$LIB' will be removed"
+		dpkg -P $LIB
 	else
-		echo "$LIB not installed"
+		echo "'$LIB' not installed"
 	fi
 	if [ -d $PKG ]; then
 		rm -rf $PKG
