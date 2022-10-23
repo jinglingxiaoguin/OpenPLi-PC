@@ -71,7 +71,7 @@ class AutomaticVolumeAdjustment(Screen):
 		self.showVolumeBar = configVA.config.show_volumebar.value
 		self.type_audio = configVA.config.type_audio.value
 		if self.modus == "0": # Automatic volume adjust mode
-			VolumeControlInit(self.enabled, self.maxMPEGVolume) # overwrite VolumeControl Class, when max MPEG Volume was set (<> 100)
+			VolumeControlInit(self.enabled, self.maxMPEGVolume) # overwrite VolumeControl Class, when max MPEG Volume was set (!= 100)
 		if not self.pluginStarted and self.enabled and fromOutside:
 			self.newService = [True, None]
 			self.__evUpdatedInfo()

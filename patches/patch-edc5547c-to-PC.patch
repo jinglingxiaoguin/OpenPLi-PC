@@ -9,7 +9,7 @@ diff -ruN o/configure.ac pc/configure.ac
 +++ pc/configure.ac	2022-10-15 01:38:23.332060441 +0300
 @@ -1,4 +1,4 @@
 -AC_INIT([enigma2],[4],[forum@openpli.org])
-+AC_INIT([enigma2],[PC8.1],[forum@openpli.org])
++AC_INIT([enigma2],[PC9.0],[forum@openpli.org])
  AM_INIT_AUTOMAKE([dist-bzip2 no-define tar-pax -Wno-portability])
  AC_CONFIG_HEADERS([enigma2_config.h])
  
@@ -6413,18 +6413,6 @@ diff -ruN o/lib/python/Components/HdmiCec.py pc/lib/python/Components/HdmiCec.py
  LOGFILE = "hdmicec.log"
  
  # CEC Version's table
-diff -ruN o/lib/python/Components/Network.py pc/lib/python/Components/Network.py
---- o/lib/python/Components/Network.py	2022-10-08 14:08:14.879194415 +0300
-+++ pc/lib/python/Components/Network.py	2022-10-15 01:38:23.352060441 +0300
-@@ -334,7 +334,7 @@
- 			servers.extend(self.dhcpnameservers)
- 		if len(servers) < 2:
- 			servers.extend([[0, 0, 0, 0], [0, 0, 0, 0]])
--		print ("Get nameserver list: ", servers)
-+		print("Get nameserver list: ", servers)
- 		return servers[0:2]
- 
- 	def clearNameservers(self):
 diff -ruN o/lib/python/Components/ParentalControlList.py pc/lib/python/Components/ParentalControlList.py
 --- o/lib/python/Components/ParentalControlList.py	1970-01-01 03:00:00.000000000 +0300
 +++ pc/lib/python/Components/ParentalControlList.py	2022-10-15 01:38:23.352060441 +0300
@@ -6493,17 +6481,6 @@ diff -ruN o/lib/python/Components/Renderer/NextEpgInfo.py pc/lib/python/Componen
  
  	def applySkin(self, desktop, parent):
  		attribs = []
-diff -ruN o/lib/python/Components/Sources/List.py pc/lib/python/Components/Sources/List.py
---- o/lib/python/Components/Sources/List.py	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/python/Components/Sources/List.py	2022-10-15 01:38:23.352060441 +0300
-@@ -101,7 +101,6 @@
- 
- 	def updateList(self, list):
- 		"""Changes the list without changing the selection or emitting changed Events"""
--		assert len(list) == len(self.__list)
- 		old_index = self.index
- 		self.disable_callbacks = True
- 		self.list = list
 diff -ruN o/lib/python/Components/UsageConfig.py pc/lib/python/Components/UsageConfig.py
 --- o/lib/python/Components/UsageConfig.py	2022-09-12 12:32:05.000000000 +0300
 +++ pc/lib/python/Components/UsageConfig.py	2022-10-15 01:38:23.352060441 +0300
@@ -18261,7 +18238,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
 diff -ruN o/tools/enigma2.sh.in pc/tools/enigma2.sh.in
 --- o/tools/enigma2.sh.in	2022-09-12 12:32:05.000000000 +0300
 +++ pc/tools/enigma2.sh.in	2022-10-15 01:38:23.376060441 +0300
-@@ -1,164 +1,42 @@
+@@ -1,164 +1,43 @@
  #!/bin/sh
  
 -prefix=@prefix@
@@ -18289,7 +18266,7 @@ diff -ruN o/tools/enigma2.sh.in pc/tools/enigma2.sh.in
 +# Ubuntu does not use this file if it was created by you.
 +FI="/etc/network/interfaces"
  
--LIBS=@libdir@/libopen.so.0.0.0
+ LIBS=@libdir@/libopen.so.0.0.0
 +nice -n -10 $PREFIX/enigma2 > /tmp/BootLogEnigma2 2>&1
  
  # enigma main loop

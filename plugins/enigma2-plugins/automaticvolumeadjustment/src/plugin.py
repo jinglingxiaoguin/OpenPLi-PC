@@ -73,4 +73,3 @@ def Plugins(**kwargs):
 	if config.misc.AV_audio_menu.value:
 		l.append((PluginDescriptor(name=_("Automatic Volume Adjustment"), description=_("toggle on/off plugin only for session"), where=PluginDescriptor.WHERE_AUDIOMENU, fnc=audioMenu)))
 	return l
-

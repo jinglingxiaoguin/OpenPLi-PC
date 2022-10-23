@@ -10,6 +10,8 @@ LOG="/var/log/oscam/wait.log"
 
 #export DISPLAY=:0.0
 
+#cp -f /opt/nim_sockets /proc/bus
+
 rm -f $HDD/timeshift/* # Case broken pause.
 mv -f $HDD/enigma2_crash_*.log /tmp # Case hangs up.
 rm -f /tmp/ENIGMA_FIFO.sc

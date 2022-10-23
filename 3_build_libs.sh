@@ -39,17 +39,7 @@ if [[ "$release" = "22.04" ]]; then
 	echo "                             *** release 22.04 ***"
 	echo "************************************************************************************"
 	echo ""
-	############# Temporarily! #############
-	PKG="libdvbcsa"
-	dpkg -s $PKG | grep -iw ok > /dev/null
-	if [ $? -eq 0 ]; then
-		echo "'$PKG' will be removed"
-		dpkg -P $PKG
-	else
-		echo "'$PKG' not installed"
-	fi
-	########################################
-	REQPKG="flake8 gcc-11 g++-11 libdvbcsa1 libdvbcsa-dev libssl3 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev libffi7 libfuture-perl ntpsec \
+	REQPKG="flake8 gcc-11 g++-11 libssl3 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev libffi7 libfuture-perl ntpsec \
 	pycodestyle sqlite3 sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 streamlink yamllint ntpsec-ntpdate neurodebian-popularity-contest popularity-contest  pylint \
 	python3-transmissionrpc python3-sabyenc python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 \
 	python3-pymysql python3-sphinxcontrib.websupport python3-sphinxcontrib.httpdomain python3-langdetect python3-restructuredtext-lint python3-ntplib python3-ntp python3-pysnmp4 python3-asn1crypto \
@@ -137,12 +127,12 @@ else
 	echo ""
 	dpkg -s $PKG | grep -iw ok > /dev/null
 	if [ $? -eq 0 ]; then
-	echo "'$PKG' '$PKG-dev' '$PKG_' will be removed"
-	dpkg -P $PKG_
-	dpkg -P $PKG-dev
-	dpkg -P $PKG
+		echo "'$PKG' '$PKG-dev' '$PKG_' will be removed"
+		dpkg -P $PKG_
+		dpkg -P $PKG-dev
+		dpkg -P $PKG
 	else
-	echo "'$PKG' '$PKG-dev' '$PKG_' not installed"
+		echo "'$PKG' '$PKG-dev' '$PKG_' not installed"
 	fi
 	if [ -d $PKG ]; then
 		rm -rf $PKG
@@ -164,8 +154,53 @@ else
 	cd ..
 fi
 
-# Build and install libtuxtxt:
+# Build and install libdvbcsa-git:
 if [ ! -d libxmlccwrap ]; then
+	set -e
+	set -o pipefail
+else
+	PKG="libdvbcsa"
+	PKG1="libdvbcsa1"
+	VER="bc6c0b164a87ce05e9925785cc6fb3f54c02b026"
+	echo ""
+	echo "**************************** OK. Go to the next step. ******************************"
+	echo ""
+	echo "                       *** Build and install $PKG ***"
+	echo ""
+	dpkg -P tsdecrypt
+
+	dpkg -s $PKG1 | grep -iw ok > /dev/null
+	if [ $? -eq 0 ]; then
+		echo "'$PKG1' '$PKG-dev' will be removed"
+		dpkg -P $PKG-dev
+		dpkg -P $PKG1
+	else
+		echo "'$PKG1' '$PKG-dev' not installed"
+	fi
+	dpkg -s $PKG | grep -iw ok > /dev/null
+	if [ $? -eq 0 ]; then
+		echo "'$PKG' will be removed"
+		dpkg -P $PKG
+	else
+		echo "'$PKG' not installed"
+	fi
+	if [ -d $PKG ]; then
+		rm -rf $PKG
+	fi
+	wget https://code.videolan.org/videolan/$PKG/-/archive/$VER/$PKG-$VER.zip
+	unzip $PKG-$VER.zip
+	rm $PKG-$VER.zip
+	mv $PKG-$VER $PKG
+	cd $PKG
+	./bootstrap
+	./configure --prefix=/usr --enable-sse2
+	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.2.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
+	rm -f *.tgz
+	cd ..
+fi
+
+# Build and install libtuxtxt:
+if [ ! -d libdvbcsa ]; then
 	set -e
 	set -o pipefail
 else
