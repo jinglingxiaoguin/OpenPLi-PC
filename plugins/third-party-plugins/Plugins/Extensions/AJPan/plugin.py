@@ -48,6 +48,7 @@ from Components.config   import getConfigListEntry, ConfigDirectory
 from Components.config   import ConfigYesNo, ConfigElement, ConfigText
 from Components.config   import ConfigSelection, ConfigSelectionNumber
 from Components.config   import ConfigSubList, ConfigInteger
+import importlib
 try:  import tarfile as iTar
 except: iTar = None
 try:  import zipfile as iZip
@@ -57,9 +58,10 @@ except: iElem = None
 try: from shutil import move as iMove, copyfile as iCopyfile
 except: iMove = iCopyfile = None
 try:
- from urllib2 import Request as iRequest, urlopen as iUrlopen, URLError as iURLError, build_opener, install_opener, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler, HTTPHandler
- from urllib  import unquote as iUnquote, quote as iQuote
- from urlparse import urlparse as iUrlparse, parse_qs as iUrlparse_qs
+ from urllib.request import Request as iRequest, urlopen as iUrlopen, build_opener, install_opener, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler, HTTPHandler
+ from urllib.error import URLError as iURLError
+ from urllib.parse import unquote as iUnquote, quote as iQuote
+ from urllib.parse import urlparse as iUrlparse, parse_qs as iUrlparse_qs
 except:
  try:
   from urllib.request import Request as iRequest, urlopen as iUrlopen, build_opener, install_opener, HTTPPasswordMgrWithDefaultRealm, HTTPDigestAuthHandler, HTTPHandler
@@ -2087,7 +2089,7 @@ class Main_Menu(Screen):
  def VVLzht(self, tDict):
    p = self.VVqyGI()
    with open(p, "w") as f:
-    for key, val in tDict.items():
+    for key, val in list(tDict.items()):
      f.write("%s=%s\n" % (key, val))
  def VVfBGs(self, item, fg):
   if   item == "title" : FFlr8P(self["myTitle"], fg)
@@ -2506,13 +2508,13 @@ class CCquCY(Screen):
    return {lst[i]: lst[i + 1] for i in range(0, len(lst), 2)}
   v = "openbox,OpenBox,openpli,OpenPLI,openvision,OpenVision;areadeltasat,ArEaDeltaSat,cobralibero,Cobralibero,opentr,OpenTR,peter,PeterPan;italysat,ItalySat,oozoon,OoZooN,openatv,openATV,openeight,OpenEight,openmips,OpenMips,opennfr,OpenNFR,openplus,OpenPlus,openspa,OpenSPA,pure2,Pure2,rudream,ruDream,teamblue,teamBlue,titannit,OpenAFF_Titan"
   v = {"/etc/issue": VVQQs4(v,0), "/etc/issue.net": VVQQs4(v,1), "/etc/image-version": VVQQs4(v,2)}
-  for p1, d in v.items():
+  for p1, d in list(v.items()):
    img = CCquCY.VVc4kq(p1, d)
    if img: return img
   v = "Blackhole,Blackhole,DE,Dream-Elite,EGAMI,Egami,LT,LT,MediaSat,MediaSat,OPENDROID,OpenDroid,Bp/geminimain,GP3;Domica,Domica,SatLodge,Satlodge,Satdreamgr,SatdreamGr,TSimage,OpenTS_Ts,newnigma2,newnigma2;DemonisatManager,DDD-Demoni,VTIPanel,VTI,ViX,OpenVIX;AddOnManager,Merlin3,DreamOSatcamManager,DreamOSat CamManager,ExtraAddonss,OpenESI,HDF-Toolbox,OpenHDF,HDMUCenter,HDMU,LDteam,OpenLD,NssPanel,NonSoloSat,PKT,PKT,PowerboardCenter,PBNigma-VX,TDW,TDW"
   p = "/usr/lib/enigma2/python/"
   v = {p: VVQQs4(v,0), p + "Plugins/": VVQQs4(v,1), VVuVce: VVQQs4(v,2), VV9VaA: VVQQs4(v,3)}
-  for p1, d in v.items():
+  for p1, d in list(v.items()):
    img = CCquCY.VVGbjE(p1, d)
    if img: return img
   return "OpenBlackhole" if iGlob("%sScreens/BpBlue.p*" % p) else ""
@@ -2520,12 +2522,12 @@ class CCquCY(Screen):
  def VVc4kq(path, d):
   if fileExists(path):
    txt = FFqD66(path).lower()
-   for key, val in d.items():
+   for key, val in list(d.items()):
     if key in txt: return val
   return ""
  @staticmethod
  def VVGbjE(path, d):
-  for key, val in d.items():
+  for key, val in list(d.items()):
    if pathExists(path + key): return val
   return ""
 class CCYl6w(Screen):
@@ -3122,7 +3124,7 @@ class CCeVbc(Screen):
     from .OBF import obf
    except:
     import obf
-   reload(obf)
+   importlib.reload(obf)
    txt, err = obf.fixCode(VVrE9D, VV73TT, VVNDdR)
    if err : FFkYsE(SELF, err)
    else : FFNEkd(SELF, txt)
@@ -3568,7 +3570,7 @@ class CCkCfQ():
   if VVvhuK:
    VVvhuK.sort(key=lambda x: int(x[0]))
    for ndx, item in enumerate(VVvhuK): VVvhuK[ndx][0] = str(ndx + 1)
-   for key, lst in subBouquets.items():
+   for key, lst in list(subBouquets.items()):
     for ndx, row in enumerate(VVvhuK):
      if key == os.path.basename(row[9]):
       VVvhuK = VVvhuK[:ndx+1] + lst + VVvhuK[ndx+1:]
@@ -4025,7 +4027,7 @@ class CCBWXm(Screen):
    tit2  = "Starts as"
    tDict = { PluginDescriptor.WHERE_AUTOSTART: "Auto-Start" , PluginDescriptor.WHERE_SESSIONSTART: "Start" }
   VVvytR = []
-  for key, val in tDict.items():
+  for key, val in list(tDict.items()):
    pluginList = iPlugins.getPlugins(key)
    for p in pluginList:
     try:
@@ -4915,7 +4917,7 @@ class CCtSdI(Screen, CC2LVn):
      }
   VV625J1, cbFncDict1 = CCtSdI.VVazuu(self, VVcpnp, servName, 3)
   VV625J.extend(VV625J1)
-  for key, val in cbFncDict1.items(): cbFncDict[key] = val
+  for key, val in list(cbFncDict1.items()): cbFncDict[key] = val
   mSel.VVMNiz(VV625J, cbFncDict)
  def VVidMP(self, VVcpnp, title, txt, colList):
   servName = colList[0]
@@ -6389,8 +6391,8 @@ class CCARMv(Screen):
  @staticmethod
  def VVL3K6(txt):
   try:
-   import HTMLParser
-   return HTMLParser.HTMLParser().unescape(txt)
+   import html.parser
+   return html.parser.HTMLParser().unescape(txt)
   except:
    pass
   try:
@@ -6799,12 +6801,12 @@ class CCyIre():
    if not err:
     try:
      tDict = jLoads(res.text)
-     for key, val in tDict["user_info"].items() :
+     for key, val in list(tDict["user_info"].items()) :
       if any(x in key for x in ("exp_date", "created_at")): val = FFcgMH(int(val))
       if isinstance(val, list): val = str(" , ".join(val))
       else     : val = str(val)
       rows.append(("1", self.VVMw87, str(key).replace("_", " ").title(), val))
-     for key, val in tDict["server_info"].items():
+     for key, val in list(tDict["server_info"].items()):
       if "timestamp_now"  in key : val = FFcgMH(int(val))
       else      : val = str(val)
       rows.append(("2", self.VVwRua, str(key).replace("_", " ").title(), val))
@@ -6822,7 +6824,7 @@ class CCyIre():
   rows = []
   c  = "#f#11ffff55#"
   rows = []
-  for key, val in item.items():
+  for key, val in list(item.items()):
    if not val:
     continue
    try:
@@ -6838,7 +6840,7 @@ class CCyIre():
       else  : ends = ""
       val = "%s (%s ... %s)" % (pToken, started, ends)
     elif key == "aspect":
-     val = " , ".join(["%s=%s" % (k, v) for k, v in jLoads(val)["js"].items()])
+     val = " , ".join(["%s=%s" % (k, v) for k, v in list(jLoads(val)["js"].items())])
     elif key in ("created", "last_watchdog"):
      val = FFcgMH(int(val))
     elif isinstance(val, list):
@@ -7266,7 +7268,7 @@ class CCD3Dl():
   self.nameTagPatt = iCompile( r"\s*^[A-Z0-9]+\s*\|*[|:-]\s*(.+)"
           r"|^(?!\[)*\s*[\[(|:][ A-z0-9\-._:|\]\[]+[\])|:](.+)")
   self.adultWords  = ("adult", "aduld", "sex", "porn", "xxx", "xxi", "erotic", "x-rated", "xrated", "skin flick", "dirty movie", "dirty film", "blue movie", "blue film", "18+", "+18", "r18 movie", "r18 film", "r-18 movie", "r-18 film", "r-17 movie", "r-17 film")
-  self.adultWords2 = ("\u042d\u0440\u043e\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0435", "dla doros\u0142ych")
+  self.adultWords2 = ("\\u042d\\u0440\\u043e\\u0442\\u0438\\u0447\\u0435\\u0441\\u043a\\u0438\\u0435", "dla doros\\u0142ych")
  def VV16ZS(self, name,  censored=""):
   if self.hideAdult and (censored == "1" or any(x in name.lower() for x in self.adultWords)):
    return ""
@@ -8634,7 +8636,7 @@ class CCqQHV(Screen, CC6sg1, CC2LVn):
   CCppdx.VVgElN(self.session, iptvTableParams=(self, VVcpnp, playerFlag))
  @staticmethod
  def VVmaA2(chName):
-  mark = ("--", "__", "==", "##",  "**", u"\u2605" * 2)
+  mark = ("--", "__", "==", "##",  "**", "\u2605" * 2)
   if chName.startswith(mark) and chName.endswith(mark):
    return True
   return False
@@ -8979,7 +8981,7 @@ class CCqQHV(Screen, CC6sg1, CC2LVn):
      equalTo  = ""
      for item in VVvhuK:
       if item[2] == uURL and item[3] == uUser and item[4] == uPass:
-       equalTo = ",".join(list(filter(None, [item[5], item[0]])))
+       equalTo = ",".join(list([_f for _f in [item[5], item[0]] if _f]))
      num += 1
      VVvhuK.append((str(num), str(lineNum), uURL, uUser, uPass, equalTo, url))
   if VVvhuK:
@@ -9452,7 +9454,7 @@ class CCqQHV(Screen, CC6sg1, CC2LVn):
    elif ref == "accountInfo" : FFlX3B(menuInstance, BF(self.VVWO8z           , title=title), title=wTxt)
  def VVWO8z(self, title):
   rows = []
-  for key, val in self.VVozODData.items():
+  for key, val in list(self.VVozODData.items()):
    if isinstance(val, list): val = str(" , ".join(val))
    else     : val = str(val)
    if any(x in key for x in ("url", "port", "https_port", "server_protocol", "rtmp_port", "timezone", "timestamp_now", "time_now")):
@@ -11188,7 +11190,7 @@ class CCrs3r(Screen):
  def VVAHge(self):
   VVUDHC, VV1Lo5 = FF92xJ()
   sTypeNameDict = {}
-  for key, val in VV1Lo5.items():
+  for key, val in list(VV1Lo5.items()):
    sTypeNameDict[key] = 0
   totUsedFiles = 0
   totUsedLinks = 0
@@ -11228,7 +11230,7 @@ class CCrs3r(Screen):
   s = "Service Type "
   if sTypeDict:
    sTypeRows = []
-   for key, val in sTypeDict.items():
+   for key, val in list(sTypeDict.items()):
     sTypeRows.append(("Service Type (%s)" % key, str(val)))
    sTypeRows.sort(key=lambda x: x[0].lower())
    VVvhuK.extend(sTypeRows)
@@ -11331,7 +11333,7 @@ class CCrs3r(Screen):
  def VVioPV(self, mode):
   VVUDHC, VV1Lo5 = FF92xJ()
   lst = set()
-  for key, val in VV1Lo5.items():
+  for key, val in list(VV1Lo5.items()):
    lst.add(val)
   VV625J = []
   for item in lst:
@@ -11342,7 +11344,7 @@ class CCrs3r(Screen):
   if item:
    VVUDHC, VV1Lo5 = FF92xJ()
    sTypeList = []
-   for key, val in VV1Lo5.items():
+   for key, val in list(VV1Lo5.items()):
     if item == val:
      self.filterTitle = val
      sTypeList.append(("%01x" % key).upper())
@@ -12101,7 +12103,7 @@ class CCU3qf():
        line = line.split("#")[0].strip()
       if "," in line:
        lst = list(map(str.strip, line.split(",")))
-       lst = list(filter(None, lst))
+       lst = list([_f for _f in lst if _f])
        if lst: line = ",".join(lst)
        else  : line = ""
       if line:
@@ -12118,7 +12120,7 @@ class CCU3qf():
   prefix = False
   if "," in txt:
    lst = list(map(str.strip, txt.split(",")))
-   lst = list(filter(None, lst))
+   lst = list([_f for _f in lst if _f])
    if lst and len(lst) > 1 and lst[0] == "^":
     lst = lst[1:]
     prefix = True
@@ -13368,7 +13370,7 @@ class CC9Zvn():
   tDict = self.VVTsyp()
   return tDict.get(flag, "?")
  def VVdVUn(self, state):
-  for flag, txt in self.VVTsyp().items():
+  for flag, txt in list(self.VVTsyp().items()):
    if txt == state:
     return flag
   return -1
@@ -15514,7 +15516,7 @@ class CCgB5a(Screen):
  def VV98P0(self, colDict, VVl2X5=False):
   length = len(colDict)
   for i in range(len(self["myTable"].list)):
-   for colNum, txt in colDict.items():
+   for colNum, txt in list(colDict.items()):
     if not txt == self["myTable"].list[i][colNum + 1][7].strip():
      break
    else:
@@ -16177,7 +16179,7 @@ class CCfRRs(Screen, ConfigListScreen):
   else:
    return "/"
  def VVNxDa(self):
-  for (key, cfg) in CFG.content.items.items():
+  for (key, cfg) in list(CFG.content.items.items()):
    cfg.setValue(cfg.default)
   for x in self["config"].list:
    try:
@@ -17279,7 +17281,7 @@ class CC7ujK(Screen):
    res = span.group(1)
    tDict = { "a": "Append only", "c": "Compressed", "d": "No dump", "e": "Extent format", "i": "Immutable", "j": "Data journalling", "s": "Secure deletion (s)", "t": "Tail-merging", "u": "Undeletable", "A": "No atime updates", "C": "No copy on write", "D": "Synchronous directory updates", "S": "Synchronous updates", "T": "Top of directory hierarchy", "h": "Huge file", "E": "Compression error", "I": "Indexed directory", "X": "Compression raw access", "Z": "Compressed dirty file" }
    lst = []
-   for key, val in tDict.items():
+   for key, val in list(tDict.items()):
     if key in res:
      lst.append("%s  ( %s )\n" % (val, key))
    if lst:
@@ -18553,7 +18555,7 @@ class CCrQyy(MenuList):
   ext = os.path.splitext(name)[1]
   if ext:
    ext = ext.lstrip(".").lower()
-   for cat, lst in self.EXTENSIONS.items():
+   for cat, lst in list(self.EXTENSIONS.items()):
     if ext in lst:
      return cat
   return ""
@@ -19461,9 +19463,9 @@ class CCSwZ2(Screen):
        elif color   : newColor = color
        else    : newColor = ""
        if ndx < 3:
-        line = line.replace(u"\u202A", "")
-        line = line.replace(u"\u202B", "")
-        line = line.replace(u"\u202C", "")
+        line = line.replace("\u202A", "")
+        line = line.replace("\u202B", "")
+        line = line.replace("\u202C", "")
         line = line.replace("\r", "..").replace("\n", "..")
         line = str(line)
         if newColor:
