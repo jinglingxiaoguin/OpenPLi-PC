@@ -6,7 +6,7 @@ diff -ruN o/autogen.sh pc/autogen.sh
 -autoreconf -i
 diff -ruN o/configure.ac pc/configure.ac
 --- o/configure.ac	2022-09-12 12:32:05.000000000 +0300
-+++ pc/configure.ac	2022-10-15 01:38:23.332060441 +0300
++++ pc/configure.ac	2022-10-27 12:22:25.660231212 +0300
 @@ -1,4 +1,4 @@
 -AC_INIT([enigma2],[4],[forum@openpli.org])
 +AC_INIT([enigma2],[PC9.0],[forum@openpli.org])
@@ -63,7 +63,7 @@ diff -ruN o/configure.ac pc/configure.ac
  AC_SUBST(ARFLAGS)
 diff -ruN o/data/keymap.xml pc/data/keymap.xml
 --- o/data/keymap.xml	2022-09-12 12:32:05.000000000 +0300
-+++ pc/data/keymap.xml	2022-10-15 01:38:23.332060441 +0300
++++ pc/data/keymap.xml	2022-10-27 12:22:25.664231212 +0300
 @@ -37,7 +37,6 @@
  	<map context="HelpActions">
  		<key id="KEY_HELP" mapto="displayHelp" flags="b" />
@@ -132,7 +132,7 @@ diff -ruN o/data/keymap.xml pc/data/keymap.xml
  	</map>
 diff -ruN o/data/menu.xml pc/data/menu.xml
 --- o/data/menu.xml	2022-09-12 12:32:05.000000000 +0300
-+++ pc/data/menu.xml	2022-10-15 01:38:23.332060441 +0300
++++ pc/data/menu.xml	2022-10-27 12:22:25.664231212 +0300
 @@ -35,9 +35,8 @@
  			</menu>
  			<menu weight="5" level="0" text="System" entryID="system_selection">
@@ -171,7 +171,7 @@ diff -ruN o/data/menu.xml pc/data/menu.xml
  </menu>
 diff -ruN o/data/setup.xml pc/data/setup.xml
 --- o/data/setup.xml	2022-09-12 12:32:05.000000000 +0300
-+++ pc/data/setup.xml	2022-10-15 01:38:23.332060441 +0300
++++ pc/data/setup.xml	2022-10-27 12:22:25.664231212 +0300
 @@ -3,9 +3,6 @@
  		<item level="0" text="Time zone area" description="Select your time zone area or region.">config.timezone.area</item>
  		<item level="0" text="Time zone" description="Select the time zone within the area or region.">config.timezone.val</item>
@@ -199,7 +199,7 @@ diff -ruN o/data/setup.xml pc/data/setup.xml
  </setupxml>
 diff -ruN o/lib/base/condVar.cpp pc/lib/base/condVar.cpp
 --- o/lib/base/condVar.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/base/condVar.cpp	2022-10-15 01:38:23.332060441 +0300
++++ pc/lib/base/condVar.cpp	2022-10-27 12:22:25.664231212 +0300
 @@ -0,0 +1,240 @@
 +/*
 + * condVar.cpp: Mutexes, conditional vars.
@@ -443,7 +443,7 @@ diff -ruN o/lib/base/condVar.cpp pc/lib/base/condVar.cpp
 +}
 diff -ruN o/lib/base/condVar.h pc/lib/base/condVar.h
 --- o/lib/base/condVar.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/base/condVar.h	2022-10-15 01:38:23.332060441 +0300
++++ pc/lib/base/condVar.h	2022-10-27 12:22:25.668231212 +0300
 @@ -0,0 +1,64 @@
 +#ifndef __base_condVar_h
 +#define __base_condVar_h
@@ -511,7 +511,7 @@ diff -ruN o/lib/base/condVar.h pc/lib/base/condVar.h
 +#endif
 diff -ruN o/lib/base/Makefile.inc pc/lib/base/Makefile.inc
 --- o/lib/base/Makefile.inc	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/base/Makefile.inc	2022-10-15 01:38:23.332060441 +0300
++++ pc/lib/base/Makefile.inc	2022-10-27 12:22:25.668231212 +0300
 @@ -24,7 +24,9 @@
  	base/thread.cpp \
  	base/httpsstream.cpp \
@@ -533,7 +533,7 @@ diff -ruN o/lib/base/Makefile.inc pc/lib/base/Makefile.inc
 +	base/condVar.h
 diff -ruN o/lib/base/rawfile.cpp pc/lib/base/rawfile.cpp
 --- o/lib/base/rawfile.cpp	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/base/rawfile.cpp	2022-10-15 01:38:23.332060441 +0300
++++ pc/lib/base/rawfile.cpp	2022-10-27 12:22:25.692231213 +0300
 @@ -3,6 +3,7 @@
  #include <fcntl.h>
  #include <lib/base/rawfile.h>
@@ -683,7 +683,7 @@ diff -ruN o/lib/base/rawfile.cpp pc/lib/base/rawfile.cpp
 +}
 diff -ruN o/lib/base/rawfile.h pc/lib/base/rawfile.h
 --- o/lib/base/rawfile.h	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/base/rawfile.h	2022-10-15 01:38:23.332060441 +0300
++++ pc/lib/base/rawfile.h	2022-10-27 12:22:25.692231213 +0300
 @@ -3,23 +3,27 @@
  
  #include <string>
@@ -739,7 +739,7 @@ diff -ruN o/lib/base/rawfile.h pc/lib/base/rawfile.h
  #endif
 diff -ruN o/lib/base/tsRingbuffer.cpp pc/lib/base/tsRingbuffer.cpp
 --- o/lib/base/tsRingbuffer.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/base/tsRingbuffer.cpp	2022-10-15 01:38:23.332060441 +0300
++++ pc/lib/base/tsRingbuffer.cpp	2022-10-27 12:22:25.696231213 +0300
 @@ -0,0 +1,328 @@
 +/*
 + * tsRingbuffer.cpp: A ring buffer
@@ -1071,7 +1071,7 @@ diff -ruN o/lib/base/tsRingbuffer.cpp pc/lib/base/tsRingbuffer.cpp
 +}
 diff -ruN o/lib/base/tsRingbuffer.h pc/lib/base/tsRingbuffer.h
 --- o/lib/base/tsRingbuffer.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/base/tsRingbuffer.h	2022-10-15 01:38:23.332060441 +0300
++++ pc/lib/base/tsRingbuffer.h	2022-10-27 12:22:25.696231213 +0300
 @@ -0,0 +1,106 @@
 +/*
 + * tsRingbuffer.h: A ring buffer
@@ -1181,7 +1181,7 @@ diff -ruN o/lib/base/tsRingbuffer.h pc/lib/base/tsRingbuffer.h
 +#endif
 diff -ruN o/lib/driver/avswitch.cpp pc/lib/driver/avswitch.cpp
 --- o/lib/driver/avswitch.cpp	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/driver/avswitch.cpp	2022-10-15 01:38:23.336060441 +0300
++++ pc/lib/driver/avswitch.cpp	2022-10-27 12:22:25.696231213 +0300
 @@ -9,6 +9,7 @@
  #include <lib/base/eerror.h>
  #include <lib/base/ebase.h>
@@ -1244,7 +1244,7 @@ diff -ruN o/lib/driver/avswitch.cpp pc/lib/driver/avswitch.cpp
  eAutoInitP0<eAVSwitch> init_avswitch(eAutoInitNumbers::rc, "AVSwitch Driver");
 diff -ruN o/lib/driver/avswitch.h pc/lib/driver/avswitch.h
 --- o/lib/driver/avswitch.h	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/driver/avswitch.h	2022-10-15 01:38:23.336060441 +0300
++++ pc/lib/driver/avswitch.h	2022-10-27 12:22:25.696231213 +0300
 @@ -29,9 +29,16 @@
  	int getVCRSlowBlanking();
  	void setColorFormat(int format);
@@ -1264,7 +1264,7 @@ diff -ruN o/lib/driver/avswitch.h pc/lib/driver/avswitch.h
  };
 diff -ruN o/lib/driver/Makefile.inc pc/lib/driver/Makefile.inc
 --- o/lib/driver/Makefile.inc	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/driver/Makefile.inc	2022-10-15 01:38:23.336060441 +0300
++++ pc/lib/driver/Makefile.inc	2022-10-27 12:22:25.696231213 +0300
 @@ -31,3 +31,12 @@
  	driver/rcsdl.cpp \
  	driver/rcsdl.h
@@ -1280,7 +1280,7 @@ diff -ruN o/lib/driver/Makefile.inc pc/lib/driver/Makefile.inc
 +
 diff -ruN o/lib/driver/rcconsole.cpp pc/lib/driver/rcconsole.cpp
 --- o/lib/driver/rcconsole.cpp	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/driver/rcconsole.cpp	2022-10-15 01:38:23.336060441 +0300
++++ pc/lib/driver/rcconsole.cpp	2022-10-27 12:22:25.696231213 +0300
 @@ -111,4 +111,6 @@
  	}
  };
@@ -1290,7 +1290,7 @@ diff -ruN o/lib/driver/rcconsole.cpp pc/lib/driver/rcconsole.cpp
 +#endif
 diff -ruN o/lib/driver/rcinput.cpp pc/lib/driver/rcinput.cpp
 --- o/lib/driver/rcinput.cpp	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/driver/rcinput.cpp	2022-10-15 01:38:23.336060441 +0300
++++ pc/lib/driver/rcinput.cpp	2022-10-27 12:22:25.696231213 +0300
 @@ -208,6 +208,7 @@
  	}
  };
@@ -1306,7 +1306,7 @@ diff -ruN o/lib/driver/rcinput.cpp pc/lib/driver/rcinput.cpp
 +#endif
 diff -ruN o/lib/driver/rclirc.cpp pc/lib/driver/rclirc.cpp
 --- o/lib/driver/rclirc.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/driver/rclirc.cpp	2022-10-15 01:38:23.340060441 +0300
++++ pc/lib/driver/rclirc.cpp	2022-10-27 12:22:25.736231213 +0300
 @@ -0,0 +1,586 @@
 +/*
 + * LIRC support based on LIRC for VDR, which was written by
@@ -1896,7 +1896,7 @@ diff -ruN o/lib/driver/rclirc.cpp pc/lib/driver/rclirc.cpp
 +eAutoInitP0<eRCLircInit> init_rcLirc(eAutoInitNumbers::rc+1, "Lirc RC Driver");
 diff -ruN o/lib/driver/rclirc.h pc/lib/driver/rclirc.h
 --- o/lib/driver/rclirc.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/driver/rclirc.h	2022-10-15 01:38:23.340060441 +0300
++++ pc/lib/driver/rclirc.h	2022-10-27 12:22:25.736231213 +0300
 @@ -0,0 +1,56 @@
 +#ifndef __lib_driver_rclirc_h
 +#define __lib_driver_rclirc_h
@@ -1956,7 +1956,7 @@ diff -ruN o/lib/driver/rclirc.h pc/lib/driver/rclirc.h
 +#endif
 diff -ruN o/lib/driver/rcxlib.cpp pc/lib/driver/rcxlib.cpp
 --- o/lib/driver/rcxlib.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/driver/rcxlib.cpp	2022-10-15 01:38:23.340060441 +0300
++++ pc/lib/driver/rcxlib.cpp	2022-10-27 12:22:25.736231213 +0300
 @@ -0,0 +1,215 @@
 +#include <lib/driver/rcxlib.h>
 +#include <lib/base/init.h>
@@ -2175,7 +2175,7 @@ diff -ruN o/lib/driver/rcxlib.cpp pc/lib/driver/rcxlib.cpp
 +eAutoInitP0<eRCXlibInit> init_rcXlib(eAutoInitNumbers::rc+1, "Xlib RC Driver");
 diff -ruN o/lib/driver/rcxlib.h pc/lib/driver/rcxlib.h
 --- o/lib/driver/rcxlib.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/driver/rcxlib.h	2022-10-15 01:38:23.340060441 +0300
++++ pc/lib/driver/rcxlib.h	2022-10-27 12:22:25.736231213 +0300
 @@ -0,0 +1,35 @@
 +#ifndef __lib_driver_rcxlib_h
 +#define __lib_driver_rcxlib_h
@@ -2214,7 +2214,7 @@ diff -ruN o/lib/driver/rcxlib.h pc/lib/driver/rcxlib.h
 +#endif
 diff -ruN o/lib/dvb/ca_connector.cpp pc/lib/dvb/ca_connector.cpp
 --- o/lib/dvb/ca_connector.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/dvb/ca_connector.cpp	2022-10-15 01:38:23.340060441 +0300
++++ pc/lib/dvb/ca_connector.cpp	2022-10-27 12:22:25.736231213 +0300
 @@ -0,0 +1,123 @@
 +#include <lib/dvb/ca_connector.h>
 +#include <lib/dvb/dvb.h>
@@ -2341,7 +2341,7 @@ diff -ruN o/lib/dvb/ca_connector.cpp pc/lib/dvb/ca_connector.cpp
 +eAutoInitPtr<caConnector> init_caConnector(eAutoInitNumbers::dvb-1, "caConnector");
 diff -ruN o/lib/dvb/ca_connector.h pc/lib/dvb/ca_connector.h
 --- o/lib/dvb/ca_connector.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/dvb/ca_connector.h	2022-10-15 01:38:23.340060441 +0300
++++ pc/lib/dvb/ca_connector.h	2022-10-27 12:22:25.736231213 +0300
 @@ -0,0 +1,50 @@
 +#ifndef __lib_dvb_ca_connector_h
 +#define __lib_dvb_ca_connector_h
@@ -2395,7 +2395,7 @@ diff -ruN o/lib/dvb/ca_connector.h pc/lib/dvb/ca_connector.h
 +#endif
 diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
 --- o/lib/dvb/decoder.cpp	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/dvb/decoder.cpp	2022-10-15 01:38:23.340060441 +0300
++++ pc/lib/dvb/decoder.cpp	2022-10-27 12:22:25.740231213 +0300
 @@ -7,6 +7,7 @@
  #include <linux/dvb/audio.h>
  #include <linux/dvb/video.h>
@@ -2796,7 +2796,7 @@ diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
  				bool seq_end_avail = false;
 diff -ruN o/lib/dvb/decoder.h pc/lib/dvb/decoder.h
 --- o/lib/dvb/decoder.h	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/dvb/decoder.h	2022-10-15 01:38:23.340060441 +0300
++++ pc/lib/dvb/decoder.h	2022-10-27 12:22:25.740231213 +0300
 @@ -3,6 +3,7 @@
  
  #include <lib/base/object.h>
@@ -2846,7 +2846,7 @@ diff -ruN o/lib/dvb/decoder.h pc/lib/dvb/decoder.h
  	RESULT setPCMDelay(int delay);
 diff -ruN o/lib/dvb/decsa.cpp pc/lib/dvb/decsa.cpp
 --- o/lib/dvb/decsa.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/dvb/decsa.cpp	2022-10-15 01:38:23.340060441 +0300
++++ pc/lib/dvb/decsa.cpp	2022-10-27 12:22:25.740231213 +0300
 @@ -0,0 +1,247 @@
 +/*
 + * Based on "Softcam plugin to VDR (C++)"
@@ -3097,7 +3097,7 @@ diff -ruN o/lib/dvb/decsa.cpp pc/lib/dvb/decsa.cpp
 +
 diff -ruN o/lib/dvb/decsa.h pc/lib/dvb/decsa.h
 --- o/lib/dvb/decsa.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/dvb/decsa.h	2022-10-15 01:38:23.340060441 +0300
++++ pc/lib/dvb/decsa.h	2022-10-27 12:22:25.740231213 +0300
 @@ -0,0 +1,50 @@
 +#ifndef __dvb_decsa_h
 +#define __dvb_decsa_h
@@ -3151,7 +3151,7 @@ diff -ruN o/lib/dvb/decsa.h pc/lib/dvb/decsa.h
 +#endif
 diff -ruN o/lib/dvb/demux.cpp pc/lib/dvb/demux.cpp
 --- o/lib/dvb/demux.cpp	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/dvb/demux.cpp	2022-10-15 01:38:23.340060441 +0300
++++ pc/lib/dvb/demux.cpp	2022-10-27 12:22:25.740231213 +0300
 @@ -44,7 +44,11 @@
  	}
  	unsigned int megabytes = si.totalram >> 20;
@@ -3236,7 +3236,7 @@ diff -ruN o/lib/dvb/demux.cpp pc/lib/dvb/demux.cpp
  
 diff -ruN o/lib/dvb/demux.h pc/lib/dvb/demux.h
 --- o/lib/dvb/demux.h	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/dvb/demux.h	2022-10-15 01:38:23.340060441 +0300
++++ pc/lib/dvb/demux.h	2022-10-27 12:22:25.740231213 +0300
 @@ -6,52 +6,7 @@
  #include <lib/dvb/idemux.h>
  #include <lib/dvb/pvrparse.h>
@@ -3293,7 +3293,7 @@ diff -ruN o/lib/dvb/demux.h pc/lib/dvb/demux.h
  {
 diff -ruN o/lib/dvb/dvb.cpp pc/lib/dvb/dvb.cpp
 --- o/lib/dvb/dvb.cpp	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/dvb/dvb.cpp	2022-10-15 01:38:23.340060441 +0300
++++ pc/lib/dvb/dvb.cpp	2022-10-27 12:22:25.756231213 +0300
 @@ -100,7 +100,14 @@
  		if (eDVBAdapterLinux::isusb(num_adapter))
  		{
@@ -3380,7 +3380,7 @@ diff -ruN o/lib/dvb/dvb.cpp pc/lib/dvb/dvb.cpp
  	m_source = NULL;
 diff -ruN o/lib/dvb/dvb.h pc/lib/dvb/dvb.h
 --- o/lib/dvb/dvb.h	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/dvb/dvb.h	2022-10-15 01:38:23.340060441 +0300
++++ pc/lib/dvb/dvb.h	2022-10-27 12:22:25.756231213 +0300
 @@ -244,6 +244,7 @@
  	bool frontendIsMultistream(int index);
  	std::string getFrontendCapabilities(int index);
@@ -3391,7 +3391,7 @@ diff -ruN o/lib/dvb/dvb.h pc/lib/dvb/dvb.h
  SWIG_EXTEND(ePtr<eDVBResourceManager>,
 diff -ruN o/lib/dvb/edvbdemux.h pc/lib/dvb/edvbdemux.h
 --- o/lib/dvb/edvbdemux.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/dvb/edvbdemux.h	2022-10-15 01:38:23.344060441 +0300
++++ pc/lib/dvb/edvbdemux.h	2022-10-27 12:22:25.756231213 +0300
 @@ -0,0 +1,59 @@
 +#ifndef __dvb_edvbdemux_h
 +#define __dvb_edvbdemux_h
@@ -3454,7 +3454,7 @@ diff -ruN o/lib/dvb/edvbdemux.h pc/lib/dvb/edvbdemux.h
 +#endif
 diff -ruN o/lib/dvb/filepush.cpp pc/lib/dvb/filepush.cpp
 --- o/lib/dvb/filepush.cpp	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/dvb/filepush.cpp	2022-10-15 01:38:23.344060441 +0300
++++ pc/lib/dvb/filepush.cpp	2022-10-27 12:22:25.756231213 +0300
 @@ -359,11 +359,6 @@
  
  void eFilePushThreadRecorder::thread()
@@ -3541,7 +3541,7 @@ diff -ruN o/lib/dvb/filepush.cpp pc/lib/dvb/filepush.cpp
  	static const struct timespec timespec_1 = { .tv_sec =  0, .tv_nsec = 1000000000 / 10 };
 diff -ruN o/lib/dvb/filepush.h pc/lib/dvb/filepush.h
 --- o/lib/dvb/filepush.h	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/dvb/filepush.h	2022-10-15 01:38:23.344060441 +0300
++++ pc/lib/dvb/filepush.h	2022-10-27 12:22:25.776231213 +0300
 @@ -70,6 +70,7 @@
  	void thread();
  	void stop();
@@ -3560,7 +3560,7 @@ diff -ruN o/lib/dvb/filepush.h pc/lib/dvb/filepush.h
  
 diff -ruN o/lib/dvb/frontend.cpp pc/lib/dvb/frontend.cpp
 --- o/lib/dvb/frontend.cpp	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/dvb/frontend.cpp	2022-10-15 01:38:23.344060441 +0300
++++ pc/lib/dvb/frontend.cpp	2022-10-27 12:22:25.780231213 +0300
 @@ -562,6 +562,7 @@
  	,m_state(stateClosed), m_timeout(0), m_tuneTimer(0)
  {
@@ -3571,7 +3571,7 @@ diff -ruN o/lib/dvb/frontend.cpp pc/lib/dvb/frontend.cpp
  	CONNECT(m_timeout->timeout, eDVBFrontend::timeout);
 diff -ruN o/lib/dvb/idvb.h pc/lib/dvb/idvb.h
 --- o/lib/dvb/idvb.h	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/dvb/idvb.h	2022-10-15 01:38:23.344060441 +0300
++++ pc/lib/dvb/idvb.h	2022-10-27 12:22:25.780231213 +0300
 @@ -706,11 +706,11 @@
  public:
  	enum { pidDisabled = -1 };
@@ -3588,7 +3588,7 @@ diff -ruN o/lib/dvb/idvb.h pc/lib/dvb/idvb.h
  		/** Set Displayed Audio Channel */
 diff -ruN o/lib/dvb/Makefile.inc pc/lib/dvb/Makefile.inc
 --- o/lib/dvb/Makefile.inc	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/dvb/Makefile.inc	2022-10-15 01:38:23.344060441 +0300
++++ pc/lib/dvb/Makefile.inc	2022-10-27 12:22:25.780231213 +0300
 @@ -37,7 +37,9 @@
  	dvb/fbc.cpp \
  	dvb/atsc.cpp \
@@ -3611,7 +3611,7 @@ diff -ruN o/lib/dvb/Makefile.inc pc/lib/dvb/Makefile.inc
 +	dvb/decsa.h
 diff -ruN o/lib/dvb/pmtparse.cpp pc/lib/dvb/pmtparse.cpp
 --- o/lib/dvb/pmtparse.cpp	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/dvb/pmtparse.cpp	2022-10-15 01:38:23.344060441 +0300
++++ pc/lib/dvb/pmtparse.cpp	2022-10-27 12:22:25.780231213 +0300
 @@ -103,6 +103,7 @@
  				video.type = videoStream::vtMPEG2;
  				audio.type = audioStream::atMPEG;
@@ -3622,7 +3622,7 @@ diff -ruN o/lib/dvb/pmtparse.cpp pc/lib/dvb/pmtparse.cpp
  				{
 diff -ruN o/lib/dvb/pmtparse.h pc/lib/dvb/pmtparse.h
 --- o/lib/dvb/pmtparse.h	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/dvb/pmtparse.h	2022-10-15 01:38:23.344060441 +0300
++++ pc/lib/dvb/pmtparse.h	2022-10-27 12:22:25.784231213 +0300
 @@ -26,6 +26,7 @@
  		int component_tag;
  		enum { vtMPEG2, vtMPEG4_H264, vtVC1 = 3, vtMPEG4_Part2, vtVC1_SM, vtMPEG1, vtH265_HEVC, vtCAVS = 16, vtAVS2 = 40 };
@@ -3633,7 +3633,7 @@ diff -ruN o/lib/dvb/pmtparse.h pc/lib/dvb/pmtparse.h
  	struct audioStream
 diff -ruN o/lib/dvb/volume.cpp pc/lib/dvb/volume.cpp
 --- o/lib/dvb/volume.cpp	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/dvb/volume.cpp	2022-10-15 01:38:23.344060441 +0300
++++ pc/lib/dvb/volume.cpp	2022-10-27 12:22:25.784231213 +0300
 @@ -5,16 +5,15 @@
  #include <fcntl.h>
  #include <sys/ioctl.h>
@@ -3685,7 +3685,7 @@ diff -ruN o/lib/dvb/volume.cpp pc/lib/dvb/volume.cpp
  void eDVBVolumecontrol::volumeToggleMute()
 diff -ruN o/lib/gdi/gpixmap.cpp pc/lib/gdi/gpixmap.cpp
 --- o/lib/gdi/gpixmap.cpp	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/gdi/gpixmap.cpp	2022-10-15 01:38:23.348060441 +0300
++++ pc/lib/gdi/gpixmap.cpp	2022-10-27 12:22:25.784231213 +0300
 @@ -209,12 +209,6 @@
  gSurface::gSurface(int width, int height, int _bpp, int accel):
  	gUnmanagedSurface(width, height, _bpp)
@@ -3701,7 +3701,7 @@ diff -ruN o/lib/gdi/gpixmap.cpp pc/lib/gdi/gpixmap.cpp
  		data = new unsigned char [y * stride];
 diff -ruN o/lib/gdi/gxlibdc.cpp pc/lib/gdi/gxlibdc.cpp
 --- o/lib/gdi/gxlibdc.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/gdi/gxlibdc.cpp	2022-10-15 01:38:23.348060441 +0300
++++ pc/lib/gdi/gxlibdc.cpp	2022-10-27 12:22:25.784231213 +0300
 @@ -0,0 +1,388 @@
 +#include <fstream>
 +#include <lib/gdi/gxlibdc.h>
@@ -4093,7 +4093,7 @@ diff -ruN o/lib/gdi/gxlibdc.cpp pc/lib/gdi/gxlibdc.cpp
 +eAutoInitPtr<gXlibDC> init_gXlibDC(eAutoInitNumbers::graphic-1, "gXlibDC");
 diff -ruN o/lib/gdi/gxlibdc.h pc/lib/gdi/gxlibdc.h
 --- o/lib/gdi/gxlibdc.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/gdi/gxlibdc.h	2022-10-15 01:38:23.348060441 +0300
++++ pc/lib/gdi/gxlibdc.h	2022-10-27 12:22:25.784231213 +0300
 @@ -0,0 +1,80 @@
 +#ifndef __lib_gdi_gxlibdc_h
 +#define __lib_gdi_gxlibdc_h
@@ -4177,7 +4177,7 @@ diff -ruN o/lib/gdi/gxlibdc.h pc/lib/gdi/gxlibdc.h
 +#endif
 diff -ruN o/lib/gdi/Makefile.inc pc/lib/gdi/Makefile.inc
 --- o/lib/gdi/Makefile.inc	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/gdi/Makefile.inc	2022-10-15 01:38:23.348060441 +0300
++++ pc/lib/gdi/Makefile.inc	2022-10-27 12:22:25.784231213 +0300
 @@ -44,8 +44,17 @@
  	gdi/pixmapcache.h \
  	gdi/region.h
@@ -4204,7 +4204,7 @@ diff -ruN o/lib/gdi/Makefile.inc pc/lib/gdi/Makefile.inc
 +endif
 diff -ruN o/lib/gdi/picload.cpp pc/lib/gdi/picload.cpp
 --- o/lib/gdi/picload.cpp	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/gdi/picload.cpp	2022-10-15 01:38:23.348060441 +0300
++++ pc/lib/gdi/picload.cpp	2022-10-27 12:22:25.788231213 +0300
 @@ -789,8 +789,6 @@
  
  void ePicLoad::decodePic()
@@ -4224,7 +4224,7 @@ diff -ruN o/lib/gdi/picload.cpp pc/lib/gdi/picload.cpp
  	{
 diff -ruN o/lib/gdi/post.cpp pc/lib/gdi/post.cpp
 --- o/lib/gdi/post.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/gdi/post.cpp	2022-10-15 01:38:23.348060441 +0300
++++ pc/lib/gdi/post.cpp	2022-10-27 12:22:25.788231213 +0300
 @@ -0,0 +1,818 @@
 +/*
 + * Copyright (C) 2003 by Dirk Meyer
@@ -5046,7 +5046,7 @@ diff -ruN o/lib/gdi/post.cpp pc/lib/gdi/post.cpp
 +
 diff -ruN o/lib/gdi/post.h pc/lib/gdi/post.h
 --- o/lib/gdi/post.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/gdi/post.h	2022-10-15 01:38:23.348060441 +0300
++++ pc/lib/gdi/post.h	2022-10-27 12:22:25.788231213 +0300
 @@ -0,0 +1,96 @@
 +/*
 + * Copyright (C) 2003 by Dirk Meyer
@@ -5146,7 +5146,7 @@ diff -ruN o/lib/gdi/post.h pc/lib/gdi/post.h
 +/* end of post.h */
 diff -ruN o/lib/gdi/xineLib.cpp pc/lib/gdi/xineLib.cpp
 --- o/lib/gdi/xineLib.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/gdi/xineLib.cpp	2022-10-15 01:38:23.348060441 +0300
++++ pc/lib/gdi/xineLib.cpp	2022-10-27 12:22:25.788231213 +0300
 @@ -0,0 +1,946 @@
 +#include <fstream>
 +#include <lib/gdi/xineLib.h>
@@ -6096,7 +6096,7 @@ diff -ruN o/lib/gdi/xineLib.cpp pc/lib/gdi/xineLib.cpp
 +}
 diff -ruN o/lib/gdi/xineLib.h pc/lib/gdi/xineLib.h
 --- o/lib/gdi/xineLib.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/gdi/xineLib.h	2022-10-15 01:38:23.348060441 +0300
++++ pc/lib/gdi/xineLib.h	2022-10-27 12:22:25.788231213 +0300
 @@ -0,0 +1,116 @@
 +#ifndef __lib_gdi_xineLib_h
 +#define __lib_gdi_xineLib_h
@@ -6216,7 +6216,7 @@ diff -ruN o/lib/gdi/xineLib.h pc/lib/gdi/xineLib.h
 +#endif
 diff -ruN o/lib/gui/evideo.cpp pc/lib/gui/evideo.cpp
 --- o/lib/gui/evideo.cpp	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/gui/evideo.cpp	2022-10-15 01:38:23.348060441 +0300
++++ pc/lib/gui/evideo.cpp	2022-10-27 12:22:25.792231213 +0300
 @@ -1,6 +1,7 @@
  #include <lib/base/cfile.h>
  #include <lib/gui/evideo.h>
@@ -6254,7 +6254,7 @@ diff -ruN o/lib/gui/evideo.cpp pc/lib/gui/evideo.cpp
  		m_state |= 8;
 diff -ruN o/lib/python/Components/About.py pc/lib/python/Components/About.py
 --- o/lib/python/Components/About.py	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/python/Components/About.py	2022-10-15 01:38:23.348060441 +0300
++++ pc/lib/python/Components/About.py	2022-10-27 13:25:27.463168424 +0300
 @@ -12,8 +12,8 @@
  
  def getImageVersionString():
@@ -6343,9 +6343,21 @@ diff -ruN o/lib/python/Components/About.py pc/lib/python/Components/About.py
  				return "%s" % driver[1].replace("\n", "")
  	except:
  		return _("unknown")
+diff -ruN o/lib/python/Components/ActionMap.py pc/lib/python/Components/ActionMap.py
+--- o/lib/python/Components/ActionMap.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Components/ActionMap.py	2022-10-27 14:04:52.763177815 +0300
+@@ -105,7 +105,7 @@
+ 		adict = {}
+ 		for context in contexts:
+ 			alist = []
+-			for (action, funchelp) in actions.items():
++			for (action, funchelp) in list(actions.items()):
+ 				# Check if this is a tuple.
+ 				if isinstance(funchelp, tuple):
+ 					if queryKeyBinding(context, action):
 diff -ruN o/lib/python/Components/AVSwitch.py pc/lib/python/Components/AVSwitch.py
 --- o/lib/python/Components/AVSwitch.py	2022-10-05 14:22:25.787112498 +0300
-+++ pc/lib/python/Components/AVSwitch.py	2022-10-15 01:38:23.348060441 +0300
++++ pc/lib/python/Components/AVSwitch.py	2022-10-27 13:25:27.307168423 +0300
 @@ -100,7 +100,7 @@
  	# TRANSLATORS: (aspect ratio policy: cropped content on left/right) in doubt, keep english term
  	"panscan": _("Pan&scan"),
@@ -6364,9 +6376,111 @@ diff -ruN o/lib/python/Components/AVSwitch.py pc/lib/python/Components/AVSwitch.
  	try:
  		if "nonlinear" in open("/proc/stb/video/policy_choices").read():
  			# TRANSLATORS: (aspect ratio policy: display as fullscreen, with stretching the left/right)
+diff -ruN o/lib/python/Components/config.py pc/lib/python/Components/config.py
+--- o/lib/python/Components/config.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Components/config.py	2022-10-27 14:13:30.175179870 +0300
+@@ -343,7 +343,7 @@
+ 			self.value = default
+ 
+ 	def setValue(self, value):
+-		if str(value) in map(str, self.choices):
++		if str(value) in list(map(str, self.choices)):
+ 			self._value = self.choices[self.choices.index(value)]
+ 		else:
+ 			self._value = self.default
+@@ -1661,7 +1661,7 @@
+ 
+ 	def setSavedValue(self, values):
+ 		self.stored_values = dict(values)
+-		for (key, val) in self.stored_values.items():
++		for (key, val) in list(self.stored_values.items()):
+ 			if int(key) < len(self):
+ 				self[int(key)].saved_value = val
+ 
+@@ -1689,16 +1689,16 @@
+ 		self.stored_values = {}
+ 
+ 	def save(self):
+-		for x in self.values():
++		for x in list(self.values()):
+ 			x.save()
+ 
+ 	def load(self):
+-		for x in self.values():
++		for x in list(self.values()):
+ 			x.load()
+ 
+ 	def getSavedValue(self):
+ 		res = {}
+-		for (key, val) in self.items():
++		for (key, val) in list(self.items()):
+ 			sv = val.saved_value
+ 			if sv is not None:
+ 				res[str(key)] = sv
+@@ -1706,7 +1706,7 @@
+ 
+ 	def setSavedValue(self, values):
+ 		self.stored_values = dict(values)
+-		for (key, val) in self.items():
++		for (key, val) in list(self.items()):
+ 			if str(key) in self.stored_values:
+ 				val.saved_value = self.stored_values[str(key)]
+ 
+@@ -1759,7 +1759,7 @@
+ 
+ 	def getSavedValue(self):
+ 		res = self.content.stored_values
+-		for (key, val) in self.content.items.items():
++		for (key, val) in list(self.content.items.items()):
+ 			sv = val.saved_value
+ 			if sv is not None:
+ 				res[key] = sv
+@@ -1770,7 +1770,7 @@
+ 	def setSavedValue(self, values):
+ 		values = dict(values)
+ 		self.content.stored_values = values
+-		for (key, val) in self.content.items.items():
++		for (key, val) in list(self.content.items.items()):
+ 			value = values.get(key, None)
+ 			if value is not None:
+ 				val.saved_value = value
+@@ -1778,11 +1778,11 @@
+ 	saved_value = property(getSavedValue, setSavedValue)
+ 
+ 	def save(self):
+-		for x in self.content.items.values():
++		for x in list(self.content.items.values()):
+ 			x.save()
+ 
+ 	def load(self):
+-		for x in self.content.items.values():
++		for x in list(self.content.items.values()):
+ 			x.load()
+ 
+ 	def dict(self):
+@@ -1802,7 +1802,7 @@
+ 		ConfigSubsection.__init__(self)
+ 
+ 	def pickle_this(self, prefix, topickle, result):
+-		for (key, val) in sorted(topickle.items(), key=lambda x: int(x[0]) if x[0].isdigit() else x[0].lower()):
++		for (key, val) in sorted(list(topickle.items()), key=lambda x: int(x[0]) if x[0].isdigit() else x[0].lower()):
+ 			name = '.'.join((prefix, key))
+ 			if isinstance(val, dict):
+ 				self.pickle_this(name, val, result)
+diff -ruN o/lib/python/Components/Console.py pc/lib/python/Components/Console.py
+--- o/lib/python/Components/Console.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Components/Console.py	2022-10-27 14:04:00.379177607 +0300
+@@ -85,6 +85,6 @@
+ 			self.appContainers[name].container.kill()
+ 
+ 	def killAll(self):
+-		for name, item in self.appContainers.items():
++		for name, item in list(self.appContainers.items()):
+ 			print("[Console] killing: ", name)
+ 			item.container.kill()
 diff -ruN o/lib/python/Components/Converter/EventName.py pc/lib/python/Components/Converter/EventName.py
 --- o/lib/python/Components/Converter/EventName.py	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/python/Components/Converter/EventName.py	2022-10-15 01:38:23.348060441 +0300
++++ pc/lib/python/Components/Converter/EventName.py	2022-10-27 13:25:35.643168456 +0300
 @@ -106,10 +106,6 @@
  				return ""
  			else:
@@ -6378,9 +6492,21 @@ diff -ruN o/lib/python/Components/Converter/EventName.py pc/lib/python/Component
  		elif self.type == self.SHORT_DESCRIPTION:
  			return dropEPGNewLines(event.getShortDescription())
  		elif self.type == self.EXTENDED_DESCRIPTION:
+diff -ruN o/lib/python/Components/EpgList.py pc/lib/python/Components/EpgList.py
+--- o/lib/python/Components/EpgList.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Components/EpgList.py	2022-10-27 14:22:45.987182076 +0300
+@@ -335,7 +335,7 @@
+ 					self.list[cnt] = (changecount, x[0], x[1], x[2], x[3], x[4], x[5], x[6])
+ 			cnt += 1
+ 		self.l.setList(self.list)
+-		#print((int(time()) - t)
++		#print(int(time()) - t)
+ 		self.selectionChanged()
+ 
+ 	def fillSingleEPG(self, service):
 diff -ruN o/lib/python/Components/Harddisk.py pc/lib/python/Components/Harddisk.py
 --- o/lib/python/Components/Harddisk.py	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/python/Components/Harddisk.py	2022-10-15 01:38:23.352060441 +0300
++++ pc/lib/python/Components/Harddisk.py	2022-10-27 14:16:50.579180665 +0300
 @@ -52,7 +52,7 @@
  	def __init__(self, device, removable=False):
  		self.device = device
@@ -6403,7 +6529,7 @@ diff -ruN o/lib/python/Components/Harddisk.py pc/lib/python/Components/Harddisk.
  					rdev = os.stat(disk_path).st_rdev
 diff -ruN o/lib/python/Components/HdmiCec.py pc/lib/python/Components/HdmiCec.py
 --- o/lib/python/Components/HdmiCec.py	2022-10-15 01:36:52.556060080 +0300
-+++ pc/lib/python/Components/HdmiCec.py	2022-10-15 01:38:23.352060441 +0300
++++ pc/lib/python/Components/HdmiCec.py	2022-10-27 14:17:29.895180821 +0300
 @@ -8,7 +8,7 @@
  from enigma import eTimer
  from sys import maxsize
@@ -6413,11 +6539,209 @@ diff -ruN o/lib/python/Components/HdmiCec.py pc/lib/python/Components/HdmiCec.py
  LOGFILE = "hdmicec.log"
  
  # CEC Version's table
+diff -ruN o/lib/python/Components/ImportChannels.py pc/lib/python/Components/ImportChannels.py
+--- o/lib/python/Components/ImportChannels.py	2022-10-18 12:59:45.295771758 +0300
++++ pc/lib/python/Components/ImportChannels.py	2022-10-27 14:18:18.351181014 +0300
+@@ -95,7 +95,7 @@
+ 				if remote:
+ 					try:
+ 						content = self.getUrl("%s/file?file=%s/%s" % (self.url, e2path, quote(file))).readlines()
+-						content = map(lambda l: l.decode('utf-8', 'replace'), content)
++						content = [l.decode('utf-8', 'replace') for l in content]
+ 					except Exception as e:
+ 						print("[Import Channels] Exception: %s" % str(e))
+ 						self.ImportChannelsDone(False, _("ERROR downloading file %s/%s") % (e2path, file))
+diff -ruN o/lib/python/Components/InputDevice.py pc/lib/python/Components/InputDevice.py
+--- o/lib/python/Components/InputDevice.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Components/InputDevice.py	2022-10-27 14:07:36.947178467 +0300
+@@ -59,7 +59,7 @@
+ 			return None
+ 
+ 	def getDeviceName(self, x):
+-		if x in self.Devices.keys():
++		if x in list(self.Devices.keys()):
+ 			return self.Devices[x].get("name", x)
+ 		else:
+ 			return "Unknown device name"
+diff -ruN o/lib/python/Components/MovieList.py pc/lib/python/Components/MovieList.py
+--- o/lib/python/Components/MovieList.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Components/MovieList.py	2022-10-27 14:17:41.267180867 +0300
+@@ -744,7 +744,7 @@
+ 
+ 		# reverse the dictionary to see which unique movie each tag now references
+ 		rautotags = {}
+-		for tag, movies in autotags.items():
++		for tag, movies in list(autotags.items()):
+ 			if (len(movies) > 1):
+ 				movies = tuple(movies) # a tuple can be hashed, but a list not
+ 				item = rautotags.get(movies, [])
+@@ -752,7 +752,7 @@
+ 					rautotags[movies] = item
+ 				item.append(tag)
+ 		self.tags = {}
+-		for movies, tags in rautotags.items():
++		for movies, tags in list(rautotags.items()):
+ 			movie = movies[0]
+ 			# format the tag lists so that they are in 'original' order
+ 			tags.sort(key=movie.find)
+diff -ruN o/lib/python/Components/Network.py pc/lib/python/Components/Network.py
+--- o/lib/python/Components/Network.py	2022-10-08 14:08:14.879194415 +0300
++++ pc/lib/python/Components/Network.py	2022-10-27 14:09:26.927178904 +0300
+@@ -94,7 +94,7 @@
+ 		fp.write("# automatically generated by enigma2\n# do NOT change manually!\n\n")
+ 		fp.write("auto lo\n")
+ 		fp.write("iface lo inet loopback\n\n")
+-		for ifacename, iface in self.ifaces.items():
++		for ifacename, iface in list(self.ifaces.items()):
+ 			if iface['up']:
+ 				fp.write("auto " + ifacename + "\n")
+ 				self.configuredInterfaces.append(ifacename)
+@@ -185,7 +185,7 @@
+ 					if dns_ip not in self.nameservers:
+ 						self.nameservers.append(dns_ip)
+ 
+-		for ifacename, iface in ifaces.items():
++		for ifacename, iface in list(ifaces.items()):
+ 			if ifacename in self.ifaces:
+ 				self.ifaces[ifacename]["dhcp"] = iface["dhcp"]
+ 		if not self.console.appContainers:
+@@ -238,7 +238,7 @@
+ 		return len(self.ifaces)
+ 
+ 	def getFriendlyAdapterName(self, x):
+-		if x in self.friendlyNames.keys():
++		if x in list(self.friendlyNames.keys()):
+ 			return self.friendlyNames.get(x, x)
+ 		self.friendlyNames[x] = self.getFriendlyAdapterNaming(x)
+ 		return self.friendlyNames.get(x, x) # when we have no friendly name, use adapter name
+@@ -334,7 +334,7 @@
+ 			servers.extend(self.dhcpnameservers)
+ 		if len(servers) < 2:
+ 			servers.extend([[0, 0, 0, 0], [0, 0, 0, 0]])
+-		print ("Get nameserver list: ", servers)
++		print("Get nameserver list: ", servers)
+ 		return servers[0:2]
+ 
+ 	def clearNameservers(self):
+@@ -358,7 +358,7 @@
+ 	def resetNetworkConfig(self, mode='lan', callback=None):
+ 		self.commands = []
+ 		self.commands.append("/etc/init.d/avahi-daemon stop")
+-		for iface in self.ifaces.keys():
++		for iface in list(self.ifaces.keys()):
+ 			if iface != 'eth0' or not self.onRemoteRootFS():
+ 				self.commands.append("/sbin/ip addr flush dev " + iface + " scope global")
+ 		self.commands.append("/etc/init.d/networking stop")
+@@ -432,7 +432,7 @@
+ 		self.msgPlugins()
+ 		self.commands = []
+ 		self.commands.append("/etc/init.d/avahi-daemon stop")
+-		for iface in self.ifaces.keys():
++		for iface in list(self.ifaces.keys()):
+ 			if iface != 'eth0' or not self.onRemoteRootFS():
+ 				self.commands.append(("/sbin/ifdown", "/sbin/ifdown", iface))
+ 				self.commands.append("/sbin/ip addr flush dev " + iface + " scope global")
+@@ -619,7 +619,7 @@
+ 		from socket import inet_ntoa
+ 		mask = 1 << 31
+ 		xnet = (1 << 32) - 1
+-		cidr_range = range(0, 32)
++		cidr_range = list(range(0, 32))
+ 		cidr = int(nmask)
+ 		if cidr not in cidr_range:
+ 			print('cidr invalid: %d' % cidr)
+diff -ruN o/lib/python/Components/NimManager.py pc/lib/python/Components/NimManager.py
+--- o/lib/python/Components/NimManager.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Components/NimManager.py	2022-10-27 14:11:29.479179390 +0300
+@@ -583,7 +583,7 @@
+ 	def getTunerTypesEnabled(self):
+ 		try:
+ 			if self.combined:
+-				return [x for x in self.multi_type.values() if
++				return [x for x in list(self.multi_type.values()) if
+ 					self.config.configModeDVBS.value and x.startswith("DVB-S") or
+ 					self.config.configModeDVBC.value and x.startswith("DVB-C") or
+ 					self.config.configModeDVBT.value and x.startswith("DVB-T") or
+@@ -596,12 +596,12 @@
+ 		return self.isSupported() and bool([x for x in self.getTunerTypesEnabled() if what in self.compatible[x]])
+ 
+ 	def canBeCompatible(self, what):
+-		return self.isSupported() and bool([x for x in self.multi_type.values() if what in self.compatible[x]] if self.multi_type else self.isCompatible(what))
++		return self.isSupported() and bool([x for x in list(self.multi_type.values()) if what in self.compatible[x]] if self.multi_type else self.isCompatible(what))
+ 
+ 	def getType(self):
+ 		try:
+ 			if self.isCombined():
+-				return [x for x in self.multi_type.values() if x.startswith("DVB-S")][0]
++				return [x for x in list(self.multi_type.values()) if x.startswith("DVB-S")][0]
+ 			if self.isMultiType():
+ 				return self.multi_type[self.config.multiType.value]
+ 		except:
+@@ -695,8 +695,8 @@
+ 		return self.isFBCTuner() and self.is_fbc[1] != 1
+ 
+ 	def getFriendlyType(self):
+-		if self.multi_type.values():
+-			returnValue = "/".join([x[1].replace("DVB-", "") for x in sorted([({"DVB-S": 1, "DVB-C": 2, "DVB-T": 3, "ATSC": 4}[x[:5]], x) for x in self.multi_type.values()])])
++		if list(self.multi_type.values()):
++			returnValue = "/".join([x[1].replace("DVB-", "") for x in sorted([({"DVB-S": 1, "DVB-C": 2, "DVB-T": 3, "ATSC": 4}[x[:5]], x) for x in list(self.multi_type.values())])])
+ 			return "%s %s" % (_("Combined") if self.combined else _("MultiType"), returnValue if returnValue == 'ATSC' else "DVB-%s" % returnValue)
+ 		return self.getType() or _("empty")
+ 
+@@ -930,10 +930,10 @@
+ 				entries[current_slot]["name"] = _("N/A")
+ 				entries[current_slot]["isempty"] = True
+ 		nimfile.close()
+-		self.number_of_slots = len(entries.keys())
++		self.number_of_slots = len(list(entries.keys()))
+ 		fbc_number = 0
+ 		fbc_tuner = 1
+-		for id, entry in entries.items():
++		for id, entry in list(entries.items()):
+ 			if not ("name" in entry and "type" in entry):
+ 				entry["name"] = _("N/A")
+ 				entry["type"] = None
+@@ -1060,7 +1060,7 @@
+ 						nimHaveRotor = True
+ 						break
+ 				if not nimHaveRotor:
+-					for sat in mode.advanced.sat.values():
++					for sat in list(mode.advanced.sat.values()):
+ 						lnb_num = int(sat.lnb.value)
+ 						diseqcmode = lnb_num and mode.advanced.lnb[lnb_num].diseqcMode.value or ""
+ 						if diseqcmode == "1_2":
+@@ -1091,7 +1091,7 @@
+ 					if lnb_num != 0 and nim.advanced.lnb[lnb_num].lof.value == "unicable":
+ 						return True
+ 				if not is_unicable:
+-					for sat in nim.advanced.sat.values():
++					for sat in list(nim.advanced.sat.values()):
+ 						lnb_num = int(sat.lnb.value)
+ 						if lnb_num != 0 and nim.advanced.lnb[lnb_num].lof.value == "unicable":
+ 							return True
+@@ -1328,7 +1328,7 @@
+ 	lnb_choices_default = "universal_lnb"
+ 
+ 	prio_list = [("-1", _("Auto"))]
+-	for prio in chain(range(65), range(14000, 14065), range(19000, 19065)):
++	for prio in chain(list(range(65)), list(range(14000, 14065)), list(range(19000, 19065))):
+ 		description = ""
+ 		if prio == 0:
+ 			description = _(" (disabled)")
+@@ -1786,7 +1786,7 @@
+ 			createATSCConfig(nim, slot_id)
+ 
+ 		if slot.isMultiType() and not hasattr(nim, "multiType"):
+-			nim.multiType = ConfigSelection([(id, slot.getMultiTypeList()[id]) for id in slot.getMultiTypeList().keys()] + [("nothing", _("disabled"))], "0")
++			nim.multiType = ConfigSelection([(id, slot.getMultiTypeList()[id]) for id in list(slot.getMultiTypeList().keys())] + [("nothing", _("disabled"))], "0")
+ 			nim.multiType.fe_id = slot_id
+ 			nim.multiType.addNotifier(boundFunction(tunerTypeChanged, nimmgr))
+ 			if nim.multiType.value == "nothing":
 diff -ruN o/lib/python/Components/ParentalControlList.py pc/lib/python/Components/ParentalControlList.py
 --- o/lib/python/Components/ParentalControlList.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/python/Components/ParentalControlList.py	2022-10-15 01:38:23.352060441 +0300
++++ pc/lib/python/Components/ParentalControlList.py	2022-10-27 14:07:05.427178342 +0300
 @@ -0,0 +1,45 @@
-+from MenuList import MenuList
++from .MenuList import MenuList
 +from Components.ParentalControl import IMG_WHITESERVICE, IMG_WHITEBOUQUET, IMG_BLACKSERVICE, IMG_BLACKBOUQUET
 +from Tools.Directories import SCOPE_SKIN_IMAGE, resolveFilename
 +
@@ -6462,9 +6786,57 @@ diff -ruN o/lib/python/Components/ParentalControlList.py pc/lib/python/Component
 +		#Instead of just negating the locked- flag, now I call the getProtectionType every time...
 +		self.list[self.l.getCurrentSelectionIndex()] = ParentalControlEntryComponent(curSel[0][0], curSel[0][1], parentalControl.getProtectionType(curSel[0][0]))
 +		self.l.setList(self.list)
+diff -ruN o/lib/python/Components/ParentalControl.py pc/lib/python/Components/ParentalControl.py
+--- o/lib/python/Components/ParentalControl.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Components/ParentalControl.py	2022-10-27 13:25:32.267168443 +0300
+@@ -194,7 +194,7 @@
+ 
+ 	def saveListToFile(self, sWhichList, vList):
+ 		file = open(resolveFilename(SCOPE_CONFIG, sWhichList), 'w')
+-		for sService, sType in vList.items():
++		for sService, sType in list(vList.items()):
+ 			if (TYPE_SERVICE in sType or TYPE_BOUQUET in sType) and not sService.startswith("-"):
+ 				file.write(str(sService) + "\n")
+ 		file.close()
+diff -ruN o/lib/python/Components/PerServiceDisplay.py pc/lib/python/Components/PerServiceDisplay.py
+--- o/lib/python/Components/PerServiceDisplay.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Components/PerServiceDisplay.py	2022-10-27 13:25:32.343168443 +0300
+@@ -31,7 +31,7 @@
+ 			self.navcore.event.append(PerServiceBase.event)
+ 
+ 		EventMap = EventMap.setdefault
+-		for x in eventmap.items():
++		for x in list(eventmap.items()):
+ 			EventMap(x[0], []).append((with_event, x[1]))
+ 
+ 		# start with stopped state, so simulate that
+@@ -44,7 +44,7 @@
+ 
+ 	def destroy(self):
+ 		EventMap = PerServiceBase.EventMap.setdefault
+-		for x in self.eventmap.items():
++		for x in list(self.eventmap.items()):
+ 			EventMap(x[0], []).remove((self.with_event, x[1]))
+ 
+ 	def enablePolling(self, interval=60000):
+diff -ruN o/lib/python/Components/RcModel.py pc/lib/python/Components/RcModel.py
+--- o/lib/python/Components/RcModel.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Components/RcModel.py	2022-10-27 13:25:32.735168445 +0300
+@@ -27,9 +27,9 @@
+ 		else:
+ 			modeltype = None
+ 
+-		if modeltype is not None and modeltype in self.RcModels.keys():
++		if modeltype is not None and modeltype in list(self.RcModels.keys()):
+ 			remote = self.RcModels[modeltype]
+-		elif self.model in self.RcModels.keys():
++		elif self.model in list(self.RcModels.keys()):
+ 			remote = self.RcModels[self.model]
+ 		else:
+ 			remote = 'dmm'	# default. Assume files for dmm exists
 diff -ruN o/lib/python/Components/Renderer/NextEpgInfo.py pc/lib/python/Components/Renderer/NextEpgInfo.py
 --- o/lib/python/Components/Renderer/NextEpgInfo.py	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/python/Components/Renderer/NextEpgInfo.py	2022-10-15 01:38:23.352060441 +0300
++++ pc/lib/python/Components/Renderer/NextEpgInfo.py	2022-10-27 13:25:37.163168462 +0300
 @@ -32,15 +32,11 @@
  					if event:
  						if self.hideLabel:
@@ -6481,9 +6853,38 @@ diff -ruN o/lib/python/Components/Renderer/NextEpgInfo.py pc/lib/python/Componen
  
  	def applySkin(self, desktop, parent):
  		attribs = []
+diff -ruN o/lib/python/Components/Sensors.py pc/lib/python/Components/Sensors.py
+--- o/lib/python/Components/Sensors.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Components/Sensors.py	2022-10-27 13:25:33.047168446 +0300
+@@ -24,7 +24,7 @@
+ 	# returns a list of sensorids of type "type"
+ 	def getSensorsList(self, type=None):
+ 		if type is None:
+-			return range(len(self.sensors_list))
++			return list(range(len(self.sensors_list)))
+ 		list = []
+ 		for sensorid in range(len(self.sensors_list)):
+ 			if self.sensors_list[sensorid][0] == type:
+diff -ruN o/lib/python/Components/ServiceEventTracker.py pc/lib/python/Components/ServiceEventTracker.py
+--- o/lib/python/Components/ServiceEventTracker.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Components/ServiceEventTracker.py	2022-10-27 13:25:33.103168446 +0300
+@@ -114,11 +114,11 @@
+ 			screen.session.nav.event.append(ServiceEventTracker.event)
+ 			ServiceEventTracker.navcore = screen.session.nav
+ 		EventMap = EventMap.setdefault
+-		for x in eventmap.items():
++		for x in list(eventmap.items()):
+ 			EventMap(x[0], []).append((self.__passall, screen, x[1]))
+ 		screen.onClose.append(self.__del_event)
+ 
+ 	def __del_event(self):
+ 		EventMap = ServiceEventTracker.EventMap.setdefault
+-		for x in self.__eventmap.items():
++		for x in list(self.__eventmap.items()):
+ 			EventMap(x[0], []).remove((self.__passall, self.__screen, x[1]))
 diff -ruN o/lib/python/Components/UsageConfig.py pc/lib/python/Components/UsageConfig.py
 --- o/lib/python/Components/UsageConfig.py	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/python/Components/UsageConfig.py	2022-10-15 01:38:23.352060441 +0300
++++ pc/lib/python/Components/UsageConfig.py	2022-10-27 13:25:34.647168452 +0300
 @@ -122,8 +122,8 @@
  	config.usage.default_path = ConfigText(default="")
  	config.usage.timer_path = ConfigText(default="<default>")
@@ -6509,9 +6910,32 @@ diff -ruN o/lib/python/Components/UsageConfig.py pc/lib/python/Components/UsageC
  	config.streaming = ConfigSubsection()
  	config.streaming.stream_ecm = ConfigYesNo(default=False)
  	config.streaming.descramble = ConfigYesNo(default=True)
+diff -ruN o/lib/python/e2reactor.py pc/lib/python/e2reactor.py
+--- o/lib/python/e2reactor.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/e2reactor.py	2022-10-27 13:25:26.227168419 +0300
+@@ -82,7 +82,7 @@
+ 		except:
+ 			# the hard way: necessary because fileno() may disappear at any
+ 			# moment, thanks to python's underlying sockets impl
+-			for fd, fdes in selectables.items():
++			for fd, fdes in list(selectables.items()):
+ 				if selectable is fdes:
+ 					break
+ 			else:
+@@ -125,8 +125,8 @@
+ 		"""Remove all selectables, and return a list of them."""
+ 		if self.waker is not None:
+ 			self.removeReader(self.waker)
+-		result = selectables.values()
+-		fds = selectables.keys()
++		result = list(selectables.values())
++		fds = list(selectables.keys())
+ 		reads.clear()
+ 		writes.clear()
+ 		selectables.clear()
 diff -ruN o/lib/python/enigma_python.i pc/lib/python/enigma_python.i
 --- o/lib/python/enigma_python.i	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/python/enigma_python.i	2022-10-15 01:38:23.352060441 +0300
++++ pc/lib/python/enigma_python.i	2022-10-27 12:22:25.800231213 +0300
 @@ -43,7 +43,6 @@
  #include <lib/base/message.h>
  #include <lib/base/e2avahi.h>
@@ -6528,9 +6952,21 @@ diff -ruN o/lib/python/enigma_python.i pc/lib/python/enigma_python.i
  %include <lib/gdi/fb.h>
  %include <lib/gdi/font.h>
  %include <lib/gdi/gpixmap.h>
+diff -ruN o/lib/python/keyids.py pc/lib/python/keyids.py
+--- o/lib/python/keyids.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/keyids.py	2022-10-27 13:46:35.999173460 +0300
+@@ -344,7 +344,7 @@
+ 
+ def invertKeyIds():
+ 	invKeyIds = {}
+-	for key, value in KEYIDS.items():
++	for key, value in list(KEYIDS.items()):
+ 		if value not in invKeyIds:
+ 			invKeyIds[value] = key
+ 		else:
 diff -ruN o/lib/python/Plugins/Extensions/DVDBurn/DreamboxDVD.ddvdp.xml pc/lib/python/Plugins/Extensions/DVDBurn/DreamboxDVD.ddvdp.xml
 --- o/lib/python/Plugins/Extensions/DVDBurn/DreamboxDVD.ddvdp.xml	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/python/Plugins/Extensions/DVDBurn/DreamboxDVD.ddvdp.xml	2022-10-15 01:38:23.352060441 +0300
++++ pc/lib/python/Plugins/Extensions/DVDBurn/DreamboxDVD.ddvdp.xml	2022-10-27 12:22:25.800231213 +0300
 @@ -7,7 +7,7 @@
  		titlesetmode="multi"
  		vmgm="vmgmdream.mpg"
@@ -6540,9 +6976,127 @@ diff -ruN o/lib/python/Plugins/Extensions/DVDBurn/DreamboxDVD.ddvdp.xml pc/lib/p
  		dataformat="iso9660_4"
  	/>
  	<titles> </titles>
+diff -ruN o/lib/python/Plugins/Extensions/DVDBurn/DVDProject.py pc/lib/python/Plugins/Extensions/DVDBurn/DVDProject.py
+--- o/lib/python/Plugins/Extensions/DVDBurn/DVDProject.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Plugins/Extensions/DVDBurn/DVDProject.py	2022-10-27 14:27:56.115183308 +0300
+@@ -20,7 +20,7 @@
+ 		cut_len = min(len(self.text), 40)
+ 		filename = (self.text.rstrip("/").rsplit("/", 1))[1][:cut_len] + " "
+ 		if self.allmarked:
+-			mark = range(0, len(filename))
++			mark = list(range(0, len(filename)))
+ 		else:
+ 			mark = [filename]
+ 		return ("mtext"[1 - selected:], filename, mark)
+@@ -59,7 +59,7 @@
+ 		list.append('<?xml version="1.0" encoding="utf-8" ?>\n')
+ 		list.append('<DreamDVDBurnerProject>\n')
+ 		list.append('\t<settings ')
+-		for key, val in self.settings.dict().items():
++		for key, val in list(self.settings.dict().items()):
+ 			list.append(key + '="' + str(val.getValue()) + '" ')
+ 		list.append('/>\n')
+ 		list.append('\t<titles>\n')
+@@ -70,12 +70,12 @@
+ 			list.append('</path>\n')
+ 			list.append('\t\t\t<properties ')
+ 			audiotracks = []
+-			for key, val in title.properties.dict().items():
++			for key, val in list(title.properties.dict().items()):
+ 				if isinstance(val, ConfigSubList):
+ 					audiotracks.append('\t\t\t<audiotracks>\n')
+ 					for audiotrack in val:
+ 						audiotracks.append('\t\t\t\t<audiotrack ')
+-						for subkey, subval in audiotrack.dict().items():
++						for subkey, subval in list(audiotrack.dict().items()):
+ 							audiotracks.append(subkey + '="' + str(subval.getValue()) + '" ')
+ 						audiotracks.append(' />\n')
+ 					audiotracks.append('\t\t\t</audiotracks>\n')
+diff -ruN o/lib/python/Plugins/Extensions/DVDBurn/DVDToolbox.py pc/lib/python/Plugins/Extensions/DVDBurn/DVDToolbox.py
+--- o/lib/python/Plugins/Extensions/DVDBurn/DVDToolbox.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Plugins/Extensions/DVDBurn/DVDToolbox.py	2022-10-27 14:26:53.535183059 +0300
+@@ -181,7 +181,7 @@
+ 
+ 
+ class DVDformatTask(Task):
+-	ERROR_ALREADYFORMATTED, ERROR_NOTWRITEABLE, ERROR_UNKNOWN = range(3)
++	ERROR_ALREADYFORMATTED, ERROR_NOTWRITEABLE, ERROR_UNKNOWN = list(range(3))
+ 
+ 	def __init__(self, job, extra_args=[]):
+ 		Task.__init__(self, job, ("RW medium format"))
+diff -ruN o/lib/python/Plugins/Extensions/DVDBurn/Process.py pc/lib/python/Plugins/Extensions/DVDBurn/Process.py
+--- o/lib/python/Plugins/Extensions/DVDBurn/Process.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Plugins/Extensions/DVDBurn/Process.py	2022-10-27 14:25:54.839182826 +0300
+@@ -209,7 +209,7 @@
+ 
+ 
+ class MplexTask(Task):
+-	ERROR_UNDERRUN, ERROR_UNKNOWN = range(2)
++	ERROR_UNDERRUN, ERROR_UNKNOWN = list(range(2))
+ 
+ 	def __init__(self, job, outputfile, inputfiles=None, demux_task=None, weighting=500):
+ 		Task.__init__(self, job, "Mux ES into PS")
+@@ -331,7 +331,7 @@
+ 
+ 
+ class BurnTask(Task):
+-	ERROR_NOTWRITEABLE, ERROR_LOAD, ERROR_SIZE, ERROR_WRITE_FAILED, ERROR_DVDROM, ERROR_ISOFS, ERROR_FILETOOLARGE, ERROR_ISOTOOLARGE, ERROR_MINUSRWBUG, ERROR_UNKNOWN = range(10)
++	ERROR_NOTWRITEABLE, ERROR_LOAD, ERROR_SIZE, ERROR_WRITE_FAILED, ERROR_DVDROM, ERROR_ISOFS, ERROR_FILETOOLARGE, ERROR_ISOTOOLARGE, ERROR_MINUSRWBUG, ERROR_UNKNOWN = list(range(10))
+ 
+ 	def __init__(self, job, extra_args=[], tool="growisofs"):
+ 		Task.__init__(self, job, job.name)
+diff -ruN o/lib/python/Plugins/Extensions/DVDBurn/ProjectSettings.py pc/lib/python/Plugins/Extensions/DVDBurn/ProjectSettings.py
+--- o/lib/python/Plugins/Extensions/DVDBurn/ProjectSettings.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Plugins/Extensions/DVDBurn/ProjectSettings.py	2022-10-27 14:26:15.391182908 +0300
+@@ -169,9 +169,9 @@
+ 
+ 		self["config"].setList(self.list)
+ 		self.keydict = {}
+-		for key, val in self.settings.dict().items():
++		for key, val in list(self.settings.dict().items()):
+ 			self.keydict[val] = key
+-		for key, val in self.project.menutemplate.settings.dict().items():
++		for key, val in list(self.project.menutemplate.settings.dict().items()):
+ 			self.keydict[val] = key
+ 
+ 	def keyLeft(self):
+diff -ruN o/lib/python/Plugins/Extensions/DVDBurn/TitleProperties.py pc/lib/python/Plugins/Extensions/DVDBurn/TitleProperties.py
+--- o/lib/python/Plugins/Extensions/DVDBurn/TitleProperties.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Plugins/Extensions/DVDBurn/TitleProperties.py	2022-10-27 14:29:25.795183664 +0300
+@@ -151,10 +151,10 @@
+ 		syslang = syslanguage.getLanguage()[:2]
+ 		self.langdict = {}
+ 		self.choices = []
+-		for key, val in LanguageCodes.items():
++		for key, val in list(LanguageCodes.items()):
+ 			if len(key) == 2:
+ 				self.langdict[key] = val[0]
+-		for key, val in self.langdict.items():
++		for key, val in list(self.langdict.items()):
+ 			if key not in (syslang, 'en'):
+ 				self.langdict[key] = val
+ 				self.choices.append((key, val))
+@@ -168,7 +168,7 @@
+ 		DVB_lang = DVB_lang.lower()
+ 		for word in ("stereo", "audio", "description", "2ch", "dolby digital"):
+ 			DVB_lang = DVB_lang.replace(word, "").strip()
+-		for key, val in LanguageCodes.items():
++		for key, val in list(LanguageCodes.items()):
+ 			if DVB_lang.find(key.lower()) == 0:
+ 				if len(key) == 2:
+ 					return key
+@@ -179,7 +179,7 @@
+ 					return key
+ 				else:
+ 					DVB_lang = (LanguageCodes[key])[0]
+-		for key, val in self.langdict.items():
++		for key, val in list(self.langdict.items()):
+ 			if val == DVB_lang:
+ 				return key
+ 		return "nolang"
 diff -ruN o/lib/python/Plugins/Extensions/MediaPlayer/plugin.py pc/lib/python/Plugins/Extensions/MediaPlayer/plugin.py
 --- o/lib/python/Plugins/Extensions/MediaPlayer/plugin.py	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/python/Plugins/Extensions/MediaPlayer/plugin.py	2022-10-15 01:38:23.352060441 +0300
++++ pc/lib/python/Plugins/Extensions/MediaPlayer/plugin.py	2022-10-27 14:24:11.127182415 +0300
 @@ -350,13 +350,11 @@
  		currPlay = self.session.nav.getCurrentService()
  		sTagAudioCodec = currPlay.info().getInfoString(iServiceInformation.sTagAudioCodec)
@@ -6559,7 +7113,7 @@ diff -ruN o/lib/python/Plugins/Extensions/MediaPlayer/plugin.py pc/lib/python/Pl
  		currPlay = self.session.nav.getCurrentService()
 diff -ruN o/lib/python/Plugins/Extensions/PicturePlayer/ui.py pc/lib/python/Plugins/Extensions/PicturePlayer/ui.py
 --- o/lib/python/Plugins/Extensions/PicturePlayer/ui.py	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/python/Plugins/Extensions/PicturePlayer/ui.py	2022-10-15 01:38:23.352060441 +0300
++++ pc/lib/python/Plugins/Extensions/PicturePlayer/ui.py	2022-10-27 14:28:27.111183431 +0300
 @@ -20,7 +20,7 @@
  
  
@@ -6569,9 +7123,144 @@ diff -ruN o/lib/python/Plugins/Extensions/PicturePlayer/ui.py pc/lib/python/Plug
  config.pic.slidetime = ConfigInteger(default=10, limits=(1, 60))
  config.pic.resize = ConfigSelection(default="1", choices=[("0", _("simple")), ("1", _("better"))])
  config.pic.cache = ConfigYesNo(default=True)
+@@ -509,7 +509,7 @@
+ 			self["pic"].instance.setPixmap(self.currPic[2].__deref__())
+ 			self.currPic = []
+ 
+-			self.next()
++			next(self)
+ 			self.start_decode()
+ 
+ 	def finish_decode(self, picInfo=""):
+@@ -532,7 +532,7 @@
+ 		self.picload.startDecode(self.filelist[self.index])
+ 		self["point"].show()
+ 
+-	def next(self):
++	def __next__(self):
+ 		self.index += 1
+ 		if self.index > self.maxentry:
+ 			self.index = 0
+diff -ruN o/lib/python/Plugins/SystemPlugins/DiseqcTester/plugin.py pc/lib/python/Plugins/SystemPlugins/DiseqcTester/plugin.py
+--- o/lib/python/Plugins/SystemPlugins/DiseqcTester/plugin.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Plugins/SystemPlugins/DiseqcTester/plugin.py	2022-10-27 14:29:09.551183599 +0300
+@@ -53,9 +53,9 @@
+ 				if transponder[2] == "pids_failed":
+ 					print(transponder[2], "-", transponder[3])
+ 			text += "The %d unsuccessful tuning attempts failed for the following reasons:\n" % countfailed
+-			for reason in reasons.keys():
++			for reason in list(reasons.keys()):
+ 				text += "%s: %d transponders failed\n" % (reason, len(reasons[reason]))
+-			for reason in reasons.keys():
++			for reason in list(reasons.keys()):
+ 				text += "\n"
+ 				text += "%s previous planes:\n" % reason
+ 				for transponder in reasons[reason]:
+@@ -100,13 +100,13 @@
+ 		if self.type == self.TYPE_BYINDEX:
+ 			text += self.getTextualResultForIndex(self.index)
+ 		elif self.type == self.TYPE_BYORBPOS:
+-			for index in self.results.keys():
++			for index in list(self.results.keys()):
+ 				if index[2] == self.orbpos:
+ 					text += self.getTextualResultForIndex(index)
+ 					text += "\n-----------------------------------------------------\n"
+ 		elif self.type == self.TYPE_ALL:
+ 			orderedResults = {}
+-			for index in self.results.keys():
++			for index in list(self.results.keys()):
+ 				orbpos = index[2]
+ 				orderedResults[orbpos] = orderedResults.get(orbpos, [])
+ 				orderedResults[orbpos].append(index)
+@@ -269,7 +269,7 @@
+ 		self.clearTransponder()
+ 		print("----------- fillTransponderList")
+ 		print("index:", self.currentlyTestedIndex)
+-		keys = self.indexlist.keys()
++		keys = list(self.indexlist.keys())
+ 		if self.getContinueScanning():
+ 			print("index:", self.getTextualIndexRepresentation(self.currentlyTestedIndex))
+ 			for transponder in self.indexlist[self.currentlyTestedIndex]:
+@@ -303,7 +303,7 @@
+ 			self["overall_progress"].setValue(self.myindex)
+ 			return self.randomkeys[0]
+ 		elif self.test_type == self.TEST_TYPE_COMPLETE:
+-			keys = self.indexlist.keys()
++			keys = list(self.indexlist.keys())
+ 			print("keys:", keys)
+ 			successorindex = {}
+ 			for index in keys:
+@@ -318,7 +318,7 @@
+ 			while not stop:
+ 				if currindex is None or len(successorindex[currindex]) == 0:
+ 					oldindex = currindex
+-					for index in successorindex.keys():
++					for index in list(successorindex.keys()):
+ 						if len(successorindex[index]) > 0:
+ 							currindex = index
+ 							self.keylist.append(currindex)
+@@ -370,7 +370,7 @@
+ 	# the algorithm checks, if we should continue scanning
+ 	def getContinueScanning(self):
+ 		if self.test_type == self.TEST_TYPE_QUICK or self.test_type == self.TEST_TYPE_RANDOM:
+-			return (self.myindex < len(self.indexlist.keys()))
++			return (self.myindex < len(list(self.indexlist.keys())))
+ 		elif self.test_type == self.TEST_TYPE_COMPLETE:
+ 			return (self.myindex < len(self.keylist))
+ 
+diff -ruN o/lib/python/Plugins/SystemPlugins/FastChannelChange/plugin.py pc/lib/python/Plugins/SystemPlugins/FastChannelChange/plugin.py
+--- o/lib/python/Plugins/SystemPlugins/FastChannelChange/plugin.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Plugins/SystemPlugins/FastChannelChange/plugin.py	2022-10-27 13:25:43.051168485 +0300
+@@ -1,6 +1,6 @@
+ #!/usr/bin/python
+ # -*- coding: utf-8 -*-
+-from __future__ import print_function
++
+ from Plugins.Plugin import PluginDescriptor
+ from Screens.Screen import Screen
+ from Screens.InfoBar import InfoBar
+@@ -344,7 +344,7 @@
+ 		stopFCCList = []
+ 		currentFCCList = self.fccmgr.getFCCServiceList()
+ 
+-		for (sref, value) in currentFCCList.items():
++		for (sref, value) in list(currentFCCList.items()):
+ 			state = value[0]
+ 
+ 			if state == 2: # fcc_state_failed
+@@ -407,7 +407,7 @@
+ 	def FCCStopAllServices(self):
+ 		self.FCCTimeoutTimerStop()
+ 		fccServiceList = self.fccmgr.getFCCServiceList()
+-		for (sref, value) in fccServiceList.items():
++		for (sref, value) in list(fccServiceList.items()):
+ 			state = value[0]
+ 			if state != 1 : # 1  : fcc_state_decoding
+ 				self.fccmgr.stopFCCService(eServiceReference(sref))
+@@ -423,7 +423,7 @@
+ 		self.eventList = []
+ 
+ 	def FCCCheckNoLocked(self):
+-		for (sref, value) in self.fccmgr.getFCCServiceList().items():
++		for (sref, value) in list(self.fccmgr.getFCCServiceList().items()):
+ 			state = value[0]
+ 			locked = value[1]
+ 			if state != 1 and locked == 0: # no fcc decoding and no locked
+diff -ruN o/lib/python/Plugins/SystemPlugins/NetworkWizard/NetworkWizard.py pc/lib/python/Plugins/SystemPlugins/NetworkWizard/NetworkWizard.py
+--- o/lib/python/Plugins/SystemPlugins/NetworkWizard/NetworkWizard.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Plugins/SystemPlugins/NetworkWizard/NetworkWizard.py	2022-10-27 13:25:43.459168487 +0300
+@@ -126,7 +126,7 @@
+ 	def checkOldInterfaceState(self):
+ 		# disable up interface if it was originally down and config is unchanged.
+ 		if not self.originalInterfaceStateChanged:
+-			for interface in self.originalInterfaceState.keys():
++			for interface in list(self.originalInterfaceState.keys()):
+ 				if interface == self.selectedInterface:
+ 					if not self.originalInterfaceState[interface]["up"]:
+ 						if iNetwork.checkforInterface(interface):
 diff -ruN o/lib/python/Plugins/SystemPlugins/SoftwareManager/BackupRestore.py pc/lib/python/Plugins/SystemPlugins/SoftwareManager/BackupRestore.py
 --- o/lib/python/Plugins/SystemPlugins/SoftwareManager/BackupRestore.py	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/SoftwareManager/BackupRestore.py	2022-10-15 01:38:23.356060441 +0300
++++ pc/lib/python/Plugins/SystemPlugins/SoftwareManager/BackupRestore.py	2022-10-27 14:31:34.655184176 +0300
 @@ -112,7 +112,7 @@
  
  		self.selectedFiles = config.plugins.configurationbackup.backupdirs.value
@@ -6583,7 +7272,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/SoftwareManager/BackupRestore.py pc
  
 diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/plugin.py pc/lib/python/Plugins/SystemPlugins/Videomode/plugin.py
 --- o/lib/python/Plugins/SystemPlugins/Videomode/plugin.py	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/Videomode/plugin.py	2022-10-15 01:38:23.356060441 +0300
++++ pc/lib/python/Plugins/SystemPlugins/Videomode/plugin.py	2022-10-27 14:31:25.019184137 +0300
 @@ -17,9 +17,10 @@
  		Screen.__init__(self, session)
  		# for the skin: first try VideoSetup, then Setup, this allows individual skinning
@@ -6793,7 +7482,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/plugin.py pc/lib/python/P
  	from Plugins.SystemPlugins.Videomode.VideoWizard import VideoWizard
 diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py pc/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py
 --- o/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py	2022-10-05 14:22:25.787112498 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py	2022-10-15 01:38:23.356060441 +0300
++++ pc/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py	2022-10-27 14:29:40.487183722 +0300
 @@ -1,7 +1,9 @@
 +from enigma import eTimer, eAVSwitch
  from Components.config import config, ConfigSelection, ConfigSubDict, ConfigYesNo
@@ -7296,7 +7985,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py pc/lib/p
  video_hw.setConfiguredMode()
 diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/VideoWizard.py pc/lib/python/Plugins/SystemPlugins/Videomode/VideoWizard.py
 --- o/lib/python/Plugins/SystemPlugins/Videomode/VideoWizard.py	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/Videomode/VideoWizard.py	2022-10-15 01:38:23.356060441 +0300
++++ pc/lib/python/Plugins/SystemPlugins/Videomode/VideoWizard.py	2022-10-27 14:31:01.463184044 +0300
 @@ -3,7 +3,7 @@
  from Screens.Rc import Rc
  from Plugins.SystemPlugins.Videomode.VideoHardware import video_hw
@@ -7389,7 +8078,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/VideoWizard.py pc/lib/pyt
  		configfile.save()
 diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/Makefile.am pc/lib/python/Plugins/SystemPlugins/VideoTune/Makefile.am
 --- o/lib/python/Plugins/SystemPlugins/VideoTune/Makefile.am	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/VideoTune/Makefile.am	2022-10-15 01:38:23.356060441 +0300
++++ pc/lib/python/Plugins/SystemPlugins/VideoTune/Makefile.am	2022-10-27 12:22:25.808231213 +0300
 @@ -4,4 +4,4 @@
  
  install_PYTHON =	\
@@ -7398,7 +8087,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/Makefile.am pc/lib/python
 +	plugin.py VideoFinetune.py
 diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py pc/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py
 --- o/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py	2022-10-15 01:38:23.356060441 +0300
++++ pc/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py	2022-10-27 13:25:45.927168497 +0300
 @@ -1,8 +1,6 @@
  from Screens.Screen import Screen
 -from Components.config import config
@@ -7484,7 +8173,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py pc/lib/p
  			"ok": self.callNext,
  			"cancel": self.close,
  		})
-@@ -161,7 +118,7 @@
+@@ -161,11 +118,11 @@
  		open("/proc/stb/fb/dst_height", "w").write(self.height)
  
  	def keyNumber(self, key):
@@ -7492,8 +8181,14 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py pc/lib/p
 +		(self.testpic_brightness, self.testpic_contrast, self.testpic_colors, self.testpic_filter, self.testpic_gamma, self.testpic_overscan, self.testpic_fullhd)[key-1]()
  
  	def callNext(self):
- 		if self.next:
-@@ -377,30 +334,17 @@
+-		if self.next:
+-			self.next()
++		if self.__next__:
++			next(self)
+ 
+ 	def bbox(self, x, y, width, height, col, xx, yy):
+ 		c = self["Canvas"]
+@@ -377,120 +334,23 @@
  		c.flush()
  
  	def testpic_overscan(self):
@@ -7527,7 +8222,10 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py pc/lib/p
  
  	def testpicCallback(self, key):
  		if key:
-@@ -410,87 +354,3 @@
+ 			if key == True:
+-				self.next()
++				next(self)
+ 			else:
  				self.keyNumber(key)
  		else:
  			self.close()
@@ -7615,9 +8313,42 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py pc/lib/p
 -
 -	def keyNumber(self, key):
 -		self.close(key)
+diff -ruN o/lib/python/Plugins/SystemPlugins/WirelessLan/plugin.py pc/lib/python/Plugins/SystemPlugins/WirelessLan/plugin.py
+--- o/lib/python/Plugins/SystemPlugins/WirelessLan/plugin.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Plugins/SystemPlugins/WirelessLan/plugin.py	2022-10-27 13:25:46.491168499 +0300
+@@ -279,7 +279,7 @@
+ 		currentListEntry = None
+ 		currentListIndex = None
+ 
+-		for ap in self.oldlist.keys():
++		for ap in list(self.oldlist.keys()):
+ 			data = self.oldlist[ap]['data']
+ 			if data is not None:
+ 				tmpList.append(data)
+diff -ruN o/lib/python/Plugins/SystemPlugins/WirelessLan/Wlan.py pc/lib/python/Plugins/SystemPlugins/WirelessLan/Wlan.py
+--- o/lib/python/Plugins/SystemPlugins/WirelessLan/Wlan.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Plugins/SystemPlugins/WirelessLan/Wlan.py	2022-10-27 14:35:29.475185108 +0300
+@@ -206,7 +206,7 @@
+ 					'key': "",
+ 				}
+ 
+-		for (k, v) in wsconf.items():
++		for (k, v) in list(wsconf.items()):
+ 			print("[wsconf][%s] %s" % (k, v))
+ 
+ 		return wsconf
+@@ -323,7 +323,7 @@
+ 					'key': config.plugins.wlan.psk.value,
+ 				}
+ 
+-			for (key, item) in wsconfig.items():
++			for (key, item) in list(wsconfig.items()):
+ 				if item == "None" or item == "":
+ 					if key == 'hiddenessid':
+ 						wsconfig['hiddenessid'] = False
 diff -ruN o/lib/python/Screens/About.py pc/lib/python/Screens/About.py
 --- o/lib/python/Screens/About.py	2022-09-26 21:22:13.047118277 +0300
-+++ pc/lib/python/Screens/About.py	2022-10-15 01:38:23.356060441 +0300
++++ pc/lib/python/Screens/About.py	2022-10-27 13:49:00.147174033 +0300
 @@ -58,8 +58,13 @@
  		GStreamerVersion = about.getGStreamerVersionString().replace("GStreamer", "")
  		self["GStreamerVersion"] = StaticText(GStreamerVersion)
@@ -7674,7 +8405,16 @@ diff -ruN o/lib/python/Screens/About.py pc/lib/python/Screens/About.py
  				self.commands.append("cat %s" % install_log)
 diff -ruN o/lib/python/Screens/AudioSelection.py pc/lib/python/Screens/AudioSelection.py
 --- o/lib/python/Screens/AudioSelection.py	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/python/Screens/AudioSelection.py	2022-10-15 01:38:23.356060441 +0300
++++ pc/lib/python/Screens/AudioSelection.py	2022-10-27 13:25:47.155168502 +0300
+@@ -15,7 +15,7 @@
+ 
+ from enigma import iPlayableService, eTimer, eSize, eDVBDB, eServiceReference, eServiceCenter, iServiceInformation
+ 
+-FOCUS_CONFIG, FOCUS_STREAMS = range(2)
++FOCUS_CONFIG, FOCUS_STREAMS = list(range(2))
+ [PAGE_AUDIO, PAGE_SUBTITLES] = ["audio", "subtitles"]
+ 
+ 
 @@ -406,6 +406,20 @@
  		self.skinName = ["AudioSelection"]
  
@@ -7696,9 +8436,21 @@ diff -ruN o/lib/python/Screens/AudioSelection.py pc/lib/python/Screens/AudioSele
  class QuickSubtitlesConfigMenu(ConfigListScreen, Screen):
  	skin = """
  	<screen position="50,50" size="480,305" title="Subtitle settings" backgroundColor="#7f000000" flags="wfNoBorder">
+diff -ruN o/lib/python/Screens/Dish.py pc/lib/python/Screens/Dish.py
+--- o/lib/python/Screens/Dish.py	2022-10-23 11:29:31.086000467 +0300
++++ pc/lib/python/Screens/Dish.py	2022-10-27 13:25:49.315168510 +0300
+@@ -204,7 +204,7 @@
+ 					return nim.turningspeedH.float
+ 			elif nimConfig.configMode.value == "advanced":
+ 				if self.cur_orbpos != INVALID_POSITION:
+-					if self.cur_orbpos in nimConfig.advanced.sat.keys():
++					if self.cur_orbpos in list(nimConfig.advanced.sat.keys()):
+ 						currSat = nimConfig.advanced.sat[self.cur_orbpos]
+ 						lnbnum = int(currSat.lnb.value)
+ 						currLnb = lnbnum and nimConfig.advanced.lnb[lnbnum]
 diff -ruN o/lib/python/Screens/EpgSelection.py pc/lib/python/Screens/EpgSelection.py
 --- o/lib/python/Screens/EpgSelection.py	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/python/Screens/EpgSelection.py	2022-10-15 01:38:23.356060441 +0300
++++ pc/lib/python/Screens/EpgSelection.py	2022-10-27 13:25:49.555168511 +0300
 @@ -66,8 +66,8 @@
  			self.setTitle(_("Multi EPG"))
  			self.skinName = "EPGSelectionMulti"
@@ -7710,9 +8462,30 @@ diff -ruN o/lib/python/Screens/EpgSelection.py pc/lib/python/Screens/EpgSelectio
  			self["now_button"] = Pixmap()
  			self["next_button"] = Pixmap()
  			self["more_button"] = Pixmap()
+diff -ruN o/lib/python/Screens/FlashImage.py pc/lib/python/Screens/FlashImage.py
+--- o/lib/python/Screens/FlashImage.py	2022-10-10 12:33:45.518097981 +0300
++++ pc/lib/python/Screens/FlashImage.py	2022-10-27 13:25:50.067168513 +0300
+@@ -112,7 +112,7 @@
+ 				for image in reversed(sorted(self.imagesList[catagorie].keys())):
+ 					list.append(ChoiceEntryComponent('verticalline', ((str(self.imagesList[catagorie][image]['name'])), str(self.imagesList[catagorie][image]['link']))))
+ 			else:
+-				for image in self.imagesList[catagorie].keys():
++				for image in list(self.imagesList[catagorie].keys()):
+ 					list.append(ChoiceEntryComponent('expandable', ((str(catagorie)), "Expander")))
+ 					break
+ 		if list:
+@@ -230,7 +230,7 @@
+ 			imagesList = getImagelist()
+ 			currentimageslot = getCurrentImage()
+ 			choices = []
+-			slotdict = {k: v for k, v in SystemInfo["canMultiBoot"].items() if not v['device'].startswith('/dev/sda')}
++			slotdict = {k: v for k, v in list(SystemInfo["canMultiBoot"].items()) if not v['device'].startswith('/dev/sda')}
+ 			for x in range(1, len(slotdict) + 1):
+ 				choices.append(((_("slot%s - %s (current image) with, backup") if x == currentimageslot else _("slot%s - %s, with backup")) % (x, imagesList[x]['imagename']), (x, "with backup")))
+ 			for x in range(1, len(slotdict) + 1):
 diff -ruN o/lib/python/Screens/Hotkey.py pc/lib/python/Screens/Hotkey.py
 --- o/lib/python/Screens/Hotkey.py	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/python/Screens/Hotkey.py	2022-10-15 01:38:23.356060441 +0300
++++ pc/lib/python/Screens/Hotkey.py	2022-10-27 14:01:26.267176995 +0300
 @@ -227,8 +227,8 @@
  	hotkey.functions.append((_("PowerMenu"), "Menu/shutdown", "Power"))
  	hotkey.functions.append((_("Standby"), "Module/Screens.Standby/Standby", "Power"))
@@ -7726,7 +8499,16 @@ diff -ruN o/lib/python/Screens/Hotkey.py pc/lib/python/Screens/Hotkey.py
  	hotkey.functions.append((_("Recording Setup"), "Setup/recording", "Setup"))
 diff -ruN o/lib/python/Screens/InfoBarGenerics.py pc/lib/python/Screens/InfoBarGenerics.py
 --- o/lib/python/Screens/InfoBarGenerics.py	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/python/Screens/InfoBarGenerics.py	2022-10-15 01:38:23.360060441 +0300
++++ pc/lib/python/Screens/InfoBarGenerics.py	2022-10-27 14:00:28.751176767 +0300
+@@ -79,7 +79,7 @@
+ 				resumePointCache[key] = [lru, pos[1], l]
+ 				if len(resumePointCache) > 50:
+ 					candidate = key
+-					for k, v in resumePointCache.items():
++					for k, v in list(resumePointCache.items()):
+ 						if v[0] < lru:
+ 							candidate = k
+ 					del resumePointCache[candidate]
 @@ -503,8 +503,7 @@
  	def mayShowEndTimer(self):
  		self.mayShow = True
@@ -7749,7 +8531,7 @@ diff -ruN o/lib/python/Screens/InfoBarGenerics.py pc/lib/python/Screens/InfoBarG
  	def HDMIIn(self):
 diff -ruN o/lib/python/Screens/PluginBrowser.py pc/lib/python/Screens/PluginBrowser.py
 --- o/lib/python/Screens/PluginBrowser.py	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/python/Screens/PluginBrowser.py	2022-10-15 01:38:23.360060441 +0300
++++ pc/lib/python/Screens/PluginBrowser.py	2022-10-27 13:47:21.767173642 +0300
 @@ -58,7 +58,6 @@
  		self.firsttime = True
  
@@ -7766,9 +8548,18 @@ diff -ruN o/lib/python/Screens/PluginBrowser.py pc/lib/python/Screens/PluginBrow
  		})
  		self["DirectionActions"] = ActionMap(["DirectionActions"],
  		{
+@@ -517,7 +515,7 @@
+ 
+ 			self.plugins[split[0]].append((PluginDescriptor(name=x[3], description=x[2], icon=verticallineIcon), split[1], x[1]))
+ 
+-		for x in self.plugins.keys():
++		for x in list(self.plugins.keys()):
+ 			if x in self.expanded:
+ 				list.append(PluginCategoryComponent(x, expandedIcon, self.listWidth))
+ 				list.extend([PluginDownloadComponent(plugin[0], plugin[1], plugin[2], self.listWidth) for plugin in self.plugins[x]])
 diff -ruN o/lib/python/Screens/Satconfig.py pc/lib/python/Screens/Satconfig.py
 --- o/lib/python/Screens/Satconfig.py	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/python/Screens/Satconfig.py	2022-10-15 01:38:23.360060441 +0300
++++ pc/lib/python/Screens/Satconfig.py	2022-10-27 13:25:56.863168540 +0300
 @@ -132,7 +132,7 @@
  				self.list.append(self.configMode)
  				warning_text = _(" Warning: the selected tuner should not use SCR Unicable type for LNBs because each tuner need a own SCR number.")
@@ -7778,9 +8569,48 @@ diff -ruN o/lib/python/Screens/Satconfig.py pc/lib/python/Screens/Satconfig.py
  					self.list.append(self.diseqcModeEntry)
  					if self.nimConfig.diseqcMode.value in ("single", "toneburst_a_b", "diseqc_a_b", "diseqc_a_b_c_d"):
  						self.createSimpleSetup(self.list, self.nimConfig.diseqcMode.value)
+@@ -187,7 +187,7 @@
+ 					else:
+ 						cur_orb_pos = self.nimConfig.advanced.sats.orbital_position
+ 						if cur_orb_pos is not None:
+-							if cur_orb_pos not in self.nimConfig.advanced.sat.keys():
++							if cur_orb_pos not in list(self.nimConfig.advanced.sat.keys()):
+ 								cur_orb_pos = next(iter(self.nimConfig.advanced.sat)) # get first key
+ 							self.fillListWithAdvancedSatEntrys(self.nimConfig.advanced.sat[cur_orb_pos])
+ 					self.have_advanced = True
+@@ -529,7 +529,7 @@
+ 		self.list.append(self.configMode)
+ 		self.advancedSatsEntry = getConfigListEntry(self.indent % _("Satellite"), self.nimConfig.advanced.sats)
+ 		self.list.append(self.advancedSatsEntry)
+-		for x in self.nimConfig.advanced.sat.keys():
++		for x in list(self.nimConfig.advanced.sat.keys()):
+ 			Sat = self.nimConfig.advanced.sat[x]
+ 			self.fillListWithAdvancedSatEntrys(Sat)
+ 		self["config"].list = self.list
+diff -ruN o/lib/python/Screens/Screen.py pc/lib/python/Screens/Screen.py
+--- o/lib/python/Screens/Screen.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Screens/Screen.py	2022-10-27 13:52:04.123174763 +0300
+@@ -12,7 +12,7 @@
+ 
+ 
+ class Screen(dict):
+-	NO_SUSPEND, SUSPEND_STOPS, SUSPEND_PAUSES = range(3)
++	NO_SUSPEND, SUSPEND_STOPS, SUSPEND_PAUSES = list(range(3))
+ 	ALLOW_SUSPEND = NO_SUSPEND
+ 	globalScreen = None
+ 
+@@ -271,7 +271,7 @@
+ 				f()
+ 
+ 	def deleteGUIScreen(self):
+-		for (name, val) in self.items():
++		for (name, val) in list(self.items()):
+ 			if isinstance(val, GUIComponent):
+ 				val.GUIdelete()
+ 
 diff -ruN o/lib/python/Screens/StartWizard.py pc/lib/python/Screens/StartWizard.py
 --- o/lib/python/Screens/StartWizard.py	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/python/Screens/StartWizard.py	2022-10-15 01:38:23.360060441 +0300
++++ pc/lib/python/Screens/StartWizard.py	2022-10-27 13:25:59.331168550 +0300
 @@ -101,7 +101,7 @@
  		self["AboutScrollLabel"] = ScrollLabel("", showscrollbar=False)
  		self["header"] = Label(_("Autoinstalling please wait for packages being updated"))
@@ -7799,9 +8629,1110 @@ diff -ruN o/lib/python/Screens/StartWizard.py pc/lib/python/Screens/StartWizard.
  		self.packages = [package for package in self.packages if package not in installed]
  		if self.packages:
  			self.run_console()
+diff -ruN o/lib/python/Screens/VirtualKeyBoard.py pc/lib/python/Screens/VirtualKeyBoard.py
+--- o/lib/python/Screens/VirtualKeyBoard.py	2022-09-13 13:20:46.104433248 +0300
++++ pc/lib/python/Screens/VirtualKeyBoard.py	2022-10-27 13:26:00.775168556 +0300
+@@ -233,9 +233,9 @@
+ 		self.footer = ["EXITICON", "LEFTICON", "RIGHTICON", SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, "SHIFTICON", "LOCALEICON", "CLEARICON", "DELETEICON"]
+ 		self.czech = [
+ 			[
+-				[";", "+", "\u011B", "\u0161", "\u010D", "\u0159", "\u017E", "\u00FD", "\u00E1", "\u00ED", "\u00E9", "=", "", "BACKSPACEICON"],
+-				["FIRSTICON", "q", "w", "e", "r", "t", "z", "u", "i", "o", "p", "\u00FA", "(", ")"],
+-				["LASTICON", "a", "s", "d", "f", "g", "h", "j", "k", "l", "\u016F", "\u00A7", self.green, self.green],
++				[";", "+", "\\u011B", "\\u0161", "\\u010D", "\\u0159", "\\u017E", "\\u00FD", "\\u00E1", "\\u00ED", "\\u00E9", "=", "", "BACKSPACEICON"],
++				["FIRSTICON", "q", "w", "e", "r", "t", "z", "u", "i", "o", "p", "\\u00FA", "(", ")"],
++				["LASTICON", "a", "s", "d", "f", "g", "h", "j", "k", "l", "\\u016F", "\\u00A7", self.green, self.green],
+ 				["CAPSLOCKICON", "\\", "y", "x", "c", "v", "b", "n", "m", ",", ".", "-", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 				self.footer
+ 			], [
+@@ -245,9 +245,9 @@
+ 				["CAPSLOCKICON", "|", "Y", "X", "C", "V", "B", "N", "M", "?", ":", "_", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 				self.footer
+ 			], [
+-				["\u00B0", "~", "\u011A", "\u0160", "\u010C", "\u0158", "\u017D", "\u00DD", "\u00C1", "\u00CD", "\u00C9", "`", "'", "BACKSPACEICON"],
+-				["FIRSTICON", "\\", "|", "\u20AC", "\u0165", "\u0164", "\u0148", "\u0147", "\u00F3", "\u00D3", "\u00DA", "\u00F7", "\u00D7", "\u00A4"],
+-				["LASTICON", "", "\u0111", "\u00D0", "[", "]", "\u010F", "\u010E", "\u0142", "\u0141", "\u016E", "\u00DF", self.green, self.green],
++				["\\u00B0", "~", "\\u011A", "\\u0160", "\\u010C", "\\u0158", "\\u017D", "\\u00DD", "\\u00C1", "\\u00CD", "\\u00C9", "`", "'", "BACKSPACEICON"],
++				["FIRSTICON", "\\", "|", "\\u20AC", "\\u0165", "\\u0164", "\\u0148", "\\u0147", "\\u00F3", "\\u00D3", "\\u00DA", "\\u00F7", "\\u00D7", "\\u00A4"],
++				["LASTICON", "", "\\u0111", "\\u00D0", "[", "]", "\\u010F", "\\u010E", "\\u0142", "\\u0141", "\\u016E", "\\u00DF", self.green, self.green],
+ 				["CAPSLOCKICON", "", "", "#", "&", "@", "{", "}", "$", "<", ">", "*", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 				self.footer
+ 			]
+@@ -269,70 +269,70 @@
+ 		]
+ 		self.french = [
+ 			[
+-				["\u00B2", "&", "\u00E9", "\"", "'", "(", "-", "\u00E8", "_", "\u00E7", "\u00E0", ")", "=", "BACKSPACEICON"],
++				["\\u00B2", "&", "\\u00E9", "\"", "'", "(", "-", "\\u00E8", "_", "\\u00E7", "\\u00E0", ")", "=", "BACKSPACEICON"],
+ 				["FIRSTICON", "a", "z", "e", "r", "t", "y", "u", "i", "o", "p", "^", "$", "*"],
+-				["LASTICON", "q", "s", "d", "f", "g", "h", "j", "k", "l", "m", "\u00F9", self.green, self.green],
++				["LASTICON", "q", "s", "d", "f", "g", "h", "j", "k", "l", "m", "\\u00F9", self.green, self.green],
+ 				["CAPSLOCKICON", "<", "w", "x", "c", "v", "b", "n", ",", ";", ":", "!", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 				self.footer
+ 			], [
+-				["", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "\u00B0", "+", "BACKSPACEICON"],
+-				["FIRSTICON", "A", "Z", "E", "R", "T", "Y", "U", "I", "O", "P", "\u00A8", "\u00A3", "\u00B5"],
++				["", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "\\u00B0", "+", "BACKSPACEICON"],
++				["FIRSTICON", "A", "Z", "E", "R", "T", "Y", "U", "I", "O", "P", "\\u00A8", "\\u00A3", "\\u00B5"],
+ 				["LASTICON", "Q", "S", "D", "F", "G", "H", "J", "K", "L", "M", "%", self.green, self.green],
+-				["CAPSLOCKICON", ">", "W", "X", "C", "V", "B", "N", "?", ".", "/", "\u00A7", "CAPSLOCKICON", "CAPSLOCKICON"],
++				["CAPSLOCKICON", ">", "W", "X", "C", "V", "B", "N", "?", ".", "/", "\\u00A7", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 				self.footer
+ 			], [
+ 				["", "", "~", "#", "{", "[", "|", "`", "\\", "^", "@", "]", "}", "BACKSPACEICON"],
+-				["FIRSTICON", "", "", "\u20AC", "", "", "", "", "", "", "", "", "\u00A4", ""],
++				["FIRSTICON", "", "", "\\u20AC", "", "", "", "", "", "", "", "", "\\u00A4", ""],
+ 				["LASTICON", "", "", "", "", "", "", "", "", "", "", "", self.green, self.green],
+ 				["CAPSLOCKICON", "", "", "", "", "", "", "", "", "", "", "", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 				self.footer
+ 			], [
+-				["", "", "\u00E2", "\u00EA", "\u00EE", "\u00F4", "\u00FB", "\u00E4", "\u00EB", "\u00EF", "\u00F6", "\u00FC", "", "BACKSPACEICON"],
+-				["FIRSTICON", "", "\u00E0", "\u00E8", "\u00EC", "\u00F2", "\u00F9", "\u00E1", "\u00E9", "\u00ED", "\u00F3", "\u00FA", "", ""],
+-				["LASTICON", "", "\u00C2", "\u00CA", "\u00CE", "\u00D4", "\u00DB", "\u00C4", "\u00CB", "\u00CF", "\u00D6", "\u00DC", self.green, self.green],
+-				["CAPSLOCKICON", "", "\u00C0", "\u00C8", "\u00CC", "\u00D2", "\u00D9", "\u00C1", "\u00C9", "\u00CD", "\u00D3", "\u00DA", "CAPSLOCKICON", "CAPSLOCKICON"],
++				["", "", "\\u00E2", "\\u00EA", "\\u00EE", "\\u00F4", "\\u00FB", "\\u00E4", "\\u00EB", "\\u00EF", "\\u00F6", "\\u00FC", "", "BACKSPACEICON"],
++				["FIRSTICON", "", "\\u00E0", "\\u00E8", "\\u00EC", "\\u00F2", "\\u00F9", "\\u00E1", "\\u00E9", "\\u00ED", "\\u00F3", "\\u00FA", "", ""],
++				["LASTICON", "", "\\u00C2", "\\u00CA", "\\u00CE", "\\u00D4", "\\u00DB", "\\u00C4", "\\u00CB", "\\u00CF", "\\u00D6", "\\u00DC", self.green, self.green],
++				["CAPSLOCKICON", "", "\\u00C0", "\\u00C8", "\\u00CC", "\\u00D2", "\\u00D9", "\\u00C1", "\\u00C9", "\\u00CD", "\\u00D3", "\\u00DA", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 				self.footer
+ 			]
+ 		]
+ 		self.german = [
+ 			[
+-				["^", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "\u00DF", "'", "BACKSPACEICON"],
+-				["FIRSTICON", "q", "w", "e", "r", "t", "z", "u", "i", "o", "p", "\u00FC", "+", "#"],
+-				["LASTICON", "a", "s", "d", "f", "g", "h", "j", "k", "l", "\u00F6", "\u00E4", self.green, self.green],
++				["^", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "\\u00DF", "'", "BACKSPACEICON"],
++				["FIRSTICON", "q", "w", "e", "r", "t", "z", "u", "i", "o", "p", "\\u00FC", "+", "#"],
++				["LASTICON", "a", "s", "d", "f", "g", "h", "j", "k", "l", "\\u00F6", "\\u00E4", self.green, self.green],
+ 				["CAPSLOCKICON", "<", "y", "x", "c", "v", "b", "n", "m", ",", ".", "-", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 				self.footer
+ 			], [
+-				["\u00B0", "!", "\"", "\u00A7", "$", "%", "&", "/", "(", ")", "=", "?", "`", "BACKSPACEICON"],
+-				["FIRSTICON", "Q", "W", "E", "R", "T", "Z", "U", "I", "O", "P", "\u00DC", "*", "'"],
+-				["LASTICON", "A", "S", "D", "F", "G", "H", "J", "K", "L", "\u00D6", "\u00C4", self.green, self.green],
++				["\\u00B0", "!", "\"", "\\u00A7", "$", "%", "&", "/", "(", ")", "=", "?", "`", "BACKSPACEICON"],
++				["FIRSTICON", "Q", "W", "E", "R", "T", "Z", "U", "I", "O", "P", "\\u00DC", "*", "'"],
++				["LASTICON", "A", "S", "D", "F", "G", "H", "J", "K", "L", "\\u00D6", "\\u00C4", self.green, self.green],
+ 				["CAPSLOCKICON", ">", "Y", "X", "C", "V", "B", "N", "M", ";", ":", "_", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 				self.footer
+ 			], [
+-				["", "", "\u00B2", "\u00B3", "", "", "", "{", "[", "]", "}", "\\", "\u1E9E", "BACKSPACEICON"],
+-				["FIRSTICON", "@", "", "\u20AC", "", "", "", "", "", "", "", "", "~", ""],
++				["", "", "\\u00B2", "\\u00B3", "", "", "", "{", "[", "]", "}", "\\", "\\u1E9E", "BACKSPACEICON"],
++				["FIRSTICON", "@", "", "\\u20AC", "", "", "", "", "", "", "", "", "~", ""],
+ 				["LASTICON", "", "", "", "", "", "", "", "", "", "", "", self.green, self.green],
+-				["CAPSLOCKICON", "|", "", "", "", "", "", "", "\u00B5", "", "", "", "CAPSLOCKICON", "CAPSLOCKICON"],
++				["CAPSLOCKICON", "|", "", "", "", "", "", "", "\\u00B5", "", "", "", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 				self.footer
+ 			]
+ 		]
+ 		self.greek = [
+ 			[
+ 				["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "BACKSPACEICON"],
+-				["FIRSTICON", ";", "\u03C2", "\u03B5", "\u03C1", "\u03C4", "\u03C5", "\u03B8", "\u03B9", "\u03BF", "\u03C0", "[", "]", "\\"],
+-				["LASTICON", "\u03B1", "\u03C3", "\u03B4", "\u03C6", "\u03B3", "\u03B7", "\u03BE", "\u03BA", "\u03BB", "\u0384", "'", self.green, self.green],
+-				["CAPSLOCKICON", "<", "\u03B6", "\u03C7", "\u03C8", "\u03C9", "\u03B2", "\u03BD", "\u03BC", ",", ".", "/", "CAPSLOCKICON", "CAPSLOCKICON"],
++				["FIRSTICON", ";", "\\u03C2", "\\u03B5", "\\u03C1", "\\u03C4", "\\u03C5", "\\u03B8", "\\u03B9", "\\u03BF", "\\u03C0", "[", "]", "\\"],
++				["LASTICON", "\\u03B1", "\\u03C3", "\\u03B4", "\\u03C6", "\\u03B3", "\\u03B7", "\\u03BE", "\\u03BA", "\\u03BB", "\\u0384", "'", self.green, self.green],
++				["CAPSLOCKICON", "<", "\\u03B6", "\\u03C7", "\\u03C8", "\\u03C9", "\\u03B2", "\\u03BD", "\\u03BC", ",", ".", "/", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 				self.footer
+ 			], [
+ 				["~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", "BACKSPACEICON"],
+-				["FIRSTICON", ":", "\u0385", "\u0395", "\u03A1", "\u03A4", "\u03A5", "\u0398", "\u0399", "\u039F", "\u03A0", "{", "}", "|"],
+-				["LASTICON", "\u0391", "\u03A3", "\u0394", "\u03A6", "\u0393", "\u0397", "\u039E", "\u039A", "\u039B", "\u00A8", "\"", self.green, self.green],
+-				["CAPSLOCKICON", ">", "\u0396", "\u03A7", "\u03A8", "\u03A9", "\u0392", "\u039D", "\u039C", "<", ">", "?", "CAPSLOCKICON", "CAPSLOCKICON"],
++				["FIRSTICON", ":", "\\u0385", "\\u0395", "\\u03A1", "\\u03A4", "\\u03A5", "\\u0398", "\\u0399", "\\u039F", "\\u03A0", "{", "}", "|"],
++				["LASTICON", "\\u0391", "\\u03A3", "\\u0394", "\\u03A6", "\\u0393", "\\u0397", "\\u039E", "\\u039A", "\\u039B", "\\u00A8", "\"", self.green, self.green],
++				["CAPSLOCKICON", ">", "\\u0396", "\\u03A7", "\\u03A8", "\\u03A9", "\\u0392", "\\u039D", "\\u039C", "<", ">", "?", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 				self.footer
+ 			], [
+-				["", "", "\u00B2", "\u00B3", "\u00A3", "\u00A7", "\u00B6", "", "\u00A4", "\u00A6", "\u00B0", "\u00B1", "\u00BD", "BACKSPACEICON"],
+-				["FIRSTICON", "", "\u03AC", "\u03AD", "\u03AE", "\u03AF", "\u03CC", "\u03CD", "\u03CE", "\u03CA", "\u03CB", "\u00AB", "\u00BB", "\u00AC"],
+-				["LASTICON", "", "\u0386", "\u0388", "\u0389", "\u038A", "\u038C", "\u038E", "\u038F", "\u03AA", "\u03AB", "\u0385", self.green, self.green],
+-				["CAPSLOCKICON", "CAPSLOCKICON", "", "", "", "\u00A9", "\u00AE", "\u20AC", "\u00A5", "\u0390", "\u03B0", "\u0387", "CAPSLOCKICON", "CAPSLOCKICON"],
++				["", "", "\\u00B2", "\\u00B3", "\\u00A3", "\\u00A7", "\\u00B6", "", "\\u00A4", "\\u00A6", "\\u00B0", "\\u00B1", "\\u00BD", "BACKSPACEICON"],
++				["FIRSTICON", "", "\\u03AC", "\\u03AD", "\\u03AE", "\\u03AF", "\\u03CC", "\\u03CD", "\\u03CE", "\\u03CA", "\\u03CB", "\\u00AB", "\\u00BB", "\\u00AC"],
++				["LASTICON", "", "\\u0386", "\\u0388", "\\u0389", "\\u038A", "\\u038C", "\\u038E", "\\u038F", "\\u03AA", "\\u03AB", "\\u0385", self.green, self.green],
++				["CAPSLOCKICON", "CAPSLOCKICON", "", "", "", "\\u00A9", "\\u00AE", "\\u20AC", "\\u00A5", "\\u0390", "\\u03B0", "\\u0387", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 				self.footer
+ 			]
+ 		]
+@@ -350,29 +350,29 @@
+ 				["CAPSLOCKICON", "CAPSLOCKICON", "Z", "X", "C", "V", "B", "N", "M", "<", ">", "?", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 				self.footer
+ 			], [
+-				["\u00b4", "\u00b9", "\u00b2", "\u00b3", "\u20ac", "\u00bd", "\u00be", "\u007b", "\u005b", "\u005d", "\u007d ", "\u005c", "\u2013", "BACKSPACEICON"],
+-				["FIRSTICON", "q", "\u0113", "\u0112", "\u0157", "\u0156", "\u016B", "\u016A", "\u012B", "\u012A", "\u014D", "\u014C", "\u00ab", "\u00bb"],
+-				["LASTICON", "\u0101", "\u0100", "\u0161", "\u0160", "\u0123", "\u0122", "\u0137", "\u0136", "\u013C", "\u013B", "\u003b", self.green, self.green],
+-				["CAPSLOCKICON", "CAPSLOCKICON", "\u017E", "\u017D", "\u010D", "\u010C", "b", "\u0146", "\u0145", "\u0060", "\u00b7", "\u002f", "CAPSLOCKICON", "CAPSLOCKICON"],
++				["\\u00b4", "\\u00b9", "\\u00b2", "\\u00b3", "\\u20ac", "\\u00bd", "\\u00be", "\\u007b", "\\u005b", "\\u005d", "\\u007d ", "\\u005c", "\\u2013", "BACKSPACEICON"],
++				["FIRSTICON", "q", "\\u0113", "\\u0112", "\\u0157", "\\u0156", "\\u016B", "\\u016A", "\\u012B", "\\u012A", "\\u014D", "\\u014C", "\\u00ab", "\\u00bb"],
++				["LASTICON", "\\u0101", "\\u0100", "\\u0161", "\\u0160", "\\u0123", "\\u0122", "\\u0137", "\\u0136", "\\u013C", "\\u013B", "\\u003b", self.green, self.green],
++				["CAPSLOCKICON", "CAPSLOCKICON", "\\u017E", "\\u017D", "\\u010D", "\\u010C", "b", "\\u0146", "\\u0145", "\\u0060", "\\u00b7", "\\u002f", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 				self.footer
+ 			]
+ 		]
+ 		self.russian = [
+ 			[
+-				["\u0451", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "BACKSPACEICON"],
+-				["FIRSTICON", "\u0439", "\u0446", "\u0443", "\u043A", "\u0435", "\u043D", "\u0433", "\u0448", "\u0449", "\u0437", "\u0445", "\u044A", "\\"],
+-				["LASTICON", "\u0444", "\u044B", "\u0432", "\u0430", "\u043F", "\u0440", "\u043E", "\u043B", "\u0434", "\u0436", "\u044D", self.green, self.green],
+-				["CAPSLOCKICON", "\\", "\u044F", "\u0447", "\u0441", "\u043C", "\u0438", "\u0442", "\u044C", "\u0431", "\u044E", ".", "CAPSLOCKICON", "CAPSLOCKICON"],
++				["\\u0451", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "BACKSPACEICON"],
++				["FIRSTICON", "\\u0439", "\\u0446", "\\u0443", "\\u043A", "\\u0435", "\\u043D", "\\u0433", "\\u0448", "\\u0449", "\\u0437", "\\u0445", "\\u044A", "\\"],
++				["LASTICON", "\\u0444", "\\u044B", "\\u0432", "\\u0430", "\\u043F", "\\u0440", "\\u043E", "\\u043B", "\\u0434", "\\u0436", "\\u044D", self.green, self.green],
++				["CAPSLOCKICON", "\\", "\\u044F", "\\u0447", "\\u0441", "\\u043C", "\\u0438", "\\u0442", "\\u044C", "\\u0431", "\\u044E", ".", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 				self.footer
+ 			], [
+-				["\u0401", "!", "\"", "\u2116", ";", "%", ":", "?", "*", "(", ")", "_", "+", "BACKSPACEICON"],
+-				["FIRSTICON", "\u0419", "\u0426", "\u0423", "\u041A", "\u0415", "\u041D", "\u0413", "\u0428", "\u0429", "\u0417", "\u0425", "\u042A", "/"],
+-				["LASTICON", "\u0424", "\u042B", "\u0412", "\u0410", "\u041F", "\u0420", "\u041E", "\u041B", "\u0414", "\u0416", "\u042D", self.green, self.green],
+-				["CAPSLOCKICON", "/", "\u042F", "\u0427", "\u0421", "\u041C", "\u0418", "\u0422", "\u042C", "\u0411", "\u042E", ",", "CAPSLOCKICON", "CAPSLOCKICON"],
++				["\\u0401", "!", "\"", "\\u2116", ";", "%", ":", "?", "*", "(", ")", "_", "+", "BACKSPACEICON"],
++				["FIRSTICON", "\\u0419", "\\u0426", "\\u0423", "\\u041A", "\\u0415", "\\u041D", "\\u0413", "\\u0428", "\\u0429", "\\u0417", "\\u0425", "\\u042A", "/"],
++				["LASTICON", "\\u0424", "\\u042B", "\\u0412", "\\u0410", "\\u041F", "\\u0420", "\\u041E", "\\u041B", "\\u0414", "\\u0416", "\\u042D", self.green, self.green],
++				["CAPSLOCKICON", "/", "\\u042F", "\\u0427", "\\u0421", "\\u041C", "\\u0418", "\\u0422", "\\u042C", "\\u0411", "\\u042E", ",", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 				self.footer
+ 			], [
+ 				["", "", "", "", "", "", "", "", "", "", "", "", "", "BACKSPACEICON"],
+-				["FIRSTICON", "", "\u00A7", "@", "#", "&", "$", "\u20BD", "\u20AC", "", "", "", "", ""],
++				["FIRSTICON", "", "\\u00A7", "@", "#", "&", "$", "\\u20BD", "\\u20AC", "", "", "", "", ""],
+ 				["LASTICON", "", "<", ">", "[", "]", "{", "}", "", "", "", "", self.green, self.green],
+ 				["CAPSLOCKICON", "", "", "", "", "", "", "", "", "", "", "", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 				self.footer
+@@ -380,64 +380,64 @@
+ 		]
+ 		self.scandinavian = [
+ 			[
+-				["\u00A7", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "+", "\u00B4", "BACKSPACEICON"],
+-				["FIRSTICON", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "\u00E5", "\u00A8", "'"],
+-				["LASTICON", "a", "s", "d", "f", "g", "h", "j", "k", "l", "\u00F6", "\u00E4", self.green, self.green],
++				["\\u00A7", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "+", "\\u00B4", "BACKSPACEICON"],
++				["FIRSTICON", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "\\u00E5", "\\u00A8", "'"],
++				["LASTICON", "a", "s", "d", "f", "g", "h", "j", "k", "l", "\\u00F6", "\\u00E4", self.green, self.green],
+ 				["CAPSLOCKICON", "<", "z", "x", "c", "v", "b", "n", "m", ",", ".", "-", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 				self.footer
+ 			], [
+-				["\u00BD", "!", "\"", "#", "\u00A4", "%", "&", "/", "(", ")", "=", "?", "`", "BACKSPACEICON"],
+-				["FIRSTICON", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "\u00C5", "^", "*"],
+-				["LASTICON", "A", "S", "D", "F", "G", "H", "J", "K", "L", "\u00D6", "\u00C4", self.green, self.green],
++				["\\u00BD", "!", "\"", "#", "\\u00A4", "%", "&", "/", "(", ")", "=", "?", "`", "BACKSPACEICON"],
++				["FIRSTICON", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "\\u00C5", "^", "*"],
++				["LASTICON", "A", "S", "D", "F", "G", "H", "J", "K", "L", "\\u00D6", "\\u00C4", self.green, self.green],
+ 				["CAPSLOCKICON", ">", "Z", "X", "C", "V", "B", "N", "M", ";", ":", "_", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 				self.footer
+ 			], [
+-				["", "", "@", "\u00A3", "$", "\u20AC", "", "{", "[", "]", "}", "\\", "", "BACKSPACEICON"],
+-				["FIRSTICON", "", "", "\u20AC", "", "", "", "", "", "", "", "", "~", ""],
++				["", "", "@", "\\u00A3", "$", "\\u20AC", "", "{", "[", "]", "}", "\\", "", "BACKSPACEICON"],
++				["FIRSTICON", "", "", "\\u20AC", "", "", "", "", "", "", "", "", "~", ""],
+ 				["LASTICON", "", "", "", "", "", "", "", "", "", "", "", self.green, self.green],
+-				["CAPSLOCKICON", "|", "", "", "", "", "", "", "\u00B5", "", "", "", "CAPSLOCKICON", "CAPSLOCKICON"],
++				["CAPSLOCKICON", "|", "", "", "", "", "", "", "\\u00B5", "", "", "", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 				self.footer
+ 			], [
+-				["", "\u00E2", "\u00EA", "\u00EE", "\u00F4", "\u00FB", "\u00E4", "\u00EB", "\u00EF", "\u00F6", "\u00FC", "\u00E3", "", "BACKSPACEICON"],
+-				["FIRSTICON", "\u00E0", "\u00E8", "\u00EC", "\u00F2", "\u00F9", "\u00E1", "\u00E9", "\u00ED", "\u00F3", "\u00FA", "\u00F5", "", ""],
+-				["LASTICON", "\u00C2", "\u00CA", "\u00CE", "\u00D4", "\u00DB", "\u00C4", "\u00CB", "\u00CF", "\u00D6", "\u00DC", "\u00C3", self.green, self.green],
+-				["CAPSLOCKICON", "\u00C0", "\u00C8", "\u00CC", "\u00D2", "\u00D9", "\u00C1", "\u00C9", "\u00CD", "\u00D3", "\u00DA", "\u00D5", "CAPSLOCKICON", "CAPSLOCKICON"],
++				["", "\\u00E2", "\\u00EA", "\\u00EE", "\\u00F4", "\\u00FB", "\\u00E4", "\\u00EB", "\\u00EF", "\\u00F6", "\\u00FC", "\\u00E3", "", "BACKSPACEICON"],
++				["FIRSTICON", "\\u00E0", "\\u00E8", "\\u00EC", "\\u00F2", "\\u00F9", "\\u00E1", "\\u00E9", "\\u00ED", "\\u00F3", "\\u00FA", "\\u00F5", "", ""],
++				["LASTICON", "\\u00C2", "\\u00CA", "\\u00CE", "\\u00D4", "\\u00DB", "\\u00C4", "\\u00CB", "\\u00CF", "\\u00D6", "\\u00DC", "\\u00C3", self.green, self.green],
++				["CAPSLOCKICON", "\\u00C0", "\\u00C8", "\\u00CC", "\\u00D2", "\\u00D9", "\\u00C1", "\\u00C9", "\\u00CD", "\\u00D3", "\\u00DA", "\\u00D5", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 				self.footer
+ 			]
+ 		]
+ 		self.spanish = [
+ 			[
+-				["\u00BA", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "'", "\u00A1", "BACKSPACEICON"],
+-				["FIRSTICON", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "`", "+", "\u00E7"],
+-				["LASTICON", "a", "s", "d", "f", "g", "h", "j", "k", "l", "\u00F1", "\u00B4", self.green, self.green],  # [, ]
++				["\\u00BA", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "'", "\\u00A1", "BACKSPACEICON"],
++				["FIRSTICON", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "`", "+", "\\u00E7"],
++				["LASTICON", "a", "s", "d", "f", "g", "h", "j", "k", "l", "\\u00F1", "\\u00B4", self.green, self.green],  # [, ]
+ 				["CAPSLOCKICON", "<", "z", "x", "c", "v", "b", "n", "m", ",", ".", "-", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 				self.footer
+ 			], [
+-				["\u00AA", "!", "\"", "\u00B7", "$", "%", "&", "/", "(", ")", "=", "?", "\u00BF", "BACKSPACEICON"],
+-				["FIRSTICON", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "^", "*", "\u00C7"],
+-				["LASTICON", "A", "S", "D", "F", "G", "H", "J", "K", "L", "\u00D1", "\u00A8", self.green, self.green],  # {, }
++				["\\u00AA", "!", "\"", "\\u00B7", "$", "%", "&", "/", "(", ")", "=", "?", "\\u00BF", "BACKSPACEICON"],
++				["FIRSTICON", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "^", "*", "\\u00C7"],
++				["LASTICON", "A", "S", "D", "F", "G", "H", "J", "K", "L", "\\u00D1", "\\u00A8", self.green, self.green],  # {, }
+ 				["CAPSLOCKICON", ">", "Z", "X", "C", "V", "B", "N", "M", ";", ":", "_", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 				self.footer
+ 			], [
+-				["\\", "|", "@", "#", "~", "\u20AC", "\u00AC", "", "", "", "", "", "", "BACKSPACEICON"],
+-				["FIRSTICON", "", "\u00E1", "\u00E9", "\u00ED", "\u00F3", "\u00FA", "\u00FC", "", "", "[", "]", "", ""],
+-				["LASTICON", "", "\u00C1", "\u00C9", "\u00CD", "\u00D3", "\u00DA", "\u00DC", "", "", "{", "}", self.green, self.green],
++				["\\", "|", "@", "#", "~", "\\u20AC", "\\u00AC", "", "", "", "", "", "", "BACKSPACEICON"],
++				["FIRSTICON", "", "\\u00E1", "\\u00E9", "\\u00ED", "\\u00F3", "\\u00FA", "\\u00FC", "", "", "[", "]", "", ""],
++				["LASTICON", "", "\\u00C1", "\\u00C9", "\\u00CD", "\\u00D3", "\\u00DA", "\\u00DC", "", "", "{", "}", self.green, self.green],
+ 				["CAPSLOCKICON", "", "", "", "", "", "", "", "", "", "", "", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 				self.footer
+ 			]
+ 		]
+ 		self.thai = [
+ 			[
+-				["", "", "\u0E45", "\u0E20", "\u0E16", "\u0E38", "\u0E36", "\u0E04", "\u0E15", "\u0E08", "\u0E02", "\u0E0A", "", "BACKSPACEICON"],
+-				["FIRSTICON", "\u0E46", "\u0E44", "\u0E33", "\u0E1E", "\u0E30", "\u0E31", "\u0E35", "\u0E23", "\u0E19", "\u0E22", "\u0E1A", "\u0E25", ""],
+-				["LASTICON", "\u0E1F", "\u0E2B", "\u0E01", "\u0E14", "\u0E40", "\u0E49", "\u0E48", "\u0E32", "\u0E2A", "\u0E27", "\u0E07", "\u0E03", self.green],
+-				["CAPSLOCKICON", "CAPSLOCKICON", "\u0E1C", "\u0E1B", "\u0E41", "\u0E2D", "\u0E34", "\u0E37", "\u0E17", "\u0E21", "\u0E43", "\u0E1D", "CAPSLOCKICON", "CAPSLOCKICON"],
++				["", "", "\\u0E45", "\\u0E20", "\\u0E16", "\\u0E38", "\\u0E36", "\\u0E04", "\\u0E15", "\\u0E08", "\\u0E02", "\\u0E0A", "", "BACKSPACEICON"],
++				["FIRSTICON", "\\u0E46", "\\u0E44", "\\u0E33", "\\u0E1E", "\\u0E30", "\\u0E31", "\\u0E35", "\\u0E23", "\\u0E19", "\\u0E22", "\\u0E1A", "\\u0E25", ""],
++				["LASTICON", "\\u0E1F", "\\u0E2B", "\\u0E01", "\\u0E14", "\\u0E40", "\\u0E49", "\\u0E48", "\\u0E32", "\\u0E2A", "\\u0E27", "\\u0E07", "\\u0E03", self.green],
++				["CAPSLOCKICON", "CAPSLOCKICON", "\\u0E1C", "\\u0E1B", "\\u0E41", "\\u0E2D", "\\u0E34", "\\u0E37", "\\u0E17", "\\u0E21", "\\u0E43", "\\u0E1D", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 				self.footer
+ 			], [
+-				["", "", "\u0E51", "\u0E52", "\u0E53", "\u0E54", "\u0E39", "\u0E55", "\u0E56", "\u0E57", "\u0E58", "\u0E59", "", "BACKSPACEICON"],
+-				["FIRSTICON", "\u0E50", "", "\u0E0E", "\u0E11", "\u0E18", "\u0E4D", "\u0E4A", "\u0E13", "\u0E2F", "\u0E0D", "\u0E10", "\u0E05", ""],
+-				["LASTICON", "\u0E24", "\u0E06", "\u0E0F", "\u0E42", "\u0E0C", "\u0E47", "\u0E4B", "\u0E29", "\u0E28", "\u0E0B", "", "\u0E3F", self.green],
+-				["CAPSLOCKICON", "CAPSLOCKICON", "", "\u0E09", "\u0E2E", "\u0E3A", "\u0E4C", "", "\u0E12", "\u0E2C", "\u0E26", "", "CAPSLOCKICON", "CAPSLOCKICON"],
++				["", "", "\\u0E51", "\\u0E52", "\\u0E53", "\\u0E54", "\\u0E39", "\\u0E55", "\\u0E56", "\\u0E57", "\\u0E58", "\\u0E59", "", "BACKSPACEICON"],
++				["FIRSTICON", "\\u0E50", "", "\\u0E0E", "\\u0E11", "\\u0E18", "\\u0E4D", "\\u0E4A", "\\u0E13", "\\u0E2F", "\\u0E0D", "\\u0E10", "\\u0E05", ""],
++				["LASTICON", "\\u0E24", "\\u0E06", "\\u0E0F", "\\u0E42", "\\u0E0C", "\\u0E47", "\\u0E4B", "\\u0E29", "\\u0E28", "\\u0E0B", "", "\\u0E3F", self.green],
++				["CAPSLOCKICON", "CAPSLOCKICON", "", "\\u0E09", "\\u0E2E", "\\u0E3A", "\\u0E4C", "", "\\u0E12", "\\u0E2C", "\\u0E26", "", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 				self.footer
+ 			]
+ 		]
+@@ -561,40 +561,40 @@
+ 
+ 	def arabic(self, base):
+ 		keyList = deepcopy(base)
+-		keyList[1][0][8] = "\u066D"
++		keyList[1][0][8] = "\\u066D"
+ 		keyList.extend([[
+-			["\u0630", "\u0661", "\u0662", "\u0663", "\u0664", "\u0665", "\u0666", "\u0667", "\u0668", "\u0669", "\u0660", "-", "=", "BACKSPACEICON"],
+-			["FIRSTICON", "\u0636", "\u0635", "\u062B", "\u0642", "\u0641", "\u063A", "\u0639", "\u0647", "\u062E", "\u062D", "\u062C", "\u062F", "\\"],
+-			["LASTICON", "\u0634", "\u0633", "\u064A", "\u0628", "\u0644", "\u0627", "\u062A", "\u0646", "\u0645", "\u0643", "\u0637", self.green, self.green],
+-			["CAPSLOCKICON", "CAPSLOCKICON", "\u0626", "\u0621", "\u0624", "\u0631", "\uFEFB", "\u0649", "\u0629", "\u0648", "\u0632", "\u0638", "CAPSLOCKICON", "CAPSLOCKICON"],
++			["\\u0630", "\\u0661", "\\u0662", "\\u0663", "\\u0664", "\\u0665", "\\u0666", "\\u0667", "\\u0668", "\\u0669", "\\u0660", "-", "=", "BACKSPACEICON"],
++			["FIRSTICON", "\\u0636", "\\u0635", "\\u062B", "\\u0642", "\\u0641", "\\u063A", "\\u0639", "\\u0647", "\\u062E", "\\u062D", "\\u062C", "\\u062F", "\\"],
++			["LASTICON", "\\u0634", "\\u0633", "\\u064A", "\\u0628", "\\u0644", "\\u0627", "\\u062A", "\\u0646", "\\u0645", "\\u0643", "\\u0637", self.green, self.green],
++			["CAPSLOCKICON", "CAPSLOCKICON", "\\u0626", "\\u0621", "\\u0624", "\\u0631", "\\uFEFB", "\\u0649", "\\u0629", "\\u0648", "\\u0632", "\\u0638", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 			self.footer
+ 		], [
+-			["\u0651", "!", "@", "#", "$", "%", "^", "&", "\u066D", "(", ")", "_", "+", "BACKSPACEICON"],
+-			["FIRSTICON", "\u0636", "\u0635", "\u062B", "\u0642", "\u0641", "\u063A", "\u0639", "\u00F7", "\u00D7", "\u061B", ">", "<", "|"],
+-			["LASTICON", "\u0634", "\u0633", "\u064A", "\u0628", "\u0644", "\u0623", "\u0640", "\u060C", "/", ":", "\"", self.green, self.green],
+-			["CAPSLOCKICON", "CAPSLOCKICON", "\u0626", "\u0621", "\u0624", "\u0631", "\uFEF5", "\u0622", "\u0629", ",", ".", "\u061F", "CAPSLOCKICON", "CAPSLOCKICON"],
++			["\\u0651", "!", "@", "#", "$", "%", "^", "&", "\\u066D", "(", ")", "_", "+", "BACKSPACEICON"],
++			["FIRSTICON", "\\u0636", "\\u0635", "\\u062B", "\\u0642", "\\u0641", "\\u063A", "\\u0639", "\\u00F7", "\\u00D7", "\\u061B", ">", "<", "|"],
++			["LASTICON", "\\u0634", "\\u0633", "\\u064A", "\\u0628", "\\u0644", "\\u0623", "\\u0640", "\\u060C", "/", ":", "\"", self.green, self.green],
++			["CAPSLOCKICON", "CAPSLOCKICON", "\\u0626", "\\u0621", "\\u0624", "\\u0631", "\\uFEF5", "\\u0622", "\\u0629", ",", ".", "\\u061F", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 			self.footer
+ 		]])
+ 		return keyList
+ 
+ 	def belgian(self, base):
+ 		keyList = deepcopy(base)
+-		keyList[0][0][6] = "\u00A7"
++		keyList[0][0][6] = "\\u00A7"
+ 		keyList[0][0][8] = "!"
+ 		keyList[0][0][12] = "-"
+-		keyList[0][1][13] = "\u00B5"
++		keyList[0][1][13] = "\\u00B5"
+ 		keyList[0][3][11] = "="
+-		keyList[1][0][0] = "\u00B3"
++		keyList[1][0][0] = "\\u00B3"
+ 		keyList[1][0][12] = "_"
+-		keyList[1][1][11] = "\u00A8"
++		keyList[1][1][11] = "\\u00A8"
+ 		keyList[1][1][12] = "*"
+-		keyList[1][1][13] = "\u00A3"
++		keyList[1][1][13] = "\\u00A3"
+ 		keyList[1][3][11] = "+"
+ 		keyList[2][0] = ["", "|", "@", "#", "{", "[", "^", "", "", "{", "}", "", "", "BACKSPACEICON"]
+ 		keyList[2][1][11] = "["
+ 		keyList[2][1][12] = "]"
+ 		keyList[2][1][13] = "`"
+-		keyList[2][2][11] = "\u00B4"
++		keyList[2][2][11] = "\\u00B4"
+ 		keyList[2][3][1] = "\\"
+ 		keyList[2][3][11] = "~"
+ 		return keyList
+@@ -603,44 +603,44 @@
+ 		keyList = deepcopy(base)
+ 		keyList[0][0][0] = "@"
+ 		keyList[0][0][11] = "/"
+-		keyList[0][0][12] = "\u00B0"
+-		keyList[0][1][11] = "\u00A8"
++		keyList[0][0][12] = "\\u00B0"
++		keyList[0][1][11] = "\\u00A8"
+ 		keyList[0][1][12] = "*"
+ 		keyList[0][1][13] = "<"
+ 		keyList[0][2][10] = "+"
+-		keyList[0][2][11] = "\u00B4"
++		keyList[0][2][11] = "\\u00B4"
+ 		keyList[0][3] = ["CAPSLOCKICON", "]", "z", "x", "c", "v", "b", "n", "m", ",", ".", "-", "CAPSLOCKICON", "CAPSLOCKICON"]
+-		keyList[1][0] = ["\u00A7", "!", "\"", "#", "$", "%", "&", "_", "(", ")", "'", "?", "~", "BACKSPACEICON"]
++		keyList[1][0] = ["\\u00A7", "!", "\"", "#", "$", "%", "&", "_", "(", ")", "'", "?", "~", "BACKSPACEICON"]
+ 		keyList[1][1][11] = "^"
+ 		keyList[1][1][12] = "|"
+ 		keyList[1][1][13] = ">"
+-		keyList[1][2][10] = "\u00B1"
++		keyList[1][2][10] = "\\u00B1"
+ 		keyList[1][2][11] = "`"
+ 		keyList[1][3] = ["CAPSLOCKICON", "[", "Z", "X", "C", "V", "B", "N", "M", ";", ":", "=", "CAPSLOCKICON", "CAPSLOCKICON"]
+ 		keyList.append([
+-			["\u00AC", "\u00B9", "\u00B2", "\u00B3", "\u00BC", "\u00BD", "\u00BE", "\u00A3", "{", "}", "", "\\", "\u00B8", "BACKSPACEICON"],
+-			["FIRSTICON", "", "", "\u20AC", "\u00B6", "", "\u00E1", "\u00E9", "\u00ED", "\u00F3", "\u00FA", "", "", ""],
+-			["LASTICON", "", "\u00DF", "", "", "", "\u00C1", "\u00C9", "\u00CD", "\u00D3", "\u00DA", "", self.green, self.green],
+-			["CAPSLOCKICON", "\u00A6", "\u00AB", "\u00BB", "\u00A2", "", "", "", "\u00B5", "", "\u00B7", "", "CAPSLOCKICON", "CAPSLOCKICON"],
++			["\\u00AC", "\\u00B9", "\\u00B2", "\\u00B3", "\\u00BC", "\\u00BD", "\\u00BE", "\\u00A3", "{", "}", "", "\\", "\\u00B8", "BACKSPACEICON"],
++			["FIRSTICON", "", "", "\\u20AC", "\\u00B6", "", "\\u00E1", "\\u00E9", "\\u00ED", "\\u00F3", "\\u00FA", "", "", ""],
++			["LASTICON", "", "\\u00DF", "", "", "", "\\u00C1", "\\u00C9", "\\u00CD", "\\u00D3", "\\u00DA", "", self.green, self.green],
++			["CAPSLOCKICON", "\\u00A6", "\\u00AB", "\\u00BB", "\\u00A2", "", "", "", "\\u00B5", "", "\\u00B7", "", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 			self.footer
+ 		])
+ 		return keyList
+ 
+ 	def estonian(self, base):
+ 		keyList = deepcopy(base)
+-		keyList[0][0][0] = "\u02C7"
+-		keyList[0][1][11] = "\u00FC"
+-		keyList[0][1][12] = "\u00F5"
++		keyList[0][0][0] = "\\u02C7"
++		keyList[0][1][11] = "\\u00FC"
++		keyList[0][1][12] = "\\u00F5"
+ 		keyList[1][0][0] = "~"
+-		keyList[1][1][11] = "\u00DC"
+-		keyList[1][1][12] = "\u00D5"
+-		keyList[2][1][12] = "\u00A7"
+-		keyList[2][1][13] = "\u00BD"
+-		keyList[2][2][2] = "\u0161"
+-		keyList[2][2][3] = "\u0160"
++		keyList[1][1][11] = "\\u00DC"
++		keyList[1][1][12] = "\\u00D5"
++		keyList[2][1][12] = "\\u00A7"
++		keyList[2][1][13] = "\\u00BD"
++		keyList[2][2][2] = "\\u0161"
++		keyList[2][2][3] = "\\u0160"
+ 		keyList[2][2][11] = "^"
+-		keyList[2][3][2] = "\u017E"
+-		keyList[2][3][3] = "\u017D"
++		keyList[2][3][2] = "\\u017E"
++		keyList[2][3][3] = "\\u017D"
+ 		keyList[2][3][8] = ""
+ 		del keyList[3]
+ 		return keyList
+@@ -649,41 +649,41 @@
+ 		keyList = self.germanSwiss(base)
+ 		keyList[0][0][11] = "'"
+ 		keyList[0][0][12] = "^"
+-		keyList[0][1][11] = "\u00E8"
+-		keyList[0][2][10] = "\u00E9"
+-		keyList[0][2][11] = "\u00E0"
+-		keyList[1][1][11] = "\u00FC"
+-		keyList[1][2][10] = "\u00F6"
+-		keyList[1][2][11] = "\u00E4"
++		keyList[0][1][11] = "\\u00E8"
++		keyList[0][2][10] = "\\u00E9"
++		keyList[0][2][11] = "\\u00E0"
++		keyList[1][1][11] = "\\u00FC"
++		keyList[1][2][10] = "\\u00F6"
++		keyList[1][2][11] = "\\u00E4"
+ 		return keyList
+ 
+ 	def germanSwiss(self, base):
+ 		keyList = deepcopy(base)
+-		keyList[0][0][0] = "\u00A7"
++		keyList[0][0][0] = "\\u00A7"
+ 		keyList[0][0][11] = "'"
+ 		keyList[0][0][12] = "^"
+-		keyList[0][1][12] = "\u00A8"
++		keyList[0][1][12] = "\\u00A8"
+ 		keyList[0][1][13] = "$"
+ 		keyList[1][0][1] = "+"
+ 		keyList[1][0][3] = "*"
+-		keyList[1][0][4] = "\u00E7"
++		keyList[1][0][4] = "\\u00E7"
+ 		keyList[1][0][11] = "?"
+ 		keyList[1][0][12] = "`"
+-		keyList[1][1][11] = "\u00E8"
++		keyList[1][1][11] = "\\u00E8"
+ 		keyList[1][1][12] = "!"
+-		keyList[1][1][13] = "\u00A3"
+-		keyList[1][2][10] = "\u00E9"
+-		keyList[1][2][11] = "\u00E0"
+-		keyList[2][0] = ["", "\u00A6", "@", "#", "\u00B0", "\u00A7", "\u00AC", "|", "\u00A2", "", "", "\u00B4", "~", "BACKSPACEICON"]
++		keyList[1][1][13] = "\\u00A3"
++		keyList[1][2][10] = "\\u00E9"
++		keyList[1][2][11] = "\\u00E0"
++		keyList[2][0] = ["", "\\u00A6", "@", "#", "\\u00B0", "\\u00A7", "\\u00AC", "|", "\\u00A2", "", "", "\\u00B4", "~", "BACKSPACEICON"]
+ 		keyList[2][1][1] = ""
+-		keyList[2][1][9] = "\u00DC"
+-		keyList[2][1][10] = "\u00C8"
++		keyList[2][1][9] = "\\u00DC"
++		keyList[2][1][10] = "\\u00C8"
+ 		keyList[2][1][11] = "["
+ 		keyList[2][1][12] = "]"
+-		keyList[2][2][6] = "\u00D6"
+-		keyList[2][2][7] = "\u00C9"
+-		keyList[2][2][8] = "\u00C4"
+-		keyList[2][2][9] = "\u00C0"
++		keyList[2][2][6] = "\\u00D6"
++		keyList[2][2][7] = "\\u00C9"
++		keyList[2][2][8] = "\\u00C4"
++		keyList[2][2][9] = "\\u00C0"
+ 		keyList[2][2][10] = "{"
+ 		keyList[2][2][11] = "}"
+ 		keyList[2][3][1] = "\\"
+@@ -693,28 +693,28 @@
+ 	def hungarian(self, base):
+ 		keyList = deepcopy(base)
+ 		keyList[0][0][0] = "0"
+-		keyList[0][0][10] = "\u00F6"
+-		keyList[0][0][11] = "\u00FC"
+-		keyList[0][0][12] = "\u00F3"
+-		keyList[0][1][11] = "\u0151"
+-		keyList[0][1][12] = "\u00FA"
+-		keyList[0][1][13] = "\u0171"
+-		keyList[0][2][10] = "\u00E9"
+-		keyList[0][2][11] = "\u00E1"
+-		keyList[0][3][1] = "\u00ED"
+-		keyList[1][0] = ["\u00A7", "'", "\"", "+", "!", "%", "/", "=", "(", ")", "\u00D6", "\u00DC", "\u00D3", "BACSPACEICON"]
+-		keyList[1][1][11] = "\u0150"
+-		keyList[1][1][12] = "\u00DA"
+-		keyList[1][1][13] = "\u0170"
+-		keyList[1][2][10] = "\u00C9"
+-		keyList[1][2][11] = "\u00C1"
+-		keyList[1][3][1] = "\u00CD"
++		keyList[0][0][10] = "\\u00F6"
++		keyList[0][0][11] = "\\u00FC"
++		keyList[0][0][12] = "\\u00F3"
++		keyList[0][1][11] = "\\u0151"
++		keyList[0][1][12] = "\\u00FA"
++		keyList[0][1][13] = "\\u0171"
++		keyList[0][2][10] = "\\u00E9"
++		keyList[0][2][11] = "\\u00E1"
++		keyList[0][3][1] = "\\u00ED"
++		keyList[1][0] = ["\\u00A7", "'", "\"", "+", "!", "%", "/", "=", "(", ")", "\\u00D6", "\\u00DC", "\\u00D3", "BACSPACEICON"]
++		keyList[1][1][11] = "\\u0150"
++		keyList[1][1][12] = "\\u00DA"
++		keyList[1][1][13] = "\\u0170"
++		keyList[1][2][10] = "\\u00C9"
++		keyList[1][2][11] = "\\u00C1"
++		keyList[1][3][1] = "\\u00CD"
+ 		keyList[1][3][9] = "?"
+ 		del keyList[2]
+ 		keyList.append([
+-			["", "~", "\u02C7", "^", "\u02D8", "\u00B0", "\u02DB", "`", "\u02D9", "\u00B4", "\u02DD", "\u00A8", "\u00B8", "BACKSPACEICON"],
+-			["FIRSTICON", "\\", "|", "\u00C4", "", "", "", "\u20AC", "\u00CD", "", "", "\u00F7", "\u00D7", "\u00A4"],
+-			["LASTICON", "\u00E4", "\u0111", "\u0110", "[", "]", "", "\u00ED", "\u0142", "\u0141", "$", "\u00DF", self.green, self.green],
++			["", "~", "\\u02C7", "^", "\\u02D8", "\\u00B0", "\\u02DB", "`", "\\u02D9", "\\u00B4", "\\u02DD", "\\u00A8", "\\u00B8", "BACKSPACEICON"],
++			["FIRSTICON", "\\", "|", "\\u00C4", "", "", "", "\\u20AC", "\\u00CD", "", "", "\\u00F7", "\\u00D7", "\\u00A4"],
++			["LASTICON", "\\u00E4", "\\u0111", "\\u0110", "[", "]", "", "\\u00ED", "\\u0142", "\\u0141", "$", "\\u00DF", self.green, self.green],
+ 			["CAPSLOCKICON", "<", ">", "#", "&", "@", "{", "}", "<", ";", ">", "*", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 			self.footer
+ 		])
+@@ -722,14 +722,14 @@
+ 
+ 	def lithuanian(self, base):
+ 		keyList = deepcopy(base)
+-		keyList[0][0] = ["`", "\u0105", "\u010D", "\u0119", "\u0117", "\u012F", "\u0161", "\u0173", "\u016B", "9", "0", "-", "\u017E", "BACKSPACEICON"]
++		keyList[0][0] = ["`", "\\u0105", "\\u010D", "\\u0119", "\\u0117", "\\u012F", "\\u0161", "\\u0173", "\\u016B", "9", "0", "-", "\\u017E", "BACKSPACEICON"]
+ 		keyList[0][3][1] = "\\"
+-		keyList[1][0] = ["~", "\u0104", "\u010C", "\u0118", "\u0116", "\u012E", "\u0160", "\u0172", "\u016A", "(", ")", "_", "\u017D", "BACKSPACEICON"]
++		keyList[1][0] = ["~", "\\u0104", "\\u010C", "\\u0118", "\\u0116", "\\u012E", "\\u0160", "\\u0172", "\\u016A", "(", ")", "_", "\\u017D", "BACKSPACEICON"]
+ 		keyList[1][3][1] = "|"
+ 		keyList.append([
+ 			["", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "", "=", "BACKSPACEICON"],
+ 			["FIRSTICON", "!", "@", "#", "$", "%", "^", "&", "*", "", "", "", "+", ""],
+-			["LASTICON", "", "", "\u20AC", "", "", "", "", "", "", "", "", self.green, self.green],
++			["LASTICON", "", "", "\\u20AC", "", "", "", "", "", "", "", "", self.green, self.green],
+ 			["CAPSLOCKICON", "", "", "", "", "", "", "", "", "", "", "", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 			self.footer
+ 		])
+@@ -739,58 +739,58 @@
+ 		keyList = deepcopy(base)
+ 		keyList[0][0][0] = "|"
+ 		keyList[0][0][12] = "\\"
+-		keyList[0][2][10] = "\u00F8"
+-		keyList[0][2][11] = "\u00E6"
+-		keyList[1][0][0] = "\u00A7"
+-		keyList[1][2][10] = "\u00D8"
+-		keyList[1][2][11] = "\u00C6"
++		keyList[0][2][10] = "\\u00F8"
++		keyList[0][2][11] = "\\u00E6"
++		keyList[1][0][0] = "\\u00A7"
++		keyList[1][2][10] = "\\u00D8"
++		keyList[1][2][11] = "\\u00C6"
+ 		keyList[2][0][11] = ""
+-		keyList[2][0][12] = "\u00B4"
++		keyList[2][0][12] = "\\u00B4"
+ 		keyList[2][3][1] = ""
+ 		return keyList
+ 
+ 	def persian(self, base):
+ 		keyList = deepcopy(base)
+ 		keyList.append([
+-			["\u00F7", "\u06F1", "\u06F2", "\u06F3", "\u06F4", "\u06F5", "\u06F6", "\u06F7", "\u06F8", "\u06F9", "\u06F0", "-", "=", "BACKSPACEICON"],
+-			["FIRSTICON", "\u0636", "\u0635", "\u062B", "\u0642", "\u0641", "\u063A", "\u0639", "\u0647", "\u062E", "\u062D", "\u062C", "\u0686", "\u067E"],
+-			["LASTICON", "\u0634", "\u0633", "\u06CC", "\u0628", "\u0644", "\u0627", "\u062A", "\u0646", "\u0645", "\u06A9", "\u06AF", self.green, self.green],
+-			["CAPSLOCKICON", "\u0649", "\u0638", "\u0637", "\u0632", "\u0631", "\u0630", "\u062F", "\u0626", "\u0648", ".", "/", "CAPSLOCKICON", "CAPSLOCKICON"],
++			["\\u00F7", "\\u06F1", "\\u06F2", "\\u06F3", "\\u06F4", "\\u06F5", "\\u06F6", "\\u06F7", "\\u06F8", "\\u06F9", "\\u06F0", "-", "=", "BACKSPACEICON"],
++			["FIRSTICON", "\\u0636", "\\u0635", "\\u062B", "\\u0642", "\\u0641", "\\u063A", "\\u0639", "\\u0647", "\\u062E", "\\u062D", "\\u062C", "\\u0686", "\\u067E"],
++			["LASTICON", "\\u0634", "\\u0633", "\\u06CC", "\\u0628", "\\u0644", "\\u0627", "\\u062A", "\\u0646", "\\u0645", "\\u06A9", "\\u06AF", self.green, self.green],
++			["CAPSLOCKICON", "\\u0649", "\\u0638", "\\u0637", "\\u0632", "\\u0631", "\\u0630", "\\u062F", "\\u0626", "\\u0648", ".", "/", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 			self.footer
+ 		])
+ 		keyList.append([
+-			["\u00D7", "!", "@", "#", "$", "%", "^", "&", "*", ")", "(", "_", "+", "BACKSPACEICON"],
+-			["FIRSTICON", "\u064B", "\u064C", "\u064D", "\u0631", "\u060C", "\u061B", ",", "]", "[", "\\", "}", "{", "|"],
+-			["LASTICON", "\u064E", "\u064F", "\u0650", "\u0651", "\u06C0", "\u0622", "\u0640", "\u00AB", "\u00BB", ":", "\"", self.green, self.green],
+-			["CAPSLOCKICON", "|", "\u0629", "\u064A", "\u0698", "\u0624", "\u0625", "\u0623", "\u0621", "<", ">", "\u061F", "CAPSLOCKICON", "CAPSLOCKICON"],
++			["\\u00D7", "!", "@", "#", "$", "%", "^", "&", "*", ")", "(", "_", "+", "BACKSPACEICON"],
++			["FIRSTICON", "\\u064B", "\\u064C", "\\u064D", "\\u0631", "\\u060C", "\\u061B", ",", "]", "[", "\\", "}", "{", "|"],
++			["LASTICON", "\\u064E", "\\u064F", "\\u0650", "\\u0651", "\\u06C0", "\\u0622", "\\u0640", "\\u00AB", "\\u00BB", ":", "\"", self.green, self.green],
++			["CAPSLOCKICON", "|", "\\u0629", "\\u064A", "\\u0698", "\\u0624", "\\u0625", "\\u0623", "\\u0621", "<", ">", "\\u061F", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 			self.footer
+ 		])
+ 		return keyList
+ 
+ 	def polish(self, base):
+ 		keyList = deepcopy(base)
+-		keyList[0][0][0] = "\u02DB"
++		keyList[0][0][0] = "\\u02DB"
+ 		keyList[0][0][11] = "+"
+-		keyList[0][1][11] = "\u017C"
+-		keyList[0][1][12] = "\u015B"
+-		keyList[0][1][13] = "\u00F3"
+-		keyList[0][2][10] = "\u0142"
+-		keyList[0][2][11] = "\u0105"
+-		keyList[1][0][0] = "\u00B7"
++		keyList[0][1][11] = "\\u017C"
++		keyList[0][1][12] = "\\u015B"
++		keyList[0][1][13] = "\\u00F3"
++		keyList[0][2][10] = "\\u0142"
++		keyList[0][2][11] = "\\u0105"
++		keyList[1][0][0] = "\\u00B7"
+ 		keyList[1][0][3] = "#"
+-		keyList[1][0][4] = "\u00A4"
++		keyList[1][0][4] = "\\u00A4"
+ 		keyList[1][0][12] = "*"
+-		keyList[1][1][11] = "\u0144"
+-		keyList[1][1][12] = "\u0107"
+-		keyList[1][1][13] = "\u017A"
+-		keyList[1][2][10] = "\u0141"
+-		keyList[1][2][11] = "\u0119"
++		keyList[1][1][11] = "\\u0144"
++		keyList[1][1][12] = "\\u0107"
++		keyList[1][1][13] = "\\u017A"
++		keyList[1][2][10] = "\\u0141"
++		keyList[1][2][11] = "\\u0119"
+ 		del keyList[2]
+ 		keyList.append([
+-			["", "~", "\u02C7", "^", "\u02D8", "\u00B0", "\u02DB", "`", "\u00B7", "\u00B4", "\u02DD", "\u00A8", "\u00B8", "BACKSPACEICON"],
+-			["FIRSTICON", "\\", "\u00A6", "", "\u017B", "\u015A", "\u00D3", "\u20AC", "\u0143", "\u0106", "\u0179", "\u00F7", "\u00D7", ""],
+-			["LASTICON", "", "\u0111", "\u0110", "", "", "", "", "\u0104", "\u0118", "$", "\u00DF", self.green, self.green],
+-			["CAPSLOCKICON", "", "", "", "", "@", "{", "}", "\u00A7", "<", ">", "", "CAPSLOCKICON", "CAPSLOCKICON"],
++			["", "~", "\\u02C7", "^", "\\u02D8", "\\u00B0", "\\u02DB", "`", "\\u00B7", "\\u00B4", "\\u02DD", "\\u00A8", "\\u00B8", "BACKSPACEICON"],
++			["FIRSTICON", "\\", "\\u00A6", "", "\\u017B", "\\u015A", "\\u00D3", "\\u20AC", "\\u0143", "\\u0106", "\\u0179", "\\u00F7", "\\u00D7", ""],
++			["LASTICON", "", "\\u0111", "\\u0110", "", "", "", "", "\\u0104", "\\u0118", "$", "\\u00DF", self.green, self.green],
++			["CAPSLOCKICON", "", "", "", "", "@", "{", "}", "\\u00A7", "<", ">", "", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 			self.footer
+ 		])
+ 		return keyList
+@@ -801,23 +801,23 @@
+ 		keyList[1][3][1] = "|"
+ 		keyList.append([
+ 			["", "", "", "", "", "", "", "", "", "", "", "", "", "BACKSPACEICON"],
+-			["FIRSTICON", "", "", "\u0119", "\u0118", "", "", "\u20AC", "", "\u00F3", "\u00D3", "", "", ""],
+-			["LASTICON", "\u0105", "\u0104", "\u015B", "\u015A", "", "", "", "", "\u0142", "\u0141", "", self.green, self.green],
+-			["CAPSLOCKICON", "\u017C", "\u017B", "\u017A", "\u0179", "\u0107", "\u0106", "\u0144", "\u0143", "", "", "", "CAPSLOCKICON", "CAPSLOCKICON"],
++			["FIRSTICON", "", "", "\\u0119", "\\u0118", "", "", "\\u20AC", "", "\\u00F3", "\\u00D3", "", "", ""],
++			["LASTICON", "\\u0105", "\\u0104", "\\u015B", "\\u015A", "", "", "", "", "\\u0142", "\\u0141", "", self.green, self.green],
++			["CAPSLOCKICON", "\\u017C", "\\u017B", "\\u017A", "\\u0179", "\\u0107", "\\u0106", "\\u0144", "\\u0143", "", "", "", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 			self.footer
+ 		])
+ 		return keyList
+ 
+ 	def slovak(self, base):
+ 		keyList = deepcopy(base)
+-		keyList[0][0] = [";", "+", "\u013E", "\u0161", "\u010D", "\u0165", "\u017E", "\u00FD", "\u00E1", "\u00ED", "\u00E9", "=", "\u00B4", "BACKSPACEICON"]
+-		keyList[0][1][11] = "\u00FA"
+-		keyList[0][1][12] = "\u00E4"
+-		keyList[0][1][13] = "\u0148"
+-		keyList[0][2][10] = "\u00F4"
+-		keyList[0][2][11] = "\u00A7"
++		keyList[0][0] = [";", "+", "\\u013E", "\\u0161", "\\u010D", "\\u0165", "\\u017E", "\\u00FD", "\\u00E1", "\\u00ED", "\\u00E9", "=", "\\u00B4", "BACKSPACEICON"]
++		keyList[0][1][11] = "\\u00FA"
++		keyList[0][1][12] = "\\u00E4"
++		keyList[0][1][13] = "\\u0148"
++		keyList[0][2][10] = "\\u00F4"
++		keyList[0][2][11] = "\\u00A7"
+ 		keyList[0][3][1] = "&"
+-		keyList[1][0] = ["\u00B0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "%", "\u02C7", "BACKSPACEICON"]
++		keyList[1][0] = ["\\u00B0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "%", "\\u02C7", "BACKSPACEICON"]
+ 		keyList[1][1][11] = "/"
+ 		keyList[1][1][12] = "("
+ 		keyList[1][1][13] = ")"
+@@ -827,9 +827,9 @@
+ 		keyList[1][3][9] = "?"
+ 		del keyList[2]
+ 		keyList.append([
+-			["", "~", "\u02C7", "^", "\u02D8", "\u00B0", "\u02DB", "`", "\u02D9", "\u00B4", "\u02DD", "\u00A8", "\u00B8", "BACKSPACEICON"],
+-			["FIRSTICON", "\\", "|", "\u20AC", "", "", "", "", "", "", "'", "\u00F7", "\u00D7", "\u00A4"],
+-			["LASTICON", "", "\u0111", "\u0110", "[", "]", "", "", "\u0142", "\u0141", "$", "\u00DF", self.green, self.green],
++			["", "~", "\\u02C7", "^", "\\u02D8", "\\u00B0", "\\u02DB", "`", "\\u02D9", "\\u00B4", "\\u02DD", "\\u00A8", "\\u00B8", "BACKSPACEICON"],
++			["FIRSTICON", "\\", "|", "\\u20AC", "", "", "", "", "", "", "'", "\\u00F7", "\\u00D7", "\\u00A4"],
++			["LASTICON", "", "\\u0111", "\\u0110", "[", "]", "", "", "\\u0142", "\\u0141", "$", "\\u00DF", self.green, self.green],
+ 			["CAPSLOCKICON", "<", ">", "#", "&", "@", "{", "}", "", "<", ">", "*", "CAPSLOCKICON", "CAPSLOCKICON"],
+ 			self.footer
+ 		])
+@@ -837,22 +837,22 @@
+ 
+ 	def ukranian(self, base):
+ 		keyList = deepcopy(base)
+-		keyList[0][1][12] = "\u0457"
++		keyList[0][1][12] = "\\u0457"
+ 		keyList[0][1][13] = "\\"
+-		keyList[0][2][11] = "\u0454"
+-		keyList[0][2][2] = "\u0456"
+-		keyList[0][3][1] = "\u0491"
+-		keyList[1][1][12] = "\u0407"
++		keyList[0][2][11] = "\\u0454"
++		keyList[0][2][2] = "\\u0456"
++		keyList[0][3][1] = "\\u0491"
++		keyList[1][1][12] = "\\u0407"
+ 		keyList[1][1][13] = "/"
+-		keyList[1][2][11] = "\u0404"
+-		keyList[1][2][2] = "\u0406"
+-		keyList[1][3][1] = "\u0490"
++		keyList[1][2][11] = "\\u0404"
++		keyList[1][2][2] = "\\u0406"
++		keyList[1][3][1] = "\\u0490"
+ 		return keyList
+ 
+ 	def ukranianEnhanced(self, base):
+ 		keyList = self.ukranian(base)
+-		keyList[0][0][0] = "\u0027"
+-		keyList[1][0][0] = "\u20B4"
++		keyList[0][0][0] = "\\u0027"
++		keyList[1][0][0] = "\\u20B4"
+ 		return keyList
+ 
+ 	def unitedKingdom(self, base):
+@@ -860,15 +860,15 @@
+ 		keyList[0][1][13] = "#"
+ 		keyList[0][3] = ["CAPSLOCKICON", "\\", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "CAPSLOCKICON", "CAPSLOCKICON"]
+ 		keyList[0][4] = copy(self.footer)
+-		keyList[0][4][10] = "\u00A6"
+-		keyList[1][0][0] = "\u00AC"
++		keyList[0][4][10] = "\\u00A6"
++		keyList[1][0][0] = "\\u00AC"
+ 		keyList[1][0][2] = "\""
+-		keyList[1][0][3] = "\u00A3"
++		keyList[1][0][3] = "\\u00A3"
+ 		keyList[1][1][13] = "~"
+ 		keyList[1][2][11] = "@"
+ 		keyList[1][3] = ["CAPSLOCKICON", "|", "Z", "X", "C", "V", "B", "N", "M", "<", ">", "?", "CAPSLOCKICON", "CAPSLOCKICON"]
+ 		keyList[1][4] = copy(self.footer)
+-		keyList[1][4][10] = "\u20AC"
++		keyList[1][4][10] = "\\u20AC"
+ 		return keyList
+ 
+ 	def smsGotChar(self):
+@@ -1045,7 +1045,7 @@
+ 
+ 	def localeMenu(self):
+ 		languages = []
+-		for locale, data in self.locales.items():
++		for locale, data in list(self.locales.items()):
+ 			languages.append((data[0] + "  -  " + data[1] + "  (" + locale + ")", locale))
+ 		languages = sorted(languages)
+ 		index = 0
+diff -ruN o/lib/python/Screens/Wizard.py pc/lib/python/Screens/Wizard.py
+--- o/lib/python/Screens/Wizard.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Screens/Wizard.py	2022-10-27 13:54:24.375175320 +0300
+@@ -308,7 +308,7 @@
+ 	def getStepWithID(self, id):
+ 		print("getStepWithID:", id)
+ 		count = 0
+-		for x in self.wizard.keys():
++		for x in list(self.wizard.keys()):
+ 			if self.wizard[x]["id"] == id:
+ 				print("result:", count)
+ 				return count
+@@ -494,7 +494,7 @@
+ 		self.condition = True
+ 		exec(self.wizard[self.currStep]["condition"])
+ 		if not self.condition:
+-			print("keys*******************:", self.wizard[self.currStep].keys())
++			print("keys*******************:", list(self.wizard[self.currStep].keys()))
+ 			if "laststep" in self.wizard[self.currStep]: # exit wizard, if condition of laststep doesn't hold
+ 				self.markDone()
+ 				self.exit()
+diff -ruN o/lib/python/skin.py pc/lib/python/skin.py
+--- o/lib/python/skin.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/skin.py	2022-10-27 13:39:01.263171655 +0300
+@@ -405,7 +405,7 @@
+ 	size = None
+ 	pos = None
+ 	font = None
+-	for attrib, value in node.items():  # Walk all attributes.
++	for attrib, value in list(node.items()):  # Walk all attributes.
+ 		if attrib not in ignore:
+ 			if attrib in filenames:
+ 				value = resolveFilename(SCOPE_CURRENT_SKIN, value, path_prefix=skinPath)
+@@ -1208,10 +1208,10 @@
+ 	def processScreen(widget, context):
+ 		for w in widget:
+ 			conditional = w.attrib.get("conditional")
+-			if conditional and not [i for i in conditional.split(",") if i in screen.keys()]:
++			if conditional and not [i for i in conditional.split(",") if i in list(screen.keys())]:
+ 				continue
+ 			objecttypes = w.attrib.get("objectTypes", "").split(",")
+-			if len(objecttypes) > 1 and (objecttypes[0] not in screen.keys() or not [i for i in objecttypes[1:] if i == screen[objecttypes[0]].__class__.__name__]):
++			if len(objecttypes) > 1 and (objecttypes[0] not in list(screen.keys()) or not [i for i in objecttypes[1:] if i == screen[objecttypes[0]].__class__.__name__]):
+ 				continue
+ 			p = processors.get(w.tag, processNone)
+ 			try:
+diff -ruN o/lib/python/StartEnigma.py pc/lib/python/StartEnigma.py
+--- o/lib/python/StartEnigma.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/StartEnigma.py	2022-10-27 13:35:17.743170767 +0300
+@@ -129,10 +129,10 @@
+ 
+ def dump(dir, p=""):
+ 	if isinstance(dir, dict):
+-		for (entry, val) in dir.items():
++		for (entry, val) in list(dir.items()):
+ 			dump(val, p + "(dict)/" + entry)
+ 	if hasattr(dir, "__dict__"):
+-		for name, value in dir.__dict__.items():
++		for name, value in list(dir.__dict__.items()):
+ 			if str(value) not in had:
+ 				had[str(value)] = 1
+ 				dump(value, p + "/" + str(name))
+diff -ruN o/lib/python/Tools/KeyBindings.py pc/lib/python/Tools/KeyBindings.py
+--- o/lib/python/Tools/KeyBindings.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Tools/KeyBindings.py	2022-10-27 13:26:02.211168562 +0300
+@@ -345,7 +345,7 @@
+ 
+ def removeKeyBinding(key, context, action, wild=True):
+ 	if wild and action == "*":
+-		for ctx, action in keyBindings.keys():
++		for ctx, action in list(keyBindings.keys()):
+ 			if ctx == context:
+ 				removeKeyBinding(key, context, action, False)
+ 		return
+diff -ruN o/lib/python/Tools/Multiboot.py pc/lib/python/Tools/Multiboot.py
+--- o/lib/python/Tools/Multiboot.py	2022-10-15 01:36:52.556060080 +0300
++++ pc/lib/python/Tools/Multiboot.py	2022-10-27 14:38:49.607185903 +0300
+@@ -70,7 +70,7 @@
+ 			return int(slot[0])
+ 		else:
+ 			device = getparam(open('/sys/firmware/devicetree/base/chosen/bootargs', 'r').read(), 'root')
+-			for slot in SystemInfo["canMultiBoot"].keys():
++			for slot in list(SystemInfo["canMultiBoot"].keys()):
+ 				if SystemInfo["canMultiBoot"][slot]['device'] == device:
+ 					return slot
+ 
+@@ -82,7 +82,7 @@
+ def deleteImage(slot):
+ 	tmp.dir = tempfile.mkdtemp(prefix="Multiboot")
+ 	Console().ePopen('mount %s %s' % (SystemInfo["canMultiBoot"][slot]['device'], tmp.dir))
+-	enigma2binaryfile = os.path.join(os.sep.join(filter(None, [tmp.dir, SystemInfo["canMultiBoot"][slot].get('rootsubdir', '')])), 'usr/bin/enigma2')
++	enigma2binaryfile = os.path.join(os.sep.join([_f for _f in [tmp.dir, SystemInfo["canMultiBoot"][slot].get('rootsubdir', '')] if _f]), 'usr/bin/enigma2')
+ 	if os.path.exists(enigma2binaryfile):
+ 		os.rename(enigma2binaryfile, '%s.bak' % enigma2binaryfile)
+ 	Console().ePopen('umount %s' % tmp.dir)
+@@ -94,7 +94,7 @@
+ 	for slot in SystemInfo["canMultiBoot"]:
+ 		tmp.dir = tempfile.mkdtemp(prefix="Multiboot")
+ 		Console().ePopen('mount %s %s' % (SystemInfo["canMultiBoot"][slot]['device'], tmp.dir))
+-		enigma2binaryfile = os.path.join(os.sep.join(filter(None, [tmp.dir, SystemInfo["canMultiBoot"][slot].get('rootsubdir', '')])), 'usr/bin/enigma2')
++		enigma2binaryfile = os.path.join(os.sep.join([_f for _f in [tmp.dir, SystemInfo["canMultiBoot"][slot].get('rootsubdir', '')] if _f]), 'usr/bin/enigma2')
+ 		if os.path.exists('%s.bak' % enigma2binaryfile):
+ 			os.rename('%s.bak' % enigma2binaryfile, enigma2binaryfile)
+ 		Console().ePopen('umount %s' % tmp.dir)
+@@ -111,7 +111,7 @@
+ 				Console().ePopen('mount -t ubifs %s %s' % (SystemInfo["canMultiBoot"][slot]['device'], tmp.dir))
+ 			else:
+ 				Console().ePopen('mount %s %s' % (SystemInfo["canMultiBoot"][slot]['device'], tmp.dir))
+-			imagedir = os.sep.join(filter(None, [tmp.dir, SystemInfo["canMultiBoot"][slot].get('rootsubdir', '')]))
++			imagedir = os.sep.join([_f for _f in [tmp.dir, SystemInfo["canMultiBoot"][slot].get('rootsubdir', '')] if _f])
+ 			if os.path.isfile(os.path.join(imagedir, 'usr/bin/enigma2')):
+ 				try:
+ 					from datetime import datetime
+diff -ruN o/lib/python/Tools/NumericalTextInput.py pc/lib/python/Tools/NumericalTextInput.py
+--- o/lib/python/Tools/NumericalTextInput.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Tools/NumericalTextInput.py	2022-10-27 13:26:02.503168563 +0300
+@@ -44,93 +44,93 @@
+ 	"cs_CZ": (
+ 		(None, None, None),
+ 		(None, None, None),
+-		("abc2\u00E1\u010DABC\u00C1\u010C", "ABC2\u00C1\u010C", "abc2\u00E1\u010D"),
+-		("def3\u010F\u00E9\u011BDEF\u010E\u00C9\u011A", "DEF3\u010E\u00C9\u011A", "def3\u010F\u00E9\u011B"),
+-		("ghi4\u00EDGHI\u00CD", "GHI4\u00CD", "ghi4\u00ED"),
+-		(None, None, None),
+-		("mno6\u0148\u00F3MNO\u0147\u00D3", "MNO6\u0147\u00D3", "mno6\u0148\u00F3"),
+-		("pqrs7\u0159\u0161PQRS\u0158\u0160", "PQRS7\u0158\u0160", "pqrs7\u0159\u0161"),
+-		("tuv8\u0165\u00FA\u016FTUV\u0164\u00DA\u016E", "TUV8\u0164\u00DA\u016E", "tuv8\u0165\u00FA\u016F"),
+-		("wxyz9\u00FD\u017EWXYZ\u00DD\u017D", "WXYZ9\u00DD\u017D", "wxyz9\u00FD\u017E")
++		("abc2\\u00E1\\u010DABC\\u00C1\\u010C", "ABC2\\u00C1\\u010C", "abc2\\u00E1\\u010D"),
++		("def3\\u010F\\u00E9\\u011BDEF\\u010E\\u00C9\\u011A", "DEF3\\u010E\\u00C9\\u011A", "def3\\u010F\\u00E9\\u011B"),
++		("ghi4\\u00EDGHI\\u00CD", "GHI4\\u00CD", "ghi4\\u00ED"),
++		(None, None, None),
++		("mno6\\u0148\\u00F3MNO\\u0147\\u00D3", "MNO6\\u0147\\u00D3", "mno6\\u0148\\u00F3"),
++		("pqrs7\\u0159\\u0161PQRS\\u0158\\u0160", "PQRS7\\u0158\\u0160", "pqrs7\\u0159\\u0161"),
++		("tuv8\\u0165\\u00FA\\u016FTUV\\u0164\\u00DA\\u016E", "TUV8\\u0164\\u00DA\\u016E", "tuv8\\u0165\\u00FA\\u016F"),
++		("wxyz9\\u00FD\\u017EWXYZ\\u00DD\\u017D", "WXYZ9\\u00DD\\u017D", "wxyz9\\u00FD\\u017E")
+ 	),
+ 	"de_DE": (
+ 		(None, None, None),
+ 		(None, None, None),
+-		("abc\u00E4\u00E0\u00E5\u01012ABC\u00C4\u00C0\u00C5\u0100", "ABC\u00C42", "abc\u00E42"),
+-		("def\u0111\u00E9\u01133DEF\u0110\u00C9\u0112", "DEF\u0110\u00C9\u01123", "def\u0111\u00E9\u01133"),
++		("abc\\u00E4\\u00E0\\u00E5\\u01012ABC\\u00C4\\u00C0\\u00C5\\u0100", "ABC\\u00C42", "abc\\u00E42"),
++		("def\\u0111\\u00E9\\u01133DEF\\u0110\\u00C9\\u0112", "DEF\\u0110\\u00C9\\u01123", "def\\u0111\\u00E9\\u01133"),
+ 		(None, None, None),
+ 		(None, None, None),
+-		("mno\u00F66MNO\u00D6", "MNO\u00D66", "mno\u00F66"),
+-		("pqrs\u00DF7PQRS", "PQRS7", "pqrs\u00DF7"),
+-		("tuv\u00FC8TUV\u00DC", "TUV\u00DC8", "tuv\u00FC8"),
++		("mno\\u00F66MNO\\u00D6", "MNO\\u00D66", "mno\\u00F66"),
++		("pqrs\\u00DF7PQRS", "PQRS7", "pqrs\\u00DF7"),
++		("tuv\\u00FC8TUV\\u00DC", "TUV\\u00DC8", "tuv\\u00FC8"),
+ 		(None, None, None)
+ 	),
+ 	"es_ES": (
+ 		(None, None, None),
+ 		(None, None, None),
+-		("abc\u00E1\u00E0\u00E72ABC\u00C1\u00C0\u00C7", "ABC\u00C1\u00C0\u00C72", "abc\u00E1\u00E0\u00E72"),
+-		("def\u00E9\u00E83DEF\u00C9\u00C8", "DEF\u00C9\u00C83", "def\u00E9\u00E83"),
+-		("ghi\u00ED\u00EF4GHI\u00CD\u00CF", "GHI\u00CD\u00CF4", "ghi\u00ED\u00EF4"),
++		("abc\\u00E1\\u00E0\\u00E72ABC\\u00C1\\u00C0\\u00C7", "ABC\\u00C1\\u00C0\\u00C72", "abc\\u00E1\\u00E0\\u00E72"),
++		("def\\u00E9\\u00E83DEF\\u00C9\\u00C8", "DEF\\u00C9\\u00C83", "def\\u00E9\\u00E83"),
++		("ghi\\u00ED\\u00EF4GHI\\u00CD\\u00CF", "GHI\\u00CD\\u00CF4", "ghi\\u00ED\\u00EF4"),
+ 		(None, None, None),
+-		("mno\u00F1\u00F3\u00F26MNO\u00D1\u00D3\u00D2", "MNO\u00D1\u00D3\u00D26", "mno\u00F1\u00F3\u00F26"),
++		("mno\\u00F1\\u00F3\\u00F26MNO\\u00D1\\u00D3\\u00D2", "MNO\\u00D1\\u00D3\\u00D26", "mno\\u00F1\\u00F3\\u00F26"),
+ 		(None, None, None),
+-		("tuv\u00FA\u00FC8TUV\u00DA\u00DC", "TUV\u00DA\u00DC8", "tuv\u00FA\u00FC8"),
++		("tuv\\u00FA\\u00FC8TUV\\u00DA\\u00DC", "TUV\\u00DA\\u00DC8", "tuv\\u00FA\\u00FC8"),
+ 		(None, None, None)
+ 	),
+ 	"et_EE": (
+ 		(None, None, None),
+ 		(None, None, None),
+-		("abc\u00E42ABC\u00C4", "ABC\u00C42", "abc\u00E42"),
++		("abc\\u00E42ABC\\u00C4", "ABC\\u00C42", "abc\\u00E42"),
+ 		(None, None, None),
+ 		(None, None, None),
+ 		(None, None, None),
+-		("mno\u00F5\u00F66MNO\u00D5\u00D6", "MNO\u00D5\u00D66", "mno\u00F5\u00F66"),
+-		("pqrs\u01617PQRS\u0160", "PQRS\u01607", "pqrs\u01617"),
+-		("tuv\u00FC8TUV\u00DC", "TUV\u00DC8", "tuv\u00FC8"),
+-		("wxyz\u017E9WXYZ\u017D", "WXYZ\u017D9", "wxyz\u017E9")
++		("mno\\u00F5\\u00F66MNO\\u00D5\\u00D6", "MNO\\u00D5\\u00D66", "mno\\u00F5\\u00F66"),
++		("pqrs\\u01617PQRS\\u0160", "PQRS\\u01607", "pqrs\\u01617"),
++		("tuv\\u00FC8TUV\\u00DC", "TUV\\u00DC8", "tuv\\u00FC8"),
++		("wxyz\\u017E9WXYZ\\u017D", "WXYZ\\u017D9", "wxyz\\u017E9")
+ 	),
+ 	"fa_IR": (
+-		("\u06F0" + PUNCTUATION0, "\u06F0" + PUNCTUATION0, "\u06F0" + PUNCTUATION0),
+-		("\u06F1" + PUNCTUATION1, "\u06F1" + PUNCTUATION1, "\u06F1" + PUNCTUATION1),
+-		("\u0628\u067E\u062A\u0629\u062B\u06F2abc2DEF", "\u0628\u067E\u062A\u0629\u062B\u06F2ABC2", "\u0628\u067E\u062A\u0629\u062B\u06F2abc2"),
+-		("\u0627\u0623\u0625\u0622\u0624\u0626\u0621\u06F3def3DEF", "\u0627\u0623\u0625\u0622\u0624\u0626\u0621\u06FDEF3", "\u0627\u0623\u0625\u0622\u0624\u0626\u0621\u06F3def3"),
+-		("\u0633\u0634\u0635\u0636\u06F4ghi4GHI", "\u0633\u0634\u0635\u0636\u06F4GHI4", "\u0633\u0634\u0635\u0636\u06F4ghi4"),
+-		("\u062F\u0630\u0631\u0632\u0698\u06F5jkl5JKL", "\u062F\u0630\u0631\u0632\u0698\u06F5JKL5", "\u062F\u0630\u0631\u0632\u0698\u06F5jkl5"),
+-		("\u062C\u0686\u062D\u062E\u06F6mno6MNO", "\u062C\u0686\u062D\u062E\u06F6MNO6", "\u062C\u0686\u062D\u062E\u06F6mno6"),
+-		("\u0646\u0648\u0647\u06CC\u06F7pqrs7PQRS", "\u0646\u0648\u0647\u06CC\u06F7PQRS7", "\u0646\u0648\u0647\u06CC\u06F7pqrs7"),
+-		("\u0641\u0642\u06A9\u06AF\u0644\u0645\u0643\u06F8tuv8TUV", "\u0641\u0642\u06A9\u06AF\u0644\u0645\u0643\u06F8TUV8", "\u0641\u0642\u06A9\u06AF\u0644\u0645\u0643\u06F8tuv8"),
+-		("\u0637\u0638\u0639\u063A\u06F9wxyz9WXYZ", "\u0637\u0638\u0639\u063A\u06F9WXYZ9", "\u0637\u0638\u0639\u063A\u06F9wxyz9"),
++		("\\u06F0" + PUNCTUATION0, "\\u06F0" + PUNCTUATION0, "\\u06F0" + PUNCTUATION0),
++		("\\u06F1" + PUNCTUATION1, "\\u06F1" + PUNCTUATION1, "\\u06F1" + PUNCTUATION1),
++		("\\u0628\\u067E\\u062A\\u0629\\u062B\\u06F2abc2DEF", "\\u0628\\u067E\\u062A\\u0629\\u062B\\u06F2ABC2", "\\u0628\\u067E\\u062A\\u0629\\u062B\\u06F2abc2"),
++		("\\u0627\\u0623\\u0625\\u0622\\u0624\\u0626\\u0621\\u06F3def3DEF", "\\u0627\\u0623\\u0625\\u0622\\u0624\\u0626\\u0621\\u06FDEF3", "\\u0627\\u0623\\u0625\\u0622\\u0624\\u0626\\u0621\\u06F3def3"),
++		("\\u0633\\u0634\\u0635\\u0636\\u06F4ghi4GHI", "\\u0633\\u0634\\u0635\\u0636\\u06F4GHI4", "\\u0633\\u0634\\u0635\\u0636\\u06F4ghi4"),
++		("\\u062F\\u0630\\u0631\\u0632\\u0698\\u06F5jkl5JKL", "\\u062F\\u0630\\u0631\\u0632\\u0698\\u06F5JKL5", "\\u062F\\u0630\\u0631\\u0632\\u0698\\u06F5jkl5"),
++		("\\u062C\\u0686\\u062D\\u062E\\u06F6mno6MNO", "\\u062C\\u0686\\u062D\\u062E\\u06F6MNO6", "\\u062C\\u0686\\u062D\\u062E\\u06F6mno6"),
++		("\\u0646\\u0648\\u0647\\u06CC\\u06F7pqrs7PQRS", "\\u0646\\u0648\\u0647\\u06CC\\u06F7PQRS7", "\\u0646\\u0648\\u0647\\u06CC\\u06F7pqrs7"),
++		("\\u0641\\u0642\\u06A9\\u06AF\\u0644\\u0645\\u0643\\u06F8tuv8TUV", "\\u0641\\u0642\\u06A9\\u06AF\\u0644\\u0645\\u0643\\u06F8TUV8", "\\u0641\\u0642\\u06A9\\u06AF\\u0644\\u0645\\u0643\\u06F8tuv8"),
++		("\\u0637\\u0638\\u0639\\u063A\\u06F9wxyz9WXYZ", "\\u0637\\u0638\\u0639\\u063A\\u06F9WXYZ9", "\\u0637\\u0638\\u0639\\u063A\\u06F9wxyz9"),
+ 	),
+ 	"fi_FI": (
+ 		(None, None, None),
+ 		(None, None, None),
+-		("abc\u00E4\u00E5\u00E1\u00E2\u010D2ABC\u00C4\u00C5\u00C1\u00C2\u010C", "ABC\u00C4\u00C5\u00C1\u00C2\u010C2", "abc\u00E4\u00E5\u00E1\u00E2\u010D2"),
+-		("def\u00E9\u01113DEF\u00C9\u0110", "DEF\u00C9\u01103", "def\u00E9\u01113"),
+-		("ghi\u01E7\u01E54GHI\u01E6\u01E4", "GHI\u01E6\u01E44", "ghi\u01E7\u01E54"),
+-		("jkl\u01E95JKL\u01E8", "JKL\u01E85", "jkl\u01E95"),
+-		("mno\u00F6\u00F8\u014B\u00F56MNO\u00D6\u00D8\u014A\u00D5", "MNO\u00D6\u00D8\u014A\u00D56", "mno\u00F6\u00F8\u014B\u00F56"),
+-		("pqrs\u01617PQRS\u0160", "PQRS\u01607", "pqrs\u01617"),
+-		("tuv\u00FC\u01678TUV\u00DC\u0166", "TUV\u00DC\u01668", "tuv\u00FC\u01678"),
+-		("wxyz\u017E\u0292\u01EF9WXYZ\u017D\u01B7\u01EE", "WXYZ\u017D\u01B7\u01EE9", "wxyz\u017E\u0292\u01EF9")
++		("abc\\u00E4\\u00E5\\u00E1\\u00E2\\u010D2ABC\\u00C4\\u00C5\\u00C1\\u00C2\\u010C", "ABC\\u00C4\\u00C5\\u00C1\\u00C2\\u010C2", "abc\\u00E4\\u00E5\\u00E1\\u00E2\\u010D2"),
++		("def\\u00E9\\u01113DEF\\u00C9\\u0110", "DEF\\u00C9\\u01103", "def\\u00E9\\u01113"),
++		("ghi\\u01E7\\u01E54GHI\\u01E6\\u01E4", "GHI\\u01E6\\u01E44", "ghi\\u01E7\\u01E54"),
++		("jkl\\u01E95JKL\\u01E8", "JKL\\u01E85", "jkl\\u01E95"),
++		("mno\\u00F6\\u00F8\\u014B\\u00F56MNO\\u00D6\\u00D8\\u014A\\u00D5", "MNO\\u00D6\\u00D8\\u014A\\u00D56", "mno\\u00F6\\u00F8\\u014B\\u00F56"),
++		("pqrs\\u01617PQRS\\u0160", "PQRS\\u01607", "pqrs\\u01617"),
++		("tuv\\u00FC\\u01678TUV\\u00DC\\u0166", "TUV\\u00DC\\u01668", "tuv\\u00FC\\u01678"),
++		("wxyz\\u017E\\u0292\\u01EF9WXYZ\\u017D\\u01B7\\u01EE", "WXYZ\\u017D\\u01B7\\u01EE9", "wxyz\\u017E\\u0292\\u01EF9")
+ 	),
+ 	"lv_LV": (
+ 		(None, None, None),
+ 		(None, None, None),
+-		("a\u0101bc\u010D2A\u0100BC\u010C", "A\u0100BC\u010C2", "a\u0101bc\u010D2"),
+-		("de\u0113f3DE\u0112F", "DE\u0112F3", "de\u0113f3"),
+-		("g\u0123hi\u012B4G\u0122HI\u012A", "G\u0122HI\u012A4", "g\u0123hi\u012B4"),
+-		("jk\u0137l\u013C5JK\u0136L\u013B", "JK\u0136L\u013B5", "jk\u0137l\u013C5"),
+-		("mn\u0146o6MN\u0145O", "MN\u0145O6", "mn\u0146o6"),
+-		("prs\u01617qPRS\u0160Q", "PRS\u01607Q", "prs\u01617q"),
+-		("tu\u016Bv8TU\u016AV", "TU\u016AV8", "tu\u016Bv8"),
+-		("z\u017E9wxyWXYZ\u017D", "Z\u017D9WXY", "z\u017E9wxy")
++		("a\\u0101bc\\u010D2A\\u0100BC\\u010C", "A\\u0100BC\\u010C2", "a\\u0101bc\\u010D2"),
++		("de\\u0113f3DE\\u0112F", "DE\\u0112F3", "de\\u0113f3"),
++		("g\\u0123hi\\u012B4G\\u0122HI\\u012A", "G\\u0122HI\\u012A4", "g\\u0123hi\\u012B4"),
++		("jk\\u0137l\\u013C5JK\\u0136L\\u013B", "JK\\u0136L\\u013B5", "jk\\u0137l\\u013C5"),
++		("mn\\u0146o6MN\\u0145O", "MN\\u0145O6", "mn\\u0146o6"),
++		("prs\\u01617qPRS\\u0160Q", "PRS\\u01607Q", "prs\\u01617q"),
++		("tu\\u016Bv8TU\\u016AV", "TU\\u016AV8", "tu\\u016Bv8"),
++		("z\\u017E9wxyWXYZ\\u017D", "Z\\u017D9WXY", "z\\u017E9wxy")
+ 	),
+ 	"nl_NL": (
+ 		(None, None, None),
+ 		(None, None, None),
+ 		(None, None, None),
+-		("def\u00EB3DEF\u00CB", "DEF\u00CB3", "def\u00EB3"),
+-		("ghi\u00EF4GHI\u00CF", "GHI\u00CF4", "ghi\u00EF4"),
++		("def\\u00EB3DEF\\u00CB", "DEF\\u00CB3", "def\\u00EB3"),
++		("ghi\\u00EF4GHI\\u00CF", "GHI\\u00CF4", "ghi\\u00EF4"),
+ 		(None, None, None),
+ 		(None, None, None),
+ 		(None, None, None),
+@@ -140,62 +140,62 @@
+ 	"pl_PL": (
+ 		(None, None, None),
+ 		(None, None, None),
+-		("abc\u0105\u01072ABC\u0104\u0106", "ABC\u0104\u01062", "abc\u0105\u01072"),
+-		("def\u01193DEF\u0118", "DEF\u01183", "def\u01193"),
++		("abc\\u0105\\u01072ABC\\u0104\\u0106", "ABC\\u0104\\u01062", "abc\\u0105\\u01072"),
++		("def\\u01193DEF\\u0118", "DEF\\u01183", "def\\u01193"),
+ 		(None, None, None),
+-		("jkl\u01425JKL\u0141", "JKL\u01415", "jkl\u01425"),
+-		("mno\u0144\u00F36MNO\u0143\u00D3", "MNO\u0143\u00D36", "mno\u0144\u00F36"),
+-		("pqrs\u015B7PQRS\u015A", "PQRS\u015A7", "pqrs\u015B7"),
++		("jkl\\u01425JKL\\u0141", "JKL\\u01415", "jkl\\u01425"),
++		("mno\\u0144\\u00F36MNO\\u0143\\u00D3", "MNO\\u0143\\u00D36", "mno\\u0144\\u00F36"),
++		("pqrs\\u015B7PQRS\\u015A", "PQRS\\u015A7", "pqrs\\u015B7"),
+ 		(None, None, None),
+-		("wxyz\u017A\u017C9WXYZ\u0179\u017B", "WXYZ\u0179\u017B9", "wxyz\u017A\u017C9")
++		("wxyz\\u017A\\u017C9WXYZ\\u0179\\u017B", "WXYZ\\u0179\\u017B9", "wxyz\\u017A\\u017C9")
+ 	),
+ 	"ru_RU": (
+ 		(None, None, None),
+ 		(None, None, None),
+-		("\u0430\u0431\u0432\u0433abc2\u0410\u0411\u0412\u0413ABC", "\u0410\u0411\u0412\u0413ABC2", "\u0430\u0431\u0432\u0433abc2"),
+-		("\u0434\u0435\u0451\u0436\u0437def3\u0414\u0415\u0431\u0416\u0417DEF", "\u0414\u0415\u0431\u0416\u0417DEF3", "\u0434\u0435\u0451\u0436\u0437def3"),
+-		("\u0438\u0439\u043A\u043Bghi4\u0418\u0419\u041A\u041BGHI", "\u0418\u0419\u041A\u041BGHI4", "\u0438\u0439\u043A\u043Bghi4"),
+-		("\u043C\u043D\u043E\u043Fjkl5\u041C\u041D\u041E\u041FJKL", "\u041C\u041D\u041E\u041FJKL5", "\u043C\u043D\u043E\u043Fjkl5"),
+-		("\u0440\u0441\u0442\u0443mno6\u0420\u0421\u0422\u0423MNO", "\u0420\u0421\u0422\u0423MNO6", "\u0440\u0441\u0442\u0443mno6"),
+-		("\u0444\u0445\u0446\u0447pqrs7\u0424\u0425\u0426\u0427PQRS", "\u0424\u0425\u0426\u0427PQRS7", "\u0444\u0445\u0446\u0447pqrs7"),
+-		("\u0448\u0449\u044A\u044Btuv8\u0428\u0429\u042C\u042BTUV", "\u0428\u0429\u042A\u042BTUV8", "\u0448\u0449\u044A\u044Btuv8"),
+-		("\u044C\u044D\u044E\u044Fwxyz9\u042C\u042D\u042E\u042FWXYZ", "\u042C\u042D\u042E\u042FWXYZ9", "\u044C\u044D\u044E\u044Fwxyz9")
++		("\\u0430\\u0431\\u0432\\u0433abc2\\u0410\\u0411\\u0412\\u0413ABC", "\\u0410\\u0411\\u0412\\u0413ABC2", "\\u0430\\u0431\\u0432\\u0433abc2"),
++		("\\u0434\\u0435\\u0451\\u0436\\u0437def3\\u0414\\u0415\\u0431\\u0416\\u0417DEF", "\\u0414\\u0415\\u0431\\u0416\\u0417DEF3", "\\u0434\\u0435\\u0451\\u0436\\u0437def3"),
++		("\\u0438\\u0439\\u043A\\u043Bghi4\\u0418\\u0419\\u041A\\u041BGHI", "\\u0418\\u0419\\u041A\\u041BGHI4", "\\u0438\\u0439\\u043A\\u043Bghi4"),
++		("\\u043C\\u043D\\u043E\\u043Fjkl5\\u041C\\u041D\\u041E\\u041FJKL", "\\u041C\\u041D\\u041E\\u041FJKL5", "\\u043C\\u043D\\u043E\\u043Fjkl5"),
++		("\\u0440\\u0441\\u0442\\u0443mno6\\u0420\\u0421\\u0422\\u0423MNO", "\\u0420\\u0421\\u0422\\u0423MNO6", "\\u0440\\u0441\\u0442\\u0443mno6"),
++		("\\u0444\\u0445\\u0446\\u0447pqrs7\\u0424\\u0425\\u0426\\u0427PQRS", "\\u0424\\u0425\\u0426\\u0427PQRS7", "\\u0444\\u0445\\u0446\\u0447pqrs7"),
++		("\\u0448\\u0449\\u044A\\u044Btuv8\\u0428\\u0429\\u042C\\u042BTUV", "\\u0428\\u0429\\u042A\\u042BTUV8", "\\u0448\\u0449\\u044A\\u044Btuv8"),
++		("\\u044C\\u044D\\u044E\\u044Fwxyz9\\u042C\\u042D\\u042E\\u042FWXYZ", "\\u042C\\u042D\\u042E\\u042FWXYZ9", "\\u044C\\u044D\\u044E\\u044Fwxyz9")
+ 	),
+ 	"sv_SE": (
+ 		(None, None, None),
+ 		(None, None, None),
+-		("abc\u00E5\u00E4\u00E0\u00E6\u00E1\u010D2ABC\u00C5\u00C4\u00C0\u00C6\u00C1\u010C", "ABC\u00C5\u00C4\u00C0\u00C6\u00C1\u010C2", "abc\u00E5\u00E4\u00E0\u00E6\u00E1\u010D2"),
+-		("def\u00E9\u01113DEF\u00C9\u0110", "DEF\u00C9\u01103", "def\u00E9\u01113"),
+-		("ghi\u00EF4GHI\u00CF", "GHI\u00CF4", "ghi\u00EF4"),
+-		(None, None, None),
+-		("mno\u00F6\u00F8\u014B6MNO\u00D6\u00D8\u014A", "MNO\u00D6\u00D8\u014A6", "mno\u00F6\u00F8\u014B6"),
+-		("pqrs\u01617PQRS\u0160", "PQRS\u01607", "pqrs\u01617"),
+-		("tuv\u00FC\u01678TUV\u00DC\u0166", "TUV\u00DC\u01668", "tuv\u00FC\u01678"),
+-		("wxyz\u017E9WXYZ\u017D", "WXYZ\u017D9", "wxyz\u017E9")
++		("abc\\u00E5\\u00E4\\u00E0\\u00E6\\u00E1\\u010D2ABC\\u00C5\\u00C4\\u00C0\\u00C6\\u00C1\\u010C", "ABC\\u00C5\\u00C4\\u00C0\\u00C6\\u00C1\\u010C2", "abc\\u00E5\\u00E4\\u00E0\\u00E6\\u00E1\\u010D2"),
++		("def\\u00E9\\u01113DEF\\u00C9\\u0110", "DEF\\u00C9\\u01103", "def\\u00E9\\u01113"),
++		("ghi\\u00EF4GHI\\u00CF", "GHI\\u00CF4", "ghi\\u00EF4"),
++		(None, None, None),
++		("mno\\u00F6\\u00F8\\u014B6MNO\\u00D6\\u00D8\\u014A", "MNO\\u00D6\\u00D8\\u014A6", "mno\\u00F6\\u00F8\\u014B6"),
++		("pqrs\\u01617PQRS\\u0160", "PQRS\\u01607", "pqrs\\u01617"),
++		("tuv\\u00FC\\u01678TUV\\u00DC\\u0166", "TUV\\u00DC\\u01668", "tuv\\u00FC\\u01678"),
++		("wxyz\\u017E9WXYZ\\u017D", "WXYZ\\u017D9", "wxyz\\u017E9")
+ 	),
+ 	"sk_SK": (
+ 		(None, None, None),
+ 		(None, None, None),
+-		("abc\u00E1\u010D\u00E42ABC\u00C1\u010C\u00C4", "ABC\u00C1\u010C\u00C42", "abc\u00E1\u010D\u00E42"),
+-		("def\u010F\u00E93DEF\u010E\u00C9", "DEF\u010E\u00C93", "def\u010F\u00E93"),
+-		("ghi\u00ED4GHI\u00CD", "GHI\u00CD4", "ghiGHI\u00CD4"),
+-		("jkl\u013A\u013E5JKL\u0139\u013D", "JKL\u0139\u013D5", "jkl\u013A\u013E5"),
+-		("mno\u0148\u00F3\u00F4\u00F6\u01516MNO\u0147\u00D3\u00D4\u00D6\u0150", "MNO\u0147\u00D3\u00D4\u00D6\u01506", "mno\u0148\u00F3\u00F4\u00F6\u01516"),
+-		("pqrs\u0155\u01617PQRS\u0154\u0160", "PQRS\u0154\u01607", "pqrs\u0155\u01617"),
+-		("tuv\u0165\u00FA\u00FC\u01718TUV\u0164\u00DA\u00DC\u0170", "TUV\u0164\u00DA\u00DC\u01708", "tuv\u0165\u00FA\u00FC\u01718"),
+-		("wxyz\u00FD\u017E9WXYZ\u00DD\u017D", "WXYZ\u00DD\u017D9", "wxyz\u00FD\u017E9")
++		("abc\\u00E1\\u010D\\u00E42ABC\\u00C1\\u010C\\u00C4", "ABC\\u00C1\\u010C\\u00C42", "abc\\u00E1\\u010D\\u00E42"),
++		("def\\u010F\\u00E93DEF\\u010E\\u00C9", "DEF\\u010E\\u00C93", "def\\u010F\\u00E93"),
++		("ghi\\u00ED4GHI\\u00CD", "GHI\\u00CD4", "ghiGHI\\u00CD4"),
++		("jkl\\u013A\\u013E5JKL\\u0139\\u013D", "JKL\\u0139\\u013D5", "jkl\\u013A\\u013E5"),
++		("mno\\u0148\\u00F3\\u00F4\\u00F6\\u01516MNO\\u0147\\u00D3\\u00D4\\u00D6\\u0150", "MNO\\u0147\\u00D3\\u00D4\\u00D6\\u01506", "mno\\u0148\\u00F3\\u00F4\\u00F6\\u01516"),
++		("pqrs\\u0155\\u01617PQRS\\u0154\\u0160", "PQRS\\u0154\\u01607", "pqrs\\u0155\\u01617"),
++		("tuv\\u0165\\u00FA\\u00FC\\u01718TUV\\u0164\\u00DA\\u00DC\\u0170", "TUV\\u0164\\u00DA\\u00DC\\u01708", "tuv\\u0165\\u00FA\\u00FC\\u01718"),
++		("wxyz\\u00FD\\u017E9WXYZ\\u00DD\\u017D", "WXYZ\\u00DD\\u017D9", "wxyz\\u00FD\\u017E9")
+ 	),
+ 	"uk_UA": (
+ 		(None, None, None),
+ 		(None, None, None),
+-		("\u0430\u0431\u0432\u0433\u0491abc2\u0410\u0411\u0412\u0413\u0490ABC", "\u0410\u0411\u0412\u0413\u0490ABC2", "\u0430\u0431\u0432\u0433\u0491abc2"),
+-		("\u0434\u0435\u0454\u0436\u0437def3\u0414\u0415\u0404\u0416\u0417DEF", "\u0414\u0415\u0404\u0416\u0417\u0401DEF3", "\u0434\u0435\u0454\u0436\u0437def3"),
+-		("\u0438\u0456\u0457\u0439\u043A\u043Bghi4\u0418\u0406\u0407\u0419\u041A\u041BGHI", "\u0418\u0406\u0407\u0419\u041A\u041BGHI4", "\u0438\u0456\u0457\u0439\u043A\u043Bghi4"),
+-		("\u043C\u043D\u043E\u043Fjkl5\u041C\u041D\u041E\u041FJKL", "\u041C\u041D\u041E\u041FDJKL5", "\u043C\u043D\u043E\u043Fjkl5"),
+-		("\u0440\u0441\u0442\u0443mno6\u0420\u0421\u0422\u0423MNO", "\u0420\u0421\u0422\u0423MNO6", "\u0440\u0441\u0442\u0443mno6"),
+-		("\u0444\u0445\u0446\u0447pqrs7\u0424\u0425\u0426\u0427PQRS", "\u0424\u0425\u0426\u0427PQRS7", "\u0444\u0445\u0446\u0447pqrs7"),
+-		("\u0448\u0449tuv8\u0428\u0429TUV", "\u0428\u0429TUV8", "\u0448\u0449tuv8"),
+-		("\u044E\u044F\u044Cwxyz9\u042E\u042F\u042CWXYZ", "\u042E\u042F\u042CWXYZ9", "\u044E\u044F\u044Cwxyz9")
++		("\\u0430\\u0431\\u0432\\u0433\\u0491abc2\\u0410\\u0411\\u0412\\u0413\\u0490ABC", "\\u0410\\u0411\\u0412\\u0413\\u0490ABC2", "\\u0430\\u0431\\u0432\\u0433\\u0491abc2"),
++		("\\u0434\\u0435\\u0454\\u0436\\u0437def3\\u0414\\u0415\\u0404\\u0416\\u0417DEF", "\\u0414\\u0415\\u0404\\u0416\\u0417\\u0401DEF3", "\\u0434\\u0435\\u0454\\u0436\\u0437def3"),
++		("\\u0438\\u0456\\u0457\\u0439\\u043A\\u043Bghi4\\u0418\\u0406\\u0407\\u0419\\u041A\\u041BGHI", "\\u0418\\u0406\\u0407\\u0419\\u041A\\u041BGHI4", "\\u0438\\u0456\\u0457\\u0439\\u043A\\u043Bghi4"),
++		("\\u043C\\u043D\\u043E\\u043Fjkl5\\u041C\\u041D\\u041E\\u041FJKL", "\\u041C\\u041D\\u041E\\u041FDJKL5", "\\u043C\\u043D\\u043E\\u043Fjkl5"),
++		("\\u0440\\u0441\\u0442\\u0443mno6\\u0420\\u0421\\u0422\\u0423MNO", "\\u0420\\u0421\\u0422\\u0423MNO6", "\\u0440\\u0441\\u0442\\u0443mno6"),
++		("\\u0444\\u0445\\u0446\\u0447pqrs7\\u0424\\u0425\\u0426\\u0427PQRS", "\\u0424\\u0425\\u0426\\u0427PQRS7", "\\u0444\\u0445\\u0446\\u0447pqrs7"),
++		("\\u0448\\u0449tuv8\\u0428\\u0429TUV", "\\u0428\\u0429TUV8", "\\u0448\\u0449tuv8"),
++		("\\u044E\\u044F\\u044Cwxyz9\\u042E\\u042F\\u042CWXYZ", "\\u042E\\u042F\\u042CWXYZ9", "\\u044E\\u044F\\u044Cwxyz9")
+ 	)
+ }
+ 
+diff -ruN o/lib/python/Tools/Transponder.py pc/lib/python/Tools/Transponder.py
+--- o/lib/python/Tools/Transponder.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Tools/Transponder.py	2022-10-27 14:38:33.827185840 +0300
+@@ -257,7 +257,7 @@
+ 			eDVBFrontendParametersATSC.System_DVB_C_ANNEX_B: "DVB-C ANNEX B"}.get(tp.get("system"))
+ 	elif tunertype != "None":
+ 		print("ConvertToHumanReadable: no or unknown tunertype in tpdata dict for tunertype:", tunertype)
+-	for k, v in tp.items():
++	for k, v in list(tp.items()):
+ 		if k not in ret:
+ 			ret[k] = v
+ 	return ret
+diff -ruN o/lib/python/Tools/XMLTools.py pc/lib/python/Tools/XMLTools.py
+--- o/lib/python/Tools/XMLTools.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Tools/XMLTools.py	2022-10-27 13:26:03.015168565 +0300
+@@ -27,7 +27,7 @@
+ 
+ 
+ def stringToXML(text):
+-	illegal_xml_chars_RE = re.compile('[\x00-\x08\x0b\x0c\x0e-\x1F\uD800-\uDFFF\uFFFE\uFFFF]')
++	illegal_xml_chars_RE = re.compile('[\x00-\x08\x0b\x0c\x0e-\x1F\\uD800-\\uDFFF\\uFFFE\\uFFFF]')
+ 	if isinstance(text, (bytes, bytearray)):
+ 		text = illegal_xml_chars_RE.sub('', text.decode('utf-8'))
+ 	else:
 diff -ruN o/lib/service/servicedvb.cpp pc/lib/service/servicedvb.cpp
 --- o/lib/service/servicedvb.cpp	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/service/servicedvb.cpp	2022-10-15 01:38:23.360060441 +0300
++++ pc/lib/service/servicedvb.cpp	2022-10-27 12:22:25.820231213 +0300
 @@ -1048,6 +1048,9 @@
  	CONNECT(m_event_handler.m_eit_changed, eDVBServicePlay::gotNewEvent);
  	CONNECT(m_subtitle_sync_timer->timeout, eDVBServicePlay::checkSubtitleTiming);
@@ -8146,7 +10077,7 @@ diff -ruN o/lib/service/servicedvb.cpp pc/lib/service/servicedvb.cpp
  	}
 diff -ruN o/lib/service/servicedvbfcc.cpp pc/lib/service/servicedvbfcc.cpp
 --- o/lib/service/servicedvbfcc.cpp	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/service/servicedvbfcc.cpp	2022-10-15 01:38:23.360060441 +0300
++++ pc/lib/service/servicedvbfcc.cpp	2022-10-27 12:22:25.820231213 +0300
 @@ -371,7 +371,6 @@
  		setAC3Delay(ac3_delay == -1 ? 0 : ac3_delay);
  		setPCMDelay(pcm_delay == -1 ? 0 : pcm_delay);
@@ -8157,7 +10088,7 @@ diff -ruN o/lib/service/servicedvbfcc.cpp pc/lib/service/servicedvbfcc.cpp
  		if (!(m_is_pvr || m_is_stream || m_timeshift_active))
 diff -ruN o/lib/service/servicedvb.h pc/lib/service/servicedvb.h
 --- o/lib/service/servicedvb.h	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/service/servicedvb.h	2022-10-15 01:38:23.360060441 +0300
++++ pc/lib/service/servicedvb.h	2022-10-27 12:22:25.820231213 +0300
 @@ -9,6 +9,8 @@
  #include <lib/dvb/subtitle.h>
  #include <lib/dvb/teletext.h>
@@ -8191,7 +10122,7 @@ diff -ruN o/lib/service/servicedvb.h pc/lib/service/servicedvb.h
  class eStaticServiceDVBBouquetInformation: public iStaticServiceInformation
 diff -ruN o/lib/service/servicedvd.cpp pc/lib/service/servicedvd.cpp
 --- o/lib/service/servicedvd.cpp	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/service/servicedvd.cpp	2022-10-15 01:38:23.360060441 +0300
++++ pc/lib/service/servicedvd.cpp	2022-10-27 12:22:25.820231213 +0300
 @@ -1021,7 +1021,7 @@
  	if (f == NULL)
  	{
@@ -8214,7 +10145,7 @@ diff -ruN o/lib/service/servicedvd.cpp pc/lib/service/servicedvd.cpp
  			
 diff -ruN o/lib/service/servicehdmi.cpp pc/lib/service/servicehdmi.cpp
 --- o/lib/service/servicehdmi.cpp	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/service/servicehdmi.cpp	2022-10-15 01:38:23.360060441 +0300
++++ pc/lib/service/servicehdmi.cpp	2022-10-27 12:22:25.824231213 +0300
 @@ -123,9 +123,9 @@
  RESULT eServiceHDMI::start()
  {
@@ -8229,7 +10160,7 @@ diff -ruN o/lib/service/servicehdmi.cpp pc/lib/service/servicehdmi.cpp
  	return 0;
 diff -ruN o/lib/service/servicets.cpp pc/lib/service/servicets.cpp
 --- o/lib/service/servicets.cpp	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/service/servicets.cpp	2022-10-15 01:38:23.360060441 +0300
++++ pc/lib/service/servicets.cpp	2022-10-27 12:22:25.824231213 +0300
 @@ -251,8 +251,8 @@
  			return -1;
  		}
@@ -8252,7 +10183,7 @@ diff -ruN o/lib/service/servicets.cpp pc/lib/service/servicets.cpp
  	} else {
 diff -ruN o/lib/service/servicewebts.cpp pc/lib/service/servicewebts.cpp
 --- o/lib/service/servicewebts.cpp	2022-09-12 12:32:05.000000000 +0300
-+++ pc/lib/service/servicewebts.cpp	2022-10-15 01:38:23.364060441 +0300
++++ pc/lib/service/servicewebts.cpp	2022-10-27 12:22:25.824231213 +0300
 @@ -376,10 +376,10 @@
  			PID_SET = 1;
  			m_decodedemux->flush();
@@ -8278,7 +10209,7 @@ diff -ruN o/lib/service/servicewebts.cpp pc/lib/service/servicewebts.cpp
  	} else {
 diff -ruN o/main/bsod.cpp pc/main/bsod.cpp
 --- o/main/bsod.cpp	2022-09-12 12:32:05.000000000 +0300
-+++ pc/main/bsod.cpp	2022-10-15 01:38:23.364060441 +0300
++++ pc/main/bsod.cpp	2022-10-27 12:22:25.824231213 +0300
 @@ -128,7 +128,7 @@
  		 * alone because we may be in a crash loop and writing this file
  		 * all night long may damage the flash. Also, usually the first
@@ -8290,7 +10221,7 @@ diff -ruN o/main/bsod.cpp pc/main/bsod.cpp
  		{
 diff -ruN o/main/Makefile.am pc/main/Makefile.am
 --- o/main/Makefile.am	2022-09-12 12:32:05.000000000 +0300
-+++ pc/main/Makefile.am	2022-10-15 01:38:23.364060441 +0300
++++ pc/main/Makefile.am	2022-10-27 12:22:25.824231213 +0300
 @@ -45,7 +45,8 @@
  	@ALSA_LIBS@ \
  	@AVAHI_LIBS@ \
@@ -8303,7 +10234,7 @@ diff -ruN o/main/Makefile.am pc/main/Makefile.am
  
 diff -ruN o/po/ru.po pc/po/ru.po
 --- o/po/ru.po	2022-10-15 01:36:52.612060080 +0300
-+++ pc/po/ru.po	2022-10-15 01:58:02.136065121 +0300
++++ pc/po/ru.po	2022-10-27 12:22:25.836231213 +0300
 @@ -3,15 +3,15 @@
  "Project-Id-Version: enigma2\n"
  "Report-Msgid-Bugs-To: \n"
@@ -18235,9 +20166,44 @@ diff -ruN o/po/ru.po pc/po/ru.po
 +# # Plugin BouquetHotkeys
 +msgid "Bouquet Hotkeys Setup"
 +msgstr "Горячие клавиши буклета"
+diff -ruN o/po/xml2po.py pc/po/xml2po.py
+--- o/po/xml2po.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/po/xml2po.py	2022-10-27 13:26:03.191168565 +0300
+@@ -1,6 +1,6 @@
+ #!/usr/bin/python
+ # -*- coding: utf-8 -*-
+-from __future__ import print_function
++
+ 
+ import sys
+ import os
+diff -ruN o/po/xml2po-python3.py pc/po/xml2po-python3.py
+--- o/po/xml2po-python3.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/po/xml2po-python3.py	2022-10-27 13:46:00.151173318 +0300
+@@ -66,7 +66,7 @@
+ 		k.replace("\\n", "\"\n\"")
+ 		if c:
+ 			for l in c.split('\n'):
+-				print(("#. ", l))
++				print("#. ", l)
+ 		print('msgid "' + k + '"')
+ 		print('msgstr ""')
+ 
+diff -ruN o/tests/enigma.py pc/tests/enigma.py
+--- o/tests/enigma.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/tests/enigma.py	2022-10-27 13:30:02.475169516 +0300
+@@ -309,7 +309,7 @@
+ 
+ chroot = "."
+ 
+-for (x, (y, z)) in Tools.Directories.defaultPaths.items():
++for (x, (y, z)) in list(Tools.Directories.defaultPaths.items()):
+ 	Tools.Directories.defaultPaths[x] = (chroot + y, z)
+ 
+ Tools.Directories.defaultPaths[Tools.Directories.SCOPE_SKIN] = ("../data/", Tools.Directories.PATH_DONTCREATE)
 diff -ruN o/tools/enigma2.sh.in pc/tools/enigma2.sh.in
 --- o/tools/enigma2.sh.in	2022-09-12 12:32:05.000000000 +0300
-+++ pc/tools/enigma2.sh.in	2022-10-15 01:38:23.376060441 +0300
++++ pc/tools/enigma2.sh.in	2022-10-27 12:22:25.908231213 +0300
 @@ -1,164 +1,43 @@
  #!/bin/sh
  
@@ -18421,3 +20387,27 @@ diff -ruN o/tools/enigma2.sh.in pc/tools/enigma2.sh.in
 +	sleep 5
 +	$PREFIX/enigma2 # Loopback.
 +fi
+diff -ruN o/tools/host_tools/FormatConverter/main.py pc/tools/host_tools/FormatConverter/main.py
+--- o/tools/host_tools/FormatConverter/main.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/tools/host_tools/FormatConverter/main.py	2022-10-27 13:44:51.059173044 +0300
+@@ -21,7 +21,7 @@
+ 	os.system("/usr/bin/clear")
+ 	list = []
+ 	for index in range(len(datasources)):
+-		list.append(datasources[index].getName() + (" (%d sats)" % len(datasources[index].transponderlist.keys())))
++		list.append(datasources[index].getName() + (" (%d sats)" % len(list(datasources[index].transponderlist.keys()))))
+ 	index = inputChoices(list, "q", "quit")
+ 	if index is None:
+ 		break
+diff -ruN o/tools/host_tools/FormatConverter/satxml.py pc/tools/host_tools/FormatConverter/satxml.py
+--- o/tools/host_tools/FormatConverter/satxml.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/tools/host_tools/FormatConverter/satxml.py	2022-10-27 13:43:57.207172830 +0300
+@@ -49,7 +49,7 @@
+ 							entry = str(transponder.getAttribute(param))
+ 							if entry != "":
+ 								parameters[param] = entry
+-						if len(parameters.keys()) > 1:
++						if len(list(parameters.keys())) > 1:
+ 							self.addTransponder(satpos, parameters)
+ 		print(self.transponderlist)
+ 
