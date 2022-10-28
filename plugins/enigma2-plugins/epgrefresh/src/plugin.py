@@ -452,7 +452,7 @@ def autozap(session, servicelist, **kwargs):
 
 
 def manual_epg(session, **kwargs):
-	from EPGSaveLoadConfiguration import ManualEPGlist
+	from .EPGSaveLoadConfiguration import ManualEPGlist
 	session.open(ManualEPGlist)
 
 

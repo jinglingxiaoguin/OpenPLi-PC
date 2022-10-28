@@ -2,7 +2,7 @@
 # taken from http://code.activestate.com/recipes/576694-orderedset/
 import collections.abc
 
-KEY, PREV, NEXT = range(3)
+KEY, PREV, NEXT = list(range(3))
 
 
 class OrderedSet(collections.abc.MutableSet):

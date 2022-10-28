@@ -33,10 +33,10 @@ if sys.version_info.major == 3:
 if pythonVer == 3:
     from urllib.request import urlopen, Request
 else:
-    from urllib2 import urlopen, Request
+    from urllib.request import urlopen, Request
 
 try:
-    from urlparse import urlparse, parse_qs
+    from urllib.parse import urlparse, parse_qs
 except:
     from urllib.parse import urlparse, parse_qs
 

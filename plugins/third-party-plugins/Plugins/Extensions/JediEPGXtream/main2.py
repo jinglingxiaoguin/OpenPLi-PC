@@ -4,7 +4,7 @@
 # for localized messages
 from . import _
 
-import owibranding
+from . import owibranding
 
 
 from collections import OrderedDict
@@ -17,7 +17,7 @@ from enigma import eConsoleAppContainer, eListboxPythonMultiContent, getDesktop,
 from Screens.MessageBox import MessageBox
 from Screens.Console import Console
 from Screens.Screen import Screen
-from plugin import epg_file, sourcelist, hdr, json_file, cfg, has_epg_importer
+from .plugin import epg_file, sourcelist, hdr, json_file, cfg, has_epg_importer
 import os
 
 from Components.ConfigList import *
@@ -29,8 +29,8 @@ from Tools.Directories import resolveFilename, SCOPE_PLUGINS, SCOPE_SKIN_IMAGE, 
 from Tools.LoadPixmap import LoadPixmap
 
 # download / parse
-import urllib2
-from StringIO import StringIO
+import urllib.request, urllib.error, urllib.parse
+from io import StringIO
 import gzip
 import xml.etree.ElementTree as ET
 import socket
@@ -901,10 +901,10 @@ class JediEPGXtream_Main(Screen):
         self["list3"].l.setList(self.list3)
 
     def downloadSource(self, name, url):
-        req = urllib2.Request(url, headers=hdr)
+        req = urllib.request.Request(url, headers=hdr)
 
         try:
-            response = urllib2.urlopen(req)
+            response = urllib.request.urlopen(req)
 
             if url.endswith('xz'):
                 with open(sourcelist + "/" + name + ".xz", 'wb') as output:
@@ -919,7 +919,7 @@ class JediEPGXtream_Main(Screen):
                 with open(sourcelist + "/" + name + ".xml", 'wb') as output:
                     output.write(response.read())
 
-        except urllib2.URLError as e:
+        except urllib.error.URLError as e:
             print(e)
             pass
 

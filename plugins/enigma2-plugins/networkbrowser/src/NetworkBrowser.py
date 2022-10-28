@@ -261,7 +261,7 @@ class NetworkBrowser(Screen):
 				self.network[x[2]] = []
 			self.network[x[2]].append((NetworkDescriptor(name=x[1], description=x[2]), x))
 
-		for x in self.network.keys():
+		for x in list(self.network.keys()):
 			hostentry = self.network[x][0][1]
 			name = hostentry[2] + " ( " + hostentry[1].strip() + " )"
 			expandableIcon = LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, "SystemPlugins/NetworkBrowser/icons/host.png"))
@@ -331,7 +331,7 @@ class NetworkBrowser(Screen):
 			newpng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, "SystemPlugins/NetworkBrowser/icons/i-smb.png"))
 
 		self.isMounted = False
-		for sharename, sharedata in self.mounts.items():
+		for sharename, sharedata in list(self.mounts.items()):
 			if sharedata['ip'] == sharehost:
 				if sharetype == 'nfsShare' and sharedata['mounttype'] == 'nfs':
 					if sharedir == sharedata['sharedir']:
@@ -432,7 +432,7 @@ class NetworkBrowser(Screen):
 				data['sharedir'] = selection[4]
 				data['options'] = "rw,nolock,tcp"
 
-				for sharename, sharedata in mounts.items():
+				for sharename, sharedata in list(mounts.items()):
 					if sharedata['ip'] == selection[2] and sharedata['sharedir'] == selection[4]:
 						data = sharedata
 				self.session.openWithCallback(self.MountEditClosed, AutoMountEdit, self.skin_path, data)
@@ -457,7 +457,7 @@ class NetworkBrowser(Screen):
 					data['password'] = hostdata['password']
 				except:
 					pass
-				for sharename, sharedata in mounts.items():
+				for sharename, sharedata in list(mounts.items()):
 					if sharedata['ip'] == selection[2].strip() and sharedata['sharedir'] == selection[3].strip():
 						data = sharedata
 				self.session.openWithCallback(self.MountEditClosed, AutoMountEdit, self.skin_path, data)

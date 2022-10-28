@@ -168,15 +168,15 @@ class SATIPDiscovery:
 
 		def dumpData():
 			print("\n######## SATIPSERVERDATA ########")
-			for (k, v) in SATIPSERVERDATA.items():
+			for (k, v) in list(SATIPSERVERDATA.items()):
 				#prestr = "[%s]" % k
 				prestr = ""
-				for (k2, v2) in v.items():
+				for (k2, v2) in list(v.items()):
 					prestr2 = prestr + "[%s]" % k2
 					if not isinstance(v2, dict):
 						print("%s %s" % (prestr2, v2))
 						continue
-					for (k3, v3) in v2.items():
+					for (k3, v3) in list(v2.items()):
 						prestr3 = prestr2 + "[%s]" % k3
 						print("%s %s" % (prestr3, v3))
 			print("")
@@ -257,7 +257,7 @@ class SATIPDiscovery:
 		return SATIPSERVERDATA
 
 	def getServerKeys(self):
-		return SATIPSERVERDATA.keys()
+		return list(SATIPSERVERDATA.keys())
 
 	def getServerInfo(self, uuid, attr):
 		if attr in ["ipaddress"]:
@@ -272,13 +272,13 @@ class SATIPDiscovery:
 			return "Unknown"
 
 	def getServerDescFromIP(self, ip):
-		for (uuid, data) in SATIPSERVERDATA.items():
+		for (uuid, data) in list(SATIPSERVERDATA.items()):
 			if data.get('ipaddress') == ip:
 				return data['device'].get('modelName')
 		return 'Unknown'
 
 	def getUUIDFromIP(self, ip):
-		for (uuid, data) in SATIPSERVERDATA.items():
+		for (uuid, data) in list(SATIPSERVERDATA.items()):
 			if data.get('ipaddress') == ip:
 				return uuid
 		return None
@@ -406,7 +406,7 @@ class SATIPTuner(ConfigListScreen, Screen):
 		type_default = None
 		capability = self.getCapability(uuid)
 
-		for (t, n) in capability.items():
+		for (t, n) in list(capability.items()):
 			if n != 0:
 				type_choices.append((t, _(t)))
 				if self.vtuner_type == t:
@@ -434,7 +434,7 @@ class SATIPTuner(ConfigListScreen, Screen):
 
 		capability = self.getCapability(uuid)
 		satipcap_list = []
-		for (t, n) in capability.items():
+		for (t, n) in list(capability.items()):
 			if n != 0:
 				satipcap_list.append("%d x %s" % (n, t))
 

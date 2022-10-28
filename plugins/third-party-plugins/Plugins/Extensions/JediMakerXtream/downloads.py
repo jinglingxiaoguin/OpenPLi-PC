@@ -21,7 +21,8 @@ if pythonVer == 3:
     from urllib.request import urlopen, Request
     from urllib.error import URLError
 else:
-    from urllib2 import urlopen, Request, URLError
+    from urllib.request import urlopen, Request
+    from urllib.error import URLError
 
 
 def checkGZIP(url):

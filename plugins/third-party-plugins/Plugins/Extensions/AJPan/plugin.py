@@ -8636,7 +8636,7 @@ class CCqQHV(Screen, CC6sg1, CC2LVn):
   CCppdx.VVgElN(self.session, iptvTableParams=(self, VVcpnp, playerFlag))
  @staticmethod
  def VVmaA2(chName):
-  mark = ("--", "__", "==", "##",  "**", "\u2605" * 2)
+  mark = ("--", "__", "==", "##",  "**", "\\u2605" * 2)
   if chName.startswith(mark) and chName.endswith(mark):
    return True
   return False
@@ -19463,9 +19463,9 @@ class CCSwZ2(Screen):
        elif color   : newColor = color
        else    : newColor = ""
        if ndx < 3:
-        line = line.replace("\u202A", "")
-        line = line.replace("\u202B", "")
-        line = line.replace("\u202C", "")
+        line = line.replace("\\u202A", "")
+        line = line.replace("\\u202B", "")
+        line = line.replace("\\u202C", "")
         line = line.replace("\r", "..").replace("\n", "..")
         line = str(line)
         if newColor:

@@ -40,9 +40,9 @@ except:
     pythonVer = 2
 
 if pythonVer == 2:
-    import urllib2
+    import urllib.request, urllib.error, urllib.parse
 else:
-    import urllib
+    import urllib.request, urllib.parse, urllib.error
     # import http_client
 
 
@@ -910,13 +910,13 @@ class JediEPGXtream_Main(Screen):
         # req = urllib2.Request(url, headers=hdr)
 
         if pythonVer == 2:
-            req = urllib2.Request(url, headers=hdr)
+            req = urllib.request.Request(url, headers=hdr)
         else:
             req = urllib.request.Request(url, headers=hdr)
 
         if pythonVer == 2:
             try:
-                response = urllib2.urlopen(req)
+                response = urllib.request.urlopen(req)
 
                 if url.endswith('xz'):
                     with open(sourcelist + "/" + name + ".xz", 'wb') as output:
@@ -931,7 +931,7 @@ class JediEPGXtream_Main(Screen):
                     with open(sourcelist + "/" + name + ".xml", 'wb') as output:
                         output.write(response.read())
 
-            except urllib2.URLError as e:
+            except urllib.error.URLError as e:
                 print(e)
                 pass
 
