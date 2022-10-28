@@ -197,6 +197,18 @@ diff -ruN o/data/setup.xml pc/data/setup.xml
 +		<item level="0" text="TV resolution height">config.pc.initial_window_height</item-->
 +	</setup>
  </setupxml>
+diff -ruN o/lib/actions/parseactions.py pc/lib/actions/parseactions.py
+--- o/lib/actions/parseactions.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/actions/parseactions.py	2022-10-28 15:53:08.102227993 +0300
+@@ -17,7 +17,7 @@
+ 			continue
+ 
+ 		if t[1] != "\n":
+-#			print t
++#			print(t)
+ 			yield t[1]
+ 
+ 
 diff -ruN o/lib/base/condVar.cpp pc/lib/base/condVar.cpp
 --- o/lib/base/condVar.cpp	1970-01-01 03:00:00.000000000 +0300
 +++ pc/lib/base/condVar.cpp	2022-10-27 12:22:25.664231212 +0300
@@ -6882,6 +6894,27 @@ diff -ruN o/lib/python/Components/ServiceEventTracker.py pc/lib/python/Component
 -		for x in self.__eventmap.items():
 +		for x in list(self.__eventmap.items()):
  			EventMap(x[0], []).remove((self.__passall, self.__screen, x[1]))
+diff -ruN o/lib/python/Components/Task.py pc/lib/python/Components/Task.py
+--- o/lib/python/Components/Task.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Components/Task.py	2022-10-28 15:53:08.130227993 +0300
+@@ -5,7 +5,7 @@
+ 
+ 
+ class Job:
+-	NOT_STARTED, IN_PROGRESS, FINISHED, FAILED = range(4)
++	NOT_STARTED, IN_PROGRESS, FINISHED, FAILED = list(range(4))
+ 
+ 	def __init__(self, name):
+ 		self.tasks = []
+@@ -502,7 +502,7 @@
+ 			self.realpath = task.cmd
+ 			path = os.environ.get('PATH', '').split(os.pathsep)
+ 			path.append(task.cwd + '/')
+-			absolutes = list(filter(lambda file: os.access(file, os.X_OK), list(map(lambda directory, file=task.cmd: os.path.join(directory, file), path))))
++			absolutes = list([file for file in list(map(lambda directory, file=task.cmd: os.path.join(directory, file), path)) if os.access(file, os.X_OK)])
+ 			if absolutes:
+ 				self.realpath = absolutes[0]
+ 				return True
 diff -ruN o/lib/python/Components/UsageConfig.py pc/lib/python/Components/UsageConfig.py
 --- o/lib/python/Components/UsageConfig.py	2022-09-12 12:32:05.000000000 +0300
 +++ pc/lib/python/Components/UsageConfig.py	2022-10-27 13:25:34.647168452 +0300
@@ -7258,6 +7291,67 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/NetworkWizard/NetworkWizard.py pc/l
  				if interface == self.selectedInterface:
  					if not self.originalInterfaceState[interface]["up"]:
  						if iNetwork.checkforInterface(interface):
+diff -ruN o/lib/python/Plugins/SystemPlugins/PositionerSetup/log.py pc/lib/python/Plugins/SystemPlugins/PositionerSetup/log.py
+--- o/lib/python/Plugins/SystemPlugins/PositionerSetup/log.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Plugins/SystemPlugins/PositionerSetup/log.py	2022-10-28 15:43:29.188105039 +0300
+@@ -6,8 +6,8 @@
+ # because the log unit looks enough like a file!
+ 
+ import sys
+-from io import StringIO
+ import threading
++from six.moves import cStringIO as StringIO
+ 
+ logfile = None
+ # Need to make our operations thread-safe.
+@@ -30,7 +30,7 @@
+ 	try:
+ 		if logfile.tell() > size:
+ 			# Do a sort of 16k round robin
+-			logfile.reset()
++			logfile.seek(0)
+ 		logfile.write(data)
+ 	finally:
+ 		mutex.release()
+@@ -43,7 +43,7 @@
+ 	try:
+ 		pos = logfile.tell()
+ 		head = logfile.read()
+-		logfile.reset()
++		logfile.seek(0)
+ 		tail = logfile.read(pos)
+ 	finally:
+ 		mutex.release()
+diff -ruN o/lib/python/Plugins/SystemPlugins/PositionerSetup/ui.py pc/lib/python/Plugins/SystemPlugins/PositionerSetup/ui.py
+--- o/lib/python/Plugins/SystemPlugins/PositionerSetup/ui.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/lib/python/Plugins/SystemPlugins/PositionerSetup/ui.py	2022-10-28 15:53:08.134227993 +0300
+@@ -90,7 +90,7 @@
+ 			self.advancedsats = self.advancedconfig.sat
+ 		else:
+ 			self.advanced = False
+-		self.availablesats = list(map(lambda x: x[0], nimmanager.getRotorSatListForNim(self.feid)))
++		self.availablesats = list([x[0] for x in nimmanager.getRotorSatListForNim(self.feid)])
+ 
+ 		cur = {}
+ 		if not self.openFrontend():
+@@ -1050,7 +1050,7 @@
+ 
+ 		def optimise(readings):
+ 			xi = [*readings]
+-			yi = list(map(lambda x: x[0], readings.values()))
++			yi = list([x[0] for x in list(readings.values())])
+ 			x0 = sum(map(mul, xi, yi)) // sum(yi)
+ 			xm = xi[yi.index(max(yi))]
+ 			return (x0, xm)
+@@ -1185,7 +1185,7 @@
+ 
+ 		def optimise(readings):
+ 			xi = [*readings]
+-			yi = list(map(lambda x: x[0], readings.values()))
++			yi = list([x[0] for x in list(readings.values())])
+ 			x0 = int(round(sum(map(mul, xi, yi)) / sum(yi)))
+ 			xm = xi[yi.index(max(yi))]
+ 			return (x0, xm)
 diff -ruN o/lib/python/Plugins/SystemPlugins/SoftwareManager/BackupRestore.py pc/lib/python/Plugins/SystemPlugins/SoftwareManager/BackupRestore.py
 --- o/lib/python/Plugins/SystemPlugins/SoftwareManager/BackupRestore.py	2022-09-12 12:32:05.000000000 +0300
 +++ pc/lib/python/Plugins/SystemPlugins/SoftwareManager/BackupRestore.py	2022-10-27 14:31:34.655184176 +0300
@@ -8173,7 +8267,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py pc/lib/p
  			"ok": self.callNext,
  			"cancel": self.close,
  		})
-@@ -161,11 +118,11 @@
+@@ -161,7 +118,7 @@
  		open("/proc/stb/fb/dst_height", "w").write(self.height)
  
  	def keyNumber(self, key):
@@ -8181,14 +8275,8 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py pc/lib/p
 +		(self.testpic_brightness, self.testpic_contrast, self.testpic_colors, self.testpic_filter, self.testpic_gamma, self.testpic_overscan, self.testpic_fullhd)[key-1]()
  
  	def callNext(self):
--		if self.next:
--			self.next()
-+		if self.__next__:
-+			next(self)
- 
- 	def bbox(self, x, y, width, height, col, xx, yy):
- 		c = self["Canvas"]
-@@ -377,120 +334,23 @@
+ 		if self.next:
+@@ -377,30 +334,17 @@
  		c.flush()
  
  	def testpic_overscan(self):
@@ -8222,10 +8310,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py pc/lib/p
  
  	def testpicCallback(self, key):
  		if key:
- 			if key == True:
--				self.next()
-+				next(self)
- 			else:
+@@ -410,87 +354,3 @@
  				self.keyNumber(key)
  		else:
  			self.close()
@@ -20387,6 +20472,50 @@ diff -ruN o/tools/enigma2.sh.in pc/tools/enigma2.sh.in
 +	sleep 5
 +	$PREFIX/enigma2 # Loopback.
 +fi
+diff -ruN o/tools/host_tools/FormatConverter/datasource.py pc/tools/host_tools/FormatConverter/datasource.py
+--- o/tools/host_tools/FormatConverter/datasource.py	2022-09-12 12:32:05.000000000 +0300
++++ pc/tools/host_tools/FormatConverter/datasource.py	2022-10-28 15:53:08.206227993 +0300
+@@ -15,11 +15,11 @@
+ 		return "N/A"
+ 
+ 	def getStatus(self):
+-		text = str(len(self.transponderlist.keys())) + " Satellites" + "\n"
++		text = str(len(list(self.transponderlist.keys()))) + " Satellites" + "\n"
+ 		return text
+ 
+ 	def printAll(self):
+-		for sat in self.transponderlist.keys():
++		for sat in list(self.transponderlist.keys()):
+ 			print("***********")
+ 			print("sat:", sat, self.satnames[sat])
+ 			for transponder in self.transponderlist[sat]:
+@@ -41,7 +41,7 @@
+ 			self.satnames[satpos] = satname
+ 
+ 	def addTransponder(self, satpos, transponder):
+-		if len(transponder.keys()) >= 6:
++		if len(list(transponder.keys())) >= 6:
+ 			self.transponderlist[satpos].append(transponder)
+ 
+ 
+@@ -90,7 +90,7 @@
+ 			counttransponder = 0
+ 			if action == "copy":
+ 				self.destination.clear()
+-			for satpos in self.source.transponderlist.keys():
++			for satpos in list(self.source.transponderlist.keys()):
+ 				countsat += 1
+ 				self.destination.addSat(self.source.satnames[satpos], satpos)
+ 				for transponder in self.source.transponderlist[satpos]:
+@@ -103,7 +103,7 @@
+ 		sources = []
+ 		for source in self.datasources:
+ 			if source != self:
+-				list.append(source.getName() + (" (%d sats)" % len(source.transponderlist.keys())))
++				list.append(source.getName() + (" (%d sats)" % len(list(source.transponderlist.keys()))))
+ 				sources.append(source)
+ 		choice = inputChoices(list)
+ 		if choice is None:
 diff -ruN o/tools/host_tools/FormatConverter/main.py pc/tools/host_tools/FormatConverter/main.py
 --- o/tools/host_tools/FormatConverter/main.py	2022-09-12 12:32:05.000000000 +0300
 +++ pc/tools/host_tools/FormatConverter/main.py	2022-10-27 13:44:51.059173044 +0300
