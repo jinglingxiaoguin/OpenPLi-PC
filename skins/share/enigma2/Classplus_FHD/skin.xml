@@ -1133,7 +1133,7 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
 		</widget>
 		<eLabel text="x" font="Regular;27" position="1722,210" size="22,27" halign="center" backgroundColor="transpBlack" transparent="1"/>
 		<widget source="session.CurrentService" render="Label" font="Regular;27" position="1744,210" size="82,27" halign="left" backgroundColor="transpBlack" transparent="1">
-	 		<convert type="ServiceInfo">VideoHeight</convert>
+			<convert type="ServiceInfo">VideoHeight</convert>
 		</widget>
 		<widget source="session.CurrentService" render="Label" position="381,174" size="150,39" font="Regular;33" halign="right" backgroundColor="transpBlack" transparent="1">
 			<convert type="ServicePosition">Position</convert>

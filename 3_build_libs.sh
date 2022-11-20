@@ -40,11 +40,11 @@ if [[ "$release" = "22.04" ]]; then
 	echo "************************************************************************************"
 	echo ""
 	REQPKG="flake8 gcc-11 g++-11 libssl3 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev libffi7 libfuture-perl ntpsec \
-	pycodestyle sqlite3 sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 streamlink yamllint ntpsec-ntpdate neurodebian-popularity-contest popularity-contest  pylint \
+	pycodestyle sqlite3 sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 streamlink yamllint ntpsec-ntpdate neurodebian-popularity-contest popularity-contest pylint \
 	python3-transmissionrpc python3-sabyenc python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 \
 	python3-pymysql python3-sphinxcontrib.websupport python3-sphinxcontrib.httpdomain python3-langdetect python3-restructuredtext-lint python3-ntplib python3-ntp python3-pysnmp4 python3-asn1crypto \
 	python3-attr python3-autobahn python3-biplist python3-cheroot python3-cheetah python3-cherrypy3 python3-circuits python3-cssselect python3-dnspython python3-feedparser python3-fuzzywuzzy \
-	python3-guessit python3-icalendar python3-isodate python3-ndg-httpsclient python3-notify2 python3-pbkdf2 python3-puremagic python3-pycountry python3-setuptools-scm-git-archive \
+	python3-guessit python3-icalendar python3-isodate python3-ndg-httpsclient python3-notify2 python3-pbkdf2 python3-puremagic python3-pycountry python3-setuptools-scm-git-archive python3-pytest \
 	python3-singledispatch python3-sphinx-rtd-theme python3-streamlink python3-levenshtein python3-sgmllib3k python3-ujson python3-willow python3-num2words python3-pprintpp  \
 	"
 
@@ -72,7 +72,7 @@ cp -fv pre/dvb/* $INCLUDE
 cp -fv pre/dvb/* $HEADERS
 
 # Download dvb-firmwares
-wget https://github.com/crazycat69/media_build/releases/download/latest/dvb-firmwares.tar.bz2
+wget --no-check-certificate https://github.com/crazycat69/media_build/releases/download/latest/dvb-firmwares.tar.bz2
 tar -xvjf dvb-firmwares.tar.bz2 -C /lib/firmware
 rm -f dvb-firmwares.tar.bz2
 
@@ -91,12 +91,9 @@ echo "                    *** Build and install $PKG ***"
 echo ""
 dpkg -s $PKG-dev | grep -iw ok > /dev/null
 if [ $? -eq 0 ]; then
-	echo "'$LIB' '$PKG-dev' '$LIB-dbgsym' will be removed"
-	dpkg -P $PKG-dev
-	dpkg -P $LIB-dbgsym
-	dpkg -P $LIB
+	dpkg -P $LIB $LIB-dbgsym $PKG-dev
 else
-	echo "'$LIB' '$PKG-dev' '$LIB-dbgsym' not installed"
+	echo "$PKG not installed"
 fi
 if [ -d $PKG ]; then
 	rm -rf $PKG
@@ -109,8 +106,9 @@ dpkg-buildpackage -b -d -uc -us
 cd ..
 mv $PKG*.* $PKG
 cd $PKG
-dpkg -i *.deb
+dpkg -i *deb
 rm -f *.tar.xz
+make distclean
 cd ..
 
 # Build and install libxmlccwrap-git:
@@ -119,7 +117,6 @@ if [ ! -d libdvbsi++ ]; then
 	set -o pipefail
 else
 	PKG="libxmlccwrap"
-	PKG_="libxmlccwrap-dbgsym"
 	echo ""
 	echo "**************************** OK. Go to the next step. ******************************"
 	echo ""
@@ -127,12 +124,9 @@ else
 	echo ""
 	dpkg -s $PKG | grep -iw ok > /dev/null
 	if [ $? -eq 0 ]; then
-		echo "'$PKG' '$PKG-dev' '$PKG_' will be removed"
-		dpkg -P $PKG_
-		dpkg -P $PKG-dev
-		dpkg -P $PKG
+		dpkg -P $PKG $PKG-dev $PKG-dbgsym
 	else
-		echo "'$PKG' '$PKG-dev' '$PKG_' not installed"
+		echo "$PKG not installed"
 	fi
 	if [ -d $PKG ]; then
 		rm -rf $PKG
@@ -149,8 +143,9 @@ else
 	cd ..
 	mv $PKG*.* $PKG
 	cd $PKG
-	dpkg -i *.deb
+	dpkg -i *deb
 	rm -f *.tar.gz
+	make distclean
 	cd ..
 fi
 
@@ -167,27 +162,22 @@ else
 	echo ""
 	echo "                       *** Build and install $PKG ***"
 	echo ""
-	dpkg -P tsdecrypt
-
-	dpkg -s $PKG1 | grep -iw ok > /dev/null
-	if [ $? -eq 0 ]; then
-		echo "'$PKG1' '$PKG-dev' will be removed"
-		dpkg -P $PKG-dev
-		dpkg -P $PKG1
-	else
-		echo "'$PKG1' '$PKG-dev' not installed"
-	fi
 	dpkg -s $PKG | grep -iw ok > /dev/null
 	if [ $? -eq 0 ]; then
-		echo "'$PKG' will be removed"
-		dpkg -P $PKG
+		dpkg -P PKG $PKG-dev $PKG1 tsdecrypt
 	else
-		echo "'$PKG' not installed"
+		echo "$PKG not installed"
+	fi
+	dpkg -s $PKG1 | grep -iw ok > /dev/null
+	if [ $? -eq 0 ]; then
+		dpkg -P $PKG1 $PKG-dev tsdecrypt
+	else
+		echo "$PKG not installed"
 	fi
 	if [ -d $PKG ]; then
 		rm -rf $PKG
 	fi
-	wget https://code.videolan.org/videolan/$PKG/-/archive/$VER/$PKG-$VER.zip
+	wget --no-check-certificate https://code.videolan.org/videolan/$PKG/-/archive/$VER/$PKG-$VER.zip
 	unzip $PKG-$VER.zip
 	rm $PKG-$VER.zip
 	mv $PKG-$VER $PKG
@@ -196,6 +186,7 @@ else
 	./configure --prefix=/usr --enable-sse2
 	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.2.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
 	rm -f *.tgz
+	make distclean
 	cd ..
 fi
 
@@ -216,10 +207,9 @@ else
 	echo ""
 	dpkg -s $PKG | grep -iw ok > /dev/null
 	if [ $? -eq 0 ]; then
-		echo "'$PKG' will be removed"
 		dpkg -P $PKG
 	else
-		echo "'$PKG' not installed"
+		echo "$PKG not installed"
 	fi
 	if [ ! -d $INSTALL_E2DIR ]; then
 		mkdir -p $INSTALL_E2DIR/lib/enigma2
@@ -235,7 +225,7 @@ else
 	if [ -d $SOURCE ]; then
 		rm -rf $SOURCE
 	fi
-	wget https://github.com/OpenPLi/$PKG_/archive/$VER.zip
+	wget --no-check-certificate https://github.com/OpenPLi/$PKG_/archive/$VER.zip
 	unzip $VER.zip
 	rm $VER.zip
 	mv $PKG_-$VER $SOURCE
@@ -252,6 +242,7 @@ else
 	./configure --prefix=/usr --with-boxtype=generic DVB_API_VERSION=5
 	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
 	rm -f *.tgz
+	make distclean
 	cd ..
 fi
 
@@ -268,10 +259,9 @@ else
 	echo ""
 	dpkg -s $PKG | grep -iw ok > /dev/null
 	if [ $? -eq 0 ]; then
-		echo "'$PKG' will be removed"
 		dpkg -P $PKG
 	else
-		echo "'$PKG' not installed"
+		echo "$PKG not installed"
 	fi
 	cd $PKG
 #	autoupdate
@@ -280,6 +270,7 @@ else
 	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
 	find $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/Tuxtxt -name "*.py[o]" -exec rm {} \;
 	rm -f *.tgz
+	make distclean
 	cd ../..
 fi
 
@@ -297,15 +288,14 @@ else
 	echo ""
 	dpkg -s $PKG | grep -iw ok > /dev/null
 	if [ $? -eq 0 ]; then
-		echo "'$PKG' will be removed"
 		dpkg -P $PKG
 	else
-		echo "'$PKG' not installed"
+		echo "$PKG not installed"
 	fi
 	if [ -d $PKG ]; then
 		rm -rf $PKG
 	fi
-	wget https://github.com/OpenPLi/$PKG/archive/$VER.zip
+	wget --no-check-certificate https://github.com/OpenPLi/$PKG/archive/$VER.zip
 	unzip $VER.zip
 	rm $VER.zip
 	mv $PKG-$VER $PKG
@@ -314,11 +304,12 @@ else
 	./configure --prefix=/usr
 	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
 	rm -f *.tgz
+	make distclean
 	cd ..
 fi
 
 # Build and install gst-plugin-dvbmediasink-git:
-if [ ! -f aio-grab/*.deb ]; then
+if [ ! -f aio-grab/*deb ]; then
 	set -e
 	set -o pipefail
 else
@@ -332,15 +323,14 @@ else
 	echo ""
 	dpkg -s $LIB | grep -iw ok > /dev/null
 	if [ $? -eq 0 ]; then
-		echo "'$LIB' will be removed"
 		dpkg -P $LIB
 	else
-		echo "'$LIB' not installed"
+		echo "$LIB not installed"
 	fi
 	if [ -d $PKG ]; then
 		rm -rf $PKG
 	fi
-	wget https://github.com/OpenPLi/$PKG/archive/$VER.zip
+	wget --no-check-certificate https://github.com/OpenPLi/$PKG/archive/$VER.zip
 	unzip $VER.zip
 	rm $VER.zip
 	mv $PKG-$VER $PKG
@@ -350,11 +340,12 @@ else
 	./configure --prefix=/usr --with-wma --with-wmv --with-pcm --with-dtsdownmix --with-eac3 --with-mpeg4 --with-mpeg4v2 --with-h263 --with-h264 --with-h265
 	checkinstall -D --install=yes --default --pkgname=$LIB --pkgversion=1.0.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
 	rm -f *.tgz
+	make distclean
 	cd ..
 fi
 
 # Build and install gst-plugin-subsink-git:
-if [ ! -f gst-plugin-dvbmediasink/*.deb ]; then
+if [ ! -f gst-plugin-dvbmediasink/*deb ]; then
 	set -e
 	set -o pipefail
 else
@@ -368,15 +359,14 @@ else
 	echo ""
 	dpkg -s $LIB | grep -iw ok > /dev/null
 	if [ $? -eq 0 ]; then
-		echo "'$LIB' will be removed"
 		dpkg -P $LIB
 	else
-		echo "'$LIB' not installed"
+		echo "$LIB not installed"
 	fi
 	if [ -d $PKG ]; then
 		rm -rf $PKG
 	fi
-	wget https://github.com/OpenPLi/$PKG/archive/$VER.zip
+	wget --no-check-certificate https://github.com/OpenPLi/$PKG/archive/$VER.zip
 	unzip $VER.zip
 	rm $VER.zip
 	mv $PKG-$VER $PKG
@@ -393,11 +383,12 @@ else
 	./configure --prefix=/usr
 	checkinstall -D --install=yes --default --pkgname=$LIB --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
 	rm -f *.tgz
+	make distclean
 	cd ..
 fi
 
 # Build and install twistedsnmp-python3:
-if [ ! -f gst-plugin-subsink/*.deb ]; then
+if [ ! -f gst-plugin-subsink/*deb ]; then
 	set -e
 	set -o pipefail
 else
@@ -411,7 +402,7 @@ else
 	if [ -d $PKG ]; then
 		rm -rf $PKG
 	fi
-	wget https://github.com/mcfletch/twistedsnmp/archive/caab5fb520ee8f1535a1500324a0254df268d0ba.zip
+	wget --no-check-certificate https://github.com/mcfletch/twistedsnmp/archive/caab5fb520ee8f1535a1500324a0254df268d0ba.zip
 	unzip $VER.zip
 	rm $VER.zip
 	mv $PKG-$VER $PKG
@@ -440,7 +431,7 @@ else
 	if [ -d $PKG ]; then
 		rm -rf $PKG
 	fi
-	wget https://github.com/athoik/pythonwifi/archive/refs/heads/master.zip
+	wget --no-check-certificate https://github.com/athoik/pythonwifi/archive/refs/heads/master.zip
 	unzip master.zip
 	rm -f master.zip
 	mv $PKG-master $PKG
@@ -464,7 +455,7 @@ else
 	if [ -d $PKG ]; then
 		rm -rf $PKG
 	fi
-	wget https://github.com/PiotrDabkowski/Js2Py/archive/$VER.zip
+	wget --no-check-certificate https://github.com/PiotrDabkowski/Js2Py/archive/$VER.zip
 	unzip $VER.zip
 	rm $VER.zip
 	mv $PKG-$VER $PKG
@@ -491,7 +482,7 @@ else
 	if [ -d $PKG ]; then
 		rm -rf $PKG
 	fi
-	wget https://github.com/phihag/ipaddress/archive/$VER.zip
+	wget --no-check-certificate https://github.com/phihag/ipaddress/archive/$VER.zip
 	unzip $VER.zip
 	rm $VER.zip
 	mv $PKG-$VER $PKG
@@ -517,7 +508,7 @@ else
 	if [ -d $PKG ]; then
 		rm -rf $PKG
 	fi
-	wget https://github.com/abdelgmartinezl/PythonDaap/archive/refs/heads/master.zip
+	wget --no-check-certificate https://github.com/abdelgmartinezl/PythonDaap/archive/refs/heads/master.zip
 	unzip master.zip
 	rm -f master.zip
 	mv $PKG-master $PKG
@@ -543,7 +534,7 @@ else
 	if [ -d $PKG ]; then
 		rm -rf $PKG
 	fi
-	wget https://github.com/pyload/pyload/archive/refs/heads/main.zip
+	wget --no-check-certificate https://github.com/pyload/pyload/archive/refs/heads/main.zip
 	unzip main.zip
 	rm main.zip
 	mv $PKG-main $PKG
@@ -570,7 +561,7 @@ else
 	if [ -d $PKG ]; then
 		rm -rf $PKG
 	fi
-	wget https://github.com/oe-mirrors/livestreamersrv/archive/$VER.zip
+	wget --no-check-certificate https://github.com/oe-mirrors/livestreamersrv/archive/$VER.zip
 	unzip $VER.zip
 	rm $VER.zip
 	mv $PKG-$VER $PKG
