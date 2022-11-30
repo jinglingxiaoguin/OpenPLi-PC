@@ -2,7 +2,7 @@
 
 # To build enigma2 on Ubuntu 22.04 with startup option "Ubuntu on Xorg".
 
-apt purge -y python2*
+apt purge -y python2* libpython2*
 
 echo ""
 echo "                       *** INSTALL REQUIRED PACKAGES ***"
@@ -34,6 +34,7 @@ for p in $REQPKG_ALL; do
 done
 
 if [[ "$release" = "22.04" ]]; then
+	dpkg-reconfigure python3
 	echo ""
 	echo "************************************************************************************"
 	echo "                             *** release 22.04 ***"
