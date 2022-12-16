@@ -301,7 +301,7 @@ def FFN09A()     : return PluginDescriptor(fnc=FFBZFC, where=[PluginDescriptor.W
 def FFhBib()      : return getDescriptor(FFwCZt   , [ PluginDescriptor.WHERE_PLUGINMENU  ] , needsRestart=True)
 def FF0Yba()       : return getDescriptor(FFGJCR  , [ PluginDescriptor.WHERE_MENU    ] , PLUGIN_NAME     , descr="Main Menu")
 def FFoK0z()   : return getDescriptor(FFTcrJ , [ PluginDescriptor.WHERE_EXTENSIONSMENU ] , "AJ File Manager"   , descr="File Maneger")
-def FFoLGY(): return getDescriptor(FFNjPC , [ PluginDescriptor.WHERE_EXTENSIONSMENU ] , "AJ Signal/Player"  , descr="Signal Monitor / Player")
+def FFoLGY(): return getDescriptor(FFNjPC , [ PluginDescriptor.WHERE_EXTENSIONSMENU ] , "AJ Signal Player"  , descr="Signal Monitor / Player")
 def FFhLkM()  : return getDescriptor(FFqswZ  , [ PluginDescriptor.WHERE_EXTENSIONSMENU ] , "AJ IPTV"     , descr="IPTV Menu")
 def FFpzdz()     : return getDescriptor(FF6tDv , [ PluginDescriptor.WHERE_EVENTINFO  ] , "AJ Info."    , descr="Service Info")
 def Plugins(**kwargs):
