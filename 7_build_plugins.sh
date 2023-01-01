@@ -460,7 +460,7 @@ if [ "$release" = "22.04" ]; then
 			PKG="e2iplayer"
 			PKG_="IPTVPlayer"
 			PKG__="E2IPlayer"
-			VER="55de6dbf0f7240f2c8ce0b7e027268ad1955e820"
+			VER="940283ac58c6f49e9ed932585ebfe845bf9e8e58"
 			if [ -d $PKG ]; then
 				rm -rf $PKG
 			fi
