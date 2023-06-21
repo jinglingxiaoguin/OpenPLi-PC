@@ -1,7 +1,16 @@
 diff -ruN a/src/pyload/core/api/__init__.py b/src/pyload/core/api/__init__.py
---- a/src/pyload/core/api/__init__.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/core/api/__init__.py	2022-10-21 13:29:10.849880416 +0300
-@@ -131,10 +131,10 @@
+--- a/src/pyload/core/api/__init__.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/core/api/__init__.py	2023-06-21 14:57:30.442600793 +0300
+@@ -102,7 +102,7 @@
+ 
+         # add methods specified by the @legacy decorator
+         # also set legacy method permissions according to the @permissions decorator
+-        for func_name, legacy_name in legacy_map.items():
++        for func_name, legacy_name in list(legacy_map.items()):
+             func = getattr(obj, func_name)
+             setattr(obj, legacy_name, func)
+ 
+@@ -134,10 +134,10 @@
  
      def _convert_config_format(self, c):
          sections = {}
@@ -14,7 +23,7 @@ diff -ruN a/src/pyload/core/api/__init__.py b/src/pyload/core/api/__init__.py
                  if key in ("desc", "outline"):
                      continue
                  item = ConfigItem()
-@@ -510,7 +510,7 @@
+@@ -514,7 +514,7 @@
          data = parse_names(tmp)
          result = {}
  
@@ -23,7 +32,7 @@ diff -ruN a/src/pyload/core/api/__init__.py b/src/pyload/core/api/__init__.py
              for url, status in v:
                  status.packagename = k
                  result[url] = status
-@@ -579,7 +579,7 @@
+@@ -583,7 +583,7 @@
          """
          return [
              self.add_package(name, urls, dest)
@@ -32,7 +41,7 @@ diff -ruN a/src/pyload/core/api/__init__.py b/src/pyload/core/api/__init__.py
          ]
  
      @legacy("checkAndAddPackages")
-@@ -618,7 +618,7 @@
+@@ -622,7 +622,7 @@
              data["password"],
              data["queue"],
              data["order"],
@@ -41,7 +50,7 @@ diff -ruN a/src/pyload/core/api/__init__.py b/src/pyload/core/api/__init__.py
          )
  
          return pdata
-@@ -717,7 +717,7 @@
+@@ -721,7 +721,7 @@
                  pack["sizetotal"],
                  pack["linkstotal"],
              )
@@ -50,7 +59,7 @@ diff -ruN a/src/pyload/core/api/__init__.py b/src/pyload/core/api/__init__.py
          ]
  
      @legacy("getQueueData")
-@@ -742,9 +742,9 @@
+@@ -746,9 +746,9 @@
                  pack["linksdone"],
                  pack["sizedone"],
                  pack["sizetotal"],
@@ -62,7 +71,7 @@ diff -ruN a/src/pyload/core/api/__init__.py b/src/pyload/core/api/__init__.py
          ]
  
      @legacy("getCollector")
-@@ -769,7 +769,7 @@
+@@ -773,7 +773,7 @@
                  pack["sizetotal"],
                  pack["linkstotal"],
              )
@@ -71,7 +80,7 @@ diff -ruN a/src/pyload/core/api/__init__.py b/src/pyload/core/api/__init__.py
          ]
  
      @legacy("getCollectorData")
-@@ -792,11 +792,11 @@
+@@ -796,11 +796,11 @@
                  pack["linksdone"],
                  pack["sizedone"],
                  pack["sizetotal"],
@@ -86,7 +95,7 @@ diff -ruN a/src/pyload/core/api/__init__.py b/src/pyload/core/api/__init__.py
          ]
  
      @legacy("addFiles")
-@@ -989,7 +989,7 @@
+@@ -993,7 +993,7 @@
          if not p:
              raise PackageDoesNotExists(package_id)
  
@@ -95,7 +104,7 @@ diff -ruN a/src/pyload/core/api/__init__.py b/src/pyload/core/api/__init__.py
              if key == "id":
                  continue
              setattr(p, key, value)
-@@ -1029,7 +1029,7 @@
+@@ -1033,7 +1033,7 @@
  
          for package_id in packages:
              pack = self.pyload.files.get_package_data(int(package_id))
@@ -104,7 +113,7 @@ diff -ruN a/src/pyload/core/api/__init__.py b/src/pyload/core/api/__init__.py
                  pack["order"] += 1
              order[pack["order"]] = pack["id"]
          return order
-@@ -1045,8 +1045,8 @@
+@@ -1049,8 +1049,8 @@
          """
          raw_data = self.pyload.files.get_package_data(int(package_id))
          order = {}
@@ -115,7 +124,7 @@ diff -ruN a/src/pyload/core/api/__init__.py b/src/pyload/core/api/__init__.py
                  pyfile["order"] += 1
              order[pyfile["order"]] = pyfile["id"]
          return order
-@@ -1157,7 +1157,7 @@
+@@ -1161,7 +1161,7 @@
          """
          accs = self.pyload.account_manager.get_account_infos(False, refresh)
          accounts = []
@@ -124,7 +133,7 @@ diff -ruN a/src/pyload/core/api/__init__.py b/src/pyload/core/api/__init__.py
              accounts.extend(
                  [
                      AccountInfo(
-@@ -1299,7 +1299,7 @@
+@@ -1307,7 +1307,7 @@
          returns all known user and info.
          """
          res = {}
@@ -133,7 +142,7 @@ diff -ruN a/src/pyload/core/api/__init__.py b/src/pyload/core/api/__init__.py
              res[data["name"]] = OldUserData(
                  data["name"],
                  data["email"],
-@@ -1315,7 +1315,7 @@
+@@ -1323,7 +1323,7 @@
          returns all known user and info.
          """
          res = {}
@@ -142,7 +151,7 @@ diff -ruN a/src/pyload/core/api/__init__.py b/src/pyload/core/api/__init__.py
              res[id] = UserData(
                  id,
                  data["name"],
-@@ -1335,7 +1335,7 @@
+@@ -1343,7 +1343,7 @@
          :return: dict with this style: {"plugin": {"method": "description"}}
          """
          data = {}
@@ -152,8 +161,8 @@ diff -ruN a/src/pyload/core/api/__init__.py b/src/pyload/core/api/__init__.py
  
          return data
 diff -ruN a/src/pyload/core/config/parser.py b/src/pyload/core/config/parser.py
---- a/src/pyload/core/config/parser.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/core/config/parser.py	2022-10-21 13:29:10.933880416 +0300
+--- a/src/pyload/core/config/parser.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/core/config/parser.py	2023-06-21 14:57:30.530602090 +0300
 @@ -215,9 +215,9 @@
          """
          sets the config values from a parsed config file to values in destination.
@@ -175,7 +184,7 @@ diff -ruN a/src/pyload/core/config/parser.py b/src/pyload/core/config/parser.py
                  ):
                      if option in ("desc", "outline"):
                          continue
-@@ -367,7 +367,7 @@
+@@ -384,7 +384,7 @@
  
          values = [x[0] for x in config] + ["desc", "outline"]
          # delete old values
@@ -185,8 +194,8 @@ diff -ruN a/src/pyload/core/config/parser.py b/src/pyload/core/config/parser.py
      def delete_config(self, name):
          """
 diff -ruN a/src/pyload/core/log_factory.py b/src/pyload/core/log_factory.py
---- a/src/pyload/core/log_factory.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/core/log_factory.py	2022-10-21 13:29:10.589880415 +0300
+--- a/src/pyload/core/log_factory.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/core/log_factory.py	2023-06-21 14:57:30.178596898 +0300
 @@ -88,7 +88,7 @@
                  logger.removeHandler(hdlr)
  
@@ -197,8 +206,8 @@ diff -ruN a/src/pyload/core/log_factory.py b/src/pyload/core/log_factory.py
          self.loggers.clear()
  
 diff -ruN a/src/pyload/core/managers/account_manager.py b/src/pyload/core/managers/account_manager.py
---- a/src/pyload/core/managers/account_manager.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/core/managers/account_manager.py	2022-10-21 13:29:11.301880418 +0300
+--- a/src/pyload/core/managers/account_manager.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/core/managers/account_manager.py	2023-06-21 14:57:30.910607696 +0300
 @@ -64,7 +64,7 @@
          get all account instances.
          """
@@ -234,8 +243,8 @@ diff -ruN a/src/pyload/core/managers/account_manager.py b/src/pyload/core/manage
                  plugin = self.get_account_plugin(acc)
                  if plugin is not None:
 diff -ruN a/src/pyload/core/managers/addon_manager.py b/src/pyload/core/managers/addon_manager.py
---- a/src/pyload/core/managers/addon_manager.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/core/managers/addon_manager.py	2022-10-21 13:29:11.361880418 +0300
+--- a/src/pyload/core/managers/addon_manager.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/core/managers/addon_manager.py	2023-06-21 14:57:30.978608699 +0300
 @@ -261,16 +261,16 @@
          returns info stored by addon plugins.
          """
@@ -257,9 +266,9 @@ diff -ruN a/src/pyload/core/managers/addon_manager.py b/src/pyload/core/managers
          return info
  
 diff -ruN a/src/pyload/core/managers/file_manager.py b/src/pyload/core/managers/file_manager.py
---- a/src/pyload/core/managers/file_manager.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/core/managers/file_manager.py	2022-10-21 13:29:11.549880419 +0300
-@@ -75,11 +75,11 @@
+--- a/src/pyload/core/managers/file_manager.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/core/managers/file_manager.py	2023-06-21 14:57:31.166611472 +0300
+@@ -76,11 +76,11 @@
          """
          saves all data to backend and waits until all the data is written.
          """
@@ -273,7 +282,7 @@ diff -ruN a/src/pyload/core/managers/file_manager.py b/src/pyload/core/managers/
          for pypack in pypacks:
              pypack.sync()
  
-@@ -94,14 +94,14 @@
+@@ -95,14 +95,14 @@
          data = self.pyload.db.get_all_links(queue)
          packs = self.pyload.db.get_all_packages(queue)
  
@@ -291,7 +300,7 @@ diff -ruN a/src/pyload/core/managers/file_manager.py b/src/pyload/core/managers/
              if value["package"] in packs:
                  packs[value["package"]]["links"][key] = value
  
-@@ -114,7 +114,7 @@
+@@ -115,7 +115,7 @@
          """
          queue = queue.value
          packs = self.pyload.db.get_all_packages(queue)
@@ -300,7 +309,7 @@ diff -ruN a/src/pyload/core/managers/file_manager.py b/src/pyload/core/managers/
              if x.queue != queue or x.id not in packs:
                  continue
              packs[x.id].update(x.to_dict()[x.id])
-@@ -186,7 +186,7 @@
+@@ -187,7 +187,7 @@
          if id in self.package_cache:
              del self.package_cache[id]
  
@@ -309,7 +318,7 @@ diff -ruN a/src/pyload/core/managers/file_manager.py b/src/pyload/core/managers/
          for pack in packs:
              if pack.queue == queue and pack.order > oldorder:
                  pack.order -= 1
-@@ -222,7 +222,7 @@
+@@ -223,7 +223,7 @@
          if not len(p.get_children()):
              p.delete()
  
@@ -318,7 +327,18 @@ diff -ruN a/src/pyload/core/managers/file_manager.py b/src/pyload/core/managers/
          for pyfile in pyfiles:
              if pyfile.packageid == pid and pyfile.order > oldorder:
                  pyfile.order -= 1
-@@ -497,7 +497,7 @@
+@@ -377,8 +377,8 @@
+ 
+         plugins = tuple(
+             chain(
+-                self.pyload.plugin_manager.decrypter_plugins.keys(),
+-                self.pyload.plugin_manager.container_plugins.keys(),
++                list(self.pyload.plugin_manager.decrypter_plugins.keys()),
++                list(self.pyload.plugin_manager.container_plugins.keys()),
+             )
+         )
+ 
+@@ -500,7 +500,7 @@
  
          self.pyload.db.reorder_package(p, -1, True)
  
@@ -327,7 +347,7 @@ diff -ruN a/src/pyload/core/managers/file_manager.py b/src/pyload/core/managers/
          for pack in packs:
              if pack.queue != queue and pack.order > oldorder:
                  pack.order -= 1
-@@ -519,7 +519,7 @@
+@@ -522,7 +522,7 @@
          self.pyload.event_manager.add_event(e)
          self.pyload.db.reorder_package(p, position)
  
@@ -336,7 +356,7 @@ diff -ruN a/src/pyload/core/managers/file_manager.py b/src/pyload/core/managers/
          for pack in packs:
              if pack.queue != p.queue or pack.order < 0 or pack == p:
                  continue
-@@ -553,7 +553,7 @@
+@@ -556,7 +556,7 @@
  
          self.pyload.db.reorder_link(f, position)
  
@@ -345,7 +365,7 @@ diff -ruN a/src/pyload/core/managers/file_manager.py b/src/pyload/core/managers/
          for pyfile in pyfiles:
              if pyfile.packageid != f["package"] or pyfile.order < 0:
                  continue
-@@ -611,7 +611,7 @@
+@@ -614,7 +614,7 @@
  
          urls = []
  
@@ -354,7 +374,7 @@ diff -ruN a/src/pyload/core/managers/file_manager.py b/src/pyload/core/managers/
              if pyfile["status"] not in (0, 12, 13):
                  urls.append((pyfile["url"], pyfile["plugin"]))
  
-@@ -633,7 +633,7 @@
+@@ -636,7 +636,7 @@
          # get new packages only from db
  
          deleted = []
@@ -364,10 +384,10 @@ diff -ruN a/src/pyload/core/managers/file_manager.py b/src/pyload/core/managers/
                  deleted.append(id)
                  self.delete_package(int(id))
 diff -ruN a/src/pyload/core/managers/plugin_manager.py b/src/pyload/core/managers/plugin_manager.py
---- a/src/pyload/core/managers/plugin_manager.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/core/managers/plugin_manager.py	2022-10-21 13:29:11.649880419 +0300
-@@ -109,9 +109,9 @@
-         self.plugins["base"] = self.internal_plugins
+--- a/src/pyload/core/managers/plugin_manager.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/core/managers/plugin_manager.py	2023-06-21 14:57:31.278613124 +0300
+@@ -181,9 +181,9 @@
+         self.plugins["base"] = self.base_plugins
          merge(default_config, config)
  
 -        for name, config in default_config.items():
@@ -378,29 +398,29 @@ diff -ruN a/src/pyload/core/managers/plugin_manager.py b/src/pyload/core/manager
              try:
                  self.pyload.config.add_plugin_config(name, config, desc)
              except Exception:
-@@ -280,9 +280,9 @@
+@@ -349,9 +349,9 @@
                  continue
  
              for name, value in chain(
--                self.crypter_plugins.items(),
--                self.hoster_plugins.items(),
+-                self.decrypter_plugins.items(),
+-                self.downloader_plugins.items(),
 -                self.container_plugins.items(),
-+                list(self.crypter_plugins.items()),
-+                list(self.hoster_plugins.items()),
++                list(self.decrypter_plugins.items()),
++                list(self.downloader_plugins.items()),
 +                list(self.container_plugins.items()),
              ):
                  if value["re"].match(url):
                      res.append((url, name))
-@@ -431,7 +431,7 @@
+@@ -477,7 +477,7 @@
          if "addon" in as_dict or "base" in as_dict:
              return False
  
--        for type in as_dict.keys():
-+        for type in list(as_dict.keys()):
-             for plugin in as_dict[type]:
-                 if plugin in self.plugins[type]:
-                     if APPID in self.plugins[type][plugin]:
-@@ -466,9 +466,9 @@
+-        for plugin_type in as_dict.keys():
++        for plugin_type in list(as_dict.keys()):
+             for plugin_name in as_dict[plugin_type]:
+                 if plugin_name in self.plugins[plugin_type]:
+                     if APPID in self.plugins[plugin_type][plugin_name]:
+@@ -512,9 +512,9 @@
          self.plugins["account"] = self.account_plugins
          merge(default_config, config)
  
@@ -413,9 +433,9 @@ diff -ruN a/src/pyload/core/managers/plugin_manager.py b/src/pyload/core/manager
                  self.pyload.config.add_plugin_config(name, config, desc)
              except Exception:
 diff -ruN a/src/pyload/core/network/http/http_request.py b/src/pyload/core/network/http/http_request.py
---- a/src/pyload/core/network/http/http_request.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/core/network/http/http_request.py	2022-10-21 13:29:12.157880421 +0300
-@@ -36,13 +36,13 @@
+--- a/src/pyload/core/network/http/http_request.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/core/network/http/http_request.py	2023-06-21 14:57:31.774620441 +0300
+@@ -39,13 +39,13 @@
              else x: y.encode()
              if hasattr(y, "encode")
              else y
@@ -431,7 +451,7 @@ diff -ruN a/src/pyload/core/network/http/http_request.py b/src/pyload/core/netwo
  )
  
  
-@@ -132,7 +132,7 @@
+@@ -139,7 +139,7 @@
  
      def set_interface(self, options):
          options = {
@@ -440,7 +460,7 @@ diff -ruN a/src/pyload/core/network/http/http_request.py b/src/pyload/core/netwo
          }
  
          interface, proxy, ipv6 = (
-@@ -226,7 +226,7 @@
+@@ -244,7 +244,7 @@
  
              else:
                  multipart_post = []
@@ -450,8 +470,21 @@ diff -ruN a/src/pyload/core/network/http/http_request.py b/src/pyload/core/netwo
                          multipart_post.append((k, to_str(v)))
  
 diff -ruN a/src/pyload/core/threads/clicknload_thread.py b/src/pyload/core/threads/clicknload_thread.py
---- a/src/pyload/core/threads/clicknload_thread.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/core/threads/clicknload_thread.py	2022-10-21 13:32:55.465881308 +0300
+--- a/src/pyload/core/threads/clicknload_thread.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/core/threads/clicknload_thread.py	2023-06-21 14:57:31.874621915 +0300
+@@ -64,9 +64,9 @@
+ 
+ class CNLHandler(BaseHTTPRequestHandler):
+     def add_package(self, name, urls, queue=0):
+-        print("name", name)
+-        print("urls", urls)
+-        print("queue", queue)
++        print(("name", name))
++        print(("urls", urls))
++        print(("queue", queue))
+ 
+     def get_post(self, name, default=""):
+         if name in self.post:
 @@ -130,7 +130,7 @@
          )
  
@@ -462,8 +495,8 @@ diff -ruN a/src/pyload/core/threads/clicknload_thread.py b/src/pyload/core/threa
  
          return self.do_GET()
 diff -ruN a/src/pyload/core/threads/info_thread.py b/src/pyload/core/threads/info_thread.py
---- a/src/pyload/core/threads/info_thread.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/core/threads/info_thread.py	2022-10-21 13:29:12.425880422 +0300
+--- a/src/pyload/core/threads/info_thread.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/core/threads/info_thread.py	2023-06-21 14:57:32.038624334 +0300
 @@ -49,14 +49,14 @@
  
          # directly write to database
@@ -509,9 +542,9 @@ diff -ruN a/src/pyload/core/threads/info_thread.py b/src/pyload/core/threads/inf
                      status.packagename = k
                      result[url] = status
 diff -ruN a/src/pyload/core/threads/plugin_thread.py b/src/pyload/core/threads/plugin_thread.py
---- a/src/pyload/core/threads/plugin_thread.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/core/threads/plugin_thread.py	2022-10-21 13:29:12.457880422 +0300
-@@ -88,7 +88,7 @@
+--- a/src/pyload/core/threads/plugin_thread.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/core/threads/plugin_thread.py	2023-06-21 14:57:32.074624865 +0300
+@@ -89,7 +89,7 @@
          for frame in stack[1:]:
              dump += f"\n_frame {frame.f_code.co_name} in {frame.f_code.co_filename} at line {frame.f_lineno}\n"
  
@@ -521,8 +554,8 @@ diff -ruN a/src/pyload/core/threads/plugin_thread.py b/src/pyload/core/threads/p
                  try:
                      dump += pprint.pformat(value) + "\n"
 diff -ruN a/src/pyload/core/utils/convert.py b/src/pyload/core/utils/convert.py
---- a/src/pyload/core/utils/convert.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/core/utils/convert.py	2022-10-21 13:29:12.501880422 +0300
+--- a/src/pyload/core/utils/convert.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/core/utils/convert.py	2023-06-21 14:57:32.114625456 +0300
 @@ -15,7 +15,7 @@
              res = func(obj, *args, **kwargs)
          elif is_mapping(obj):
@@ -533,8 +566,8 @@ diff -ruN a/src/pyload/core/utils/convert.py b/src/pyload/core/utils/convert.py
          elif is_iterable(obj):
              res = type(obj)(convert(i, *cvargs) for i in obj)
 diff -ruN a/src/pyload/core/utils/debug.py b/src/pyload/core/utils/debug.py
---- a/src/pyload/core/utils/debug.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/core/utils/debug.py	2022-10-21 13:29:12.533880422 +0300
+--- a/src/pyload/core/utils/debug.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/core/utils/debug.py	2023-06-21 14:57:32.146625927 +0300
 @@ -65,7 +65,7 @@
          for _frame in stack[1:limit]:
              frame_name = f"Frame {_frame.f_code.co_name} in {_frame.f_code.co_filename} at line {_frame.f_lineno}"
@@ -545,8 +578,8 @@ diff -ruN a/src/pyload/core/utils/debug.py b/src/pyload/core/utils/debug.py
                      attr_dump = pprint.pformat(value)
                  except Exception as exc:
 diff -ruN a/src/pyload/core/utils/format.py b/src/pyload/core/utils/format.py
---- a/src/pyload/core/utils/format.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/core/utils/format.py	2022-10-21 13:29:12.553880423 +0300
+--- a/src/pyload/core/utils/format.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/core/utils/format.py	2023-06-21 14:57:32.166626223 +0300
 @@ -22,10 +22,10 @@
  
  def items(obj, ignore=None):
@@ -561,9 +594,9 @@ diff -ruN a/src/pyload/core/utils/format.py b/src/pyload/core/utils/format.py
  
  
 diff -ruN a/src/pyload/core/utils/misc.py b/src/pyload/core/utils/misc.py
---- a/src/pyload/core/utils/misc.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/core/utils/misc.py	2022-10-21 13:29:12.705880423 +0300
-@@ -42,7 +42,7 @@
+--- a/src/pyload/core/utils/misc.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/core/utils/misc.py	2023-06-21 14:57:32.318628465 +0300
+@@ -41,7 +41,7 @@
      """
      Invert mapping object preserving type and ordering.
      """
@@ -573,8 +606,8 @@ diff -ruN a/src/pyload/core/utils/misc.py b/src/pyload/core/utils/misc.py
  
  # def get_translation(domain, localedir=None, languages=None, class_=None,
 diff -ruN a/src/pyload/core/utils/struct/base.py b/src/pyload/core/utils/struct/base.py
---- a/src/pyload/core/utils/struct/base.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/core/utils/struct/base.py	2022-10-21 13:29:12.841880424 +0300
+--- a/src/pyload/core/utils/struct/base.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/core/utils/struct/base.py	2023-06-21 14:57:32.454630472 +0300
 @@ -36,7 +36,7 @@
          return len(self.__dict__)
  
@@ -600,8 +633,8 @@ diff -ruN a/src/pyload/core/utils/struct/base.py b/src/pyload/core/utils/struct/
 -        return InscDict(self.__dict__.values())
 +        return InscDict(list(self.__dict__.values()))
 diff -ruN a/src/pyload/core/utils/struct/info.py b/src/pyload/core/utils/struct/info.py
---- a/src/pyload/core/utils/struct/info.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/core/utils/struct/info.py	2022-10-21 13:29:12.873880424 +0300
+--- a/src/pyload/core/utils/struct/info.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/core/utils/struct/info.py	2023-06-21 14:57:32.494631061 +0300
 @@ -149,5 +149,5 @@
          self.__remote__.update(self.copy())
  
@@ -610,8 +643,8 @@ diff -ruN a/src/pyload/core/utils/struct/info.py b/src/pyload/core/utils/struct/
 +        d = dict((k, v) for k, v in list(self.__remote__.items()) if k in self)
          self.update(d)
 diff -ruN a/src/pyload/core/utils/system.py b/src/pyload/core/utils/system.py
---- a/src/pyload/core/utils/system.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/core/utils/system.py	2022-10-21 13:29:12.781880423 +0300
+--- a/src/pyload/core/utils/system.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/core/utils/system.py	2023-06-21 14:57:32.394629587 +0300
 @@ -27,7 +27,7 @@
  # TODO: Recheck...
  def exec_cmd(command, *args, **kwargs):
@@ -630,21 +663,9 @@ diff -ruN a/src/pyload/core/utils/system.py b/src/pyload/core/utils/system.py
  
      return returncode, stdoutdata, stderrdata
  
-diff -ruN a/src/pyload/plugins/accounts/AlldebridCom.py b/src/pyload/plugins/accounts/AlldebridCom.py
---- a/src/pyload/plugins/accounts/AlldebridCom.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/accounts/AlldebridCom.py	2022-10-21 13:29:13.129880425 +0300
-@@ -58,7 +58,7 @@
-                 lambda x, y: x + y,
-                 [
-                     _h["domains"]
--                    for _h in api_data["hosts"].values()
-+                    for _h in list(api_data["hosts"].values())
-                     if _h.get("status", False) in valid_statuses or _h.get("type") == "free"
-                 ],
-             )
 diff -ruN a/src/pyload/plugins/accounts/HighWayMe.py b/src/pyload/plugins/accounts/HighWayMe.py
---- a/src/pyload/plugins/accounts/HighWayMe.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/accounts/HighWayMe.py	2022-10-21 13:29:13.633880427 +0300
+--- a/src/pyload/plugins/accounts/HighWayMe.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/accounts/HighWayMe.py	2023-06-21 14:57:33.266642450 +0300
 @@ -25,7 +25,7 @@
      API_URL = "https://high-way.me/api.php"
  
@@ -655,8 +676,8 @@ diff -ruN a/src/pyload/plugins/accounts/HighWayMe.py b/src/pyload/plugins/accoun
                                get={method: ''},
                                post=post)
 diff -ruN a/src/pyload/plugins/accounts/LeechThreeHundreedSixtyCom.py b/src/pyload/plugins/accounts/LeechThreeHundreedSixtyCom.py
---- a/src/pyload/plugins/accounts/LeechThreeHundreedSixtyCom.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/accounts/LeechThreeHundreedSixtyCom.py	2022-10-21 13:29:13.741880427 +0300
+--- a/src/pyload/plugins/accounts/LeechThreeHundreedSixtyCom.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/accounts/LeechThreeHundreedSixtyCom.py	2023-06-21 14:57:33.370643984 +0300
 @@ -39,7 +39,7 @@
          valid_status = ("online", "vip") if self.info["data"]["premium"] else ("online")
          return [
@@ -667,8 +688,8 @@ diff -ruN a/src/pyload/plugins/accounts/LeechThreeHundreedSixtyCom.py b/src/pylo
          ]
  
 diff -ruN a/src/pyload/plugins/accounts/LinksnappyCom.py b/src/pyload/plugins/accounts/LinksnappyCom.py
---- a/src/pyload/plugins/accounts/LinksnappyCom.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/accounts/LinksnappyCom.py	2022-10-21 13:29:13.777880427 +0300
+--- a/src/pyload/plugins/accounts/LinksnappyCom.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/accounts/LinksnappyCom.py	2023-06-21 14:57:33.410644574 +0300
 @@ -31,7 +31,7 @@
  
      def grab_hosters(self, user, password, data):
@@ -679,8 +700,8 @@ diff -ruN a/src/pyload/plugins/accounts/LinksnappyCom.py b/src/pyload/plugins/ac
      def grab_info(self, user, password, data):
          premium = True
 diff -ruN a/src/pyload/plugins/accounts/MegaRapidoNet.py b/src/pyload/plugins/accounts/MegaRapidoNet.py
---- a/src/pyload/plugins/accounts/MegaRapidoNet.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/accounts/MegaRapidoNet.py	2022-10-21 13:29:13.901880428 +0300
+--- a/src/pyload/plugins/accounts/MegaRapidoNet.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/accounts/MegaRapidoNet.py	2023-06-21 14:57:33.534646403 +0300
 @@ -83,7 +83,7 @@
  
          hoster_list = []
@@ -691,8 +712,8 @@ diff -ruN a/src/pyload/plugins/accounts/MegaRapidoNet.py b/src/pyload/plugins/ac
  
          return hoster_list
 diff -ruN a/src/pyload/plugins/accounts/NoPremiumPl.py b/src/pyload/plugins/accounts/NoPremiumPl.py
---- a/src/pyload/plugins/accounts/NoPremiumPl.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/accounts/NoPremiumPl.py	2022-10-21 13:29:14.001880428 +0300
+--- a/src/pyload/plugins/accounts/NoPremiumPl.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/accounts/NoPremiumPl.py	2023-06-21 14:57:33.626647760 +0300
 @@ -83,7 +83,7 @@
          except Exception as exc:
              self.fail_login(exc)
@@ -703,8 +724,8 @@ diff -ruN a/src/pyload/plugins/accounts/NoPremiumPl.py b/src/pyload/plugins/acco
  
      def create_auth_query(self):
 diff -ruN a/src/pyload/plugins/accounts/RapideoPl.py b/src/pyload/plugins/accounts/RapideoPl.py
---- a/src/pyload/plugins/accounts/RapideoPl.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/accounts/RapideoPl.py	2022-10-21 13:29:14.141880429 +0300
+--- a/src/pyload/plugins/accounts/RapideoPl.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/accounts/RapideoPl.py	2023-06-21 14:57:33.766649826 +0300
 @@ -57,7 +57,7 @@
          premium = False
          valid_untill = -1
@@ -724,8 +745,8 @@ diff -ruN a/src/pyload/plugins/accounts/RapideoPl.py b/src/pyload/plugins/accoun
  
      def create_auth_query(self):
 diff -ruN a/src/pyload/plugins/accounts/RealdebridCom.py b/src/pyload/plugins/accounts/RealdebridCom.py
---- a/src/pyload/plugins/accounts/RealdebridCom.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/accounts/RealdebridCom.py	2022-10-21 13:29:14.209880429 +0300
+--- a/src/pyload/plugins/accounts/RealdebridCom.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/accounts/RealdebridCom.py	2023-06-21 14:57:33.830650771 +0300
 @@ -69,7 +69,7 @@
  
      def grab_hosters(self, user, password, data):
@@ -735,9 +756,21 @@ diff -ruN a/src/pyload/plugins/accounts/RealdebridCom.py b/src/pyload/plugins/ac
          return hosters
  
      def grab_info(self, user, password, data):
+diff -ruN a/src/pyload/plugins/addons/AntiStandby.py b/src/pyload/plugins/addons/AntiStandby.py
+--- a/src/pyload/plugins/addons/AntiStandby.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/addons/AntiStandby.py	2023-06-21 14:57:34.278657379 +0300
+@@ -51,7 +51,7 @@
+         display = not self.config.get("display")
+ 
+         if hdd:
+-            print("INTERVAL", type(self.config.get("interval")))
++            print(("INTERVAL", type(self.config.get("interval"))))
+             self.periodical.start(self.config.get("interval"), threaded=True)
+ 
+         if os.name == "nt":
 diff -ruN a/src/pyload/plugins/addons/Captcha9Kw.py b/src/pyload/plugins/addons/Captcha9Kw.py
---- a/src/pyload/plugins/addons/Captcha9Kw.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/addons/Captcha9Kw.py	2022-10-21 13:29:14.845880432 +0300
+--- a/src/pyload/plugins/addons/Captcha9Kw.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/addons/Captcha9Kw.py	2023-06-21 14:57:34.422659504 +0300
 @@ -228,7 +228,7 @@
          if task.is_interactive() or task.is_invisible():
              if task.captcha_params[
@@ -748,8 +781,8 @@ diff -ruN a/src/pyload/plugins/addons/Captcha9Kw.py b/src/pyload/plugins/addons/
              ):
                  return
 diff -ruN a/src/pyload/plugins/addons/Checksum.py b/src/pyload/plugins/addons/Checksum.py
---- a/src/pyload/plugins/addons/Checksum.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/addons/Checksum.py	2022-10-21 13:29:14.925880432 +0300
+--- a/src/pyload/plugins/addons/Checksum.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/addons/Checksum.py	2023-06-21 14:57:34.502660684 +0300
 @@ -247,7 +247,7 @@
          if check_action == "retry":
              max_tries = self.config.get("max_tries")
@@ -760,8 +793,8 @@ diff -ruN a/src/pyload/plugins/addons/Checksum.py b/src/pyload/plugins/addons/Ch
                      os.remove(local_file)
  
 diff -ruN a/src/pyload/plugins/addons/CloudFlareDdos.py b/src/pyload/plugins/addons/CloudFlareDdos.py
---- a/src/pyload/plugins/addons/CloudFlareDdos.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/addons/CloudFlareDdos.py	2022-10-21 13:29:15.049880432 +0300
+--- a/src/pyload/plugins/addons/CloudFlareDdos.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/addons/CloudFlareDdos.py	2023-06-21 14:57:34.666663104 +0300
 @@ -254,7 +254,7 @@
  
      def deactivate(self):
@@ -772,8 +805,8 @@ diff -ruN a/src/pyload/plugins/addons/CloudFlareDdos.py b/src/pyload/plugins/add
  
          self._unoverride_get_url()
 diff -ruN a/src/pyload/plugins/addons/DeathByCaptcha.py b/src/pyload/plugins/addons/DeathByCaptcha.py
---- a/src/pyload/plugins/addons/DeathByCaptcha.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/addons/DeathByCaptcha.py	2022-10-21 13:29:15.157880433 +0300
+--- a/src/pyload/plugins/addons/DeathByCaptcha.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/addons/DeathByCaptcha.py	2023-06-21 14:57:34.718663871 +0300
 @@ -32,7 +32,7 @@
          return self.err
  
@@ -784,8 +817,8 @@ diff -ruN a/src/pyload/plugins/addons/DeathByCaptcha.py b/src/pyload/plugins/add
          else:
              return self.err
 diff -ruN a/src/pyload/plugins/addons/ExtractArchive.py b/src/pyload/plugins/addons/ExtractArchive.py
---- a/src/pyload/plugins/addons/ExtractArchive.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/addons/ExtractArchive.py	2022-10-21 13:29:15.441880434 +0300
+--- a/src/pyload/plugins/addons/ExtractArchive.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/addons/ExtractArchive.py	2023-06-21 14:57:35.010668179 +0300
 @@ -266,7 +266,7 @@
                          (os.path.join(pack_dl_folder, fdata["name"])),
                          extract_folder,
@@ -796,20 +829,20 @@ diff -ruN a/src/pyload/plugins/addons/ExtractArchive.py b/src/pyload/plugins/add
              )  #: : Remove duplicates
  
 diff -ruN a/src/pyload/plugins/addons/LinkFilter.py b/src/pyload/plugins/addons/LinkFilter.py
---- a/src/pyload/plugins/addons/LinkFilter.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/addons/LinkFilter.py	2022-10-21 13:29:15.601880435 +0300
+--- a/src/pyload/plugins/addons/LinkFilter.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/addons/LinkFilter.py	2023-06-21 14:57:35.174670599 +0300
 @@ -86,7 +86,7 @@
          if self.config.get("filter_all"):
              # declare all links as downloader links so the filter will work on all links
              return True
--        for item in self.pyload.plugin_manager.hoster_plugins.items():
-+        for item in list(self.pyload.plugin_manager.hoster_plugins.items()):
+-        for item in self.pyload.plugin_manager.downloader_plugins.items():
++        for item in list(self.pyload.plugin_manager.downloader_plugins.items()):
              if item[1]["re"].match(link):
                  return True
          return False
 diff -ruN a/src/pyload/plugins/addons/MergeFiles.py b/src/pyload/plugins/addons/MergeFiles.py
---- a/src/pyload/plugins/addons/MergeFiles.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/addons/MergeFiles.py	2022-10-21 13:29:15.637880435 +0300
+--- a/src/pyload/plugins/addons/MergeFiles.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/addons/MergeFiles.py	2023-06-21 14:57:35.206671071 +0300
 @@ -23,7 +23,7 @@
      def package_finished(self, pack):
          files = {}
@@ -829,8 +862,8 @@ diff -ruN a/src/pyload/plugins/addons/MergeFiles.py b/src/pyload/plugins/addons/
  
              with open(os.path.join(dl_folder, name), mode="wb") as final_file:
 diff -ruN a/src/pyload/plugins/addons/SkipRev.py b/src/pyload/plugins/addons/SkipRev.py
---- a/src/pyload/plugins/addons/SkipRev.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/addons/SkipRev.py	2022-10-21 13:29:15.717880435 +0300
+--- a/src/pyload/plugins/addons/SkipRev.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/addons/SkipRev.py	2023-06-21 14:57:35.282672192 +0300
 @@ -61,7 +61,7 @@
  
              queued = [
@@ -850,8 +883,8 @@ diff -ruN a/src/pyload/plugins/addons/SkipRev.py b/src/pyload/plugins/addons/Ski
                  pyfile_new = self._create_pyfile(fdata)
  
 diff -ruN a/src/pyload/plugins/addons/UpdateManager.py b/src/pyload/plugins/addons/UpdateManager.py
---- a/src/pyload/plugins/addons/UpdateManager.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/addons/UpdateManager.py	2022-10-21 13:29:15.925880436 +0300
+--- a/src/pyload/plugins/addons/UpdateManager.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/addons/UpdateManager.py	2023-06-21 14:57:35.502675438 +0300
 @@ -101,7 +101,7 @@
          reloads = []
          modules = [
@@ -871,8 +904,8 @@ diff -ruN a/src/pyload/plugins/addons/UpdateManager.py b/src/pyload/plugins/addo
                  nl.append(d)
              l[:] = nl
 diff -ruN a/src/pyload/plugins/addons/XFileSharing.py b/src/pyload/plugins/addons/XFileSharing.py
---- a/src/pyload/plugins/addons/XFileSharing.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/addons/XFileSharing.py	2022-10-21 13:29:15.989880436 +0300
+--- a/src/pyload/plugins/addons/XFileSharing.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/addons/XFileSharing.py	2023-06-21 14:57:35.570676441 +0300
 @@ -134,7 +134,7 @@
                  k.__name__.startswith("XFS") for k in inspect.getmro(klass)
              )
@@ -883,8 +916,8 @@ diff -ruN a/src/pyload/plugins/addons/XFileSharing.py b/src/pyload/plugins/addon
                      klass = self.pyload.plugin_manager.load_class(type, p["name"])
  
 diff -ruN a/src/pyload/plugins/anticaptchas/CircleCaptcha.py b/src/pyload/plugins/anticaptchas/CircleCaptcha.py
---- a/src/pyload/plugins/anticaptchas/CircleCaptcha.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/anticaptchas/CircleCaptcha.py	2022-10-21 13:29:16.257880437 +0300
+--- a/src/pyload/plugins/anticaptchas/CircleCaptcha.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/anticaptchas/CircleCaptcha.py	2023-06-21 14:57:35.830680277 +0300
 @@ -552,7 +552,7 @@
                  # if i_debug_save_file < 7:
                  # continue
@@ -909,19 +942,53 @@ diff -ruN a/src/pyload/plugins/anticaptchas/CircleCaptcha.py b/src/pyload/plugin
                                          if valore == "q":
                                              sys.exit()
  
+diff -ruN a/src/pyload/plugins/anticaptchas/HCaptcha.py b/src/pyload/plugins/anticaptchas/HCaptcha.py
+--- a/src/pyload/plugins/anticaptchas/HCaptcha.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/anticaptchas/HCaptcha.py	2023-06-21 14:57:35.862680749 +0300
+@@ -133,11 +133,11 @@
+         with open(sys.argv[1]) as fp:
+             pem_private = fp.read()
+ 
+-        print(
++        print((
+             sign_string(
+                 HCaptcha.HCAPTCHA_INTERACTIVE_JS,
+                 pem_private,
+                 pem_passphrase=sys.argv[2],
+                 sign_algo="SHA384",
+             )
+-        )
++        ))
+diff -ruN a/src/pyload/plugins/anticaptchas/ReCaptcha.py b/src/pyload/plugins/anticaptchas/ReCaptcha.py
+--- a/src/pyload/plugins/anticaptchas/ReCaptcha.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/anticaptchas/ReCaptcha.py	2023-06-21 14:57:35.934681812 +0300
+@@ -463,11 +463,11 @@
+         with open(sys.argv[2]) as fp:
+             pem_private = fp.read()
+ 
+-        print(
++        print((
+             sign_string(
+                 getattr(ReCaptcha, sys.argv[1]),
+                 pem_private,
+                 pem_passphrase=sys.argv[3],
+                 sign_algo="SHA384",
+             )
+-        )
++        ))
 diff -ruN a/src/pyload/plugins/base/account.py b/src/pyload/plugins/base/account.py
---- a/src/pyload/plugins/base/account.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/base/account.py	2022-10-21 13:29:16.569880439 +0300
-@@ -188,7 +188,7 @@
+--- a/src/pyload/plugins/base/account.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/base/account.py	2023-06-21 14:57:36.150684999 +0300
+@@ -198,7 +198,7 @@
          else:
              d = {"login": {}, "data": {}}
  
 -            for k, v in u.items():
 +            for k, v in list(u.items()):
-                 if k in ("password", "timestamp", "valid"):
+                 if k in ("password", "timestamp", "stats", "valid"):
                      d["login"][k] = v
                  else:
-@@ -205,7 +205,7 @@
+@@ -215,7 +215,7 @@
          def clear(x):
              return {} if isinstance(x, dict) else [] if is_sequence(x) else None
  
@@ -930,7 +997,7 @@ diff -ruN a/src/pyload/plugins/base/account.py b/src/pyload/plugins/base/account
          self.info["data"]["options"] = {"limit_dl": ["0"]}
  
          self.syncback()
-@@ -291,7 +291,7 @@
+@@ -300,7 +300,7 @@
          accounts = dict(self.accounts)
          self.accounts.clear()
  
@@ -940,8 +1007,8 @@ diff -ruN a/src/pyload/plugins/base/account.py b/src/pyload/plugins/base/account
  
      @lock
 diff -ruN a/src/pyload/plugins/base/addon.py b/src/pyload/plugins/base/addon.py
---- a/src/pyload/plugins/base/addon.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/base/addon.py	2022-10-21 13:29:16.625880439 +0300
+--- a/src/pyload/plugins/base/addon.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/base/addon.py	2023-06-21 14:57:36.206685825 +0300
 @@ -85,12 +85,12 @@
              "package_failed": "package_failed",
              "package_processed": "package_processed",
@@ -958,8 +1025,8 @@ diff -ruN a/src/pyload/plugins/base/addon.py b/src/pyload/plugins/base/addon.py
                      funcs = [funcs]
                  for fn in funcs:
 diff -ruN a/src/pyload/plugins/base/chat_bot.py b/src/pyload/plugins/base/chat_bot.py
---- a/src/pyload/plugins/base/chat_bot.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/base/chat_bot.py	2022-10-21 13:29:16.809880439 +0300
+--- a/src/pyload/plugins/base/chat_bot.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/base/chat_bot.py	2023-06-21 14:57:36.386688481 +0300
 @@ -426,7 +426,7 @@
          lines.append("Shortcuts:")
          lines.append(", ".join(
@@ -970,8 +1037,8 @@ diff -ruN a/src/pyload/plugins/base/chat_bot.py b/src/pyload/plugins/base/chat_b
  
          return lines
 diff -ruN a/src/pyload/plugins/base/decrypter.py b/src/pyload/plugins/base/decrypter.py
---- a/src/pyload/plugins/base/decrypter.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/base/decrypter.py	2022-10-21 13:29:16.865880440 +0300
+--- a/src/pyload/plugins/base/decrypter.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/base/decrypter.py	2023-06-21 14:57:36.446689366 +0300
 @@ -66,7 +66,7 @@
              links = [self.fixurl(url) for url in self.links]
              pdict = self.pyload.api.generate_packages(links)
@@ -982,8 +1049,8 @@ diff -ruN a/src/pyload/plugins/base/decrypter.py b/src/pyload/plugins/base/decry
  
          else:
 diff -ruN a/src/pyload/plugins/base/downloader.py b/src/pyload/plugins/base/downloader.py
---- a/src/pyload/plugins/base/downloader.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/base/downloader.py	2022-10-21 13:29:16.961880440 +0300
+--- a/src/pyload/plugins/base/downloader.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/base/downloader.py	2023-06-21 14:57:36.542690783 +0300
 @@ -134,7 +134,7 @@
          try:
              unfinished = any(
@@ -1011,7 +1078,7 @@ diff -ruN a/src/pyload/plugins/base/downloader.py b/src/pyload/plugins/base/down
                      if key not in ("self", "url", "_[1]")
                  ],
              )
-@@ -360,7 +360,7 @@
+@@ -358,7 +358,7 @@
          with open(dl_file, mode="rb") as fp:
              content = fp.read(read_size)
  
@@ -1021,14 +1088,14 @@ diff -ruN a/src/pyload/plugins/base/downloader.py b/src/pyload/plugins/base/down
                  if rule in content:
                      return name
 diff -ruN a/src/pyload/plugins/base/multi_account.py b/src/pyload/plugins/base/multi_account.py
---- a/src/pyload/plugins/base/multi_account.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/base/multi_account.py	2022-10-21 13:29:17.209880441 +0300
+--- a/src/pyload/plugins/base/multi_account.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/base/multi_account.py	2023-06-21 14:57:36.794694501 +0300
 @@ -175,7 +175,7 @@
          if self.plugintype == "downloader":
              plugin_map = {
                  name.lower(): name
--                for name in self.pyload.plugin_manager.hoster_plugins.keys()
-+                for name in list(self.pyload.plugin_manager.hoster_plugins.keys())
+-                for name in self.pyload.plugin_manager.downloader_plugins.keys()
++                for name in list(self.pyload.plugin_manager.downloader_plugins.keys())
              }
  
              account_list = [
@@ -1036,14 +1103,14 @@ diff -ruN a/src/pyload/plugins/base/multi_account.py b/src/pyload/plugins/base/m
              plugin_map = {}
              account_list = [
                  name[::-1].replace("Folder"[::-1], "", 1).lower()[::-1]
--                for name in self.pyload.plugin_manager.crypter_plugins.keys()
-+                for name in list(self.pyload.plugin_manager.crypter_plugins.keys())
+-                for name in self.pyload.plugin_manager.decrypter_plugins.keys()
++                for name in list(self.pyload.plugin_manager.decrypter_plugins.keys())
              ]
  
          for plugin in self.get_plugins():
 diff -ruN a/src/pyload/plugins/base/ocr.py b/src/pyload/plugins/base/ocr.py
---- a/src/pyload/plugins/base/ocr.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/base/ocr.py	2022-10-21 13:29:17.429880442 +0300
+--- a/src/pyload/plugins/base/ocr.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/base/ocr.py	2023-06-21 14:57:37.022697865 +0300
 @@ -258,7 +258,7 @@
              sum = 0
              cnt = 0
@@ -1081,8 +1148,8 @@ diff -ruN a/src/pyload/plugins/base/ocr.py b/src/pyload/plugins/base/ocr.py
              if key.__class__ is str:
                  result = result.replace(key, item)
 diff -ruN a/src/pyload/plugins/base/plugin.py b/src/pyload/plugins/base/plugin.py
---- a/src/pyload/plugins/base/plugin.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/base/plugin.py	2022-10-21 13:29:17.517880442 +0300
+--- a/src/pyload/plugins/base/plugin.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/base/plugin.py	2023-06-21 14:57:37.110699164 +0300
 @@ -183,7 +183,7 @@
                  "LOAD URL " + url,
                  *[
@@ -1092,7 +1159,7 @@ diff -ruN a/src/pyload/plugins/base/plugin.py b/src/pyload/plugins/base/plugin.p
                      if key not in ("self", "url", "_[1]")
                  ],
              )
-@@ -290,7 +290,7 @@
+@@ -289,7 +289,7 @@
                  "UPLOAD URL " + url,
                  *[
                      "{}={}".format(key, value)
@@ -1102,8 +1169,8 @@ diff -ruN a/src/pyload/plugins/base/plugin.py b/src/pyload/plugins/base/plugin.p
                  ],
              )
 diff -ruN a/src/pyload/plugins/containers/TXT.py b/src/pyload/plugins/containers/TXT.py
---- a/src/pyload/plugins/containers/TXT.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/containers/TXT.py	2022-10-21 13:29:17.937880444 +0300
+--- a/src/pyload/plugins/containers/TXT.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/containers/TXT.py	2023-06-21 14:57:37.534705420 +0300
 @@ -63,7 +63,7 @@
                  packages[cur_pack].append(link)
  
@@ -1121,9 +1188,9 @@ diff -ruN a/src/pyload/plugins/containers/TXT.py b/src/pyload/plugins/containers
 +        for name, links in list(packages.items()):
              self.packages.append((name, links, name))
 diff -ruN a/src/pyload/plugins/decrypters/GofileIoFolder.py b/src/pyload/plugins/decrypters/GofileIoFolder.py
---- a/src/pyload/plugins/decrypters/GofileIoFolder.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/decrypters/GofileIoFolder.py	2022-10-21 13:29:18.565880446 +0300
-@@ -67,7 +67,7 @@
+--- a/src/pyload/plugins/decrypters/GofileIoFolder.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/decrypters/GofileIoFolder.py	2023-06-21 14:57:38.130714215 +0300
+@@ -73,7 +73,7 @@
                          ).encode("utf-8")
                      ).decode("utf-8")
                  )
@@ -1133,8 +1200,8 @@ diff -ruN a/src/pyload/plugins/decrypters/GofileIoFolder.py b/src/pyload/plugins
              ]
  
 diff -ruN a/src/pyload/plugins/decrypters/ImgurCom.py b/src/pyload/plugins/decrypters/ImgurCom.py
---- a/src/pyload/plugins/decrypters/ImgurCom.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/decrypters/ImgurCom.py	2022-10-21 13:29:18.729880447 +0300
+--- a/src/pyload/plugins/decrypters/ImgurCom.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/decrypters/ImgurCom.py	2023-06-21 14:57:38.270716280 +0300
 @@ -120,7 +120,7 @@
  
          # Get filename extensions for new IDs
@@ -1145,8 +1212,8 @@ diff -ruN a/src/pyload/plugins/decrypters/ImgurCom.py b/src/pyload/plugins/decry
          # No additional images found
          if len(ids_indirect) == 0:
 diff -ruN a/src/pyload/plugins/decrypters/YoutubeComFolder.py b/src/pyload/plugins/decrypters/YoutubeComFolder.py
---- a/src/pyload/plugins/decrypters/YoutubeComFolder.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/decrypters/YoutubeComFolder.py	2022-10-21 13:29:19.241880449 +0300
+--- a/src/pyload/plugins/decrypters/YoutubeComFolder.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/decrypters/YoutubeComFolder.py	2023-06-21 14:57:38.762723540 +0300
 @@ -121,7 +121,7 @@
  
                  related_playlist = {
@@ -1166,8 +1233,8 @@ diff -ruN a/src/pyload/plugins/decrypters/YoutubeComFolder.py b/src/pyload/plugi
                          p_data["title"] += " of " + channel["user"]
                          playlists.append(p_data)
 diff -ruN a/src/pyload/plugins/downloaders/DailymotionCom.py b/src/pyload/plugins/downloaders/DailymotionCom.py
---- a/src/pyload/plugins/downloaders/DailymotionCom.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/downloaders/DailymotionCom.py	2022-10-21 13:29:19.785880451 +0300
+--- a/src/pyload/plugins/downloaders/DailymotionCom.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/downloaders/DailymotionCom.py	2023-06-21 14:57:39.074728144 +0300
 @@ -92,7 +92,7 @@
              )
          )
@@ -1177,9 +1244,21 @@ diff -ruN a/src/pyload/plugins/downloaders/DailymotionCom.py b/src/pyload/plugin
          m3u8_data = self.load(m3u8_url)
  
          streams = {}
+diff -ruN a/src/pyload/plugins/downloaders/Http.py b/src/pyload/plugins/downloaders/Http.py
+--- a/src/pyload/plugins/downloaders/Http.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/downloaders/Http.py	2023-06-21 14:57:40.066742784 +0300
+@@ -57,7 +57,7 @@
+                 else:
+                     logins = {}
+ 
+-                for pattern, auth in logins.items():
++                for pattern, auth in list(logins.items()):
+                     if fnmatch.fnmatch(netloc, pattern):
+                         self.log_debug(f"Logging on to {netloc} using the account plugin")
+                         break
 diff -ruN a/src/pyload/plugins/downloaders/LinksnappyCom.py b/src/pyload/plugins/downloaders/LinksnappyCom.py
---- a/src/pyload/plugins/downloaders/LinksnappyCom.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/downloaders/LinksnappyCom.py	2022-10-21 13:29:21.053880456 +0300
+--- a/src/pyload/plugins/downloaders/LinksnappyCom.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/downloaders/LinksnappyCom.py	2023-06-21 14:57:40.374747329 +0300
 @@ -58,7 +58,7 @@
          url_p = urllib.parse.urlparse(self.pyfile.url)
          json_data = self.api_request("FILEHOSTS")
@@ -1190,8 +1269,8 @@ diff -ruN a/src/pyload/plugins/downloaders/LinksnappyCom.py b/src/pyload/plugins
              if (
                  self.pyload.plugin_manager.plugins["downloader"][self.pyfile.pluginname][
 diff -ruN a/src/pyload/plugins/downloaders/LinksnappyComTorrent.py b/src/pyload/plugins/downloaders/LinksnappyComTorrent.py
---- a/src/pyload/plugins/downloaders/LinksnappyComTorrent.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/downloaders/LinksnappyComTorrent.py	2022-10-21 13:29:21.149880457 +0300
+--- a/src/pyload/plugins/downloaders/LinksnappyComTorrent.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/downloaders/LinksnappyComTorrent.py	2023-06-21 14:57:40.422748038 +0300
 @@ -49,7 +49,7 @@
              #: torrent URL
              if self.pyfile.url.startswith("http"):
@@ -1202,8 +1281,8 @@ diff -ruN a/src/pyload/plugins/downloaders/LinksnappyComTorrent.py b/src/pyload/
                  if api_data['status'] == "FAILED" and api_data['error'] != "This torrent already exists in your account":
                      self.fail(api_data['error'])
 diff -ruN a/src/pyload/plugins/downloaders/MegaCoNz.py b/src/pyload/plugins/downloaders/MegaCoNz.py
---- a/src/pyload/plugins/downloaders/MegaCoNz.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/downloaders/MegaCoNz.py	2022-10-21 13:29:21.293880457 +0300
+--- a/src/pyload/plugins/downloaders/MegaCoNz.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/downloaders/MegaCoNz.py	2023-06-21 14:57:40.562750104 +0300
 @@ -419,7 +419,7 @@
                  "retry_action", default="fail", plugin="Checksum"
              )
@@ -1214,8 +1293,8 @@ diff -ruN a/src/pyload/plugins/downloaders/MegaCoNz.py b/src/pyload/plugins/down
                  wait_time = self.config.get("wait_time", default=1, plugin="Checksum")
                  self.retry(max_tries, wait_time, msg)
 diff -ruN a/src/pyload/plugins/downloaders/NoPremiumPl.py b/src/pyload/plugins/downloaders/NoPremiumPl.py
---- a/src/pyload/plugins/downloaders/NoPremiumPl.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/downloaders/NoPremiumPl.py	2022-10-21 13:29:21.565880458 +0300
+--- a/src/pyload/plugins/downloaders/NoPremiumPl.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/downloaders/NoPremiumPl.py	2023-06-21 14:57:40.838754177 +0300
 @@ -74,7 +74,7 @@
  
          self.log_debug(parsed)
@@ -1226,8 +1305,8 @@ diff -ruN a/src/pyload/plugins/downloaders/NoPremiumPl.py b/src/pyload/plugins/d
                  #: Error code in known
                  self.fail(self.ERROR_CODES[parsed["errno"]])
 diff -ruN a/src/pyload/plugins/downloaders/RapideoPl.py b/src/pyload/plugins/downloaders/RapideoPl.py
---- a/src/pyload/plugins/downloaders/RapideoPl.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/downloaders/RapideoPl.py	2022-10-21 13:29:21.853880459 +0300
+--- a/src/pyload/plugins/downloaders/RapideoPl.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/downloaders/RapideoPl.py	2023-06-21 14:57:41.146758723 +0300
 @@ -82,7 +82,7 @@
  
          self.log_debug(parsed)
@@ -1237,21 +1316,9 @@ diff -ruN a/src/pyload/plugins/downloaders/RapideoPl.py b/src/pyload/plugins/dow
              if parsed["errno"] in self.ERROR_CODES:
                  #: Error code in known
                  self.fail(self.ERROR_CODES[parsed["errno"]])
-diff -ruN a/src/pyload/plugins/downloaders/SoundcloudCom.py b/src/pyload/plugins/downloaders/SoundcloudCom.py
---- a/src/pyload/plugins/downloaders/SoundcloudCom.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/downloaders/SoundcloudCom.py	2022-10-21 13:29:22.205880461 +0300
-@@ -58,7 +58,7 @@
- 
-         _re = re.compile(r"[^\d]")
-         http_streams = sorted(
--            [(key, value) for key, value in streams.items() if key.startswith("http_")],
-+            [(key, value) for key, value in list(streams.items()) if key.startswith("http_")],
-             key=lambda t: _re.sub(t[0], ""),
-             reverse=True,
-         )
 diff -ruN a/src/pyload/plugins/downloaders/UlozTo.py b/src/pyload/plugins/downloaders/UlozTo.py
---- a/src/pyload/plugins/downloaders/UlozTo.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/downloaders/UlozTo.py	2022-10-21 13:29:22.425880462 +0300
+--- a/src/pyload/plugins/downloaders/UlozTo.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/downloaders/UlozTo.py	2023-06-21 14:57:41.678766574 +0300
 @@ -118,7 +118,7 @@
                  'id="frm-freeDownloadForm-form"'
              )
@@ -1262,8 +1329,8 @@ diff -ruN a/src/pyload/plugins/downloaders/UlozTo.py b/src/pyload/plugins/downlo
              if all(key in inputs for key in (
                      "captcha_value", "captcha_id", "captcha_key")):
 diff -ruN a/src/pyload/plugins/downloaders/VimeoCom.py b/src/pyload/plugins/downloaders/VimeoCom.py
---- a/src/pyload/plugins/downloaders/VimeoCom.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/downloaders/VimeoCom.py	2022-10-21 13:29:22.717880463 +0300
+--- a/src/pyload/plugins/downloaders/VimeoCom.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/downloaders/VimeoCom.py	2023-06-21 14:57:41.906769939 +0300
 @@ -96,7 +96,7 @@
              qlevel = quality
  
@@ -1274,8 +1341,8 @@ diff -ruN a/src/pyload/plugins/downloaders/VimeoCom.py b/src/pyload/plugins/down
                  return
  
 diff -ruN a/src/pyload/plugins/downloaders/XHamsterCom.py b/src/pyload/plugins/downloaders/XHamsterCom.py
---- a/src/pyload/plugins/downloaders/XHamsterCom.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/downloaders/XHamsterCom.py	2022-10-21 13:29:23.061880464 +0300
+--- a/src/pyload/plugins/downloaders/XHamsterCom.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/downloaders/XHamsterCom.py	2023-06-21 14:57:42.250775016 +0300
 @@ -15,7 +15,7 @@
          else:
              # Return the entry starting with the lowest digit (shoud be 240p)
@@ -1286,8 +1353,8 @@ diff -ruN a/src/pyload/plugins/downloaders/XHamsterCom.py b/src/pyload/plugins/d
  
      return result
 diff -ruN a/src/pyload/plugins/downloaders/YoutubeCom.py b/src/pyload/plugins/downloaders/YoutubeCom.py
---- a/src/pyload/plugins/downloaders/YoutubeCom.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/downloaders/YoutubeCom.py	2022-10-21 13:29:23.477880466 +0300
+--- a/src/pyload/plugins/downloaders/YoutubeCom.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/downloaders/YoutubeCom.py	2023-06-21 14:57:42.714781865 +0300
 @@ -742,7 +742,7 @@
                  "Choosing nearest stream: {}".format(
                      [
@@ -1352,8 +1419,8 @@ diff -ruN a/src/pyload/plugins/downloaders/YoutubeCom.py b/src/pyload/plugins/do
                  res, abort = self.interpret_statement(stmt, local_vars)
                  if abort:
 diff -ruN a/src/pyload/plugins/extractors/HjSplit.py b/src/pyload/plugins/extractors/HjSplit.py
---- a/src/pyload/plugins/extractors/HjSplit.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/extractors/HjSplit.py	2022-10-21 13:29:23.669880467 +0300
+--- a/src/pyload/plugins/extractors/HjSplit.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/extractors/HjSplit.py	2023-06-21 14:57:42.802783164 +0300
 @@ -39,7 +39,7 @@
          #: eventually Multipart Files
          files.extend(
@@ -1364,8 +1431,8 @@ diff -ruN a/src/pyload/plugins/extractors/HjSplit.py b/src/pyload/plugins/extrac
          )
  
 diff -ruN a/src/pyload/plugins/helpers.py b/src/pyload/plugins/helpers.py
---- a/src/pyload/plugins/helpers.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/plugins/helpers.py	2022-10-21 13:29:13.081880425 +0300
+--- a/src/pyload/plugins/helpers.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/plugins/helpers.py	2023-06-21 14:57:32.702634130 +0300
 @@ -83,7 +83,7 @@
              if not entry:
                  value = default
@@ -1385,9 +1452,9 @@ diff -ruN a/src/pyload/plugins/helpers.py b/src/pyload/plugins/helpers.py
                      if isinstance(value, str) and inputs[key] == value:
                          continue
 diff -ruN a/src/pyload/webui/app/blueprints/api_blueprint.py b/src/pyload/webui/app/blueprints/api_blueprint.py
---- a/src/pyload/webui/app/blueprints/api_blueprint.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/webui/app/blueprints/api_blueprint.py	2022-10-21 13:29:24.037880468 +0300
-@@ -49,7 +49,7 @@
+--- a/src/pyload/webui/app/blueprints/api_blueprint.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/webui/app/blueprints/api_blueprint.py	2023-06-21 14:57:43.186788832 +0300
+@@ -50,7 +50,7 @@
  
      kwargs = {}
  
@@ -1396,7 +1463,7 @@ diff -ruN a/src/pyload/webui/app/blueprints/api_blueprint.py b/src/pyload/webui/
          if x not in ("u", "p"):
              kwargs[x] = unquote(y)
  
-@@ -70,7 +70,7 @@
+@@ -71,7 +71,7 @@
  
      result = getattr(api, func)(
          *[literal_eval(x) for x in args],
@@ -1406,9 +1473,9 @@ diff -ruN a/src/pyload/webui/app/blueprints/api_blueprint.py b/src/pyload/webui/
  
      return jsonify(result)
 diff -ruN a/src/pyload/webui/app/blueprints/app_blueprint.py b/src/pyload/webui/app/blueprints/app_blueprint.py
---- a/src/pyload/webui/app/blueprints/app_blueprint.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/webui/app/blueprints/app_blueprint.py	2022-10-21 13:29:24.137880469 +0300
-@@ -233,7 +233,7 @@
+--- a/src/pyload/webui/app/blueprints/app_blueprint.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/webui/app/blueprints/app_blueprint.py	2023-06-21 14:57:43.286790307 +0300
+@@ -232,7 +232,7 @@
  
      all_users = api.get_all_userdata()
      users = {}
@@ -1418,8 +1485,8 @@ diff -ruN a/src/pyload/webui/app/blueprints/app_blueprint.py b/src/pyload/webui/
          users[name] = {"perms": get_permission(userdata["permission"])}
          users[name]["perms"]["admin"] = userdata["role"] == 0
 diff -ruN a/src/pyload/webui/app/blueprints/json_blueprint.py b/src/pyload/webui/app/blueprints/json_blueprint.py
---- a/src/pyload/webui/app/blueprints/json_blueprint.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/webui/app/blueprints/json_blueprint.py	2022-10-21 13:29:24.337880469 +0300
+--- a/src/pyload/webui/app/blueprints/json_blueprint.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/webui/app/blueprints/json_blueprint.py	2023-06-21 14:57:43.534793969 +0300
 @@ -245,7 +245,7 @@
      elif category == "plugin":
          conf = api.get_plugin_config_dict()
@@ -1466,11 +1533,11 @@ diff -ruN a/src/pyload/webui/app/blueprints/json_blueprint.py b/src/pyload/webui
          users[name] = {"perms": get_permission(data["permission"])}
          users[name]["perms"]["admin"] = data["role"] == 0
 diff -ruN a/src/pyload/webui/app/helpers.py b/src/pyload/webui/app/helpers.py
---- a/src/pyload/webui/app/helpers.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/src/pyload/webui/app/helpers.py	2022-10-21 13:29:23.997880468 +0300
-@@ -82,7 +82,7 @@
+--- a/src/pyload/webui/app/helpers.py	2023-06-18 22:33:58.000000000 +0300
++++ b/src/pyload/webui/app/helpers.py	2023-06-21 14:57:43.138788123 +0300
+@@ -96,7 +96,7 @@
  
-     perms["ALL"] = True
+     perms["ANY"] = True
      if session.get("role") == Role.ADMIN:
 -        for key in perms.keys():
 +        for key in list(perms.keys()):
@@ -1478,8 +1545,72 @@ diff -ruN a/src/pyload/webui/app/helpers.py b/src/pyload/webui/app/helpers.py
  
      elif session.get("perms"):
 diff -ruN a/tests/system_check.py b/tests/system_check.py
---- a/tests/system_check.py	2022-10-10 21:55:48.000000000 +0300
-+++ b/tests/system_check.py	2022-10-21 13:32:01.333881093 +0300
+--- a/tests/system_check.py	2023-06-18 22:33:58.000000000 +0300
++++ b/tests/system_check.py	2023-06-21 14:57:43.618795208 +0300
+@@ -9,49 +9,49 @@
+ 
+ def main():
+     print("#####   System Information   #####\n")
+-    print("Platform:", sys.platform)
+-    print("Operating System:", os.name)
+-    print("Python:", sys.version.replace("\n", "") + "\n")
++    print(("Platform:", sys.platform))
++    print(("Operating System:", os.name))
++    print(("Python:", sys.version.replace("\n", "") + "\n"))
+ 
+     try:
+         import pycurl
+ 
+-        print("pycurl:", pycurl.version)
++        print(("pycurl:", pycurl.version))
+     except Exception:
+-        print("pycurl:", "missing")
++        print(("pycurl:", "missing"))
+ 
+     try:
+         import cryptography
+ 
+-        print("cryptography:", cryptography.__version__)
++        print(("cryptography:", cryptography.__version__))
+     except Exception:
+-        print("cryptography:", "missing")
++        print(("cryptography:", "missing"))
+ 
+     try:
+         import OpenSSL
+ 
+-        print("OpenSSL:", OpenSSL.version.__version__)
++        print(("OpenSSL:", OpenSSL.version.__version__))
+     except Exception:
+-        print("OpenSSL:", "missing")
++        print(("OpenSSL:", "missing"))
+ 
+     try:
+         from PIL import Image
+ 
+-        print("image library:", Image.VERSION)
++        print(("image library:", Image.VERSION))
+     except Exception:
+         try:
+             import Image
+ 
+-            print("image library:", Image.VERSION)
++            print(("image library:", Image.VERSION))
+         except Exception:
+-            print("image library:", "missing")
++            print(("image library:", "missing"))
+ 
+     try:
+         import PyQt4.QtCore
+ 
+-        print("pyqt:", PyQt4.QtCore.PYQT_VERSION_STR)
++        print(("pyqt:", PyQt4.QtCore.PYQT_VERSION_STR))
+     except Exception:
+-        print("pyqt:", "missing")
++        print(("pyqt:", "missing"))
+ 
+     print("\n\n#####   System Status   #####")
+     print("\n##  pyLoad  ##")
 @@ -138,4 +138,4 @@
  
  if __name__ == "__main__":
