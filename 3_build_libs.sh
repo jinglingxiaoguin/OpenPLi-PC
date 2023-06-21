@@ -84,7 +84,7 @@ mkdir -v $BUILD_DIR
 cd $BUILD_DIR
 
 # Build and install libdvbsi++-git:
-LIB="libdvbsi++1"
+LB="libdvbsi++1"
 PKG="libdvbsi++"
 #PKG="libdvbsi-"
 echo ""
@@ -92,7 +92,7 @@ echo "                    *** Build and install $PKG ***"
 echo ""
 dpkg -s $PKG-dev | grep -iw ok > /dev/null
 if [ $? -eq 0 ]; then
-	dpkg -P $LIB $LIB-dbgsym $PKG-dev
+	dpkg -r $LB $LB-dbgsym $PKG-dev
 else
 	echo "$PKG not installed"
 fi
@@ -125,7 +125,7 @@ else
 	echo ""
 	dpkg -s $PKG | grep -iw ok > /dev/null
 	if [ $? -eq 0 ]; then
-		dpkg -P $PKG $PKG-dev $PKG-dbgsym
+		dpkg -r $PKG $PKG-dev $PKG-dbgsym
 	else
 		echo "$PKG not installed"
 	fi
@@ -165,13 +165,13 @@ else
 	echo ""
 	dpkg -s $PKG | grep -iw ok > /dev/null
 	if [ $? -eq 0 ]; then
-		dpkg -P PKG $PKG-dev $PKG1 tsdecrypt
+		dpkg -r $PKG $PKG-dev $PKG1 tsdecrypt
 	else
 		echo "$PKG not installed"
 	fi
 	dpkg -s $PKG1 | grep -iw ok > /dev/null
 	if [ $? -eq 0 ]; then
-		dpkg -P $PKG1 $PKG-dev tsdecrypt
+		dpkg -r $PKG1 $PKG-dev tsdecrypt
 	else
 		echo "$PKG not installed"
 	fi
@@ -208,7 +208,7 @@ else
 	echo ""
 	dpkg -s $PKG | grep -iw ok > /dev/null
 	if [ $? -eq 0 ]; then
-		dpkg -P $PKG
+		dpkg -r $PKG
 	else
 		echo "$PKG not installed"
 	fi
@@ -260,7 +260,7 @@ else
 	echo ""
 	dpkg -s $PKG | grep -iw ok > /dev/null
 	if [ $? -eq 0 ]; then
-		dpkg -P $PKG
+		dpkg -r $PKG
 	else
 		echo "$PKG not installed"
 	fi
@@ -289,7 +289,7 @@ else
 	echo ""
 	dpkg -s $PKG | grep -iw ok > /dev/null
 	if [ $? -eq 0 ]; then
-		dpkg -P $PKG
+		dpkg -r $PKG
 	else
 		echo "$PKG not installed"
 	fi
@@ -314,7 +314,7 @@ if [ ! -d aio-grab ]; then
 	set -e
 	set -o pipefail
 else
-	LIB="libgstreamer-plugins-dvbmediasink"
+	LB="libgstreamer-plugins-dvbmediasink"
 	PKG="gst-plugin-dvbmediasink"
 	VER="1d197313832d39fdaf430634f62ad95a33029db0"
 	echo ""
@@ -322,11 +322,11 @@ else
 	echo ""
 	echo "                 *** Build and install $PKG ***"
 	echo ""
-	dpkg -s $LIB | grep -iw ok > /dev/null
+	dpkg -s $LB | grep -iw ok > /dev/null
 	if [ $? -eq 0 ]; then
-		dpkg -P $LIB
+		dpkg -r $LB
 	else
-		echo "$LIB not installed"
+		echo "$LB not installed"
 	fi
 	if [ -d $PKG ]; then
 		rm -rf $PKG
@@ -339,7 +339,7 @@ else
 #	autoupdate
 	autoreconf -i
 	./configure --prefix=/usr --with-wma --with-wmv --with-pcm --with-dtsdownmix --with-eac3 --with-mpeg4 --with-mpeg4v2 --with-h263 --with-h264 --with-h265
-	checkinstall -D --install=yes --default --pkgname=$LIB --pkgversion=1.0.0 --maintainer=e2pc@gmail.com --pkggroup=video --gzman=yes
+	checkinstall -D --install=yes --default --pkgname=$LB --pkgversion=1.0.0 --maintainer=e2pc@gmail.com --pkggroup=video --gzman=yes
 	rm -f *.tgz
 	make distclean
 	cd ..
@@ -350,7 +350,7 @@ if [ ! -d gst-plugin-dvbmediasink ]; then
 	set -e
 	set -o pipefail
 else
-	LIB="libgstreamer-plugins-subsink"
+	LB="libgstreamer-plugins-subsink"
 	PKG="gst-plugin-subsink"
 	VER="2c4288bb29e0781f27aecc25c941b6e441630f8d"
 	echo ""
@@ -358,11 +358,11 @@ else
 	echo ""
 	echo "                    *** Build and install $PKG ***"
 	echo ""
-	dpkg -s $LIB | grep -iw ok > /dev/null
+	dpkg -s $LB | grep -iw ok > /dev/null
 	if [ $? -eq 0 ]; then
-		dpkg -P $LIB
+		dpkg -r $LB
 	else
-		echo "$LIB not installed"
+		echo "$LB not installed"
 	fi
 	if [ -d $PKG ]; then
 		rm -rf $PKG
@@ -382,7 +382,7 @@ else
 	#autoupdate
 	autoreconf -i
 	./configure --prefix=/usr
-	checkinstall -D --install=yes --default --pkgname=$LIB --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --gzman=yes
+	checkinstall -D --install=yes --default --pkgname=$LB --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --gzman=yes
 	rm -f *.tgz
 	make distclean
 	cd ..
