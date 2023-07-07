@@ -137,7 +137,7 @@ rpl "//#define XINE_TEXTDOMAIN" "#define XINE_TEXTDOMAIN" /usr/include/xine/xine
 
 git clone https://github.com/OpenPLi/$PKG.git
 cd $PKG
-git reset --hard cb052b06
+git reset --hard 59df7281
 cd ..
 
 # Copy headers
@@ -164,9 +164,9 @@ if [ "$release" = "22.04" ]; then
 	fi
 fi
 
-cp -fv patches/patch-cb052b06-to-PC.patch $PKG
+cp -fv patches/patch-59df7281-to-PC.patch $PKG
 cd $PKG
-patch -p1 < patch-cb052b06-to-PC.patch
+patch -p1 < patch-59df7281-to-PC.patch
 
 # Configure
 if [ "$DO_CONFIGURE" -eq "1" ]; then
