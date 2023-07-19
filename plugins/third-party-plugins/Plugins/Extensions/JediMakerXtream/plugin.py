@@ -1,9 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# for localized messages
 from . import _
-from . import jediglobals as jglob
+from . import jedi_globals as glob
 
 from Components.ActionMap import HelpableActionMap
 from Components.config import config, ConfigSelection, ConfigNumber, ConfigClock, ConfigDirectory, ConfigSubsection, ConfigYesNo, ConfigSelectionNumber
@@ -13,112 +12,201 @@ from Screens.EpgSelection import EPGSelection
 from Screens.MessageBox import MessageBox
 from ServiceReference import ServiceReference
 
-import os
-
-
-vixEPG = False
+import twisted.python.runtime
 
 try:
-    from Screens.EpgSelectionGrid import EPGSelectionGrid
-    vixEPG = True
+    from multiprocessing.pool import ThreadPool
+    hasMultiprocessing = True
 except:
-    pass
+    hasMultiprocessing = False
 
+try:
+    from concurrent.futures import ThreadPoolExecutor
+    if twisted.python.runtime.platform.supportsThreads():
+        hasConcurrent = True
+    else:
+        hasConcurrent = False
+except:
+    hasConcurrent = False
 
-autoStartTimer = None
+import os
+import shutil
+import sys
+
+pythonFull = float(str(sys.version_info.major) + "." + str(sys.version_info.minor))
+pythonVer = sys.version_info.major
+
+isDreambox = False
+if os.path.exists("/usr/bin/apt-get"):
+    isDreambox = True
+
+with open("/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/version.txt", "r") as f:
+    version = f.readline()
+
 screenwidth = getDesktop(0).size()
 
-if screenwidth.width() > 1280:
-    skin_directory = '/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/'
+dir_etc = "/etc/enigma2/jediplaylists/"
+dir_plugins = "/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/"
 
+if screenwidth.width() > 1280:
+    skin_directory = os.path.join(dir_plugins, "skin/fhd/")
 else:
-    skin_directory = '/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/hd/'
+    skin_directory = os.path.join(dir_plugins, "skin/hd/")
 
 folders = os.listdir(skin_directory)
+streamtype_choices = [("1", "DVB(1)"), ("4097", "IPTV(4097)")]
 
-for folder in folders:
-    skinlist = folder
+if os.path.exists("/usr/bin/gstplayer"):
+    streamtype_choices.append(("5001", "GStreamer(5001)"))
+
+if os.path.exists("/usr/bin/exteplayer3"):
+    streamtype_choices.append(("5002", "ExtePlayer(5002)"))
+
+if os.path.exists("/usr/bin/apt-get"):
+    streamtype_choices.append(("8193", "GStreamer(8193)"))
 
 config.plugins.JediMakerXtream = ConfigSubsection()
-
 cfg = config.plugins.JediMakerXtream
-cfg.extensions = ConfigYesNo(default=False)
-cfg.location = ConfigDirectory(default='/etc/enigma2/jediplaylists/')
-cfg.m3ulocation = ConfigDirectory(default='/etc/enigma2/jediplaylists/')
+cfg.livetype = ConfigSelection(default="4097", choices=streamtype_choices)
+# cfg.vodtype = ConfigSelection(default="4097", choices=streamtype_choices)
+# cfg.voddefaultorder = ConfigSelection(default="alphabetical", choices=[("original", _("Original Order")), ("alphabetical", _("A-Z")), ("date", _("Newest First"))])
+
+cfg.location = ConfigDirectory(default=dir_etc)
+cfg.m3ulocation = ConfigDirectory(default=dir_etc)
 cfg.main = ConfigYesNo(default=True)
 cfg.unique = ConfigNumber()
-cfg.usershow = ConfigSelection(default='domain', choices=[('domain', _('Domain')), ('domainconn', _('Domain | Connections'))])
+cfg.usershow = ConfigSelection(default="domain", choices=[("domain", _("Domain")), ("domainconn", _("Domain | Connections"))])
 cfg.enabled = ConfigYesNo(default=False)
 cfg.wakeup = ConfigClock(default=((7 * 60) + 9) * 60)  # 7:00
-cfg.skin = ConfigSelection(default='default', choices=folders)
+cfg.skin = ConfigSelection(default="default", choices=folders)
 cfg.bouquet_id = ConfigNumber()
-cfg.timeout = ConfigNumber(default=3)
+cfg.timeout = ConfigSelectionNumber(1, 20, 1, default=10, wraparound=True)
 cfg.catchup = ConfigYesNo(default=False)
-cfg.catchupprefix = ConfigSelection(default='~', choices=[('~', '~'), ('!', '!'), ('#', '#'), ('-', '-'), ('<', '<'), ('^', '^')])
-cfg.catchupstart = ConfigSelectionNumber(0, 30, 1, default=0)
-cfg.catchupend = ConfigSelectionNumber(0, 30, 1, default=0)
+cfg.catchupprefix = ConfigSelection(default="~", choices=[("~", "~"), ("!", "!"), ("#", "#"), ("-", "-"), ("<", "<"), ("^", "^")])
+cfg.catchupstart = ConfigSelectionNumber(0, 30, 1, default=0, wraparound=True)
+cfg.catchupend = ConfigSelectionNumber(0, 30, 1, default=0, wraparound=True)
 cfg.groups = ConfigYesNo(default=False)
 
-skin_path = skin_directory + cfg.skin.value + '/'
-playlist_path = cfg.location.text + 'playlists.txt'
+skin_path = os.path.join(skin_directory, cfg.skin.value)
 
-playlist_file = '/etc/enigma2/jediplaylists/playlist_all.json'
-rytec_file = '/etc/enigma2/jediplaylists/rytec.channels.xml.xz'
-rytec_url = 'http://www.xmltvepg.nl/rytec.channels.xml.xz'
-alias_file = '/etc/enigma2/jediplaylists/alias.txt'
-sat28_file = '/etc/enigma2/jediplaylists/28.2e.txt'
+# create folder for working files
+if not os.path.exists(dir_etc):
+    os.makedirs(dir_etc)
 
+# move old location
+"""
+origin = "/etc/enigma2/jediplaylists/"
+target = "/etc/enigma2/jedimakerxtream/"
 
-hdr = {'User-Agent': 'Enigma2 - JediMakerXtream Plugin'}
+# Fetching the list of all the files
+if os.path.isdir(origin):
+    files = os.listdir(origin)
 
-if not os.path.exists('/etc/enigma2/jediplaylists/'):
-    os.makedirs('/etc/enigma2/jediplaylists/')
+    for file_name in files:
+        shutil.copy(origin + file_name, target + file_name)
 
-if not os.path.isfile(playlist_path):
-    open(playlist_path, 'a').close()
+    # remove old folder
+    try:
+        shutil.rmtree(origin)
+    except Exception as e:
+        print(e)
+        """
 
-if os.path.isdir('/usr/lib/enigma2/python/Plugins/Extensions/EPGImport'):
-    jglob.has_epg_importer = True
-    if not os.path.exists('/etc/epgimport'):
-        os.makedirs('/etc/epgimport')
+playlists_json = os.path.join(dir_etc, "playlist_all.json")
+playlist_file = os.path.join(dir_etc, "playlists.txt")
+
+print(("*** playlist_file ***", playlist_file))
+
+if cfg.location.value:
+    print("*** location true ***")
+    playlist_file = os.path.join(cfg.location.value, "playlists.txt")
+
+print(("*** playlist_file ***", playlist_file))
+
+# check if playlists.txt file exists in specified location
+if not os.path.isfile(playlist_file):
+    open(playlist_file, "a").close()
+
+# check if playlists.json file exists in specified location
+if not os.path.isfile(playlists_json):
+    open(playlists_json, "a").close()
+
+rytec_url = "http://www.xmltvepg.nl/rytec.channels.xml.xz"
+rytec_file = os.path.join(dir_etc, "rytec.channels.xml.xz")
+alias_file = os.path.join(dir_etc, "alias.txt")
+sat28_file = os.path.join(dir_etc, "28.2e.txt")
+
+font_folder = os.path.join(dir_plugins, "fonts/")
+
+"""
+hdr = {
+"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:87.0) Gecko/20100101 Firefox/87.0",
+"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+"Accept-Language": "en-GB,en;q=0.5",
+"Accept-Encoding": "gzip, deflate",
+}
+"""
+
+hdr = {"User-Agent": "Enigma2 - JediMakerXtream Plugin"}
+
+if os.path.isdir("/usr/lib/enigma2/python/Plugins/Extensions/EPGImport"):
+    glob.has_epg_importer = True
+    if not os.path.exists("/etc/epgimport"):
+        os.makedirs("/etc/epgimport")
 else:
-    jglob.has_epg_importer = False
-    jglob.epg_provider = False
+    glob.has_epg_importer = False
+    glob.epg_provider = False
 
+# try and override epgimport settings
+try:
+    config.plugins.epgimport.import_onlybouquet.value = False
+    config.plugins.epgimport.import_onlybouquet.save()
+except Exception as e:
+    print(e)
 
-def add_skin_font():
-    fontpath = '/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/fonts/'
-    addFont(fontpath + 'SourceSansPro-Regular.ttf', 'jediregular', 100, 0)
-    addFont(fontpath + 'slyk-regular.ttf', 'slykregular', 100, 0)
-    addFont(fontpath + 'slyk-medium.ttf', 'slykbold', 100, 0)
-    addFont(fontpath + 'MavenPro-Regular.ttf', 'onyxregular', 100, 0)
-    addFont(fontpath + 'MavenPro-Medium.ttf', 'onyxbold', 100, 0)
-    addFont(fontpath + 'VSkin-Light.ttf', 'vskinregular', 100, 0)
+# remove dodgy versions of my plugin
+if os.path.isdir("/usr/lib/enigma2/python/Plugins/Extensions/XStreamityPro/"):
+    try:
+        shutil.rmtree("/usr/lib/enigma2/python/Plugins/Extensions/XStreamityPro/")
+    except Exception as e:
+        print(e)
 
 
 def main(session, **kwargs):
-    from . import menu
-    session.open(menu.JediMakerXtream_Menu)
+    from . import mainmenu
+    session.open(mainmenu.JediMakerXtream_MainMenu)
     return
 
 
-def mainmenu(menuid, **kwargs):
-    if menuid == 'mainmenu':
-        return [(_('Jedi Maker Xtream'), main, 'JediMakerXtream', 4)]
+def mainmenu(menu_id, **kwargs):
+    if menu_id == "mainmenu":
+        return [(_("Jedi Maker Xtream"), main, "JediMakerXtream", 49)]
     else:
         return []
 
 
 def extensionsmenu(session, **kwargs):
-    from . import playlists
-    session.open(playlists.JediMakerXtream_Playlist)
+    from . import mainmenu
+    session.open(mainmenu.JediMakerXtream_MainMenu)
+    return
+
+
+vixEPG = False
+try:
+    from Screens.EpgSelectionGrid import EPGSelectionGrid
+    vixEPG = True
+except Exception as e:
+    print(e)
+
+
+autoStartTimer = None
 
 
 class AutoStartTimer:
     def __init__(self, session):
         self.session = session
         self.timer = eTimer()
-        try:  # DreamOS fix
+        try:
             self.timer_conn = self.timer.timeout.connect(self.onTimer)
         except:
             self.timer.callback.append(self.onTimer)
@@ -165,9 +253,9 @@ class AutoStartTimer:
         self.update(atLeast)
 
     def runUpdate(self):
-        print('\n *********** Updating Jedi Bouquets************ \n')
+        print("\n *********** Updating Jedi Bouquets************ \n")
         from . import update
-        self.session.open(update.JediMakerXtream_Update, 'auto')
+        self.session.open(update.JediMakerXtream_Update, "auto")
 
 
 def autostart(reason, session=None, **kwargs):
@@ -187,7 +275,6 @@ def autostart(reason, session=None, **kwargs):
                 EPGSelectionGrid.playOriginalChannel = playOriginalChannel
             except AttributeError:
                 print("******** VIX check failed *****")
-                pass
         else:
             try:
                 check = EPGSelection.setPiPService
@@ -220,16 +307,16 @@ def autostart(reason, session=None, **kwargs):
 def EPGSelection__init__(self, session, service, zapFunc=None, eventid=None, bouquetChangeCB=None, serviceChangeCB=None):
     print("**** EPGSelection ****")
     jediEPGSelection__init__(self, session, service, zapFunc, eventid, bouquetChangeCB, serviceChangeCB)
-    self['jediCatchupAction'] = HelpableActionMap(self, "JediCatchupActions", {
-        'catchup': self.showJediCatchup,
+    self["jediCatchupAction"] = HelpableActionMap(self, "JediCatchupActions", {
+        "catchup": self.showJediCatchup,
     })
 
 
 def EPGSelectionVTi__init__(self, session, service, zapFunc=None, eventid=None, bouquetChangeCB=None, serviceChangeCB=None, isEPGBar=None, switchBouquet=None, EPGNumberZap=None, togglePiP=None):
     print("**** EPGSelectionVTi ****")
     jediEPGSelection__init__(self, session, service, zapFunc, eventid, bouquetChangeCB, serviceChangeCB, isEPGBar, switchBouquet, EPGNumberZap, togglePiP)
-    self['jediCatchupAction'] = HelpableActionMap(self, "JediCatchupActions", {
-        'catchup': self.showJediCatchup,
+    self["jediCatchupAction"] = HelpableActionMap(self, "JediCatchupActions", {
+        "catchup": self.showJediCatchup,
     })
 
 
@@ -237,24 +324,24 @@ def EPGSelectionATV__init__(self, session, service=None, zapFunc=None, eventid=N
     print("**** EPGSelectionATV ****")
     jediEPGSelection__init__(self, session, service, zapFunc, eventid, bouquetChangeCB, serviceChangeCB, EPGtype, StartBouquet, StartRef, bouquets)
     if EPGtype != "vertical":
-        self['jediCatchupAction'] = HelpableActionMap(self, "JediCatchupActions", {
-            'catchup': self.showJediCatchup,
+        self["jediCatchupAction"] = HelpableActionMap(self, "JediCatchupActions", {
+            "catchup": self.showJediCatchup,
         })
 
 
 def EPGSelectionVIX__init__(self, session, zapFunc, startBouquet, startRef, bouquets, timeFocus=None, isInfobar=False):
     print("**** EPGSelectionVIX ****")
     jediEPGSelectionGrid__init__(self, session, zapFunc, startBouquet, startRef, bouquets, timeFocus, isInfobar)
-    self['jediCatchupAction'] = HelpableActionMap(self, "JediCatchupActions", {
-        'catchup': self.showJediCatchup,
+    self["jediCatchupAction"] = HelpableActionMap(self, "JediCatchupActions", {
+        "catchup": self.showJediCatchup,
     })
 
 
 def EPGSelectionPLI__init__(self, session, service=None, zapFunc=None, eventid=None, bouquetChangeCB=None, serviceChangeCB=None, parent=None):
     print("**** EPGSelectionPLI ****")
     jediEPGSelection__init__(self, session, service, zapFunc, eventid, bouquetChangeCB, serviceChangeCB, parent)
-    self['jediCatchupAction'] = HelpableActionMap(self, "JediCatchupActions", {
-        'catchup': self.showJediCatchup,
+    self["jediCatchupAction"] = HelpableActionMap(self, "JediCatchupActions", {
+        "catchup": self.showJediCatchup,
     })
 
 
@@ -266,7 +353,7 @@ def showJediCatchup(self):
     self.oldref = self.session.nav.getCurrentlyPlayingServiceReference()
     self.oldrefstring = self.oldref.toString()
 
-    listcurrent = self['list'].getCurrent()
+    listcurrent = self["list"].getCurrent()
     service_ref = listcurrent[1]
 
     current_service = service_ref.ref.toString()
@@ -275,9 +362,9 @@ def showJediCatchup(self):
         self.session.nav.playService(eServiceReference(current_service))
     service = self.session.nav.getCurrentService()
 
-    jglob.currentref = self.session.nav.getCurrentlyPlayingServiceReference()
-    jglob.currentrefstring = jglob.currentref.toString()
-    jglob.name = ServiceReference(jglob.currentref).getServiceName()
+    glob.currentref = self.session.nav.getCurrentlyPlayingServiceReference()
+    glob.currentrefstring = glob.currentref.toString()
+    glob.name = ServiceReference(glob.currentref).getServiceName()
 
     self.playOriginalChannel()
 
@@ -285,38 +372,48 @@ def showJediCatchup(self):
         from . import catchup
         try:
             error_message, hascatchup = catchup.downloadSimpleData()
-        except:
-            pass
+        except Exception as e:
+            print(e)
 
         if error_message != "":
-            self.session.open(MessageBox, '%s' % error_message, MessageBox.TYPE_ERROR, timeout=5)
+            self.session.open(MessageBox, "%s" % error_message, MessageBox.TYPE_ERROR, timeout=5)
         elif hascatchup:
             self.session.openWithCallback(self.playOriginalChannel, catchup.JediMakerXtream_Catchup)
     else:
-        self.session.open(MessageBox, _('Catchup only available on IPTV Streams.'), MessageBox.TYPE_ERROR, timeout=5)
+        self.session.open(MessageBox, _("Catchup only available on IPTV Streams."), MessageBox.TYPE_ERROR, timeout=5)
 
 
 def playOriginalChannel(self):
-    if self.oldrefstring != jglob.currentrefstring:
+    if self.oldrefstring != glob.currentrefstring:
         self.session.nav.playService(eServiceReference(self.oldrefstring))
 
 
 def Plugins(**kwargs):
-    add_skin_font()
-    iconFile = 'icons/JediMakerXtream.png'
+    addFont(os.path.join(font_folder, "SourceSansPro-Regular.ttf"), "jediregular", 100, 0)
+    addFont(os.path.join(font_folder, "slyk-regular.ttf"), "slykregular", 100, 0)
+    addFont(os.path.join(font_folder, "slyk-medium.ttf"), "slykbold", 100, 0)
+    addFont(os.path.join(font_folder, "MavenPro-Regular.ttf"), "onyxregular", 100, 0)
+    addFont(os.path.join(font_folder, "MavenPro-Medium.ttf"), "onyxbold", 100, 0)
+    addFont(os.path.join(font_folder, "VSkin-Light.ttf"), "vskinregular", 100, 0)
+    addFont(os.path.join(font_folder, "m-plus-rounded-1c-regular.ttf"), "mplusregular", 100, 0)
+    addFont(os.path.join(font_folder, "m-plus-rounded-1c-medium.ttf"), "mplusbold", 100, 0)
+
+    iconFile = "icons/JediMakerXtream.png"
     if screenwidth.width() > 1280:
-        iconFile = 'icons/JediMakerXtreamFHD.png'
-    description = _('IPTV Bouquets Creator')
-    pluginname = _('JediMakerXtream')
+        iconFile = "icons/JediMakerXtreamFHD.png"
+    description = _("IPTV Bouquets Creator by KiddaC")
+    pluginname = _("JediMakerXtream")
 
     main_menu = PluginDescriptor(name=pluginname, description=description, where=PluginDescriptor.WHERE_MENU, fnc=mainmenu, needsRestart=True)
+
     extensions_menu = PluginDescriptor(name=pluginname, description=description, where=PluginDescriptor.WHERE_EXTENSIONSMENU, fnc=extensionsmenu, needsRestart=True)
 
     result = [PluginDescriptor(name=pluginname, description=description, where=[PluginDescriptor.WHERE_AUTOSTART, PluginDescriptor.WHERE_SESSIONSTART], fnc=autostart),
               PluginDescriptor(name=pluginname, description=description, where=PluginDescriptor.WHERE_PLUGINMENU, icon=iconFile, fnc=main)]
 
+    result.append(extensions_menu)
+
     if cfg.main.getValue():
         result.append(main_menu)
-    if cfg.extensions.getValue():
-        result.append(extensions_menu)
+
     return result
