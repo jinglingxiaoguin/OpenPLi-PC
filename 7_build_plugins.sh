@@ -186,7 +186,7 @@ if [ "$release" = "22.04" ]; then
 			echo ""
 			PKG="e2openplugin-OpenWebif"
 			PKG_="OpenWebif"
-			VER="50e162b3fbfc85052968b4aaf52fc9bcca6d426a"
+			VER="4c4a1cea5bcc2f52629a9820ab34d4747d2a24bf"
 			if [ -d $PKG ]; then
 				rm -rf $PKG
 			fi

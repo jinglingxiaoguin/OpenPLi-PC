@@ -1,6 +1,6 @@
 diff -ruN a/CI/create_ipk.sh b/CI/create_ipk.sh
---- a/CI/create_ipk.sh	2022-09-21 14:30:27.000000000 +0300
-+++ b/CI/create_ipk.sh	2022-10-09 14:37:55.935181140 +0300
+--- a/CI/create_ipk.sh	2023-04-22 01:38:15.000000000 +0300
++++ b/CI/create_ipk.sh	2023-07-20 12:53:51.953340337 +0300
 @@ -107,8 +107,8 @@
  fi
  
@@ -13,8 +13,8 @@ diff -ruN a/CI/create_ipk.sh b/CI/create_ipk.sh
  if [ "$1" != "deb" ]; then
  	tar -C ${P}/CONTROL -czf ${B}/control.tar.gz .
 diff -ruN a/contrib/model_movies/compare_functions.py b/contrib/model_movies/compare_functions.py
---- a/contrib/model_movies/compare_functions.py	2022-09-21 14:30:27.000000000 +0300
-+++ b/contrib/model_movies/compare_functions.py	2022-10-09 14:37:55.935181140 +0300
+--- a/contrib/model_movies/compare_functions.py	2023-04-22 01:38:15.000000000 +0300
++++ b/contrib/model_movies/compare_functions.py	2023-07-20 12:56:05.967286764 +0300
 @@ -1,6 +1,6 @@
  #!/usr/bin/python
  # -*- coding: utf-8 -*-
@@ -24,8 +24,8 @@ diff -ruN a/contrib/model_movies/compare_functions.py b/contrib/model_movies/com
  import sys
  import pprint
 diff -ruN a/doc/source/conf.py b/doc/source/conf.py
---- a/doc/source/conf.py	2022-09-21 14:30:27.000000000 +0300
-+++ b/doc/source/conf.py	2022-10-09 14:37:55.935181140 +0300
+--- a/doc/source/conf.py	2023-04-22 01:38:15.000000000 +0300
++++ b/doc/source/conf.py	2023-07-20 12:56:05.979286938 +0300
 @@ -19,14 +19,14 @@
  
  # -- Project information -----------------------------------------------------
@@ -76,8 +76,8 @@ diff -ruN a/doc/source/conf.py b/doc/source/conf.py
       'Miscellaneous'),
  ]
 diff -ruN a/locale/updateallpo-multiOS.sh b/locale/updateallpo-multiOS.sh
---- a/locale/updateallpo-multiOS.sh	2022-09-21 14:30:27.000000000 +0300
-+++ b/locale/updateallpo-multiOS.sh	2022-10-09 14:37:55.935181140 +0300
+--- a/locale/updateallpo-multiOS.sh	2023-04-22 01:38:15.000000000 +0300
++++ b/locale/updateallpo-multiOS.sh	2023-07-20 12:53:51.953340337 +0300
 @@ -48,7 +48,7 @@
  	printf "Possible options are:\n"
  	printf " -r | --remote to specify the remote git to use,   default[origin]\n" 
@@ -88,8 +88,8 @@ diff -ruN a/locale/updateallpo-multiOS.sh b/locale/updateallpo-multiOS.sh
  	printf "To translate for the develop branch simply run this script without any option.\n"
  	printf "To translate for the rc branch simply specify:\n"
 diff -ruN a/locale/updateallpo.sh b/locale/updateallpo.sh
---- a/locale/updateallpo.sh	2022-09-21 14:30:27.000000000 +0300
-+++ b/locale/updateallpo.sh	2022-10-09 14:37:55.935181140 +0300
+--- a/locale/updateallpo.sh	2023-04-22 01:38:15.000000000 +0300
++++ b/locale/updateallpo.sh	2023-07-20 12:53:51.953340337 +0300
 @@ -46,7 +46,7 @@
  find $findoptions .. -name "*.py" -exec xgettext --no-wrap -L Python --from-code=UTF-8 -kpgettext:1c,2 --add-comments="TRANSLATORS:" -d $Plugin -s -o $Plugin-py.pot {} \+
  $localgsed --in-place $Plugin-py.pot --expression=s/CHARSET/UTF-8/
@@ -100,8 +100,8 @@ diff -ruN a/locale/updateallpo.sh b/locale/updateallpo.sh
  cat $Plugin-py.pot $Plugin-xml.pot | msguniq --no-wrap -o $Plugin.pot -
  OLDIFS=$IFS
 diff -ruN a/locale/updatepot.sh b/locale/updatepot.sh
---- a/locale/updatepot.sh	2022-09-21 14:30:27.000000000 +0300
-+++ b/locale/updatepot.sh	2022-10-09 14:37:55.935181140 +0300
+--- a/locale/updatepot.sh	2023-04-22 01:38:15.000000000 +0300
++++ b/locale/updatepot.sh	2023-07-20 12:53:51.953340337 +0300
 @@ -46,7 +46,7 @@
  printf "Creating temporary file $Plugin-xml.pot\n"
  which python
@@ -112,8 +112,8 @@ diff -ruN a/locale/updatepot.sh b/locale/updatepot.sh
  	find $findoptions ../plugin -name "*.xml" -exec python3 xml2po.py {} \+ > $Plugin-xml.pot
  fi
 diff -ruN a/locale/xml2po.py b/locale/xml2po.py
---- a/locale/xml2po.py	2022-09-21 14:30:27.000000000 +0300
-+++ b/locale/xml2po.py	2022-10-09 14:37:55.935181140 +0300
+--- a/locale/xml2po.py	2023-04-22 01:38:15.000000000 +0300
++++ b/locale/xml2po.py	2023-07-20 13:04:32.922707583 +0300
 @@ -1,6 +1,6 @@
  #!/usr/bin/python
  # -*- coding: utf-8 -*-
@@ -123,8 +123,8 @@ diff -ruN a/locale/xml2po.py b/locale/xml2po.py
  import os
  import six
 diff -ruN a/plugin/backport/OrderedDict.py b/plugin/backport/OrderedDict.py
---- a/plugin/backport/OrderedDict.py	2022-09-21 14:30:27.000000000 +0300
-+++ b/plugin/backport/OrderedDict.py	2022-10-09 14:37:55.935181140 +0300
+--- a/plugin/backport/OrderedDict.py	2023-04-22 01:38:15.000000000 +0300
++++ b/plugin/backport/OrderedDict.py	2023-07-20 12:56:06.371292643 +0300
 @@ -4,9 +4,9 @@
  # Passes Python2.7's test suite and incorporates all the latest updates.
  
@@ -142,7 +142,7 @@ diff -ruN a/plugin/backport/OrderedDict.py b/plugin/backport/OrderedDict.py
  		'od.clear() -> None.  Remove all items from od.'
  		try:
 -			for node in self.__map.itervalues():
-+			for node in self.__map.values():
++			for node in list(self.__map.values()):
  				del node[:]
  			root = self.__root
  			root[:] = [root, root, None]
@@ -180,8 +180,8 @@ diff -ruN a/plugin/backport/OrderedDict.py b/plugin/backport/OrderedDict.py
  
  	def __ne__(self, other):
 diff -ruN a/plugin/controllers/base.py b/plugin/controllers/base.py
---- a/plugin/controllers/base.py	2022-09-21 14:30:27.000000000 +0300
-+++ b/plugin/controllers/base.py	2022-10-09 14:37:55.935181140 +0300
+--- a/plugin/controllers/base.py	2023-04-22 01:38:15.000000000 +0300
++++ b/plugin/controllers/base.py	2023-07-20 13:03:01.825368475 +0300
 @@ -20,7 +20,7 @@
  # Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
  ##########################################################################
@@ -192,8 +192,8 @@ diff -ruN a/plugin/controllers/base.py b/plugin/controllers/base.py
  import imp
  import json
 diff -ruN a/plugin/controllers/BouquetEditor.py b/plugin/controllers/BouquetEditor.py
---- a/plugin/controllers/BouquetEditor.py	2022-09-21 14:30:27.000000000 +0300
-+++ b/plugin/controllers/BouquetEditor.py	2022-10-09 14:37:55.935181140 +0300
+--- a/plugin/controllers/BouquetEditor.py	2023-04-22 01:38:15.000000000 +0300
++++ b/plugin/controllers/BouquetEditor.py	2023-07-20 13:02:33.504952609 +0300
 @@ -8,7 +8,7 @@
  # http://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to Creative
  # Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA.
@@ -203,9 +203,18 @@ diff -ruN a/plugin/controllers/BouquetEditor.py b/plugin/controllers/BouquetEdit
  from Plugins.Extensions.OpenWebif.controllers.i18n import _
  from enigma import eServiceReference, eServiceCenter, eDVBDB
  from Components.Sources.Source import Source
+@@ -344,7 +344,7 @@
+ 		return (False, _("This service can not be added."))
+ 
+ 	def addMarkerToBouquet(self, param):
+-		print("[WebComponents.BouquetEditor] addMarkerToBouquet with param = ", param)
++		print("[WebComponents.BouquetEditor] addMarkerToBouquet with param = ", param)
+ 		sBouquetRef = param["sBouquetRef"]
+ 		if sBouquetRef is None:
+ 			return (False, _("No bouquet given!"))
 diff -ruN a/plugin/controllers/defaults.py b/plugin/controllers/defaults.py
---- a/plugin/controllers/defaults.py	2022-09-21 14:30:27.000000000 +0300
-+++ b/plugin/controllers/defaults.py	2022-10-09 14:37:55.939181140 +0300
+--- a/plugin/controllers/defaults.py	2023-04-22 01:38:15.000000000 +0300
++++ b/plugin/controllers/defaults.py	2023-07-20 13:01:09.007713160 +0300
 @@ -1,5 +1,5 @@
  # -*- coding: utf-8 -*-
 -from __future__ import print_function
@@ -214,8 +223,8 @@ diff -ruN a/plugin/controllers/defaults.py b/plugin/controllers/defaults.py
  import sys
  import glob
 diff -ruN a/plugin/controllers/ER.py b/plugin/controllers/ER.py
---- a/plugin/controllers/ER.py	2022-09-21 14:30:27.000000000 +0300
-+++ b/plugin/controllers/ER.py	2022-10-09 14:37:55.939181140 +0300
+--- a/plugin/controllers/ER.py	2023-04-22 01:38:15.000000000 +0300
++++ b/plugin/controllers/ER.py	2023-07-20 12:56:06.847299570 +0300
 @@ -20,7 +20,7 @@
  # Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
  ##########################################################################
@@ -226,8 +235,8 @@ diff -ruN a/plugin/controllers/ER.py b/plugin/controllers/ER.py
  import six
  
 diff -ruN a/plugin/controllers/models/config.py b/plugin/controllers/models/config.py
---- a/plugin/controllers/models/config.py	2022-09-21 14:30:27.000000000 +0300
-+++ b/plugin/controllers/models/config.py	2022-10-09 14:37:55.943181140 +0300
+--- a/plugin/controllers/models/config.py	2023-04-22 01:38:15.000000000 +0300
++++ b/plugin/controllers/models/config.py	2023-07-20 13:03:40.097930818 +0300
 @@ -20,7 +20,7 @@
  # Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
  ##########################################################################
@@ -238,8 +247,8 @@ diff -ruN a/plugin/controllers/models/config.py b/plugin/controllers/models/conf
  from Components.SystemInfo import SystemInfo
  from Components.config import config
 diff -ruN a/plugin/controllers/models/control.py b/plugin/controllers/models/control.py
---- a/plugin/controllers/models/control.py	2022-09-21 14:30:27.000000000 +0300
-+++ b/plugin/controllers/models/control.py	2022-10-09 14:37:55.943181140 +0300
+--- a/plugin/controllers/models/control.py	2023-04-22 01:38:15.000000000 +0300
++++ b/plugin/controllers/models/control.py	2023-07-20 12:56:09.395336651 +0300
 @@ -20,7 +20,7 @@
  # Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
  ##########################################################################
@@ -250,8 +259,8 @@ diff -ruN a/plugin/controllers/models/control.py b/plugin/controllers/models/con
  from enigma import eServiceReference, eActionMap, eServiceCenter
  from Plugins.Extensions.OpenWebif.controllers.models.services import getProtection
 diff -ruN a/plugin/controllers/models/grab.py b/plugin/controllers/models/grab.py
---- a/plugin/controllers/models/grab.py	2022-09-21 14:30:27.000000000 +0300
-+++ b/plugin/controllers/models/grab.py	2022-10-09 14:37:55.943181140 +0300
+--- a/plugin/controllers/models/grab.py	2023-04-22 01:38:15.000000000 +0300
++++ b/plugin/controllers/models/grab.py	2023-07-20 13:03:10.529496333 +0300
 @@ -20,7 +20,7 @@
  # Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
  ##########################################################################
@@ -262,8 +271,8 @@ diff -ruN a/plugin/controllers/models/grab.py b/plugin/controllers/models/grab.p
  from ServiceReference import ServiceReference
  from Components.config import config
 diff -ruN a/plugin/controllers/models/info.py b/plugin/controllers/models/info.py
---- a/plugin/controllers/models/info.py	2022-09-21 14:30:27.000000000 +0300
-+++ b/plugin/controllers/models/info.py	2022-10-09 14:37:55.943181140 +0300
+--- a/plugin/controllers/models/info.py	2023-04-22 01:38:15.000000000 +0300
++++ b/plugin/controllers/models/info.py	2023-07-20 13:04:05.106298468 +0300
 @@ -20,7 +20,7 @@
  # Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
  ##########################################################################
@@ -283,8 +292,8 @@ diff -ruN a/plugin/controllers/models/info.py b/plugin/controllers/models/info.p
  			desc = desc.encode('utf-8')
  		statusinfo['currservice_description'] = desc
 diff -ruN a/plugin/controllers/models/locations.py b/plugin/controllers/models/locations.py
---- a/plugin/controllers/models/locations.py	2022-09-21 14:30:27.000000000 +0300
-+++ b/plugin/controllers/models/locations.py	2022-10-09 14:37:55.943181140 +0300
+--- a/plugin/controllers/models/locations.py	2023-04-22 01:38:15.000000000 +0300
++++ b/plugin/controllers/models/locations.py	2023-07-20 12:56:09.647340318 +0300
 @@ -21,9 +21,9 @@
  
  
@@ -298,8 +307,8 @@ diff -ruN a/plugin/controllers/models/locations.py b/plugin/controllers/models/l
  	return {
  		"result": True,
 diff -ruN a/plugin/controllers/models/movies.py b/plugin/controllers/models/movies.py
---- a/plugin/controllers/models/movies.py	2022-09-21 14:30:27.000000000 +0300
-+++ b/plugin/controllers/models/movies.py	2022-10-09 14:37:55.943181140 +0300
+--- a/plugin/controllers/models/movies.py	2023-04-22 01:38:15.000000000 +0300
++++ b/plugin/controllers/models/movies.py	2023-07-20 12:56:09.883343753 +0300
 @@ -20,7 +20,7 @@
  # Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
  ##########################################################################
@@ -310,8 +319,8 @@ diff -ruN a/plugin/controllers/models/movies.py b/plugin/controllers/models/movi
  import struct
  import six
 diff -ruN a/plugin/controllers/models/owibranding.py b/plugin/controllers/models/owibranding.py
---- a/plugin/controllers/models/owibranding.py	2022-09-21 14:30:27.000000000 +0300
-+++ b/plugin/controllers/models/owibranding.py	2022-10-09 14:37:55.943181140 +0300
+--- a/plugin/controllers/models/owibranding.py	2023-04-22 01:38:15.000000000 +0300
++++ b/plugin/controllers/models/owibranding.py	2023-07-20 12:56:10.163347828 +0300
 @@ -27,6 +27,7 @@
  import os
  import hashlib
@@ -330,8 +339,8 @@ diff -ruN a/plugin/controllers/models/owibranding.py b/plugin/controllers/models
  
  def long2bin(l):
 diff -ruN a/plugin/controllers/models/services.py b/plugin/controllers/models/services.py
---- a/plugin/controllers/models/services.py	2022-09-21 14:30:27.000000000 +0300
-+++ b/plugin/controllers/models/services.py	2022-10-09 14:38:14.659181214 +0300
+--- a/plugin/controllers/models/services.py	2023-04-22 01:38:15.000000000 +0300
++++ b/plugin/controllers/models/services.py	2023-07-20 13:04:12.890412933 +0300
 @@ -21,6 +21,9 @@
  ##########################################################################
  
@@ -355,8 +364,8 @@ diff -ruN a/plugin/controllers/models/services.py b/plugin/controllers/models/se
  			# remove control chars
  			val = removeBadChars(six.ensure_binary(val))
 diff -ruN a/plugin/controllers/models/timers.py b/plugin/controllers/models/timers.py
---- a/plugin/controllers/models/timers.py	2022-09-21 14:30:27.000000000 +0300
-+++ b/plugin/controllers/models/timers.py	2022-10-09 14:37:56.027181140 +0300
+--- a/plugin/controllers/models/timers.py	2023-04-22 01:38:15.000000000 +0300
++++ b/plugin/controllers/models/timers.py	2023-07-20 13:03:23.325684336 +0300
 @@ -20,7 +20,7 @@
  # Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
  ##########################################################################
@@ -376,8 +385,8 @@ diff -ruN a/plugin/controllers/models/timers.py b/plugin/controllers/models/time
  	begin = int(mktime((int(request.args['syear'][0]), int(request.args['smonth'][0]), int(request.args['sday'][0]), int(request.args['shour'][0]), int(request.args['smin'][0]), 0, 0, 0, -1)))
  	end = int(mktime((int(request.args['syear'][0]), int(request.args['smonth'][0]), int(request.args['sday'][0]), int(request.args['ehour'][0]), int(request.args['emin'][0]), 0, 0, 0, -1)))
 diff -ruN a/plugin/controllers/utilities.py b/plugin/controllers/utilities.py
---- a/plugin/controllers/utilities.py	2022-09-21 14:30:27.000000000 +0300
-+++ b/plugin/controllers/utilities.py	2022-10-09 14:37:56.027181140 +0300
+--- a/plugin/controllers/utilities.py	2023-04-22 01:38:15.000000000 +0300
++++ b/plugin/controllers/utilities.py	2023-07-20 13:01:31.308040070 +0300
 @@ -1,6 +1,6 @@
  #!/usr/bin/python
  # -*- coding: utf-8 -*-
@@ -405,8 +414,8 @@ diff -ruN a/plugin/controllers/utilities.py b/plugin/controllers/utilities.py
  	return default
  
 diff -ruN a/plugin/controllers/web.py b/plugin/controllers/web.py
---- a/plugin/controllers/web.py	2022-09-21 14:30:27.000000000 +0300
-+++ b/plugin/controllers/web.py	2022-10-09 14:37:56.027181140 +0300
+--- a/plugin/controllers/web.py	2023-04-22 01:38:15.000000000 +0300
++++ b/plugin/controllers/web.py	2023-07-20 12:56:09.095332285 +0300
 @@ -21,7 +21,7 @@
  # Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
  ##########################################################################
@@ -417,8 +426,8 @@ diff -ruN a/plugin/controllers/web.py b/plugin/controllers/web.py
  from six import ensure_str, ensure_binary
  from Components.config import config as comp_config
 diff -ruN a/plugin/httpserver.py b/plugin/httpserver.py
---- a/plugin/httpserver.py	2022-09-21 14:30:27.000000000 +0300
-+++ b/plugin/httpserver.py	2022-10-09 14:37:56.027181140 +0300
+--- a/plugin/httpserver.py	2023-04-22 01:38:15.000000000 +0300
++++ b/plugin/httpserver.py	2023-07-20 13:00:55.919521361 +0300
 @@ -20,7 +20,7 @@
  # Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
  ##########################################################################
@@ -429,8 +438,8 @@ diff -ruN a/plugin/httpserver.py b/plugin/httpserver.py
  from Screens.MessageBox import MessageBox
  from Components.config import config
 diff -ruN a/plugin/sslcertificate.py b/plugin/sslcertificate.py
---- a/plugin/sslcertificate.py	2022-09-21 14:30:27.000000000 +0300
-+++ b/plugin/sslcertificate.py	2022-10-09 14:37:56.027181140 +0300
+--- a/plugin/sslcertificate.py	2023-04-22 01:38:15.000000000 +0300
++++ b/plugin/sslcertificate.py	2023-07-20 12:56:06.247290839 +0300
 @@ -20,7 +20,7 @@
  # Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
  ##########################################################################
@@ -441,8 +450,8 @@ diff -ruN a/plugin/sslcertificate.py b/plugin/sslcertificate.py
  from socket import gethostname
  from time import time
 diff -ruN a/plugin/vtiaddon.py b/plugin/vtiaddon.py
---- a/plugin/vtiaddon.py	2022-09-21 14:30:27.000000000 +0300
-+++ b/plugin/vtiaddon.py	2022-10-09 14:37:56.027181140 +0300
+--- a/plugin/vtiaddon.py	2023-04-22 01:38:15.000000000 +0300
++++ b/plugin/vtiaddon.py	2023-07-20 13:00:12.510885610 +0300
 @@ -1,5 +1,5 @@
  # -*- coding: utf-8 -*-
 -from __future__ import print_function
@@ -451,8 +460,8 @@ diff -ruN a/plugin/vtiaddon.py b/plugin/vtiaddon.py
  from Components.config import config, ConfigYesNo, ConfigSelection
  from Plugins.Extensions.OpenWebif.controllers.utilities import getUrlArg
 diff -ruN a/setup_translate.py b/setup_translate.py
---- a/setup_translate.py	2022-09-21 14:30:27.000000000 +0300
-+++ b/setup_translate.py	2022-10-09 14:37:56.027181140 +0300
+--- a/setup_translate.py	2023-04-22 01:38:15.000000000 +0300
++++ b/setup_translate.py	2023-07-20 12:58:58.561803930 +0300
 @@ -2,7 +2,7 @@
  
  # Language extension for distutils Python scripts. Based on this concept:
@@ -463,8 +472,16 @@ diff -ruN a/setup_translate.py b/setup_translate.py
  from distutils.command.build import build as _build
  import glob
 diff -ruN a/testsuite/evil_eval.py b/testsuite/evil_eval.py
---- a/testsuite/evil_eval.py	2022-09-21 14:30:27.000000000 +0300
-+++ b/testsuite/evil_eval.py	2022-10-09 14:37:56.027181140 +0300
+--- a/testsuite/evil_eval.py	2023-04-22 01:38:15.000000000 +0300
++++ b/testsuite/evil_eval.py	2023-07-20 12:56:10.999359995 +0300
+@@ -1,6 +1,6 @@
+ #!/usr/bin/python
+ # -*- coding: utf-8 -*-
+-from __future__ import print_function
++
+ """
+ Unit Test for Code Trying to Mitigate a Remote Code Execution Vulnerability
+ (CVE-2017-9807).
 @@ -9,7 +9,7 @@
  
      root@heart-of-gold:~# curl --noproxy localhost http://localhost/api/saveconfig --data "value=1&key=config.__class__.__name__ == 1 or (open('you lost your mind? according to my last psych EVALuation, yes', 'wb') and config or config)"
@@ -474,9 +491,98 @@ diff -ruN a/testsuite/evil_eval.py b/testsuite/evil_eval.py
  
      root@heart-of-gold:~# curl --noproxy localhost http://localhost/api/saveconfig --data "value=1&key=config.__class__ == 42 or (__import__('os').system('id > pwned') and config or config)"
      {"result": false}
+diff -ruN a/testsuite/movie_files_testsuite.py b/testsuite/movie_files_testsuite.py
+--- a/testsuite/movie_files_testsuite.py	2023-04-22 01:38:15.000000000 +0300
++++ b/testsuite/movie_files_testsuite.py	2023-07-20 12:56:11.035360519 +0300
+@@ -1,6 +1,6 @@
+ #!/usr/bin/python
+ # -*- coding: utf-8 -*-
+-from __future__ import print_function
++
+ import os
+ import copy
+ import unittest
+@@ -13,18 +13,18 @@
+ MOVIE_FOLDER = '/media/hdd/movie'
+ 
+ #: the main .ts file
+-MAIN_TS_FILE = u"{dir}/20170830 1650 - TNT Serie HD (S) - Animal Kingdom - S\u00fcndenbock.ts".format(
++MAIN_TS_FILE = "{dir}/20170830 1650 - TNT Serie HD (S) - Animal Kingdom - S\u00fcndenbock.ts".format(
+ 	dir=MOVIE_FOLDER)
+ 
+ EXPECTED_FILES = [
+-	u"{dir}/20170830 1650 - TNT Serie HD (S) - Animal Kingdom - S\u00fcndenbock.eit".format(
++	"{dir}/20170830 1650 - TNT Serie HD (S) - Animal Kingdom - S\u00fcndenbock.eit".format(
+ 		dir=MOVIE_FOLDER),
+ 	MAIN_TS_FILE,
+-	u"{dir}/20170830 1650 - TNT Serie HD (S) - Animal Kingdom - S\u00fcndenbock.ts.ap".format(
++	"{dir}/20170830 1650 - TNT Serie HD (S) - Animal Kingdom - S\u00fcndenbock.ts.ap".format(
+ 		dir=MOVIE_FOLDER),
+-	u"{dir}/20170830 1650 - TNT Serie HD (S) - Animal Kingdom - S\u00fcndenbock.ts.cuts".format(
++	"{dir}/20170830 1650 - TNT Serie HD (S) - Animal Kingdom - S\u00fcndenbock.ts.cuts".format(
+ 		dir=MOVIE_FOLDER),
+-	u"{dir}/20170830 1650 - TNT Serie HD (S) - Animal Kingdom - S\u00fcndenbock.ts.meta".format(
++	"{dir}/20170830 1650 - TNT Serie HD (S) - Animal Kingdom - S\u00fcndenbock.ts.meta".format(
+ 		dir=MOVIE_FOLDER),
+ ]
+ 
+@@ -33,21 +33,21 @@
+ ENV_VAL_FALLBACK = "127.0.0.1"
+ 
+ EXPECTED_MOVIE_ITEM = {
+-	u'filename_stripped': u'20170830 1650 - TNT Serie HD (S) - Animal Kingdom - S\xfcndenbock.ts',
+-	u'description': u'S\xfcndenbock',
+-	u'tags': u'',
+-	u'filesize': 0,
+-	u'filesize_readable': u'',
+-	u'serviceref': u'1:0:0:0:0:0:0:0:0:0:/media/hdd/movie/20170830 1650 - TNT Serie HD (S) - Animal Kingdom - S\xfcndenbock.ts',
+-	u'filename': u'/media/hdd/movie/20170830 1650 - TNT Serie HD (S) - Animal Kingdom - S\xfcndenbock.ts',
+-	u'eventname': u'Animal Kingdom',
+-	u'length': u'?:??',
+-	u'servicename': u'TNT Serie HD (S)',
+-	u'begintime': u'30.8., 16:50',
+-	u'fullname': u'1:0:0:0:0:0:0:0:0:0:/media/hdd/movie/20170830 1650 - TNT Serie HD (S) - Animal Kingdom - S\xfcndenbock.ts',
+-	u'recordingtime': 1504104600,
+-	u'descriptionExtended': u'1. Staffel, Folge 5: XXXXX XXXXXXXXX XXXX XXXXXX D\xe4mxxxx XX xxxxxxXx XXX XXXXXXX xxxx XXXX XXXXX XX XXXXXXX XXX xxxx XX XXXXXXXX XXXXXXX XXXXXXX x\xe4xxxx XXX xxx XXXXX xxxx xxxxx XXX xxx XXXXXXX XXXX xx XXX XXXXX Xp\xfclxx X\xf6xxXXX X XXXX XXX XXXXXX XXXxxxxx xxx xxx xxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 50 Min.\n2016.\nAb 12 Jahren',
+-	u'lastseen': 0
++	'filename_stripped': '20170830 1650 - TNT Serie HD (S) - Animal Kingdom - S\xfcndenbock.ts',
++	'description': 'S\xfcndenbock',
++	'tags': '',
++	'filesize': 0,
++	'filesize_readable': '',
++	'serviceref': '1:0:0:0:0:0:0:0:0:0:/media/hdd/movie/20170830 1650 - TNT Serie HD (S) - Animal Kingdom - S\xfcndenbock.ts',
++	'filename': '/media/hdd/movie/20170830 1650 - TNT Serie HD (S) - Animal Kingdom - S\xfcndenbock.ts',
++	'eventname': 'Animal Kingdom',
++	'length': '?:??',
++	'servicename': 'TNT Serie HD (S)',
++	'begintime': '30.8., 16:50',
++	'fullname': '1:0:0:0:0:0:0:0:0:0:/media/hdd/movie/20170830 1650 - TNT Serie HD (S) - Animal Kingdom - S\xfcndenbock.ts',
++	'recordingtime': 1504104600,
++	'descriptionExtended': '1. Staffel, Folge 5: XXXXX XXXXXXXXX XXXX XXXXXX D\xe4mxxxx XX xxxxxxXx XXX XXXXXXX xxxx XXXX XXXXX XX XXXXXXX XXX xxxx XX XXXXXXXX XXXXXXX XXXXXXX x\xe4xxxx XXX xxx XXXXX xxxx xxxxx XXX xxx XXXXXXX XXXX xx XXX XXXXX Xp\xfclxx X\xf6xxXXX X XXXX XXX XXXXXX XXXxxxxx xxx xxx xxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 50 Min.\n2016.\nAb 12 Jahren',
++	'lastseen': 0
+ }
+ 
+ 
+@@ -120,7 +120,7 @@
+ 		self.assertTrue(req.status_code, 200)
+ 
+ 		data = req.json()
+-		test_filename_remote = u"{dir}/{filename}".format(
++		test_filename_remote = "{dir}/{filename}".format(
+ 			dir=MOVIE_FOLDER, filename=self.test_filename)
+ 		self.assertTrue(test_filename_remote in data['files'])
+ 
 diff -ruN a/testsuite/status_quo_file_controller.py b/testsuite/status_quo_file_controller.py
---- a/testsuite/status_quo_file_controller.py	2022-09-21 14:30:27.000000000 +0300
-+++ b/testsuite/status_quo_file_controller.py	2022-10-09 14:37:56.027181140 +0300
+--- a/testsuite/status_quo_file_controller.py	2023-04-22 01:38:15.000000000 +0300
++++ b/testsuite/status_quo_file_controller.py	2023-07-20 12:56:11.071361043 +0300
+@@ -1,6 +1,6 @@
+ #!/usr/bin/python
+ # -*- coding: utf-8 -*-
+-from __future__ import print_function
++
+ import os
+ import unittest
+ import uuid
 @@ -71,7 +71,7 @@
  		}
  		req = requests.get(self.file_url, params=params)
