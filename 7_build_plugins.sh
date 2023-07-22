@@ -71,14 +71,14 @@ if [ "$release" = "22.04" ]; then
 			cd e2openplugin
 			PKG="enigma2-plugin-extensions-ts-sateditor"
 			PKG_="TSsatEditor"
-			VER="7a930d688ccfb540d5213c9df8e337d5c45f5a5b"
+			VER="d4a10ebbc7ef8e8349b218f48dbeab43f5685180"
 			if [ -d $PKG ]; then
 				rm -rf $PKG
 			fi
 			if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/SystemPlugins/$PKG_ ]; then
 				rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/SystemPlugins/$PKG_
 			fi
-			wget https://github.com/Dima73/enigma2-plugin-extensions-ts-sateditor/archive/7a930d688ccfb540d5213c9df8e337d5c45f5a5b.zip
+			wget https://github.com/Dima73/$PKG/archive/$VER.zip
 			unzip $VER.zip
 			rm $VER.zip
 			mv $PKG-$VER $PKG
@@ -426,7 +426,7 @@ if [ "$release" = "22.04" ]; then
 			echo ""
 			PKG="enigma2-plugin-mountmanager"
 			PKG_="MountManager"
-			VER="63646c2e38ae187aa69fe3be3d8b94e3c479541b"
+			VER="342ac9a126533a8582f5f45ed2e0c8ac9c322fa0"
 			if [ -d $PKG ]; then
 				rm -rf $PKG
 			fi
