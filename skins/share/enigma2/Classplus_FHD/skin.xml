@@ -1052,6 +1052,7 @@
 		<widget name="InfoPixmap" pixmap="icons/input_info.png" position="20,30" size="80,80" alphatest="blend"/>
 		<widget name="WarningPixmap" pixmap="icons/input_warning.png" position="20,30" size="80,80" alphatest="blend"/>
 		<widget name="list" position="112,52" size="720,560" itemHeight="34" font="Regular;32" transparent="1"/>
+		<widget name="autoresize" position="0,0" size="0,0" font="Regular;28" noWrap="1"/>
 		<applet type="onLayoutFinish">
 from enigma import eSize, ePoint
 if self.timerRunning:
@@ -1095,8 +1096,8 @@ if self.type == self.TYPE_YESNO:
 	self[&quot;list&quot;].instance.move(ePoint(3, wsizey - lenlist + titleheight - 3))
 	self[&quot;list&quot;].instance.resize(eSize(*listsize))
 newwidth = wsize[0]
-self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (orgheight - wsizey)/2))
-		</applet>
+self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth) // 2, orgpos.y() + (orgheight - wsizey) // 2))
+	</applet>
 	</screen>
 
 	<!-- Movieplayer infobar -->
