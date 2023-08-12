@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Script for install patched lirc-0.10.1. Get repeats again.
+# Script for install patched lirc-0.10.1. Get repeats again. In version Ubuntu-14.04, use lirc 0.9.0 from the repository only.
 
 # If your system has two devices /dev/lirc0 and /dev/lirc1 (for example, a built-in IR-receiver in the card card)
 # then you can add a rule to /etc/udev/rules.d/99-lirc-symlinks.rules:
@@ -21,21 +21,18 @@ if [[ "$release" = "22.04" ]]; then
 	pip install --upgrade websockets
 	pip uninstall PyCrypto
 	pip install -U PyCryptodome
-
 	apt install -y dh-exec dh-python doxygen expect libftdi1-dev libsystemd-dev libudev-dev libusb-dev man2html-base portaudio19-dev python3-dev python3-setuptools socat setserial xsltproc
-	wget http://ftp.de.debian.org/debian/pool/main/d/debhelper/dh-systemd_13.2.1_all.deb
-	dpkg -i dh-systemd_13.2.1_all.deb
-	rm -f dh-systemd_13.2.1_all.deb
-	dpkg -i pre/lirc/*.deb
-
+	wget https://neurodebian.g-node.org/pool/main/d/debhelper/dh-systemd_12.1.1~nd20.04+1_all.deb
+	dpkg -i dh-systemd_12.1.1~nd20.04+1_all.deb
+	rm -f dh-systemd_12.1.1~nd20.04+1_all.deb
+	if [ -d $DIR ]; then
+		rm -fr $DIR
+	fi
 	mkdir $DIR
 	cd $DIR
-	if [ -d $PKG ]; then
-		rm -fr $PKG
-	fi
-	wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/lirc/0.10.1-6/lirc_0.10.1.orig.tar.gz
+	wget https://launchpadlibrarian.net/643046456/lirc_0.10.1.orig.tar.gz
 	tar -xvf lirc_0.10.1.orig.tar.gz
-	rm -vf lirc_0.10.1.orig.tar.gz
+	rm -f lirc_0.10.1.orig.tar.gz
 	cd ..
 	cp -v patches/lirc-python3.10.patch $DIR/$PKG
 	cd $DIR/$PKG
@@ -46,39 +43,33 @@ if [[ "$release" = "22.04" ]]; then
 	chmod 755 debian/lirc-old2new
 	chmod 755 debian/postrm
 	cd ..
-	tar -cvzf lirc_0.10.1-6.orig.tar.gz $PKG
+	tar -cvzf lirc_0.10.1.orig.tar.gz $PKG
 	cd $PKG
 	dpkg-buildpackage -b -d -uc -us
+	quilt refresh && dpkg-buildpackage -b -d -uc -us #Fix internal patches. Don't worry about the 'error' message.
 	cd ..
-		dpkg -i *.deb
+	dpkg -i *.deb
 	cd ..
-else
-	echo "                                           "
-	echo "              NOT SUPPORT!                 "
-	echo "                                           "
+	cp -rfv pre/lirc/lircd.conf.d /etc
+	cp -rfv pre/lirc/lirc_options.conf.example /etc
+	cp -fv pre/99-lirc-symlinks.rules /etc/udev/rules.d
+	if [ -f $CONF/lircd.conf.d/devinput.lircd.conf ]; then
+		mv -b $CONF/lircd.conf.d/devinput.lircd.conf /etc/lirc/lircd.conf.d/devinput.lircd.conf.dist
+	fi
+	if [ -f $CONF/irexec.lircrc ]; then
+		mv -b $CONF/irexec.lircrc $CONF/irexec.lircrc.dist
+	fi
+	if [ -f $CONF/irexec.lircrc ];then
+		rm -f $CONF/irexec.lircrc
+	fi
+	systemctl enable lircd.socket
+	systemctl start lircd.socket
+	systemctl enable lircmd.service
+	systemctl start lircmd.service
+	systemctl mask lircd-uinput.service
+	systemctl daemon-reload
+	systemctl start lircd
+	systemctl restart lircd
 fi
 
-cp -rfv pre/lirc/lircd.conf.d /etc
-cp -rfv pre/lirc/lirc_options.conf.example /etc
-cp -fv pre/99-lirc-symlinks.rules /etc/udev/rules.d
-
-if [ -f $CONF/lircd.conf.d/devinput.lircd.conf ]; then
-	mv -b $CONF/lircd.conf.d/devinput.lircd.conf /etc/lirc/lircd.conf.d/devinput.lircd.conf.dist
-fi
-if [ -f $CONF/irexec.lircrc ]; then
-	mv -b $CONF/irexec.lircrc $CONF/irexec.lircrc.dist
-fi
-if [ -f $CONF/irexec.lircrc ];then
-	rm -f $CONF/irexec.lircrc
-fi
-
-systemctl enable lircd.socket
-systemctl start lircd.socket
-systemctl enable lircmd.service
-systemctl start lircmd.service
-systemctl mask lircd-uinput.service
-systemctl daemon-reload
-systemctl start lircd
-systemctl restart lircd
-
-#reboot
+reboot # Need to restart system!

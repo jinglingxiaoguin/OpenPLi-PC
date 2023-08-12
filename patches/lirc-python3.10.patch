@@ -1,12 +1,62 @@
 diff -ruN a/debian/changelog b/debian/changelog
 --- a/debian/changelog	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/changelog	2022-10-15 15:04:44.364723812 +0300
-@@ -0,0 +1,1719 @@
-+lirc (0.10.1-6-e2pc) unstable; urgency=medium
++++ b/debian/changelog	2023-08-12 18:12:15.819981960 +0300
+@@ -0,0 +1,1769 @@
++lirc (0.10.1-7.2-e2pc) unstable; urgency=medium
 +
-+  * Patch for e2pc by '1455'
++  * Non-maintainer upload.
++  * Add patch to fix FTBFS with new yaml (Closes: #1026505)
 +
-+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Sat, 28 Dec 2019 13:26:09 +0300
++ -- Nilesh Patra <nilesh@debian.org>  Wed, 28 Dec 2022 16:55:42 +0530
++
++lirc (0.10.1-7.1) unstable; urgency=medium
++
++  * Non-maintainer upload.
++  * debian/patches: Add patch to support passing MODINFO to configure.
++  * debian/rules: Pass MODINFO and SH_PATH to configure. The paths to "modinfo"
++    and "sh" may vary as either located in /bin and /sbin or in /usr/bin and
++    /usr/sbin if the system is configured as a usrmerge system. Use the
++    non-usrmerge paths for the most compatible location (closes: #979021).
++
++ -- Micha Lenk <micha@debian.org>  Sun, 16 Oct 2022 13:31:28 +0200
++
++lirc (0.10.1-7) unstable; urgency=medium
++
++  * Add patch from Fedora for failing tests. Closes: #1009389
++  * Add patch avoiding build path in docs. Closes: #961954
++
++ -- Alec Leamas <leamas.alec@gmail.com>  Thu, 12 May 2022 21:29:00 +0200
++
++lirc (0.10.1-6.3) unstable; urgency=medium
++
++  * Non-maintainer upload.
++  * d/lirc.preinst: Normalize embedded ${DEB_HOST_MULTIARCH} value in
++    /etc/lirc/lirc_options.conf to find unmodified configuration files on all
++    architectures.
++  * Recommend gir1.2-vte-2.91 instead of non-existant gir1.2-vte.
++    (Closes: #983581)
++
++ -- Andreas Beckmann <anbe@debian.org>  Thu, 18 Mar 2021 22:21:31 +0100
++
++lirc (0.10.1-6.2) unstable; urgency=medium
++
++  * Non-maintainer upload.
++  * Revert "Revert "Do not install conffiles in a dummy location""
++    (0.10.1-5.2).  (Closes: #932779, #851618)
++  * d/lirc.maintscript: rm_conffile /etc/lirc/*.dist because they are most
++    likely unmodified, don't mv_conffile them to =~ s/\.dist// to avoid
++    clashes with existing and possibly modified configuration files.
++  * d/lirc.preinst: Remove unmodified configuration files that are unknown to
++    dpkg to avoid prompting when replacing them with conffiles.
++
++ -- Andreas Beckmann <anbe@debian.org>  Thu, 14 May 2020 11:46:53 +0200
++
++lirc (0.10.1-6.1) unstable; urgency=medium
++
++  * Non-maintainer upload.
++  * Fix time.clock usage. Closes: #949835.
++
++ -- Matthias Klose <doko@debian.org>  Fri, 13 Mar 2020 08:55:53 +0100
 +
 +lirc (0.10.1-6) unstable; urgency=medium
 +
@@ -1723,28 +1773,27 @@ diff -ruN a/debian/changelog b/debian/changelog
 + -- Tom Lees <tom@debian.org>  Thu, 30 Mar 2000 19:30:57 +0100
 diff -ruN a/debian/compat b/debian/compat
 --- a/debian/compat	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/compat	2022-10-15 15:04:44.364723812 +0300
++++ b/debian/compat	2022-12-28 14:25:42.000000000 +0300
 @@ -0,0 +1 @@
-+10
++11
 diff -ruN a/debian/control b/debian/control
 --- a/debian/control	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/control	2022-10-15 15:04:44.364723812 +0300
-@@ -0,0 +1,179 @@
++++ b/debian/control	2022-12-28 14:25:42.000000000 +0300
+@@ -0,0 +1,180 @@
 +Source: lirc
 +Section: utils
-+Priority: extra
-+Homepage: http://sf.net/p/lirc
-+Standards-Version: 4.0.1
-+Maintainer: lirc Maintainer Team <pkg-lirc-maint@lists.alioth.debian.org>
++Priority: optional
++Homepage: https://sf.net/p/lirc
++Standards-Version: 4.3.0
++Maintainer: Debian Lirc Team <team+debian-lirc@tracker.debian.org>
 +Uploaders:
 +  Stefan Lippers-Hollmann <s.l-h@gmx.de>,
 +  Alec Leamas <leamas.alec@gmail.com>
-+Vcs-Git: git://git.code.sf.net/p/lirc/git -b debian-0.10
-+Vcs-Browser: https://sourceforge.net/p/lirc/git/ci/debian-0.10/tree/
++Vcs-Git: https://gitlab.com/leamas/lirc.git
++Vcs-Browser: https://gitlab.com/leamas/lirc
 +Build-Depends:
-+ debhelper (>= 10),
++ debhelper (>= 11),
 + dh-exec,
-+ dh-systemd,
 + dh-python,
 + doxygen,
 + expect [!hurd-any],
@@ -1767,6 +1816,7 @@ diff -ruN a/debian/control b/debian/control
 + xsltproc
 +# libjs-jquery
 +
++
 +Package: lirc
 +Architecture: any
 +Depends:
@@ -1777,9 +1827,10 @@ diff -ruN a/debian/control b/debian/control
 + ${python3:Depends},
 + ${shlibs:Depends}
 +Recommends:
++ gir1.2-vte-2.91,
 + python3-yaml,
 + python3-gi,
-+ gir1.2-vte
++ systemd [linux-any]
 +Suggests:
 + lirc-compat-remotes,
 + lirc-drv-irman,
@@ -1856,10 +1907,10 @@ diff -ruN a/debian/control b/debian/control
 +
 +Package: liblirc-dev
 +Architecture: any
-+Multi-Arch: same
++#Multi-Arch: same
 +Section: libdevel
 +Provides: liblircclient-dev
-+Conflicts: liblircclient-dev (<< 0.9.1)
++Breaks: liblircclient-dev (<< 0.9.1)
 +Replaces: liblircclient-dev (<< 0.9.1)
 +Depends:
 + liblirc0 (= ${binary:Version}),
@@ -1911,9 +1962,9 @@ diff -ruN a/debian/control b/debian/control
 +              oscilloscope. Unneeded for TV cards or the Irman.
 diff -ruN a/debian/copyright b/debian/copyright
 --- a/debian/copyright	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/copyright	2022-10-15 15:04:44.364723812 +0300
++++ b/debian/copyright	2022-12-28 14:25:42.000000000 +0300
 @@ -0,0 +1,283 @@
-+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
++Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 +Upstream-Name: lirc
 +Upstream-Contact: Alec Leamas <leamas.alec@gmail.com>
 +Source: http://lirc.org/
@@ -2198,14 +2249,24 @@ diff -ruN a/debian/copyright b/debian/copyright
 + SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 diff -ruN a/debian/docs b/debian/docs
 --- a/debian/docs	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/docs	2022-10-15 15:04:44.364723812 +0300
++++ b/debian/docs	2022-12-28 14:25:42.000000000 +0300
 @@ -0,0 +1,3 @@
 +NEWS
 +README
 +README.conf.d
+diff -ruN a/debian/gbp.conf b/debian/gbp.conf
+--- a/debian/gbp.conf	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/gbp.conf	2022-12-28 14:25:42.000000000 +0300
+@@ -0,0 +1,6 @@
++[DEFAULT]
++
++upstream-branch = upstream
++debian-branch = debian
++upstream-tag = upstream/%(version)s
++pristine-tar = True
 diff -ruN a/debian/install b/debian/install
 --- a/debian/install	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/install	2022-10-15 15:04:44.364723812 +0300
++++ b/debian/install	2022-12-28 14:25:42.000000000 +0300
 @@ -0,0 +1,60 @@
 +#! /usr/bin/dh-exec
 +
@@ -2269,26 +2330,26 @@ diff -ruN a/debian/install b/debian/install
 +var/lib/lirc
 diff -ruN a/debian/liblirc0.install b/debian/liblirc0.install
 --- a/debian/liblirc0.install	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/liblirc0.install	2022-10-15 15:04:44.364723812 +0300
++++ b/debian/liblirc0.install	2022-12-28 14:25:42.000000000 +0300
 @@ -0,0 +1,3 @@
 +usr/lib/*/libirrecord.so.*
 +usr/lib/*/liblirc_driver.so.*
 +usr/lib/*/liblirc.so.*
 diff -ruN a/debian/liblirc-client0.install b/debian/liblirc-client0.install
 --- a/debian/liblirc-client0.install	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/liblirc-client0.install	2022-10-15 15:04:44.364723812 +0300
++++ b/debian/liblirc-client0.install	2022-12-28 14:25:42.000000000 +0300
 @@ -0,0 +1 @@
 +debian/tmp/usr/lib/*/liblirc_client.so.*
 diff -ruN a/debian/liblirc-dev.install b/debian/liblirc-dev.install
 --- a/debian/liblirc-dev.install	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/liblirc-dev.install	2022-10-15 15:04:44.364723812 +0300
++++ b/debian/liblirc-dev.install	2022-12-28 14:25:42.000000000 +0300
 @@ -0,0 +1,3 @@
 +usr/lib/*/lib*.so
 +usr/lib/*/pkgconfig
 +usr/include
 diff -ruN a/debian/lirc-doc.doc-base b/debian/lirc-doc.doc-base
 --- a/debian/lirc-doc.doc-base	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/lirc-doc.doc-base	2022-10-15 15:04:44.364723812 +0300
++++ b/debian/lirc-doc.doc-base	2022-12-28 14:25:42.000000000 +0300
 @@ -0,0 +1,9 @@
 +Document: lirc
 +Title: LIRC (Linux Infrared Remote Control)
@@ -2301,18 +2362,18 @@ diff -ruN a/debian/lirc-doc.doc-base b/debian/lirc-doc.doc-base
 +Files: /usr/share/doc/lirc/lirc.org/html/*.html /usr/share/doc/lirc/lirc.org/api-docs/html/*
 diff -ruN a/debian/lirc-doc.install b/debian/lirc-doc.install
 --- a/debian/lirc-doc.install	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/lirc-doc.install	2022-10-15 15:04:44.364723812 +0300
++++ b/debian/lirc-doc.install	2022-12-28 14:25:42.000000000 +0300
 @@ -0,0 +1 @@
 +usr/share/doc
 diff -ruN a/debian/lirc.docs b/debian/lirc.docs
 --- a/debian/lirc.docs	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/lirc.docs	2022-10-15 15:04:44.364723812 +0300
++++ b/debian/lirc.docs	2022-12-28 14:25:42.000000000 +0300
 @@ -0,0 +1,2 @@
 +NEWS
 +README
 diff -ruN a/debian/lirc.irexec.init b/debian/lirc.irexec.init
 --- a/debian/lirc.irexec.init	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/lirc.irexec.init	2022-10-15 15:04:44.364723812 +0300
++++ b/debian/lirc.irexec.init	2022-12-28 14:25:42.000000000 +0300
 @@ -0,0 +1,69 @@
 +#!/bin/sh
 +### BEGIN INIT INFO
@@ -2385,7 +2446,7 @@ diff -ruN a/debian/lirc.irexec.init b/debian/lirc.irexec.init
 +exit 0
 diff -ruN a/debian/lirc.lircd.init b/debian/lirc.lircd.init
 --- a/debian/lirc.lircd.init	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/lirc.lircd.init	2022-10-15 15:04:44.364723812 +0300
++++ b/debian/lirc.lircd.init	2022-12-28 14:25:42.000000000 +0300
 @@ -0,0 +1,64 @@
 +#!/bin/sh
 +### BEGIN INIT INFO
@@ -2453,7 +2514,7 @@ diff -ruN a/debian/lirc.lircd.init b/debian/lirc.lircd.init
 +exit 0
 diff -ruN a/debian/lirc.lircmd.init b/debian/lirc.lircmd.init
 --- a/debian/lirc.lircmd.init	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/lirc.lircmd.init	2022-10-15 15:04:44.364723812 +0300
++++ b/debian/lirc.lircmd.init	2022-12-28 14:25:42.000000000 +0300
 @@ -0,0 +1,59 @@
 +#!/bin/sh
 +### BEGIN INIT INFO
@@ -2514,9 +2575,17 @@ diff -ruN a/debian/lirc.lircmd.init b/debian/lirc.lircmd.init
 +esac
 +
 +exit 0
+diff -ruN a/debian/lirc.maintscript b/debian/lirc.maintscript
+--- a/debian/lirc.maintscript	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/lirc.maintscript	2022-12-28 14:25:42.000000000 +0300
+@@ -0,0 +1,4 @@
++rm_conffile /etc/lirc/lircd.conf.dist 0.10.1-6.2~
++rm_conffile /etc/lirc/lircmd.conf.dist 0.10.1-6.2~
++rm_conffile /etc/lirc/irexec.lircrc.dist 0.10.1-6.2~
++rm_conffile /etc/lirc/lirc_options.conf.dist 0.10.1-6.2~
 diff -ruN a/debian/lirc-old2new b/debian/lirc-old2new
 --- a/debian/lirc-old2new	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/lirc-old2new	2022-10-15 15:04:44.364723812 +0300
++++ b/debian/lirc-old2new	2022-12-28 14:25:42.000000000 +0300
 @@ -0,0 +1,250 @@
 +#!/usr/bin/env python3
 +
@@ -2768,9 +2837,113 @@ diff -ruN a/debian/lirc-old2new b/debian/lirc-old2new
 +
 +
 +# vim: set expandtab ts=4 sw=4:
+diff -ruN a/debian/lirc.postinst b/debian/lirc.postinst
+--- a/debian/lirc.postinst	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/lirc.postinst	2022-12-28 14:25:42.000000000 +0300
+@@ -0,0 +1,24 @@
++#!/bin/sh
++
++set -e
++
++rm -f /etc/init.d/lirc
++
++if which systemd-tmpfiles >/dev/null; then
++    systemd-tmpfiles --create /usr/lib/tmpfiles.d/lirc.conf || :
++fi
++
++# distutils' sysconfig.get_python_lib is broken - #911038. Furthermore, the
++# first iteration of this fix did not remove the links in postrm. So:
++find /usr/lib/python3/dist-packages -maxdepth 1 -type l -name lirc -delete
++find /usr/lib/python3/dist-packages -maxdepth 1 -type l -name lirc-setup -delete
++ln -s /usr/lib/*/python*/site-packages/lirc \
++    /usr/lib/python3/dist-packages
++ln -s /usr/lib/*/python*/site-packages/lirc-setup \
++    /usr/lib/python3/dist-packages
++
++# Recompile Python bytecode as needed
++py3compile /usr/lib/*/python3.*/site-packages/lirc
++py3compile /usr/lib/*/python3.*/site-packages/lirc-setup
++
++#DEBHELPER#
+diff -ruN a/debian/lirc.postrm b/debian/lirc.postrm
+--- a/debian/lirc.postrm	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/lirc.postrm	2022-12-28 14:25:42.000000000 +0300
+@@ -0,0 +1,16 @@
++#!/bin/sh
++
++set -e
++
++if test "$1" = 'purge'; then
++    for f in lircd.conf lircmd.conf irexec.lircrc lirc_options.conf; do
++	rm -f /etc/lirc/$f;
++    done || :
++    find /etc/lirc -type d -empty -delete || :
++    rm -f /usr/lib/python3/dist-packages/lirc
++    rm -f /usr/lib/python3/dist-packages/lirc-setup
++fi
++
++
++#DEBHELPER#
++
+diff -ruN a/debian/lirc.preinst.in b/debian/lirc.preinst.in
+--- a/debian/lirc.preinst.in	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/lirc.preinst.in	2022-12-28 14:25:42.000000000 +0300
+@@ -0,0 +1,40 @@
++#!/bin/sh
++set -e
++
++md5sums_shipped="
++92df549c82f58ea28b605e5045984e04  /etc/lirc/irexec.lircrc
++6447d4261e0b8a80beb4b94e80e3333a  /etc/lirc/lirc_options.conf #stretch, normalized
++c2a8478e9eda95eb4216414a7979acb5  /etc/lirc/lirc_options.conf #buster, normalized
++810233d6f1bb15b64468beb95e4c670e  /etc/lirc/lircd.conf
++eca53bdc53bd5edc63cf06a4cff16b0d  /etc/lirc/lircmd.conf
++"
++
++if dpkg --compare-versions "$2" lt-nl "0.10.1-6.3~"
++then
++	# * configuration files unknown to dpkg and identical to a known
++	#   shipped version can be deleted to avoid prompting when replacing
++	#   them with proper conffiles
++	# * we must not remove conffiles still known to dpkg as "(obsolete)",
++	#   otherwise dpkg will remember their deletion
++	conffiles="$(dpkg-query -f '${Conffiles}' -W lirc)"
++	for conffile in /etc/lirc/lircd.conf /etc/lirc/lircmd.conf /etc/lirc/irexec.lircrc /etc/lirc/lirc_options.conf
++	do
++		test -f "$conffile" || continue
++		if [ -n "$(echo "$conffiles" | grep " $conffile ")" ]
++		then
++			echo "Keeping conffile $conffile which is known to dpkg."
++			continue
++		fi
++		case "$md5sums_shipped" in
++			*"$(md5sum "$conffile")"*|*"$(sed 's%@DEB_HOST_MULTIARCH@%<DEB_HOST_MULTIARCH>%g' "$conffile" | md5sum | sed "s%-%$conffile%")"*)
++				echo "Removing unmodified configuration file $conffile which is unknown to dpkg."
++				rm "$conffile"
++				;;
++			*)
++				echo "Keeping modified configuration file $conffile which is unknown to dpkg."
++				;;
++		esac
++	done
++fi
++
++#DEBHELPER#
+diff -ruN a/debian/lirc.prerm b/debian/lirc.prerm
+--- a/debian/lirc.prerm	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/lirc.prerm	2022-12-28 14:25:42.000000000 +0300
+@@ -0,0 +1,8 @@
++#!/bin/sh
++set -e
++
++# Remove Python bytecode as needed
++py3clean -p lirc
++
++
++#DEBHELPER#
 diff -ruN a/debian/lirc-x.install b/debian/lirc-x.install
 --- a/debian/lirc-x.install	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/lirc-x.install	2022-10-15 15:04:44.364723812 +0300
++++ b/debian/lirc-x.install	2022-12-28 14:25:42.000000000 +0300
 @@ -0,0 +1,4 @@
 +usr/bin/xmode2
 +usr/bin/irxevent
@@ -2778,7 +2951,7 @@ diff -ruN a/debian/lirc-x.install b/debian/lirc-x.install
 +usr/share/man/man1/irxevent.1*
 diff -ruN a/debian/NEWS b/debian/NEWS
 --- a/debian/NEWS	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/NEWS	2022-10-15 15:04:44.364723812 +0300
++++ b/debian/NEWS	2022-12-28 14:25:42.000000000 +0300
 @@ -0,0 +1,23 @@
 +lirc (0.9.4c-5) unstable; urgency=medium
 +
@@ -2803,78 +2976,9 @@ diff -ruN a/debian/NEWS b/debian/NEWS
 +   documentation and support tools presumes the preferred systemd setup.
 +
 + -- Alec Leamas  <leamas.alec@gmail.com>  Mon, 5 Oct 2015 11:14:25 +0100
-diff -ruN a/debian/patches/e2pc.patch b/debian/patches/e2pc.patch
---- a/debian/patches/e2pc.patch	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/patches/e2pc.patch	2022-10-15 15:04:44.364723812 +0300
-@@ -0,0 +1,39 @@
-+diff -ruN n/lib/lirc/receive.h o/lib/lirc/receive.h
-+--- n/lib/lirc/receive.h	2017-09-10 11:52:58.000000000 +0300
-++++ o/lib/lirc/receive.h	2018-05-21 15:27:10.000000000 +0300
-+@@ -32,8 +32,7 @@
-+ 
-+ 
-+ /** Min value returned by receive_timeout. */
-+-#define MIN_RECEIVE_TIMEOUT 100000
-+-
-++#define MIN_RECEIVE_TIMEOUT 125000
-+ /**
-+  * Set update mode, where recorded pre_data is verified to match
-+  * the template pre_data. By defaulöt false.
-+diff -ruN n/lib/receive.c o/lib/receive.c
-+--- n/lib/receive.c	2017-09-10 11:52:19.000000000 +0300
-++++ o/lib/receive.c	2018-05-21 20:21:07.000000000 +0300
-+@@ -364,7 +364,8 @@
-+ 	if (!sync_pending_space(remote))
-+ 		return 0;
-+ 
-+-	deltap = get_next_pulse(rec_buffer.pendingp + exdelta);
-++	deltap = get_next_pulse(remote->gap > rec_buffer.pendingp + exdelta ?
-++                          remote->gap : rec_buffer.pendingp + exdelta);
-+ 	if (deltap == 0)
-+ 		return 0;
-+ 	if (rec_buffer.pendingp > 0) {
-+diff -ruN n/lib/receive.h o/lib/receive.h
-+--- n/lib/receive.h	2017-09-10 11:52:19.000000000 +0300
-++++ o/lib/receive.h	2018-05-21 15:27:10.000000000 +0300
-+@@ -32,8 +32,7 @@
-+ 
-+ 
-+ /** Min value returned by receive_timeout. */
-+-#define MIN_RECEIVE_TIMEOUT 100000
-+-
-++#define MIN_RECEIVE_TIMEOUT 125000
-+ /**
-+  * Set update mode, where recorded pre_data is verified to match
-+  * the template pre_data. By defaulöt false.
-diff -ruN a/debian/patches/lircd-Fix-connect-option-parsing-error-343.patch b/debian/patches/lircd-Fix-connect-option-parsing-error-343.patch
---- a/debian/patches/lircd-Fix-connect-option-parsing-error-343.patch	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/patches/lircd-Fix-connect-option-parsing-error-343.patch	2022-10-15 15:04:44.364723812 +0300
-@@ -0,0 +1,22 @@
-+From: Alec Leamas <leamas.alec@gmail.com>
-+Date: Sun, 30 Dec 2018 21:26:15 +0100
-+Subject: [PATCH] lircd: Fix --connect option parsing error (#343).
-+
-+Bug: https://sourceforge.net/p/lirc/tickets/343/
-+---
-+ daemons/lircd.cpp | 2 +-
-+ 1 file changed, 1 insertion(+), 1 deletion(-)
-+
-+diff --git a/daemons/lircd.cpp b/daemons/lircd.cpp
-+index d5be708..ad8dde9 100644
-+--- a/daemons/lircd.cpp
-++++ b/daemons/lircd.cpp
-+@@ -790,7 +790,7 @@ int add_peer_connection(const char* server_arg)
-+ 	struct servent* service;
-+ 	char server[strlen(server_arg) + 1];
-+ 
-+-	strncpy(server, server_arg, sizeof(server) - 1);
-++	strncpy(server, server_arg, sizeof(server));
-+ 
-+ 	if (peern < MAX_PEERS) {
-+ 		peers[peern] = (struct peer_connection*) malloc(sizeof(
-diff -ruN a/debian/patches/lirc.org-Remove-non-free-advertising.patch b/debian/patches/lirc.org-Remove-non-free-advertising.patch
---- a/debian/patches/lirc.org-Remove-non-free-advertising.patch	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/patches/lirc.org-Remove-non-free-advertising.patch	2022-10-15 15:04:44.364723812 +0300
+diff -ruN a/debian/patches/0001-lirc.org-Remove-non-free-advertising.patch b/debian/patches/0001-lirc.org-Remove-non-free-advertising.patch
+--- a/debian/patches/0001-lirc.org-Remove-non-free-advertising.patch	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/patches/0001-lirc.org-Remove-non-free-advertising.patch	2022-12-28 14:25:42.000000000 +0300
 @@ -0,0 +1,111 @@
 +From: Alec Leamas <leamas@nowhere.net>
 +Date: Tue, 6 Oct 2015 01:56:21 +0200
@@ -2987,9 +3091,9 @@ diff -ruN a/debian/patches/lirc.org-Remove-non-free-advertising.patch b/debian/p
 +               </TD>
 +               <TD WIDTH="70%">
 +                 <P>
-diff -ruN a/debian/patches/lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch b/debian/patches/lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch
---- a/debian/patches/lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/patches/lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch	2022-10-15 15:04:44.364723812 +0300
+diff -ruN a/debian/patches/0002-lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch b/debian/patches/0002-lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch
+--- a/debian/patches/0002-lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/patches/0002-lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch	2022-12-28 14:25:42.000000000 +0300
 @@ -0,0 +1,20 @@
 +From: Alec Leamas <leamas.alec@gmail.com>
 +Date: Fri, 12 Oct 2018 20:49:58 +0200
@@ -3011,9 +3115,9 @@ diff -ruN a/debian/patches/lirc-setup-Fix-crash-on-start-on-missing-lirc.config.
 + nodist_py_pkg_PYTHON    = python-pkg/lirc/config.py
 + 
 + if HAVE_PYTHON35
-diff -ruN a/debian/patches/logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch b/debian/patches/logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch
---- a/debian/patches/logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/patches/logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch	2022-10-15 15:04:44.364723812 +0300
+diff -ruN a/debian/patches/0003-logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch b/debian/patches/0003-logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch
+--- a/debian/patches/0003-logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/patches/0003-logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch	2022-12-28 14:25:42.000000000 +0300
 @@ -0,0 +1,24 @@
 +From: Alec Leamas <leamas.alec@gmail.com>
 +Date: Fri, 23 Nov 2018 23:04:35 -0500
@@ -3039,19 +3143,35 @@ diff -ruN a/debian/patches/logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch b
 + 	} else {
 + 		lf = fopen(logfile, "a");
 + 		if (lf == NULL) {
-diff -ruN a/debian/patches/series b/debian/patches/series
---- a/debian/patches/series	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/patches/series	2022-10-15 15:04:44.364723812 +0300
-@@ -0,0 +1,6 @@
-+lirc.org-Remove-non-free-advertising.patch
-+lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch
-+logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch
-+lircd-Fix-connect-option-parsing-error-343.patch
-+systemd-support-Notify-systemd-on-successful-startup.patch
-+e2pc.patch
-diff -ruN a/debian/patches/systemd-support-Notify-systemd-on-successful-startup.patch b/debian/patches/systemd-support-Notify-systemd-on-successful-startup.patch
---- a/debian/patches/systemd-support-Notify-systemd-on-successful-startup.patch	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/patches/systemd-support-Notify-systemd-on-successful-startup.patch	2022-10-15 15:04:44.368723812 +0300
+diff -ruN a/debian/patches/0004-lircd-Fix-connect-option-parsing-error-343.patch b/debian/patches/0004-lircd-Fix-connect-option-parsing-error-343.patch
+--- a/debian/patches/0004-lircd-Fix-connect-option-parsing-error-343.patch	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/patches/0004-lircd-Fix-connect-option-parsing-error-343.patch	2022-12-28 14:25:42.000000000 +0300
+@@ -0,0 +1,22 @@
++From: Alec Leamas <leamas.alec@gmail.com>
++Date: Sun, 30 Dec 2018 21:26:15 +0100
++Subject: [PATCH] lircd: Fix --connect option parsing error (#343).
++
++Bug: https://sourceforge.net/p/lirc/tickets/343/
++---
++ daemons/lircd.cpp | 2 +-
++ 1 file changed, 1 insertion(+), 1 deletion(-)
++
++diff --git a/daemons/lircd.cpp b/daemons/lircd.cpp
++index d5be708..ad8dde9 100644
++--- a/daemons/lircd.cpp
+++++ b/daemons/lircd.cpp
++@@ -790,7 +790,7 @@ int add_peer_connection(const char* server_arg)
++ 	struct servent* service;
++ 	char server[strlen(server_arg) + 1];
++ 
++-	strncpy(server, server_arg, sizeof(server) - 1);
+++	strncpy(server, server_arg, sizeof(server));
++ 
++ 	if (peern < MAX_PEERS) {
++ 		peers[peern] = (struct peer_connection*) malloc(sizeof(
+diff -ruN a/debian/patches/0005-systemd-support-Notify-systemd-on-successful-startup.patch b/debian/patches/0005-systemd-support-Notify-systemd-on-successful-startup.patch
+--- a/debian/patches/0005-systemd-support-Notify-systemd-on-successful-startup.patch	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/patches/0005-systemd-support-Notify-systemd-on-successful-startup.patch	2022-12-28 14:25:42.000000000 +0300
 @@ -0,0 +1,43 @@
 +From: William Manley <will@williammanley.net>
 +Date: Thu, 9 Aug 2018 18:26:44 +0100
@@ -3096,9 +3216,407 @@ diff -ruN a/debian/patches/systemd-support-Notify-systemd-on-successful-startup.
 + ExecStart=/usr/sbin/lircd --nodaemon
 + ; User=lirc
 + ; Group=lirc
+diff -ruN a/debian/patches/0006-doxyfile-Don-t-include-full-pathname-961954.patch b/debian/patches/0006-doxyfile-Don-t-include-full-pathname-961954.patch
+--- a/debian/patches/0006-doxyfile-Don-t-include-full-pathname-961954.patch	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/patches/0006-doxyfile-Don-t-include-full-pathname-961954.patch	2022-12-28 14:25:42.000000000 +0300
+@@ -0,0 +1,21 @@
++From: Alec Leamas <leamas.alec@gmail.com>
++Date: Tue, 27 Oct 2020 09:43:54 +0100
++Subject: doxyfile: Don't include full pathname (#961954).
++
++---
++ doc/Doxyfile | 2 +-
++ 1 file changed, 1 insertion(+), 1 deletion(-)
++
++diff --git a/doc/Doxyfile b/doc/Doxyfile
++index 1960b07..7997407 100644
++--- a/doc/Doxyfile
+++++ b/doc/Doxyfile
++@@ -119,7 +119,7 @@ INLINE_INHERITED_MEMB  = NO
++ # path before files name in the file list and in the header files. If set
++ # to NO the shortest path that makes the file name unique will be used.
++ 
++-FULL_PATH_NAMES        = YES
+++FULL_PATH_NAMES        = NO
++ 
++ # If the FULL_PATH_NAMES tag is set to YES then the STRIP_FROM_PATH tag
++ # can be used to strip a user-defined part of the path. Stripping is
+diff -ruN a/debian/patches/0007-lirc-gpio-ir-0.10.patch b/debian/patches/0007-lirc-gpio-ir-0.10.patch
+--- a/debian/patches/0007-lirc-gpio-ir-0.10.patch	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/patches/0007-lirc-gpio-ir-0.10.patch	2022-12-28 14:25:42.000000000 +0300
+@@ -0,0 +1,194 @@
++From: Debian Lirc Team <team+debian-lirc@tracker.debian.org>
++Date: Thu, 12 May 2022 21:07:56 +0200
++Subject: lirc-gpio-ir-0.10
++
++Origin: https://github.com/neuralassembly/raspi/blob/master/lirc-gpio-ir-0.10.patch
++Bug-Debian: bugs.debian.org/931078
++---
++ lib/config_file.c    |  2 +-
++ lib/ir_remote.h      |  9 +++++++--
++ lib/irrecord.c       | 41 +++++++++++++++++++++++++++--------------
++ lib/lirc/ir_remote.h |  9 +++++++--
++ tools/mode2.cpp      | 18 +++++++++++++++---
++ 5 files changed, 57 insertions(+), 22 deletions(-)
++
++diff --git a/lib/config_file.c b/lib/config_file.c
++index 104e4f9..a8500c0 100644
++--- a/lib/config_file.c
+++++ b/lib/config_file.c
++@@ -71,7 +71,7 @@ struct void_array {
++ typedef void* (*array_guest_func)(void* item, void* arg);
++ 
++ 
++-#define LINE_LEN 1024
+++#define LINE_LEN 4096
++ #define MAX_INCLUDES 10
++ 
++ const char* whitespace = " \t";
++diff --git a/lib/ir_remote.h b/lib/ir_remote.h
++index 94e4db4..0ca9ee6 100644
++--- a/lib/ir_remote.h
+++++ b/lib/ir_remote.h
++@@ -110,12 +110,17 @@ static inline ir_code reverse(ir_code data, int bits)
++ 
++ static inline int is_pulse(lirc_t data)
++ {
++-	return data & PULSE_BIT ? 1 : 0;
+++	return ((data & LIRC_MODE2_MASK)==LIRC_MODE2_PULSE) ? 1 : 0;
++ }
++ 
++ static inline int is_space(lirc_t data)
++ {
++-	return !is_pulse(data);
+++	return ((data & LIRC_MODE2_MASK)==LIRC_MODE2_SPACE) ? 1 : 0;
+++}
+++
+++static inline int is_timeout(lirc_t data)
+++{
+++	return ((data & LIRC_MODE2_MASK)==LIRC_MODE2_TIMEOUT) ? 1 : 0;
++ }
++ 
++ static inline int has_repeat(const struct ir_remote* remote)
++diff --git a/lib/irrecord.c b/lib/irrecord.c
++index a7b461c..cf3c6b5 100644
++--- a/lib/irrecord.c
+++++ b/lib/irrecord.c
++@@ -1398,9 +1398,16 @@ enum lengths_status get_lengths(struct lengths_state* state,
++ 		state->retval = 0;
++ 		return STS_LEN_TIMEOUT;
++ 	}
+++	if (is_timeout(state->data)) {
+++		return STS_LEN_AGAIN;
+++	}
++ 	state->count++;
++ 	if (state->mode == MODE_GET_GAP) {
++-		state->sum += state->data & PULSE_MASK;
+++		if (state->sum != 0 || is_pulse(state->data)) {
+++			state->sum += state->data & PULSE_MASK;
+++		}else{
+++			return STS_LEN_AGAIN;
+++		}
++ 		if (state->average == 0 && is_space(state->data)) {
++ 			if (state->data > 100000) {
++ 				state->sum = 0;
++@@ -1472,6 +1479,10 @@ enum lengths_status get_lengths(struct lengths_state* state,
++ 		state->keypresses = lastmaxcount;
++ 		return STS_LEN_AGAIN;
++ 	} else if (state->mode == MODE_HAVE_GAP) {
+++		if (state->count==1 && is_space(state->data))  {
+++			state->count = 0;
+++			return STS_LEN_AGAIN;
+++		}
++ 		if (state->count <= MAX_SIGNALS) {
++ 			signals[state->count - 1] = state->data & PULSE_MASK;
++ 		} else {
++@@ -1510,7 +1521,7 @@ enum lengths_status get_lengths(struct lengths_state* state,
++ 			/* such long pulses may appear with
++ 			 * crappy hardware (receiver? / remote?)
++ 			 */
++-			else {
+++			else if(is_pulse(state->data)) {
++ 				remote->gap = 0;
++ 				return STS_LEN_NO_GAP_FOUND;
++ 			}
++@@ -1811,22 +1822,24 @@ ssize_t raw_read(void* buffer, size_t size, unsigned int timeout_us)
++ 
++ static int raw_data_ok(struct button_state* btn_state)
++ {
++-	int r;
+++	int r = 0;
++ 	int ref;
++ 
++-	if (!is_space(btn_state->data)) {
+++	if (is_pulse(btn_state->data)) {
++ 		r = 0;
++-	} else if (is_const(&remote)) {
++-		if (remote.gap > btn_state->sum) {
++-			ref = (remote.gap - btn_state->sum);
++-			ref *= (100 - remote.eps);
++-			ref /= 100;
+++	} else if (is_space(btn_state->data)) {
+++		if (is_const(&remote)) {
+++			if (remote.gap > btn_state->sum) {
+++				ref = (remote.gap - btn_state->sum);
+++				ref *= (100 - remote.eps);
+++				ref /= 100;
+++			} else {
+++				ref = 0;
+++			}
+++			r = btn_state->data > ref;
++ 		} else {
++-			ref = 0;
+++			r = btn_state->data > (remote.gap * (100 - remote.eps)) / 100;
++ 		}
++-		r = btn_state->data > ref;
++-	} else {
++-		r = btn_state->data > (remote.gap * (100 - remote.eps)) / 100;
++ 	}
++ 	return r;
++ }
++@@ -1970,7 +1983,7 @@ enum button_status record_buttons(struct button_state*	btn_state,
++ 				btn_state->data = remote.gap;
++ 			}
++ 			if (btn_state->count == 0) {
++-				if (!is_space(btn_state->data)
+++				if (is_pulse(btn_state->data)
++ 				    || btn_state->data <
++ 				    remote.gap - remote.gap * remote.eps /
++ 				    100) {
++diff --git a/lib/lirc/ir_remote.h b/lib/lirc/ir_remote.h
++index 94e4db4..0ca9ee6 100644
++--- a/lib/lirc/ir_remote.h
+++++ b/lib/lirc/ir_remote.h
++@@ -110,12 +110,17 @@ static inline ir_code reverse(ir_code data, int bits)
++ 
++ static inline int is_pulse(lirc_t data)
++ {
++-	return data & PULSE_BIT ? 1 : 0;
+++	return ((data & LIRC_MODE2_MASK)==LIRC_MODE2_PULSE) ? 1 : 0;
++ }
++ 
++ static inline int is_space(lirc_t data)
++ {
++-	return !is_pulse(data);
+++	return ((data & LIRC_MODE2_MASK)==LIRC_MODE2_SPACE) ? 1 : 0;
+++}
+++
+++static inline int is_timeout(lirc_t data)
+++{
+++	return ((data & LIRC_MODE2_MASK)==LIRC_MODE2_TIMEOUT) ? 1 : 0;
++ }
++ 
++ static inline int has_repeat(const struct ir_remote* remote)
++diff --git a/tools/mode2.cpp b/tools/mode2.cpp
++index e962610..716ff0a 100644
++--- a/tools/mode2.cpp
+++++ b/tools/mode2.cpp
++@@ -326,12 +326,24 @@ unsigned int get_codelength(int fd, int use_raw_access)
++ void print_mode2_data(unsigned int data)
++ {
++ 	static int bitno = 1;
+++	static bool leading_space = true;
+++	unsigned int msg = data & LIRC_MODE2_MASK;
++ 
++ 	switch (opt_dmode) {
++ 	case 0:
++-		printf("%s %u\n", (
++-			       data & PULSE_BIT) ? "pulse" : "space",
++-		       (uint32_t)(data & PULSE_MASK));
+++		if (leading_space && msg == LIRC_MODE2_SPACE ) {
+++			break;
+++		} else {
+++			leading_space = false;
+++		}
+++		if (msg == LIRC_MODE2_PULSE) {
+++			printf("pulse %u\n", (__u32)(data & PULSE_MASK));
+++		} else if (msg == LIRC_MODE2_SPACE) {
+++			printf("space %u\n", (__u32)(data & PULSE_MASK));
+++		} else if (msg == LIRC_MODE2_TIMEOUT) {
+++			printf("timeout %u\n", (__u32)(data & PULSE_MASK));
+++			leading_space = true;
+++		}
++ 		break;
++ 	case 1: {
++ 		/* print output like irrecord raw config file data */
+diff -ruN a/debian/patches/0008-python3.8.diff b/debian/patches/0008-python3.8.diff
+--- a/debian/patches/0008-python3.8.diff	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/patches/0008-python3.8.diff	2022-12-28 14:25:42.000000000 +0300
+@@ -0,0 +1,26 @@
++From: Debian Lirc Team <team+debian-lirc@tracker.debian.org>
++Date: Thu, 12 May 2022 21:07:56 +0200
++Subject: python3.8
++
++===================================================================
++---
++ python-pkg/lirc/client.py | 4 ++--
++ 1 file changed, 2 insertions(+), 2 deletions(-)
++
++diff --git a/python-pkg/lirc/client.py b/python-pkg/lirc/client.py
++index 7e069a5..482913c 100644
++--- a/python-pkg/lirc/client.py
+++++ b/python-pkg/lirc/client.py
++@@ -219,10 +219,10 @@ class RawConnection(AbstractConnection):
++     def readline(self, timeout: float = None) -> str:
++         ''' Implements AbstractConnection.readline(). '''
++         if timeout:
++-            start = time.clock()
+++            start = time.perf_counter()
++         while b'\n' not in self._buffer:
++             ready = self._select.select(
++-                start + timeout - time.clock() if timeout else timeout)
+++                start + timeout - time.perf_counter() if timeout else timeout)
++             if ready == []:
++                 if timeout:
++                     raise TimeoutException(
+diff -ruN a/debian/patches/0009-Replace-the-obsolete-get_event_loop-with-get_running.patch b/debian/patches/0009-Replace-the-obsolete-get_event_loop-with-get_running.patch
+--- a/debian/patches/0009-Replace-the-obsolete-get_event_loop-with-get_running.patch	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/patches/0009-Replace-the-obsolete-get_event_loop-with-get_running.patch	2022-12-28 14:25:42.000000000 +0300
+@@ -0,0 +1,40 @@
++From: =?utf-8?q?Robert-Andr=C3=A9_Mauchin?= <zebob.m@gmail.com>
++Date: Mon, 14 Jun 2021 19:49:22 +0200
++Subject: Replace the obsolete get_event_loop with get_running_loop
++
++---
++ python-pkg/lirc/async_client.py | 2 +-
++ python-pkg/tests/test_client.py | 7 ++++++-
++ 2 files changed, 7 insertions(+), 2 deletions(-)
++
++diff --git a/python-pkg/lirc/async_client.py b/python-pkg/lirc/async_client.py
++index 1affce6..f3586b0 100644
++--- a/python-pkg/lirc/async_client.py
+++++ b/python-pkg/lirc/async_client.py
++@@ -63,7 +63,7 @@ class AsyncConnection(object):
++ 
++         self._conn = connection
++         self._loop = loop
++-        self._queue = asyncio.Queue(loop=self._loop)
+++        self._queue = asyncio.Queue()
++         self._loop.add_reader(self._conn.fileno(), read_from_fd)
++ 
++     def close(self):
++diff --git a/python-pkg/tests/test_client.py b/python-pkg/tests/test_client.py
++index d9af254..7c1fb9f 100644
++--- a/python-pkg/tests/test_client.py
+++++ b/python-pkg/tests/test_client.py
++@@ -106,7 +106,12 @@ class ReceiveTests(unittest.TestCase):
++                               stdout = subprocess.PIPE,
++                               stderr = subprocess.STDOUT) as child:
++             _wait_for_socket()
++-            loop = asyncio.get_event_loop()
+++
+++            try:
+++                loop = asyncio.get_running_loop()
+++            except RuntimeError:
+++                loop = asyncio.new_event_loop()
+++
++             with LircdConnection('foo',
++                                  socket_path=_SOCKET,
++                                  lircrc_path='lircrc.conf') as conn:
+diff -ruN a/debian/patches/0010-Patch-configure.ac-to-support-passing-MODINFO.patch b/debian/patches/0010-Patch-configure.ac-to-support-passing-MODINFO.patch
+--- a/debian/patches/0010-Patch-configure.ac-to-support-passing-MODINFO.patch	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/patches/0010-Patch-configure.ac-to-support-passing-MODINFO.patch	2022-12-28 14:25:42.000000000 +0300
+@@ -0,0 +1,28 @@
++From: Vagrant Cascadian <vagrant@reproducible-builds.org>
++Date: Sat, 2 Jan 2021 01:03:10 +0000
++Subject: Patch configure.ac to support passing MODINFO.
++Bug-Debian: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=979021
++Bug: https://sourceforge.net/p/lirc/tickets/374/
++Reviewed-by: Simon McVittie <smcv@debian.org>
++Last-Update: 2022-10-16
++
++---
++ configure.ac | 2 --
++ 1 file changed, 2 deletions(-)
++
++diff --git a/configure.ac b/configure.ac
++index 58347d8..1d910b0 100644
++--- a/configure.ac
+++++ b/configure.ac
++@@ -25,8 +25,6 @@ AC_CHECK_PROGS([MODINFO], [modinfo], [no], [$PATH:/sbin:/usr/sbin])
++ if test x$MODINFO = xno; then
++   AC_MSG_WARN(["No modinfo command found - skipping kernel drivers."])
++   MODINFO="false"
++-else
++-  MODINFO=$( PATH=$PATH:/sbin:/usr/sbin which modinfo )
++ fi
++ AC_SUBST(MODINFO)
++ AC_CHECK_PROG([PKGCONFIG],[pkg-config],[yes],[no])
++-- 
++2.20.1
++
+diff -ruN a/debian/patches/0011-yaml.load.diff b/debian/patches/0011-yaml.load.diff
+--- a/debian/patches/0011-yaml.load.diff	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/patches/0011-yaml.load.diff	2022-12-28 14:25:42.000000000 +0300
+@@ -0,0 +1,50 @@
++diff --git a/python-pkg/lirc/database.py b/python-pkg/lirc/database.py
++index 08140d3..2bdbed4 100644
++--- a/python-pkg/lirc/database.py
+++++ b/python-pkg/lirc/database.py
++@@ -44,6 +44,10 @@ import sys
++ 
++ try:
++     import yaml
+++    try:
+++        from yaml import CLoader as Loader, CDumper as Dumper
+++    except ImportError:
+++        from yaml import Loader, Dumper
++ except ImportError:
++     _YAML_MSG = '''
++ "Cannot import the yaml library. Please install the python3
++@@ -66,7 +70,7 @@ def _load_kerneldrivers(configdir):
++     '''
++ 
++     with open(os.path.join(configdir, "kernel-drivers.yaml")) as f:
++-        cf = yaml.load(f.read())
+++        cf = yaml.load(f.read(), Loader = Loader)
++     drivers = cf['drivers'].copy()
++     for driver in cf['drivers']:
++         if driver == 'default':
++@@ -132,14 +136,14 @@ class Database(object):
++             yamlpath = configdir
++         db = {}
++         with open(os.path.join(yamlpath, "confs_by_driver.yaml")) as f:
++-            cf = yaml.load(f.read())
+++            cf = yaml.load(f.read(), Loader = Loader)
++         db['lircd_by_driver'] = cf['lircd_by_driver'].copy()
++         db['lircmd_by_driver'] = cf['lircmd_by_driver'].copy()
++ 
++         db['kernel-drivers'] = _load_kerneldrivers(configdir)
++         db['drivers'] = db['kernel-drivers'].copy()
++         with open(os.path.join(yamlpath, "drivers.yaml")) as f:
++-            cf = yaml.load(f.read())
+++            cf = yaml.load(f.read(), Loader = Loader)
++         db['drivers'].update(cf['drivers'].copy())
++         for key, d in db['drivers'].items():
++             d['id'] = key
++@@ -158,7 +162,7 @@ class Database(object):
++         configs = {}
++         for path in glob.glob(configdir + '/*.conf'):
++             with open(path) as f:
++-                cf = yaml.load(f.read())
+++                cf = yaml.load(f.read(), Loader = Loader)
++             configs[cf['config']['id']] = cf['config']
++         db['configs'] = configs
++         self.db = db
+diff -ruN a/debian/patches/series b/debian/patches/series
+--- a/debian/patches/series	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/patches/series	2022-12-28 14:25:42.000000000 +0300
+@@ -0,0 +1,11 @@
++0001-lirc.org-Remove-non-free-advertising.patch
++0002-lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch
++0003-logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch
++0004-lircd-Fix-connect-option-parsing-error-343.patch
++0005-systemd-support-Notify-systemd-on-successful-startup.patch
++0006-doxyfile-Don-t-include-full-pathname-961954.patch
++0007-lirc-gpio-ir-0.10.patch
++0008-python3.8.diff
++0009-Replace-the-obsolete-get_event_loop-with-get_running.patch
++0010-Patch-configure.ac-to-support-passing-MODINFO.patch
++0011-yaml.load.diff
 diff -ruN a/debian/pbuilder-test/007-lintian b/debian/pbuilder-test/007-lintian
 --- a/debian/pbuilder-test/007-lintian	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/pbuilder-test/007-lintian	2022-10-15 15:04:44.368723812 +0300
++++ b/debian/pbuilder-test/007-lintian	2022-12-28 14:25:42.000000000 +0300
 @@ -0,0 +1,11 @@
 +#!/bin/sh
 +
@@ -3111,45 +3629,9 @@ diff -ruN a/debian/pbuilder-test/007-lintian b/debian/pbuilder-test/007-lintian
 +    /tmp/buildd/*.changes; :" - pbuilder
 +
 +echo "+++ end of lintian output +++"
-diff -ruN a/debian/postinst b/debian/postinst
---- a/debian/postinst	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/postinst	2022-10-15 15:04:44.368723812 +0300
-@@ -0,0 +1,14 @@
-+#!/bin/sh
-+
-+set -e
-+
-+rm -f /etc/init.d/lirc
-+
-+systemd-tmpfiles --create /usr/lib/tmpfiles.d/lirc.conf || :
-+
-+for f in lircd.conf lircmd.conf irexec.lircrc lirc_options.conf; do
-+    test -e /etc/lirc/$f || cp /etc/lirc/${f}.dist /etc/lirc/$f || :
-+done
-+
-+
-+#DEBHELPER#
-diff -ruN a/debian/postrm b/debian/postrm
---- a/debian/postrm	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/postrm	2022-10-15 15:04:44.368723812 +0300
-@@ -0,0 +1,14 @@
-+#!/bin/sh
-+
-+set -e
-+
-+if test "$1" = 'purge'; then
-+    for f in lircd.conf lircmd.conf irexec.lircrc lirc_options.conf; do
-+	rm -f /etc/lirc/$f;
-+    done || :
-+    find /etc/lirc -type d -empty -delete || :
-+fi
-+
-+
-+#DEBHELPER#
-+
 diff -ruN a/debian/prerm b/debian/prerm
 --- a/debian/prerm	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/prerm	2022-10-15 15:04:44.368723812 +0300
++++ b/debian/prerm	2022-12-28 14:25:42.000000000 +0300
 @@ -0,0 +1,12 @@
 +#!/bin/sh
 +
@@ -3165,13 +3647,13 @@ diff -ruN a/debian/prerm b/debian/prerm
 +#DEBHELPER#
 diff -ruN a/debian/README b/debian/README
 --- a/debian/README	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/README	2022-10-15 15:04:44.368723812 +0300
++++ b/debian/README	2022-12-28 14:25:42.000000000 +0300
 @@ -0,0 +1,2 @@
 +The debian packaging files has been moved to the separate branch
 +'debian' according to established debian workflows.
 diff -ruN a/debian/README.Debian b/debian/README.Debian
 --- a/debian/README.Debian	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/README.Debian	2022-10-15 15:04:44.368723812 +0300
++++ b/debian/README.Debian	2022-12-28 14:25:42.000000000 +0300
 @@ -0,0 +1,171 @@
 +## 0.9.4 disruptive update
 +
@@ -3346,8 +3828,8 @@ diff -ruN a/debian/README.Debian b/debian/README.Debian
 +-- Alec Leamas <al@jessie.nowhere.net>  Wed, 2 Nov 2016 19:02:10 +0100
 diff -ruN a/debian/rules b/debian/rules
 --- a/debian/rules	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/rules	2022-10-15 15:04:44.368723812 +0300
-@@ -0,0 +1,87 @@
++++ b/debian/rules	2022-12-28 14:25:42.000000000 +0300
+@@ -0,0 +1,94 @@
 +#!/usr/bin/make -f
 +
 +include /usr/share/dpkg/architecture.mk
@@ -3356,22 +3838,30 @@ diff -ruN a/debian/rules b/debian/rules
 +export DEB_LDFLAGS_MAINT_APPEND     = -Wl,--as-needed
 +
 +%:
-+	dh $@ --with python3,systemd 
++	dh $@ --with python3
 +
 +override_dh_clean:
++	$(RM) debian/lirc.preinst
 +	dh_clean
-+	touch python-pkg/lirc/config.py
 +
 +override_dh_autoreconf:
 +	dh_autoreconf $(CURDIR)/autogen.sh
 +
++debian/lirc.preinst: debian/lirc.preinst.in
++	sed 's/@DEB_HOST_MULTIARCH@/$(DEB_HOST_MULTIARCH)/g' $< > $@
++
++override_dh_auto_configure: debian/lirc.preinst
 +override_dh_auto_configure:
 +ifeq ($(DEB_BUILD_ARCH_OS), linux)
 +	dh_auto_configure -- \
++	    SH_PATH=/bin/sh \
++	    MODINFO=/sbin/modinfo \
 +	    --enable-uinput --enable-devinput \
 +	    --enable-silent-rules
 +else
 +	dh_auto_configure -- \
++	    SH_PATH=/bin/sh \
++	    MODINFO=/sbin/modinfo \
 +	    --disable-uinput --disable-devinput \
 +	    --enable-silent-rules
 +endif
@@ -3381,24 +3871,18 @@ diff -ruN a/debian/rules b/debian/rules
 +	dh_shlibdeps -l $(CURDIR)/debian/tmp/usr/lib/*/lirc/plugins
 +
 +override_dh_auto_install:
-+	$(MAKE) V=0 DESTDIR=$(CURDIR)/debian/tmp \
-+            pythondir='$$(libdir)/python3/dist-packages' \
-+	    install
++	$(MAKE) V=0 DESTDIR=$(CURDIR)/debian/tmp install
 +	py3clean debian/tmp
 +	find debian/tmp -name *.la -delete
 +	rm -f debian/tmp/usr/share/doc/lirc/lirc.org/api-docs/api-docs
 +	chmod 755 debian/tmp/usr/share/lirc/python-pkg/lirc/lirctool
 +ifeq ($(DEB_BUILD_ARCH_OS), linux)
 +	mkdir -p debian/tmp/usr/lib/tmpfiles.d
-+	echo "d /var/run/lirc  0755  root  root  10d" \
++	echo "d /run/lirc  0755  root  root  10d" \
 +	    > debian/tmp/usr/lib/tmpfiles.d/lirc.conf
 +endif
 +	# Temporary postinstall 0.9.4 script.
 +	cp debian/lirc-old2new debian/tmp/usr/share/lirc
-+	# Don't overwrite existing config files.
-+	for f in lircd.conf lircmd.conf irexec.lircrc lirc_options.conf; do \
-+	    mv debian/tmp/etc/lirc/$$f debian/tmp/etc/lirc/$$f.dist; \
-+	done
 +
 +override_dh_auto_test:
 +ifneq "nocheck"  "$(findstring nocheck,$(DEB_BUILD_OPTIONS))"
@@ -3414,9 +3898,14 @@ diff -ruN a/debian/rules b/debian/rules
 +	esac
 +endif
 +
-+
-+override_dh_systemd_enable:
-+	dh_systemd_enable --name=lircd
++override_dh_installsystemd:
++ifeq ($(DEB_BUILD_ARCH_OS), linux)
++	dh_installsystemd -p lirc lircd.socket
++	dh_installsystemd -p lirc --no-enable --no-start lircd.service
++	dh_installsystemd -p lirc --no-enable --no-start irexec.service
++	dh_installsystemd -p lirc --no-enable --no-start lircmd.service
++	dh_installsystemd -p lirc --no-enable --no-start lircd-uinput.service
++endif
 +
 +override_dh_install:
 +	dh_install --fail-missing
@@ -3437,60 +3926,41 @@ diff -ruN a/debian/rules b/debian/rules
 +	chmod 755 debian/lirc/usr/share/lirc/contrib/irman2lirc
 diff -ruN a/debian/source/format b/debian/source/format
 --- a/debian/source/format	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/source/format	2022-10-15 15:04:44.368723812 +0300
++++ b/debian/source/format	2022-12-28 14:25:42.000000000 +0300
 @@ -0,0 +1 @@
 +3.0 (quilt)
+diff -ruN a/debian/upstream/metadata b/debian/upstream/metadata
+--- a/debian/upstream/metadata	1970-01-01 03:00:00.000000000 +0300
++++ b/debian/upstream/metadata	2022-12-28 14:25:42.000000000 +0300
+@@ -0,0 +1,7 @@
++---
++Bug-Database: https://sourceforge.net/p/lirc/tickets/
++Bug-Submit: hhttps://sourceforge.net/p/lirc/tickets/new/
++Documentation: http://lirc.org/html/index.html
++Name: LIRC
++Repository: https://git.code.sf.net/p/lirc/git
++Repository-Browse: https://sourceforge.net/p/lirc/git/ci/master
 diff -ruN a/debian/watch b/debian/watch
 --- a/debian/watch	1970-01-01 03:00:00.000000000 +0300
-+++ b/debian/watch	2022-10-15 15:04:44.368723812 +0300
++++ b/debian/watch	2022-12-28 14:25:42.000000000 +0300
 @@ -0,0 +1,2 @@
 +version=3
 +opts="uversionmangle=s/rc/~rc/" http://sf.net/lirc/lirc-([0-9].+)\.tar\.gz
-diff -ruN a/plugins/default.c b/plugins/default.c
---- a/plugins/default.c	2017-09-10 11:52:19.000000000 +0300
-+++ b/plugins/default.c	2022-10-15 15:04:44.368723812 +0300
-@@ -324,10 +324,6 @@
- 	rec_buffer_init();
- 	send_buffer_init();
- 
--	if (set_rc_protocol(drv.device) != 0)
--		log_info("Cannot configure the rc device for %s",
--			  drv.device);
--
- 	if (stat(drv.device, &s) == -1) {
- 		log_error("could not get file information for %s", drv.device);
- 		log_perror_err("default_init()");
-diff -ruN a/python-pkg/lirc/async_client.py b/python-pkg/lirc/async_client.py
---- a/python-pkg/lirc/async_client.py	2017-09-10 11:52:19.000000000 +0300
-+++ b/python-pkg/lirc/async_client.py	2022-10-15 15:07:39.548724508 +0300
-@@ -63,7 +63,7 @@
- 
-         self._conn = connection
-         self._loop = loop
--        self._queue = asyncio.Queue(loop=self._loop)
-+        self._queue = asyncio.Queue()
-         self._loop.add_reader(self._conn.fileno(), read_from_fd)
- 
-     def close(self):
-diff -ruN a/python-pkg/lirc/client.py b/python-pkg/lirc/client.py
---- a/python-pkg/lirc/client.py	2017-09-10 11:52:19.000000000 +0300
-+++ b/python-pkg/lirc/client.py	2022-10-15 15:07:39.644724508 +0300
-@@ -219,10 +219,10 @@
-     def readline(self, timeout: float = None) -> str:
-         ''' Implements AbstractConnection.readline(). '''
-         if timeout:
--            start = time.clock()
-+            start = time.perf_counter()
-         while b'\n' not in self._buffer:
-             ready = self._select.select(
--                start + timeout - time.clock() if timeout else timeout)
-+                start + timeout - time.perf_counter() if timeout else timeout)
-             if ready == []:
-                 if timeout:
-                     raise TimeoutException(
+diff -ruN a/doc/doxypypy.py b/doc/doxypypy.py
+--- a/doc/doxypypy.py	2017-09-10 11:52:19.000000000 +0300
++++ b/doc/doxypypy.py	2023-08-12 18:11:04.678785712 +0300
+@@ -200,7 +200,7 @@
+             if line is not None:
+                 # Also limit work if we're not parsing the docstring.
+                 if self.options.autobrief:
+-                    for doxyTag, tagRE in AstWalker.__singleLineREs.items():
++                    for doxyTag, tagRE in list(AstWalker.__singleLineREs.items()):
+                         match = tagRE.search(line)
+                         if match:
+                             # We've got a simple one-line Doxygen command
 diff -ruN a/python-pkg/lirc/database.py b/python-pkg/lirc/database.py
 --- a/python-pkg/lirc/database.py	2017-09-10 11:52:19.000000000 +0300
-+++ b/python-pkg/lirc/database.py	2022-10-15 15:07:39.720724508 +0300
++++ b/python-pkg/lirc/database.py	2023-08-12 18:08:19.296003571 +0300
 @@ -99,7 +99,7 @@
          self.lircmd_conf = ""     ## Name of lircmd.conf file
          self.label = ""           ## Label for driver + device
@@ -3526,3 +3996,108 @@ diff -ruN a/python-pkg/lirc/database.py b/python-pkg/lirc/database.py
                   if key in c and c[key] == value]
          if len(found) > 1:
              raise ItemLookupError(
+diff -ruN a/python-pkg/lirc/lirctool.py b/python-pkg/lirc/lirctool.py
+--- a/python-pkg/lirc/lirctool.py	2017-09-10 11:52:19.000000000 +0300
++++ b/python-pkg/lirc/lirctool.py	2023-08-12 18:09:53.313585397 +0300
+@@ -45,7 +45,7 @@
+ import socket
+ import sys
+ 
+-import client
++from . import client
+ 
+ _DEFAULT_PORT = 8765
+ 
+diff -ruN a/tools/check_configs.py b/tools/check_configs.py
+--- a/tools/check_configs.py	2017-09-10 11:52:19.000000000 +0300
++++ b/tools/check_configs.py	2023-08-12 18:10:26.638145928 +0300
+@@ -18,7 +18,7 @@
+             if config['supports'] == 'lirccode':
+                 if not 'lircd_conf' in config:
+                     print('bad config:' + config['id'])
+-    for l in configs.keys():
++    for l in list(configs.keys()):
+         if not 'menu' in configs[l]:
+             print("No menu: " + l)
+ 
+diff -ruN a/tools/lirc-setup/choosers.py b/tools/lirc-setup/choosers.py
+--- a/tools/lirc-setup/choosers.py	2017-09-10 11:52:19.000000000 +0300
++++ b/tools/lirc-setup/choosers.py	2023-08-12 18:08:19.504007071 +0300
+@@ -138,7 +138,7 @@
+         radio_buttons = {}
+         help_buttons = {}
+         group = None
+-        for device, label in self.label_by_device.items():
++        for device, label in list(self.label_by_device.items()):
+             if len(radio_buttons) == 0:
+                 radio_buttons[device] = Gtk.RadioButton(label)
+                 group = radio_buttons[device]
+diff -ruN a/tools/lirc-setup/mvc_model.py b/tools/lirc-setup/mvc_model.py
+--- a/tools/lirc-setup/mvc_model.py	2017-09-10 11:52:19.000000000 +0300
++++ b/tools/lirc-setup/mvc_model.py	2023-08-12 18:10:34.962285934 +0300
+@@ -560,7 +560,7 @@
+     def get_mode2(self):
+         ''' Return mode2 command built from current driver and device. '''
+         driver = self.config.driver['id']
+-        if driver in self.db.kernel_drivers.keys():
++        if driver in list(self.db.kernel_drivers.keys()):
+             driver = 'default'
+         cmd = ['mode2',
+                '--driver=' + driver,
+@@ -574,7 +574,7 @@
+         ''' Return strings to run lircd + irw. '''
+         wd = tempfile.mkdtemp(prefix='var-')
+         driver = self.config.driver['id']
+-        if driver in self.db.kernel_drivers.keys():
++        if driver in list(self.db.kernel_drivers.keys()):
+             driver = 'default'
+         if os.path.exists(_here('../../plugins/.libs')):
+             lircd = '../../daemons/lircd'
+diff -ruN a/tools/lirc-setup/mvc_view.py b/tools/lirc-setup/mvc_view.py
+--- a/tools/lirc-setup/mvc_view.py	2017-09-10 11:52:19.000000000 +0300
++++ b/tools/lirc-setup/mvc_view.py	2023-08-12 18:10:45.762467578 +0300
+@@ -564,7 +564,7 @@
+             button.get_toplevel().hide()
+             self.model.set_lpt_parms(irq, iobase, btn_id)
+ 
+-        for btn in ports.keys():
++        for btn in list(ports.keys()):
+             b = self.builder.get_object(btn + '_lpt_btn')
+             b.lirc_id = btn
+         if not self.test_and_set_connected('select_lpt_window'):
+@@ -644,7 +644,7 @@
+             ''' User clicked the Back button. '''
+             button.get_toplevel().hide()
+ 
+-        for btn in ports.keys():
++        for btn in list(ports.keys()):
+             b = self.builder.get_object(btn + '_btn')
+             b.lirc_id = btn
+         if not self.test_and_set_connected('select_com_window'):
+@@ -675,7 +675,7 @@
+ 
+         def get_selected_cb(button, data=None):
+             ''' Return currently selected menu option. '''
+-            for menu_label in menu_label_by_id.values():
++            for menu_label in list(menu_label_by_id.values()):
+                 b = self.builder.get_object(menu_label[0])
+                 if b.get_active():
+                     self.selected = b.lirc_id
+@@ -690,7 +690,7 @@
+             b = self.builder.get_object('preconfig_next_btn')
+             b.connect('clicked',
+                       lambda b: self.show_preconfig_select(self.selected))
+-            for id_, menu_label in menu_label_by_id.items():
++            for id_, menu_label in list(menu_label_by_id.items()):
+                 b = self.builder.get_object(menu_label[0])
+                 b.connect('toggled', get_selected_cb)
+                 b.lirc_id = id_
+@@ -711,7 +711,7 @@
+             liststore.clear()
+             db = self.model.db
+             labels = [db.configs[l]['label']
+-                      for l in db.configs.keys()
++                      for l in list(db.configs.keys())
+                       if db.configs[l]['menu'] == menu]
+ 
+             for l in sorted(labels):
