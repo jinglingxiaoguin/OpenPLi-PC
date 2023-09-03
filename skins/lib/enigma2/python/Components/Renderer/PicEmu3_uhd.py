@@ -2,13 +2,13 @@
 # coders Nikolasi
 from Tools.LoadPixmap import LoadPixmap
 from Components.Pixmap import Pixmap
-from Renderer import Renderer
+from .Renderer import Renderer
 from enigma import ePixmap, loadPic, eTimer, iServiceInformation, iPlayableService, eDVBFrontendParametersSatellite, eDVBFrontendParametersCable
 from Tools.Directories import fileExists, SCOPE_SKIN_IMAGE, SCOPE_CURRENT_SKIN, resolveFilename
 from Components.config import *
 from Components.Converter.Poll import Poll
 
-class PicEmu2uhd(Renderer, Poll):
+class PicEmu3_uhd(Renderer, Poll):
     searchPaths = ('/usr/share/enigma2/%s/', '/media/ba/%s/', '/media/hdd/%s/', '/media/sda1/%s/', '/media/sda/%s/', '/media/usb/%s/')
 
     def __init__(self):
@@ -45,7 +45,7 @@ class PicEmu2uhd(Renderer, Poll):
         self.poll_enabled = True
         sname = ''
         if self.instance:
-            pngname = ''    
+            pngname = ''
             if what[0] != self.CHANGED_CLEAR:
                 service = self.source.service
                 if service:
@@ -54,7 +54,7 @@ class PicEmu2uhd(Renderer, Poll):
                         caids = info.getInfoObject(iServiceInformation.sCAIDs)
                         self.path = 'PiconCam'
                         sname = self.camPicon()
-			if caids:
+                        if caids:
                             if (len(caids) > 0):
                                 for caid in caids:
                                     caid = self.int2hex(caid)
@@ -107,7 +107,7 @@ class PicEmu2uhd(Renderer, Poll):
                                 self.runanim1(pngname, pngname1)
 
     def camPicon(self):
-	    control = 0 
+            control = 0
             cfgfile = "/tmp/ecm.info"
             sname = ""
             content = ""
@@ -118,7 +118,7 @@ class PicEmu2uhd(Renderer, Poll):
                     f.close()
                 except:
                     content = ""
-                if content != '':   
+                if content != '':
                     contentInfo = content.split("\n")
                     for line in contentInfo:
                         if ("=====" in line):
@@ -145,7 +145,7 @@ class PicEmu2uhd(Renderer, Poll):
 
     def criptPicon(self, caids):
             sname = "none"
-	    if caids:
+            if caids:
                 if (len(caids) > 0):
                     for caid in caids:
                         caid = self.int2hex(caid)
@@ -179,7 +179,6 @@ class PicEmu2uhd(Renderer, Poll):
 
     def int2hex(self, int):
             return ("%x" % int)
-
 
     def findPicon(self, serviceName):
         for path in self.searchPaths:
