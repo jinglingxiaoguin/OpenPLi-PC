@@ -539,28 +539,28 @@
 			</convert>
 		</widget>
 		<widget source="session.Event_Now" render="Progress" pixmap="bar_ber.png" position="60,690" size="780,30" transparent="1" borderWidth="1" borderColor="grey" zPosition="1">
-			<convert type="ProgressDiskSpaceInfo">MemTotal</convert>
+			<convert type="ProgressDiskSpaceInfo3">MemTotal</convert>
 		</widget>
 		<widget source="session.CurrentService" render="Label" zPosition="6" position="60,750" size="1800,60" halign="left" valign="center" font="Regular;48" transparent="1" backgroundColor="black">
-			<convert type="ProgressDiskSpaceInfo">MemTotal,Full</convert>
+			<convert type="ProgressDiskSpaceInfo3">MemTotal,Full</convert>
 		</widget>
 		<widget source="session.Event_Now" render="Progress" pixmap="bar_ber.png" position="60,870" size="780,30" transparent="1" borderWidth="1" borderColor="grey" zPosition="1">
-			<convert type="ProgressDiskSpaceInfo">FleshInfo</convert>
+			<convert type="ProgressDiskSpaceInfo3">FleshInfo</convert>
 		</widget>
 		<widget source="session.CurrentService" render="Label" zPosition="6" position="60,930" size="1800,60" halign="left" valign="center" font="Regular;48" transparent="1" backgroundColor="black">
-			<convert type="ProgressDiskSpaceInfo">Flesh,Full</convert>
+			<convert type="ProgressDiskSpaceInfo3">Flesh,Full</convert>
 		</widget>
 		<widget source="session.Event_Now" render="Progress" pixmap="bar_ber.png" position="60,1050" size="780,30" transparent="1" borderWidth="1" borderColor="grey" zPosition="1">
-			<convert type="ProgressDiskSpaceInfo">HddInfo</convert>
+			<convert type="ProgressDiskSpaceInfo3">HddInfo</convert>
 		</widget>
 		<widget source="session.CurrentService" render="Label" zPosition="6" position="60,1110" size="1800,60" halign="left" valign="center" font="Regular;48" transparent="1" backgroundColor="black">
-			<convert type="ProgressDiskSpaceInfo">HddInfo,Full</convert>
+			<convert type="ProgressDiskSpaceInfo3">HddInfo,Full</convert>
 		</widget>
 		<widget source="session.Event_Now" render="Progress" pixmap="bar_ber.png" position="60,1230" size="780,30" transparent="1" borderWidth="1" borderColor="grey" zPosition="1">
-			<convert type="ProgressDiskSpaceInfo">UsbInfo</convert>
+			<convert type="ProgressDiskSpaceInfo3">UsbInfo</convert>
 		</widget>
 		<widget source="session.CurrentService" render="Label" zPosition="6" position="60,1290" size="1800,60" halign="left" valign="center" font="Regular;48" transparent="1" backgroundColor="black">
-			<convert type="ProgressDiskSpaceInfo">UsbInfo,Full</convert>
+			<convert type="ProgressDiskSpaceInfo3">UsbInfo,Full</convert>
 		</widget>
 	</screen>
 
