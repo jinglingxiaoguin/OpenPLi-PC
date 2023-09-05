@@ -6347,13 +6347,33 @@ diff -ruN o/lib/gui/evideo.cpp pc/lib/gui/evideo.cpp
 diff -ruN o/lib/python/Components/About.py pc/lib/python/Components/About.py
 --- o/lib/python/Components/About.py	2023-09-03 11:29:54.840864751 +0300
 +++ pc/lib/python/Components/About.py	2023-09-03 11:34:05.992878913 +0300
+@@ -12,8 +12,8 @@
+ 
+ def getImageVersionString():
+ 	try:
+-		if os.path.isfile('/var/lib/opkg/status'):
+-			st = os.stat('/var/lib/opkg/status')
++		if os.path.isfile('/var/lib/dpkg/status'):
++			st = os.stat('/var/lib/dpkg/status')
+ 		tm = time.localtime(st.st_mtime)
+ 		if tm.tm_year >= 2011:
+ 			return time.strftime("%Y-%m-%d %H:%M:%S", tm)
+@@ -41,7 +41,7 @@
+ def getUpdateDateString():
+ 	try:
+ 		from glob import glob
+-		build = [x.split("-")[-2:-1][0][-8:] for x in open(glob("/var/lib/opkg/info/openpli-bootlogo.control")[0], "r") if x.startswith("Version:")][0]
++		build = [x.split("-")[-2:-1][0][-8:] for x in open(glob("/var/lib/dpkg/info/openpli-bootlogo.control")[0], "r") if x.startswith("Version:")][0]
+ 		if build.isdigit():
+ 			return "%s-%s-%s" % (build[:4], build[4:6], build[6:])
+ 	except:
 @@ -60,8 +60,8 @@
  def getGStreamerVersionString():
  	try:
  		from glob import glob
 -		gst = [x.split("Version: ") for x in open(glob("/var/lib/opkg/info/gstreamer[0-9].[0-9].control")[0], "r") if x.startswith("Version:")][0]
 -		return "%s" % gst[1].split("+")[0].split("-")[0].replace("\n", "")
-+		gst = [x.split("Source: gstreamer") for x in open(glob("/var/lib/opkg/status")[0], "r") if x.startswith("Source: gstreamer")][0]
++		gst = [x.split("Source: gstreamer") for x in open(glob("/var/lib/dpkg/status")[0], "r") if x.startswith("Source: gstreamer")][0]
 +		return "%s" % gst[1].split(" ")[0].replace("\n", "")
  	except:
  		return ""
@@ -6364,7 +6384,7 @@ diff -ruN o/lib/python/Components/About.py pc/lib/python/Components/About.py
  		from glob import glob
 -		ffmpeg = [x.split("Version: ") for x in open(glob("/var/lib/opkg/info/ffmpeg.control")[0], "r") if x.startswith("Version:")][0]
 -		return "%s" % ffmpeg[1].split("-")[0].replace("\n", "")
-+		ffmpeg = [x.split("Version: 7:") for x in open(glob("/var/lib/opkg/status")[0], "r") if x.startswith("Version: 7:")][0]
++		ffmpeg = [x.split("Version: 7:") for x in open(glob("/var/lib/dpkg/status")[0], "r") if x.startswith("Version: 7:")][0]
 +		return "%s" % ffmpeg[1].split(" ")[0].replace("\n", "")
 +	except:
 +		return _("Not Installed")
@@ -6372,7 +6392,7 @@ diff -ruN o/lib/python/Components/About.py pc/lib/python/Components/About.py
 +def getlibxineVersionString():
 +	try:
 +		from glob import glob
-+		libxine = [x.split("Version: 1.2.13+") for x in open(glob("/var/lib/opkg/status")[0], "r") if x.startswith("Version: 1.2.13+")][0]
++		libxine = [x.split("Version: 1.2.13+") for x in open(glob("/var/lib/dpkg/status")[0], "r") if x.startswith("Version: 1.2.13+")][0]
 +		return "%s" % libxine[1].split("+")[0].replace("\n", "")
  	except:
  		return ""
@@ -6395,6 +6415,24 @@ diff -ruN o/lib/python/Components/About.py pc/lib/python/Components/About.py
  			except:
  				pass
  		elif os.path.isfile("/proc/hisi/msp/pm_cpu"):
+@@ -150,14 +152,14 @@
+ 	try:
+ 		from glob import glob
+ 		try:
+-			driver = [x.split("-")[-2] for x in open(glob("/var/lib/opkg/info/*-dvb-modules-*.control")[0], "r") if x.startswith("Version:")][0]
++			driver = [x.split("-")[-2] for x in open(glob("/var/lib/dpkg/info/*-dvb-modules-*.control")[0], "r") if x.startswith("Version:")][0]
+ 			return "%s-%s-%s" % (driver[:4], driver[4:6], driver[6:])
+ 		except:
+ 			try:
+-				driver = [x.split("Version:") for x in open(glob("/var/lib/opkg/info/*-dvb-proxy-*.control")[0], "r") if x.startswith("Version:")][0]
++				driver = [x.split("Version:") for x in open(glob("/var/lib/dpkg/info/*-dvb-proxy-*.control")[0], "r") if x.startswith("Version:")][0]
+ 				return "%s" % driver[1].replace("\n", "")
+ 			except:
+-				driver = [x.split("Version:") for x in open(glob("/var/lib/opkg/info/*-platform-util-*.control")[0], "r") if x.startswith("Version:")][0]
++				driver = [x.split("Version:") for x in open(glob("/var/lib/dpkg/info/*-platform-util-*.control")[0], "r") if x.startswith("Version:")][0]
+ 				return "%s" % driver[1].replace("\n", "")
+ 	except:
+ 		return _("unknown")
 diff -ruN o/lib/python/Components/ActionMap.py pc/lib/python/Components/ActionMap.py
 --- o/lib/python/Components/ActionMap.py	2023-07-12 13:58:25.421127347 +0300
 +++ pc/lib/python/Components/ActionMap.py	2023-09-03 11:32:40.191529945 +0300
@@ -8464,7 +8502,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/WirelessLan/Wlan.py pc/lib/python/P
 diff -ruN o/lib/python/Screens/About.py pc/lib/python/Screens/About.py
 --- o/lib/python/Screens/About.py	2023-07-12 13:58:25.465127818 +0300
 +++ pc/lib/python/Screens/About.py	2023-09-03 11:32:40.203530135 +0300
-@@ -59,14 +59,19 @@
+@@ -59,15 +59,20 @@
  		GStreamerVersion = about.getGStreamerVersionString().replace("GStreamer", "")
  		self["GStreamerVersion"] = StaticText(GStreamerVersion)
  
@@ -8479,13 +8517,16 @@ diff -ruN o/lib/python/Screens/About.py pc/lib/python/Screens/About.py
  
  		player = None
  
- 		if os.path.isfile('/var/lib/opkg/info/enigma2-plugin-systemplugins-servicemp3.list'):
+-		if os.path.isfile('/var/lib/opkg/info/enigma2-plugin-systemplugins-servicemp3.list'):
++		if os.path.isfile('/var/lib/dpkg/info/enigma2-plugin-systemplugins-servicemp3.list'):
  			if GStreamerVersion:
 -				player = _("Media player") + ": Gstreamer, " + _("version") + " " + GStreamerVersion
+-		if os.path.isfile('/var/lib/opkg/info/enigma2-plugin-systemplugins-servicehisilicon.list'):
 +				player = "Gstreamer : " + _("version") + " " + GStreamerVersion
- 		if os.path.isfile('/var/lib/opkg/info/enigma2-plugin-systemplugins-servicehisilicon.list'):
++		if os.path.isfile('/var/lib/dpkg/info/enigma2-plugin-systemplugins-servicehisilicon.list'):
  			if os.path.isdir("/usr/lib/hisilicon") and glob.glob("/usr/lib/hisilicon/libavcodec.so.*"):
  				player = _("Media player") + ": ffmpeg, " + _("Hardware Accelerated")
+ 			elif ffmpegVersion and ffmpegVersion[0].isdigit():
 @@ -125,6 +130,7 @@
  		AboutText += hddinfo + "\n\n" + _("Network Info:")
  		for x in about.GetIPsFromNetworkInterfaces():
