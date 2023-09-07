@@ -156,7 +156,7 @@ video.processing.ffmpeg_thread_count:4
 
 # VAAPI Mpeg2 softdecoding
 # bool, default: 0
-#video.processing.vaapi_mpeg_softdec:0
+video.processing.vaapi_mpeg_softdec:1
 
 # number of audio buffers
 # numeric, default: 700

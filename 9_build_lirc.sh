@@ -47,7 +47,7 @@ if [[ "$release" = "22.04" ]]; then
 	dpkg-buildpackage -b -d -uc -us
 	quilt refresh && dpkg-buildpackage -b -d -uc -us # Fix internal patches. Don't worry about the 'error' message.
 	cd ..
-	dpkg -i *.deb
+	yes | dpkg -i *.deb
 	cd ..
 	cp -rfv pre/lirc/lircd.conf.d /etc
 	cp -rfv pre/lirc/lirc_options.conf.example /etc
@@ -74,5 +74,7 @@ else
 	echo "NOT SUPPORT!"
 	echo ""
 fi
-
-reboot # Need to restart system!
+	echo ""
+	echo "THE SYSTEM WILL BE RESTARTED!"
+	echo ""
+sleep 5 && reboot # Need to restart system!
