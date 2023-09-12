@@ -233,11 +233,6 @@ static int __init dvblb_init(void) {
 	dvb_class->dev_uevent = dvb_uevent;
 	dvb_class->devnode = dvb_devnode;
 
-//	(void)dvb_class->dev_uevent = dvb_uevent;
-//	(void)dvb_class->devnode = dvb_devnode;
-//	dvb_class->dev_uevent = dvblb_dvb_uevent;
-//	dvb_class->devnode = dvblb_dvb_devnode;
-
 	info("frontend loopback driver v"DVBSOFTWARECA_VERSION);
 	printk("dvbsoftwareca: registering adapters\n");
 
