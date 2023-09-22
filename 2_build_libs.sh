@@ -2,7 +2,7 @@
 
 # To build enigma2 on Ubuntu 22.04 with startup option "Ubuntu on Xorg".
 
-apt purge -y python2* libpython2*
+dpkg --configure -a
 
 echo ""
 echo "                       *** INSTALL REQUIRED PACKAGES ***"
@@ -40,36 +40,76 @@ if [[ "$release" = "22.04" ]]; then
 	echo "                             *** release 22.04 ***"
 	echo "************************************************************************************"
 	echo ""
-	REQPKG="flake8 gcc-11 g++-11 libdav1d-dev libssl3 libdca-dev libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev libffi7 libfuture-perl ntpsec \
-	pycodestyle sqlite3 sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 streamlink yamllint ntpsec-ntpdate neurodebian-popularity-contest popularity-contest pylint \
-	python3-transmissionrpc python3-sabyenc python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 \
-	python3-pymysql python3-sphinxcontrib.websupport python3-sphinxcontrib.httpdomain python3-langdetect python3-restructuredtext-lint python3-ntplib python3-ntp python3-pysnmp4 python3-asn1crypto \
-	python3-attr python3-autobahn python3-biplist python3-cheroot python3-cheetah python3-cherrypy3 python3-circuits python3-cssselect python3-dnspython python3-feedparser python3-fuzzywuzzy \
-	python3-guessit python3-icalendar python3-isodate python3-ndg-httpsclient python3-notify2 python3-pbkdf2 python3-puremagic python3-pycountry python3-setuptools-scm-git-archive python3-pytest \
-	python3-singledispatch python3-sphinx-rtd-theme python3-streamlink python3-levenshtein python3-sgmllib3k python3-ujson python3-willow python3-num2words python3-pprintpp  \
+	REQPKG1="flake8 gcc-11 g++-11 libdav1d-dev libssl3 libdca-dev libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev libffi7 libfuture-perl \
+	ntpsec pycodestyle sqlite3 sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 streamlink yamllint ntpsec-ntpdate neurodebian-popularity-contest \
+	popularity-contest pylint python3-transmissionrpc python3-sabyenc python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty \
+	python3-mutagen python3-urllib3 python3-pymysql python3-sphinxcontrib.websupport python3-sphinxcontrib.httpdomain python3-langdetect python3-restructuredtext-lint python3-ntplib \
+	python3-ntp python3-pysnmp4 python3-asn1crypto python3-attr python3-autobahn python3-biplist python3-cheroot python3-cheetah python3-cherrypy3 python3-circuits python3-cssselect \
+	python3-dnspython python3-feedparser python3-fuzzywuzzy python3-guessit python3-icalendar python3-isodate python3-ndg-httpsclient python3-notify2 python3-pbkdf2 python3-puremagic \
+	python3-pycountry python3-setuptools-scm-git-archive python3-pytest python3-singledispatch python3-sphinx-rtd-theme python3-streamlink python3-levenshtein python3-sgmllib3k \
+	python3-ujson python3-willow python3-num2words python3-pprintpp python3-full \
 	"
-	# Unfortunately e2pc doesn't work with wayland
-	#	cp -fv /etc/gdm3/custom.conf /etc/gdm3/custom.conf~
-	#	rpl '#WaylandEnable=false' 'WaylandEnable=false' /etc/gdm3/custom.conf
+	for p in $REQPKG1; do
+		echo -n ">>> Checking \"$p\" : "
+		dpkg -s $p >/dev/null
+		if [[ "$?" -eq "0" ]]; then
+			echo "package is installed, skip it"
+		else
+			echo "package NOT present, installing it"
+			apt-get -y install $p
+		fi
+	done
+
+	pip install pysmb zope.interface pycryptodomex pysocks rbtranslations soco tenjin tcpbridge pyserial PyHamcrest pyexecjs py3amf pillow gdata-python3 futures3 cocy circuits-bricks \
+	cfscrape bluetool pyopenssl pyusb
+	pip install -U pyopenssl
+	python3 -m pip install pysha3
 fi
 
-for p in $REQPKG; do
-	echo -n ">>> Checking \"$p\" : "
-	dpkg -s $p >/dev/null
-	if [[ "$?" -eq "0" ]]; then
-		echo "package is installed, skip it"
-	else
-		echo "package NOT present, installing it"
-		apt-get -y install $p
-	fi
-done
+if [[ "$release" = "23.04" ]]; then
+	dpkg-reconfigure python3
+	echo ""
+	echo "************************************************************************************"
+	echo "                             *** release 23.04 ***"
+	echo "************************************************************************************"
+	echo ""
+	REQPKG2="flake8 gcc-12 g++-12 libdav1d-dev libssl3 libdca-dev libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev libffi8 libfuture-perl \
+	ntpsec pycodestyle sqlite3 sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 libsigc++-3.0-dev streamlink yamllint ntpsec-ntpdate pkg-kde-tools \
+	neurodebian-popularity-contest popularity-contest pylint python3-full python3-transmissionrpc python3-sabyenc python3-flickrapi python3-demjson python3-mechanize python3-sendfile \
+	python3-blessings python3-httpretty python3-mutagen python3-urllib3 python3-pymysql python3-sphinxcontrib.websupport python3-sphinxcontrib.httpdomain python3-langdetect \
+	python3-restructuredtext-lint python3-ntplib python3-ntp python3-pysnmp4 python3-asn1crypto python3-attr python3-autobahn python3-biplist python3-cheroot python3-cheetah \
+	python3-cherrypy3 python3-circuits python3-cssselect python3-dnspython python3-feedparser python3-fuzzywuzzy python3-guessit python3-icalendar python3-isodate \
+	python3-ndg-httpsclient python3-notify2 python3-pbkdf2 python3-puremagic python3-pycountry python3-pytest python3-singledispatch python3-sphinx-rtd-theme python3-streamlink \
+	python3-levenshtein python3-sgmllib3k python3-ujson python3-willow python3-num2words python3-pprintpp  \
+	"
+
+	for p in $REQPKG2; do
+		echo -n ">>> Checking \"$p\" : "
+		dpkg -s $p >/dev/null
+		if [[ "$?" -eq "0" ]]; then
+			echo "package is installed, skip it"
+		else
+			echo "package NOT present, installing it"
+			apt-get -y install $p
+		fi
+	done
+
+	apt install -y python3-venv
+	python3 -m venv /home/$(logname)/.venv/e2pc
+	/home/$(logname)/.venv/e2pc/bin/pip install pysmb zope.interface pycryptodomex pysocks rbtranslations soco tenjin tcpbridge pyserial PyHamcrest pyexecjs py3amf pillow gdata-python3 \
+	futures3 cocy circuits-bricks cfscrape bluetool pyopenssl pyusb
+fi
+
+# Unfortunately e2pc doesn't work with wayland
+#	cp -fv /etc/gdm3/custom.conf /etc/gdm3/custom.conf~
+#	rpl '#WaylandEnable=false' 'WaylandEnable=false' /etc/gdm3/custom.conf
 
 HEADERS="/usr/src/linux-headers-`uname -r`/include/uapi/linux/dvb"
 INCLUDE="/usr/include/linux/dvb"
 BUILD_DIR="libs"
 
-cp -fv pre/dvb/* $INCLUDE
-cp -fv pre/dvb/* $HEADERS
+#cp -fv pre/dvb/* $INCLUDE
+#cp -fv pre/dvb/* $HEADERS
 
 # Download dvb-firmwares
 wget --no-check-certificate https://github.com/crazycat69/media_build/releases/download/latest/dvb-firmwares.tar.bz2
@@ -220,7 +260,7 @@ else
 	fi
 	if [ ! -d $INSTALL_E2DIR/lib/enigma2 ]; then
 		mkdir -p $INSTALL_E2DIR/lib/enigma2
-		ln -s $INSTALL_E2DIR/lib/enigma2 /usr/lib
+		ln -s -f $INSTALL_E2DIR/lib/enigma2 /usr/lib
 	fi
 	if [ -d $SOURCE ]; then
 		rm -rf $SOURCE
@@ -387,6 +427,10 @@ else
 	cd ..
 fi
 
+prefix1="/usr/local/lib/python3.11/dist-packages"
+prefix2="/usr/src/OpenPLi-PC_Python3/libs"
+prefix3="/home/$(logname)/.venv/e2pc/lib/python3.11/site-packages"
+
 # Build and install twistedsnmp-python3:
 if [ ! -d gst-plugin-subsink ]; then
 	set -e
@@ -413,7 +457,8 @@ else
 	echo ""
 	echo "                  *** Patch for $PKG applied ***"
 	echo ""
-	python3 setup.py install
+	/home/$(logname)/.venv/e2pc/bin/pip install $prefix2/$PKG
+	ln -s -f $prefix3/$PKG $prefix1
 	cd ..
 fi
 
@@ -436,7 +481,8 @@ else
 	rm -f master.zip
 	mv $PKG-master $PKG
 	cd $PKG
-	python3 setup.py install
+	/home/$(logname)/.venv/e2pc/bin/pip install $prefix2/$PKG
+	ln -s -f $prefix3/$PKG $prefix1
 	cd ..
 fi
 
@@ -446,6 +492,7 @@ if [ ! -d pythonwifi ]; then
 	set -o pipefail
 else
 	PKG="Js2Py"
+	PKG1="js2py"
 	VER="b16d7ce90ac9c03358010c1599c3e87698c9993f"
 	echo ""
 	echo "**************************** OK. Go to the next step. ******************************"
@@ -463,7 +510,8 @@ else
 	cp patches/$PKG.patch libs/$PKG
 	cd libs/$PKG
 	patch -p1 < $PKG.patch
-	python3 setup.py install
+	/home/$(logname)/.venv/e2pc/bin/pip install $prefix2/$PKG
+	ln -s -f $prefix3/$PKG1 $prefix1
 	cd ..
 fi
 
@@ -490,38 +538,40 @@ else
 	cp patches/$PKG.patch libs/$PKG
 	cd libs/$PKG
 	patch -p1 < $PKG.patch
-	python3 setup.py install
+	/home/$(logname)/.venv/e2pc/bin/pip install $prefix2/$PKG
+	ln -s -f $prefix3/$PKG.py $prefix1
 	cd ..
 fi
 
 # Build and install PythonDaap:
-if [ ! -d ipaddress ]; then
-	set -e
-	set -o pipefail
-else
-	PKG="PythonDaap"
-	echo ""
-	echo "**************************** OK. Go to the next step. ******************************"
-	echo ""
-	echo "                    *** Build and install $PKG ***"
-	echo ""
-	if [ -d $PKG ]; then
-		rm -rf $PKG
-	fi
-	wget --no-check-certificate https://github.com/abdelgmartinezl/PythonDaap/archive/refs/heads/master.zip
-	unzip master.zip
-	rm -f master.zip
-	mv $PKG-master $PKG
-	cd ..
-	cp patches/$PKG.patch libs/$PKG
-	cd libs/$PKG
-	patch -p1 < $PKG.patch
-	python3 setup.py install
-	cd ..
-fi
+#if [ ! -d ipaddress ]; then
+#	set -e
+#	set -o pipefail
+#else
+#	PKG="PythonDaap"
+#	echo ""
+#	echo "**************************** OK. Go to the next step. ******************************"
+#	echo ""
+#	echo "                    *** Build and install $PKG ***"
+#	echo ""
+#	if [ -d $PKG ]; then
+#		rm -rf $PKG
+#	fi
+#	wget --no-check-certificate https://github.com/abdelgmartinezl/PythonDaap/archive/refs/heads/master.zip
+#	unzip master.zip
+#	rm -f master.zip
+#	mv $PKG-master $PKG
+#	cd ..
+#	cp patches/$PKG.patch libs/$PKG
+#	cd libs/$PKG
+#	patch -p1 < $PKG.patch
+#	/home/$(logname)/.venv/e2pc/bin/pip install $prefix2/$PKG
+#	ln -s -f $prefix3/$PKG $prefix1
+#	cd ..
+#fi
 
 # Build and install python3-pyload:
-if [ ! -d PythonDaap ]; then
+if [ ! -d ipaddress ]; then
 	set -e
 	set -o pipefail
 else
@@ -534,7 +584,7 @@ else
 	if [ -d $PKG ]; then
 		rm -rf $PKG
 	fi
-	wget --no-check-certificate https://github.com/pyload/pyload/archive/refs/heads/main.zip
+	wget --no-check-certificate https://github.com/$PKG/$PKG/archive/refs/heads/main.zip
 	unzip main.zip
 	rm main.zip
 	mv $PKG-main $PKG
@@ -542,7 +592,8 @@ else
 	cp patches/$PKG.patch libs/$PKG
 	cd libs/$PKG
 	patch -p1 < $PKG.patch
-	python3 setup.py install
+	/home/$(logname)/.venv/e2pc/bin/pip install $prefix2/$PKG
+	ln -s -f $prefix3/$PKG $prefix1
 	cd ..
 fi
 
@@ -565,7 +616,8 @@ else
 	unzip $VER.zip
 	rm $VER.zip
 	mv $PKG-$VER $PKG
-	# Place for cp?
+	cp -fr $PKG $prefix3/$PKG
+	ln -s -f $prefix3/$PKG $prefix1
 fi
 
 # Message if error at any point of script
@@ -589,10 +641,7 @@ else
 		echo ""
 	fi
 	cd ..
-	pip install pysmb zope.interface pycryptodomex pysocks rbtranslations soco tenjin tcpbridge pyserial PyHamcrest \
-	pyexecjs py3amf pillow gdata-python3 futures3 cocy circuits-bricks cfscrape bluetool pyopenssl pyusb
-	pip install -U pyopenssl
-	python3 -m pip install pysha3
+	python3 -m compileall -f $prefix1
 	echo ""
 	echo "************************************ DONE! *****************************************"
 fi

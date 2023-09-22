@@ -1,6 +1,27 @@
-diff -ruN o/src/EPGImport/EPGConfig.py pc/src/EPGImport/EPGConfig.py
---- o/src/EPGImport/EPGConfig.py	2022-07-04 14:26:42.605294657 +0300
-+++ pc/src/EPGImport/EPGConfig.py	2022-07-04 14:27:25.709676832 +0300
+diff -ruN a/src/EPGImport/boot.py b/src/EPGImport/boot.py
+--- a/src/EPGImport/boot.py	2022-07-02 15:41:18.000000000 +0300
++++ b/src/EPGImport/boot.py	2023-09-22 16:43:02.188459762 +0300
+@@ -1,4 +1,4 @@
+-from __future__ import absolute_import, print_function
++
+ 
+ import os
+ import shutil
+diff -ruN a/src/EPGImport/EPGConfig.py b/src/EPGImport/EPGConfig.py
+--- a/src/EPGImport/EPGConfig.py	2023-09-22 16:40:48.530572860 +0300
++++ b/src/EPGImport/EPGConfig.py	2023-09-22 16:43:02.008457216 +0300
+@@ -1,9 +1,9 @@
+-from __future__ import absolute_import, print_function
++
+ 
+ import gzip
+ import os
+ try: #python2
+-	import cPickle as pickle
++	import pickle as pickle
+ except: #python3
+ 	import pickle
+ import random
 @@ -14,7 +14,7 @@
  from . import log
  
@@ -28,9 +49,24 @@ diff -ruN o/src/EPGImport/EPGConfig.py pc/src/EPGImport/EPGConfig.py
  		# Always read custom file since we don't know when it was last updated
  		# and we don't have multiple download from server problem since it is always a local file.
  		if os.path.exists(customFile):
-diff -ruN o/src/EPGImport/epgdat_importer.py pc/src/EPGImport/epgdat_importer.py
---- o/src/EPGImport/epgdat_importer.py	2022-07-04 14:26:42.605294657 +0300
-+++ pc/src/EPGImport/epgdat_importer.py	2022-07-04 14:27:25.713676868 +0300
+@@ -280,7 +280,7 @@
+ 		assert t in l
+ 		l.remove(t)
+ 	assert not l
+-	for name, c in channelCache.items():
++	for name, c in list(channelCache.items()):
+ 		print("Update:", name)
+ 		c.update()
+ 		print("# of channels:", len(c.items))
+diff -ruN a/src/EPGImport/epgdat_importer.py b/src/EPGImport/epgdat_importer.py
+--- a/src/EPGImport/epgdat_importer.py	2023-09-22 16:40:49.534587006 +0300
++++ b/src/EPGImport/epgdat_importer.py	2023-09-22 16:43:02.276461007 +0300
+@@ -1,4 +1,4 @@
+-from __future__ import absolute_import, print_function
++
+ 
+ import os
+ import sys
 @@ -11,7 +11,7 @@
  	settingspath = '.'
  else:
@@ -40,9 +76,18 @@ diff -ruN o/src/EPGImport/epgdat_importer.py pc/src/EPGImport/epgdat_importer.py
  
  
  class epgdatclass:
-diff -ruN o/src/EPGImport/epgdat.py pc/src/EPGImport/epgdat.py
---- o/src/EPGImport/epgdat.py	2022-07-04 14:26:42.605294657 +0300
-+++ pc/src/EPGImport/epgdat.py	2022-07-04 14:27:25.713676868 +0300
+diff -ruN a/src/EPGImport/epgdat.py b/src/EPGImport/epgdat.py
+--- a/src/EPGImport/epgdat.py	2023-09-22 16:40:50.374598840 +0300
++++ b/src/EPGImport/epgdat.py	2023-09-22 16:43:02.260460779 +0300
+@@ -2,7 +2,7 @@
+ # Heavily modified by MiLo http://www.sat4all.com/
+ # Lots of stuff removed that i did not need.
+ 
+-from __future__ import absolute_import, print_function
++
+ 
+ import os
+ import struct
 @@ -115,7 +115,7 @@
  class epgdat_class:
  	# temp files used for EPG.DAT creation
@@ -52,10 +97,29 @@ diff -ruN o/src/EPGImport/epgdat.py pc/src/EPGImport/epgdat.py
  
  	EPGDAT_FILENAME = 'epgtest.dat'
  	EPGDAT_TMP_FILENAME = 'epgdat.tmp'
-diff -ruN o/src/EPGImport/EPGImport.py pc/src/EPGImport/EPGImport.py
---- o/src/EPGImport/EPGImport.py	2022-07-04 14:26:42.605294657 +0300
-+++ pc/src/EPGImport/EPGImport.py	2022-07-04 14:27:25.713676868 +0300
-@@ -28,7 +28,7 @@
+diff -ruN a/src/EPGImport/EPGImport.py b/src/EPGImport/EPGImport.py
+--- a/src/EPGImport/EPGImport.py	2023-09-22 16:40:51.178610166 +0300
++++ b/src/EPGImport/EPGImport.py	2023-09-22 16:43:02.104458573 +0300
+@@ -2,7 +2,7 @@
+ # you can supply a similar interface. See plugin.py and OfflineImport.py for
+ # the contract.
+ 
+-from __future__ import absolute_import, print_function
++
+ 
+ import gzip
+ import os
+@@ -22,13 +22,14 @@
+ 	from urllib.parse import urlparse
+ 	from urllib.request import build_opener
+ except: #python2
+-	from httplib import HTTPException
+-	from urllib2 import build_opener, HTTPError, URLError
+-	from urlparse import urlparse
++	from http.client import HTTPException
++	from urllib.request import build_opener
++	from urllib.error import HTTPError, URLError
++	from urllib.parse import urlparse
  
  from . import log
  
@@ -64,9 +128,24 @@ diff -ruN o/src/EPGImport/EPGImport.py pc/src/EPGImport/EPGImport.py
  
  
  class SNIFactory(ssl.ClientContextFactory):
-diff -ruN o/src/EPGImport/filtersServices.py pc/src/EPGImport/filtersServices.py
---- o/src/EPGImport/filtersServices.py	2022-07-04 14:26:42.605294657 +0300
-+++ pc/src/EPGImport/filtersServices.py	2022-07-04 14:27:25.713676868 +0300
+diff -ruN a/src/EPGImport/ExpandableSelectionList.py b/src/EPGImport/ExpandableSelectionList.py
+--- a/src/EPGImport/ExpandableSelectionList.py	2022-07-02 15:41:18.000000000 +0300
++++ b/src/EPGImport/ExpandableSelectionList.py	2023-09-22 16:43:02.132458969 +0300
+@@ -1,4 +1,4 @@
+-from __future__ import absolute_import
++
+ 
+ from Components.MenuList import MenuList
+ from enigma import RT_HALIGN_LEFT, eListboxPythonMultiContent, gFont
+diff -ruN a/src/EPGImport/filtersServices.py b/src/EPGImport/filtersServices.py
+--- a/src/EPGImport/filtersServices.py	2023-09-22 16:40:52.022622061 +0300
++++ b/src/EPGImport/filtersServices.py	2023-09-22 16:43:02.332461798 +0300
+@@ -1,4 +1,4 @@
+-from __future__ import absolute_import
++
+ 
+ import os
+ 
 @@ -67,8 +67,8 @@
  
  	def saveTo(self, filename):
@@ -96,9 +175,18 @@ diff -ruN o/src/EPGImport/filtersServices.py pc/src/EPGImport/filtersServices.py
  
  	def addService(self, ref):
  		if isinstance(ref, str):
-diff -ruN o/src/EPGImport/locale/ru.po pc/src/EPGImport/locale/ru.po
---- o/src/EPGImport/locale/ru.po	2022-07-04 14:26:42.605294657 +0300
-+++ pc/src/EPGImport/locale/ru.po	2022-07-04 14:27:25.713676868 +0300
+diff -ruN a/src/EPGImport/gen_xmltv.py b/src/EPGImport/gen_xmltv.py
+--- a/src/EPGImport/gen_xmltv.py	2022-07-02 15:41:18.000000000 +0300
++++ b/src/EPGImport/gen_xmltv.py	2023-09-22 16:43:02.344461968 +0300
+@@ -1,4 +1,4 @@
+-from __future__ import absolute_import, print_function
++
+ 
+ from . import xmltvconverter
+ 
+diff -ruN a/src/EPGImport/locale/ru.po b/src/EPGImport/locale/ru.po
+--- a/src/EPGImport/locale/ru.po	2023-09-22 16:40:52.726631978 +0300
++++ b/src/EPGImport/locale/ru.po	2023-09-22 16:03:44.198101221 +0300
 @@ -223,7 +223,7 @@
  
  #: ../plugin.py:318
@@ -108,9 +196,45 @@ diff -ruN o/src/EPGImport/locale/ru.po pc/src/EPGImport/locale/ru.po
  
  #: ../plugin.py:89
  msgid "Monday"
-diff -ruN o/src/EPGImport/plugin.py pc/src/EPGImport/plugin.py
---- o/src/EPGImport/plugin.py	2022-07-04 14:26:42.609294692 +0300
-+++ pc/src/EPGImport/plugin.py	2022-07-04 14:27:25.713676868 +0300
+diff -ruN a/src/EPGImport/log.py b/src/EPGImport/log.py
+--- a/src/EPGImport/log.py	2022-07-02 15:41:18.000000000 +0300
++++ b/src/EPGImport/log.py	2023-09-22 16:43:02.352462082 +0300
+@@ -5,12 +5,12 @@
+ # print("Some text", file=log)
+ # because the log unit looks enough like a file!
+ 
+-from __future__ import absolute_import
++
+ 
+ import sys
+ import threading
+ try: #python2 only
+-		from cStringIO import StringIO
++		from io import StringIO
+ except: # both python2 and python3
+ 	from io import StringIO
+ 
+diff -ruN a/src/EPGImport/OfflineImport.py b/src/EPGImport/OfflineImport.py
+--- a/src/EPGImport/OfflineImport.py	2022-07-02 15:41:18.000000000 +0300
++++ b/src/EPGImport/OfflineImport.py	2023-09-22 16:43:02.144459139 +0300
+@@ -4,7 +4,7 @@
+ # where they can be found. On Linux, you can also download from the internet,
+ # on windows the xmltv files must be local files.
+ 
+-from __future__ import absolute_import, print_function
++
+ 
+ import sys
+ import time
+diff -ruN a/src/EPGImport/plugin.py b/src/EPGImport/plugin.py
+--- a/src/EPGImport/plugin.py	2023-09-22 16:40:53.498642854 +0300
++++ b/src/EPGImport/plugin.py	2023-09-22 16:43:02.560465024 +0300
+@@ -1,4 +1,4 @@
+-from __future__ import absolute_import, print_function
++
+ 
+ import os
+ import time
 @@ -94,7 +94,7 @@
  	]
  
@@ -120,3 +244,21 @@ diff -ruN o/src/EPGImport/plugin.py pc/src/EPGImport/plugin.py
  
  # Global variable
  autoStartTimer = None
+diff -ruN a/src/EPGImport/xmltvconverter.py b/src/EPGImport/xmltvconverter.py
+--- a/src/EPGImport/xmltvconverter.py	2022-07-02 15:41:18.000000000 +0300
++++ b/src/EPGImport/xmltvconverter.py	2023-09-22 16:43:02.588465419 +0300
+@@ -1,4 +1,4 @@
+-from __future__ import absolute_import, print_function
++
+ 
+ import six
+ import calendar
+diff -ruN a/src/setup_translate.py b/src/setup_translate.py
+--- a/src/setup_translate.py	2022-07-02 15:41:18.000000000 +0300
++++ b/src/setup_translate.py	2023-09-22 16:43:01.948456367 +0300
+@@ -1,4 +1,4 @@
+-from __future__ import print_function
++
+ # Language extension for distutils Python scripts. Based on this concept:
+ # http://wiki.maemo.org/Internationalize_a_Python_application
+ from distutils import cmd

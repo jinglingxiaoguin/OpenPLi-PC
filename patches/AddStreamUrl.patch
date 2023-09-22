@@ -67,7 +67,6 @@ diff -ruN a/plugin/locale/AddStreamUrl.pot b/plugin/locale/AddStreamUrl.pot
 +
 +msgid "Select a bouquet to add a channel to"
 +msgstr ""
-Двоичные файлы a/plugin/locale/ru/LC_MESSAGES/AddStreamUrl.mo и b/plugin/locale/ru/LC_MESSAGES/AddStreamUrl.mo различаются
 diff -ruN a/plugin/locale/ru.po b/plugin/locale/ru.po
 --- a/plugin/locale/ru.po	1970-01-01 03:00:00.000000000 +0300
 +++ b/plugin/locale/ru.po	2022-10-15 13:10:51.040483740 +0300
@@ -142,7 +141,7 @@ diff -ruN a/setup.py b/setup.py
 -setup (name = 'enigma2-plugin-extensions-addstreamurl',
 -	version = '1.0',
 +setup (name = 'e2openplugin-AddStreamUrl',
-+	version = '1.0-mod_tr',
++	version = '1.1',
  	description = 'Add a stream url to channel list',
  	packages = [pkg],
 -	package_dir = {pkg: 'plugin'}

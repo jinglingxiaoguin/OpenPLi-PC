@@ -1,0 +1,23 @@
+diff -ruN a/plugin.py b/plugin.py
+--- a/plugin.py	2022-09-27 01:59:42.000000000 +0300
++++ b/plugin.py	2023-09-22 17:44:41.798552221 +0300
+@@ -69,8 +69,8 @@
+ language.addCallback(localeInit)
+ 
+ found_new = False
+-version="2.0-mod_py3"
+-date_mod="20220927"
++version="2.1-mod_py3"
++date_mod="20230922"
+ ###########################
+ ### mod by 1455         ###
+ ### mod by schomi       ###
+@@ -1528,7 +1528,7 @@
+ 
+ 	for p in plugins.getPlugins(where = PluginDescriptor.WHERE_EXTENSIONSMENU):
+ 		if not p.name in dupelist:
+-			args = inspect.getargspec(p.__call__)[0]
++			args = inspect.getfullargspec(p.__call__)[0]
+ 			if len(args) == 1 or len(args) == 2 and isinstance(InfoBar.instance, InfoBarChannelSelection):
+ 				l.append(((boundFunction(self.getPluginName, p.name), boundFunction(self.runPlugin, p), lambda: True), None, p.name))
+ 	print("dupelist", dupelist)

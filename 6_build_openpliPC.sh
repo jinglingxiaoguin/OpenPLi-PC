@@ -1,5 +1,6 @@
 #!/bin/bash
 
+release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 BACKUP_E2="etc/tuxbox/satellites.xml etc/enigma2"
 
 DO_BACKUP=1
@@ -17,10 +18,27 @@ INCLUDE="/usr/include/linux/dvb"
 KDIR="/lib/modules/`uname -r`/kernel/extra"
 CA="dvbsoftwareca"
 
-export CXX=/usr/bin/g++-11
-export PYTHON_VERSION=3.10
-export PYTHON_CPPFLAGS=-I/usr/include/python3.10
-export PYTHON_LDFLAGS="-L/usr/lib/python3.10 -lpython3.10"
+	echo ""
+	echo "********************************************************"
+if [[ "$release" = "23.04" ]]; then
+	echo "                 *** RELEASE 23.04 ***"
+	echo "                  *** USED g++-12 ***"
+	export CXX=/usr/bin/g++-12
+	export PYTHON_VERSION=3.11
+	export PYTHON_CPPFLAGS=-I/usr/include/python3.11
+	export PYTHON_LDFLAGS="-L/usr/lib/python3.11 -lpython3.11"
+elif [[ "$release" = "22.04" ]]; then
+	echo "                 *** RELEASE 22.04 ***"
+	echo "                  *** USED g++-11 ***"
+	export CXX=/usr/bin/g++-11
+	export PYTHON_VERSION=3.10
+	export PYTHON_CPPFLAGS=-I/usr/include/python3.10
+	export PYTHON_LDFLAGS="-L/usr/lib/python3.10 -lpython3.10"
+fi
+	echo "********************************************************"
+	echo ""
+
+
 export PYTHON_EXTRA_LIBS="-lpthread -ldl -lutil -lm"
 export PYTHON_EXTRA_LDFLAGS="-Xlinker -export-dynamic -Wl,-O1 -Wl,-Bsymbolic-functions"
 
@@ -137,7 +155,7 @@ rpl "//#define XINE_TEXTDOMAIN" "#define XINE_TEXTDOMAIN" /usr/include/xine/xine
 
 git clone https://github.com/OpenPLi/$PKG.git
 cd $PKG
-git reset --hard 3d561cdb
+git reset --hard e071dcf6
 cd ..
 
 # Copy headers
@@ -149,24 +167,9 @@ if [ ! -d /usr/include/netlink ]; then
 	ln -s /usr/include/libnl3/netlink /usr/include
 fi
 
-release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
-
-if [ "$release" = "22.04" ]; then
-	echo ""
-	echo "********************************************************"
-	echo "                 *** RELEASE 22.04 ***"
-	echo "                  *** USED g++-11 ***"
-	echo "********************************************************"
-	echo ""
-	export CXX=/usr/bin/g++-11
-	if [ ! -f /usr/lib/libc.so.6 ]; then
-		ln -s /lib/x86_64-linux-gnu/libc.so.6 /usr/lib
-	fi
-fi
-
-cp -fv patches/patch-3d561cdb-to-PC.patch $PKG
+cp -fv patches/patch-e071dcf6-to-PC.patch $PKG
 cd $PKG
-patch -p1 < patch-3d561cdb-to-PC.patch
+patch -p1 < patch-e071dcf6-to-PC.patch
 
 # Configure
 if [ "$DO_CONFIGURE" -eq "1" ]; then

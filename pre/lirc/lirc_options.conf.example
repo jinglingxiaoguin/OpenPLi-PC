@@ -9,7 +9,8 @@
 [lircd]
 nodaemon        = False
 driver          = default
-device          = /dev/lirc0
+#device          = /dev/lirc0
+device          = /dev/lirc_serial
 output          = /var/run/lirc/lircd
 pidfile         = /var/run/lirc/lircd.pid
 plugindir       = /usr/lib/x86_64-linux-gnu/lirc/plugins

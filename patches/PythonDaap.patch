@@ -1,6 +1,76 @@
 diff -ruN a/daap.py b/daap.py
 --- a/daap.py	2015-11-15 00:01:58.000000000 +0300
-+++ b/daap.py	2022-10-20 16:33:42.185283093 +0300
++++ b/daap.py	2023-09-21 14:55:31.468486154 +0300
+@@ -1,4 +1,4 @@
+-from __future__ import print_function
++
+ # daap.py
+ #
+ # DAAP classes and methods.
+@@ -9,11 +9,11 @@
+ # copyright 2005 Tom Insam <tom@jerakeen.org>
+ #
+ 
+-import httplib, struct, sys
++import http.client, struct, sys
+ import md5, md5daap
+ import gzip
+ import logging
+-from cStringIO import StringIO
++from io import StringIO
+ 
+ __all__ = ['DAAPError', 'DAAPObject', 'DAAPClient', 'DAAPSession', 'DAAPDatabase', 'DAAPPlaylist', 'DAAPTrack']
+ 
+@@ -21,7 +21,7 @@
+ 
+ # the itunes authentication hasher
+ seed_v2 = []
+-for i in (range(255)):
++for i in (list(range(255))):
+     ctx = md5.new()
+     if (i & 0x80): ctx.update("Accept-Language")
+     else:          ctx.update("user-agent")
+@@ -52,7 +52,7 @@
+ # this is a translation of the GenerateHash function in hasher.c of
+ # libopendaap http://crazney.net/programs/itunes/authentication.html
+ seed_v3 = []
+-for i in (range(255)):
++for i in (list(range(255))):
+     ctx = md5daap.new()
+ 
+     if (i & 0x40): ctx.update("eqwsdxcqwesdc")
+@@ -340,11 +340,11 @@
+             # the object is a string
+             # we need to read length characters from the string
+             try:
+-                self.value  = unicode(
++                self.value  = str(
+                     struct.unpack('!%ss' % self.length, code)[0], 'utf-8')
+             except UnicodeDecodeError:
+                 # oh, urgh
+-                self.value = unicode(
++                self.value = str(
+                     struct.unpack('!%ss' % self.length, code)[0], 'latin-1')
+         else:
+             # we don't know what to do with this object
+@@ -364,7 +364,7 @@
+         self.hostname = hostname
+         self.port     = port
+         self.password = password
+-        self.socket = httplib.HTTPConnection(hostname, port)
++        self.socket = http.client.HTTPConnection(hostname, port)
+         self.getContentCodes() # practically required
+         self.getInfo() # to determine the remote server version
+ 
+@@ -372,7 +372,7 @@
+         """Makes a request, doing the right thing, returns the raw data"""
+ 
+         if params:
+-            l = ['%s=%s' % (k, v) for k, v in params.iteritems()]
++            l = ['%s=%s' % (k, v) for k, v in params.items()]
+             r = '%s?%s' % (r, '&'.join(l))
+ 
+         log.debug('getting %s', r)
 @@ -419,15 +419,17 @@
          # this returns an HTTP response object
          response    = self._get_response(r, params)
@@ -51,9 +121,107 @@ diff -ruN a/daap.py b/daap.py
  
      def __init__(self, database, atom):
          self.database = database
+diff -ruN a/examples/avahi_daap.py b/examples/avahi_daap.py
+--- a/examples/avahi_daap.py	2015-11-15 00:01:58.000000000 +0300
++++ b/examples/avahi_daap.py	2023-09-21 14:55:31.580487684 +0300
+@@ -1,4 +1,4 @@
+-from __future__ import print_function
++
+ import dbus
+ import avahi
+ import gobject
+diff -ruN a/examples/itshell.py b/examples/itshell.py
+--- a/examples/itshell.py	2015-11-15 00:01:58.000000000 +0300
++++ b/examples/itshell.py	2023-09-21 14:55:31.640488503 +0300
+@@ -1,5 +1,5 @@
+ #!/usr/bin/python
+-from __future__ import print_function
++
+ from cmd import Cmd
+ from daap import DAAPClient
+ import sys
+diff -ruN a/experimental/daap2.py b/experimental/daap2.py
+--- a/experimental/daap2.py	2015-11-15 00:01:58.000000000 +0300
++++ b/experimental/daap2.py	2023-09-21 14:55:31.724489650 +0300
+@@ -1,4 +1,4 @@
+-from __future__ import print_function
++
+ # daap.py
+ #
+ # DAAP classes and methods.
+@@ -9,11 +9,11 @@
+ # copyright 2005 Tom Insam <tom@jerakeen.org>
+ #
+ 
+-import httplib, struct, sys
++import http.client, struct, sys
+ import md5, md5daap
+ import gzip
+ import logging
+-from cStringIO import StringIO
++from io import StringIO
+ 
+ __all__ = ['DAAPError', 'DAAPObject', 'DAAPClient', 'DAAPSession', 'DAAPDatabase', 'DAAPPlaylist', 'DAAPTrack']
+ 
+@@ -21,7 +21,7 @@
+ 
+ # the itunes authentication hasher
+ seed_v2 = []
+-for i in (range(255)):
++for i in (list(range(255))):
+     ctx = md5.new()
+     if (i & 0x80): ctx.update("Accept-Language")
+     else:          ctx.update("user-agent")
+@@ -52,7 +52,7 @@
+ # this is a translation of the GenerateHash function in hasher.c of
+ # libopendaap http://crazney.net/programs/itunes/authentication.html
+ seed_v3 = []
+-for i in (range(255)):
++for i in (list(range(255))):
+     ctx = md5daap.new()
+ 
+     if (i & 0x40): ctx.update("eqwsdxcqwesdc")
+@@ -165,7 +165,7 @@
+             raise DAAPError("DAAPClient: already connected.")
+         self.hostname = hostname
+         self.port     = port
+-        self.socket = httplib.HTTPConnection(hostname, port)
++        self.socket = http.client.HTTPConnection(hostname, port)
+         self.getContentCodes() # practically required
+         self.getInfo() # to determine the remote server version
+ 
+@@ -173,7 +173,7 @@
+         """Makes a request, doing the right thing, returns the raw data"""
+ 
+         if params:
+-            l = ['%s=%s' % (k, v) for k, v in params.iteritems()]
++            l = ['%s=%s' % (k, v) for k, v in params.items()]
+             r = '%s?%s' % (r, '&'.join(l))
+ 
+         log.debug('getting %s', r)
+@@ -301,16 +301,16 @@
+ 
+ def decodeData(type, data):
+     typeDecodeMap = {'l':'q', 'ul':'Q', 'i':'i', 'ui':'I', 'h':'h', 'uh':'H', 'b':'b', 'ub':'B', 'v':'HH'}
+-    if type in typeDecodeMap.keys():
++    if type in list(typeDecodeMap.keys()):
+         return struct.unpack('!' + typeDecodeMap[type], data)[0]
+     elif type == 's':
+         # the object is a string
+         # we need to read length characters from the string
+         try:
+-            return unicode(struct.unpack('!%ss' % len(data), data)[0], 'utf-8')
++            return str(struct.unpack('!%ss' % len(data), data)[0], 'utf-8')
+         except UnicodeDecodeError:
+             # oh, urgh
+-            return unicode(struct.unpack('!%ss' % len(data), data)[0], 'latin-1')
++            return str(struct.unpack('!%ss' % len(data), data)[0], 'latin-1')
+     else:
+         # we don't know what to do with this object
+         # put it's raw data into value
 diff -ruN a/md5module.c b/md5module.c
 --- a/md5module.c	2015-11-15 00:01:58.000000000 +0300
-+++ b/md5module.c	2022-10-20 16:34:20.925283247 +0300
++++ b/md5module.c	2023-09-21 14:53:28.346805873 +0300
 @@ -19,7 +19,7 @@
  
  static PyTypeObject MD5type;
