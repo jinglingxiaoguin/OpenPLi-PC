@@ -1,6 +1,6 @@
 diff -ruN a/plugin/__init__.py b/plugin/__init__.py
 --- a/plugin/__init__.py	2021-08-08 13:57:08.000000000 +0300
-+++ b/plugin/__init__.py	2022-10-14 22:12:44.612434431 +0300
++++ b/plugin/__init__.py	2023-09-23 13:57:50.456674219 +0300
 @@ -1,5 +1,4 @@
 -# -*- coding: utf-8 -*-
 -from __future__ import print_function
@@ -8,77 +8,414 @@ diff -ruN a/plugin/__init__.py b/plugin/__init__.py
  from Components.Language import language
  from Tools.Directories import resolveFilename, SCOPE_PLUGINS, SCOPE_LANGUAGE
  import os, gettext
-diff -ruN a/plugin/locale/ru.po b/plugin/locale/ru.po
---- a/plugin/locale/ru.po	2022-10-13 02:02:39.188150817 +0300
-+++ b/plugin/locale/ru.po	2022-10-14 18:41:35.600660818 +0300
-@@ -1,17 +1,19 @@
- msgid ""
- msgstr ""
+diff -ruN a/plugin/locale/de.po b/plugin/locale/de.po
+--- a/plugin/locale/de.po	2021-08-08 13:57:08.000000000 +0300
++++ b/plugin/locale/de.po	1970-01-01 03:00:00.000000000 +0300
+@@ -1,65 +0,0 @@
+-# SOME DESCRIPTIVE TITLE.
+-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+-# This file is distributed under the same license as the PACKAGE package.
+-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+-#
+-msgid ""
+-msgstr ""
 -"Project-Id-Version: PACKAGE VERSION\n"
-+"Project-Id-Version: \n"
- "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2008-02-28 19:54+0100\n"
+-"Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2011-11-12 15:57+0100\n"
+-"PO-Revision-Date: 2011-11-13 09:09+0100\n"
+-"Last-Translator: Free User <free@user.de>\n"
+-"Language-Team: LANGUAGE <LL@li.org>\n"
+-"Language: \n"
+-"MIME-Version: 1.0\n"
+-"Content-Type: text/plain; charset=UTF-8\n"
+-"Content-Transfer-Encoding: 8bit\n"
+-
+-#: plugin.py:65
+-msgid "Select device and press OK to umount or EXIT to quit"
+-msgstr "Wähle Laufwerk und drücke OK zum Unmounten oder EXIT zum Beenden"
+-
+-#: plugin.py:66
+-msgid "DEVICE"
+-msgstr "LAUFWERK"
+-
+-#: plugin.py:67
+-msgid "MOUNTED ON"
+-msgstr "GEMOUNTED EIN"
+-
+-#: plugin.py:68
+-msgid "TYPE"
+-msgstr "TYP"
+-
+-#: plugin.py:69
+-msgid "SIZE"
+-msgstr "GRÖSSE"
+-
+-#: plugin.py:90
+-msgid "umount return code"
+-msgstr "Unmount liefert Code"
+-
+-#: plugin.py:93
+-msgid "Cannot umount device"
+-msgstr "Kann Laufwerk nicht unmounten"
+-
+-#: plugin.py:101
+-msgid "Really umount device"
+-msgstr "Laufwerk wirklich unmounten"
+-
+-#: plugin.py:111
+-msgid "WARNING: cannot read any mount point"
+-msgstr "WARNUNG: kann keine Mountpoints lesen"
+-
+-#: plugin.py:112
+-msgid "probably no mass storage device inserted"
+-msgstr "wahrscheinlich kein Massenspeicher eingesteckt"
+-
+-#: plugin.py:145
+-msgid "Simple mass storage umounter extension"
+-msgstr "Einfache Massenspeicher-Unmount Erweiterung"
+-
+-msgid "Show only removable devices"
+-msgstr "Zeige nur entfernbare Laufwerke"
+-
+diff -ruN a/plugin/locale/en.po b/plugin/locale/en.po
+--- a/plugin/locale/en.po	2021-08-08 13:57:08.000000000 +0300
++++ b/plugin/locale/en.po	1970-01-01 03:00:00.000000000 +0300
+@@ -1,67 +0,0 @@
+-# SOME DESCRIPTIVE TITLE.
+-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+-# This file is distributed under the same license as the PACKAGE package.
+-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+-#
+-#, fuzzy
+-msgid ""
+-msgstr ""
+-"Project-Id-Version: PACKAGE VERSION\n"
+-"Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2011-11-12 15:57+0100\n"
 -"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 -"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-+"PO-Revision-Date: 2019-07-09 15:58+0300\n"
- "Language-Team: LANGUAGE <Dima-73@inbox.lv>\n"
- "MIME-Version: 1.0\n"
- "Content-Type: text/plain; charset=UTF-8\n"
- "Content-Transfer-Encoding: 8bit\n"
-+"Last-Translator: \n"
-+"Language: ru\n"
-+"X-Generator: Poedit 2.2.1\n"
- 
- msgid "SimpleUmount"
--msgstr "Отмонтирование HDD/USB"
-+msgstr "Отмонтирование HDD и USB"
- 
- msgid "Simple mass storage umounter extension"
- msgstr "Простое отмонтирование накопителей"
-@@ -20,32 +22,31 @@
- msgstr "Нажмите ОК для отмонтирования выбранного устройства"
- 
- msgid "WARNING: cannot read any mount point"
--msgstr "ВНИМАНИЕ:не могу считать любую точку монтирования"
-+msgstr "ВНИМАНИЕ: сбой чтения точки монтирования"
- 
- msgid "probably no mass storage device inserted"
--msgstr "вероятно нет подключенных устройств..."
-+msgstr "Вероятно, нет подключенных устройств"
- 
- msgid "DEVICE"
+-"Language-Team: LANGUAGE <LL@li.org>\n"
+-"Language: \n"
+-"MIME-Version: 1.0\n"
+-"Content-Type: text/plain; charset=UTF-8\n"
+-"Content-Transfer-Encoding: 8bit\n"
+-
+-#: plugin.py:65
+-msgid "Select device and press OK to umount or EXIT to quit"
+-msgstr "Select device and press OK to umount or EXIT to quit"
+-
+-#: plugin.py:66
+-msgid "DEVICE"
 -msgstr "DEVICE"
-+msgstr "НОСИТЕЛЬ"
- 
- msgid "MOUNTED ON"
+-
+-#: plugin.py:67
+-msgid "MOUNTED ON"
 -msgstr "MOUNTED ON"
-+msgstr "МОНТИРОВАН"
- 
- msgid "TYPE"
+-
+-#: plugin.py:68
+-msgid "TYPE"
 -msgstr "TYPE"
-+msgstr "ТИП"
- 
- msgid "SIZE"
+-
+-#: plugin.py:69
+-msgid "SIZE"
 -msgstr "SIZE"
-+msgstr "РАЗМЕР"
- 
- msgid "umount return code"
+-
+-#: plugin.py:90
+-msgid "umount return code"
+-msgstr "umount return code"
+-
+-#: plugin.py:93
+-msgid "Cannot umount device"
+-msgstr "Cannot umount device"
+-
+-#: plugin.py:101
+-msgid "Really umount device"
+-msgstr "Really umount device"
+-
+-#: plugin.py:111
+-msgid "WARNING: cannot read any mount point"
+-msgstr "WARNING: cannot read any mount point"
+-
+-#: plugin.py:112
+-msgid "probably no mass storage device inserted"
+-msgstr "probably no mass storage device inserted"
+-
+-#: plugin.py:145
+-msgid "Simple mass storage umounter extension"
+-msgstr "Simple mass storage umounter extension"
+-
+-msgid "Show only removable devices"
+-msgstr "Show only removable devices"
+-
+-
+diff -ruN a/plugin/locale/it.po b/plugin/locale/it.po
+--- a/plugin/locale/it.po	2021-08-08 13:57:08.000000000 +0300
++++ b/plugin/locale/it.po	1970-01-01 03:00:00.000000000 +0300
+@@ -1,66 +0,0 @@
+-# SOME DESCRIPTIVE TITLE.
+-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+-# This file is distributed under the same license as the PACKAGE package.
+-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+-#
+-#, fuzzy
+-msgid ""
+-msgstr ""
+-"Project-Id-Version: PACKAGE VERSION\n"
+-"Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2011-11-12 15:57+0100\n"
+-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+-"Language-Team: LANGUAGE <LL@li.org>\n"
+-"Language: \n"
+-"MIME-Version: 1.0\n"
+-"Content-Type: text/plain; charset=UTF-8\n"
+-"Content-Transfer-Encoding: 8bit\n"
+-
+-#: plugin.py:65
+-msgid "Select device and press OK to umount or EXIT to quit"
+-msgstr "Seleziona device e premi OK o premi EXIT per uscire"
+-
+-#: plugin.py:66
+-msgid "DEVICE"
+-msgstr "DEVICE"
+-
+-#: plugin.py:67
+-msgid "MOUNTED ON"
+-msgstr "MONTATO IN"
+-
+-#: plugin.py:68
+-msgid "TYPE"
+-msgstr "TIPO"
+-
+-#: plugin.py:69
+-msgid "SIZE"
+-msgstr "DIMENSIONE"
+-
+-#: plugin.py:90
+-msgid "umount return code"
+-msgstr "errore umount nr."
+-
+-#: plugin.py:93
+-msgid "Cannot umount device"
+-msgstr "Impossibile smontare il device"
+-
+-#: plugin.py:101
+-msgid "Really umount device"
+-msgstr "Vuoi veramente smontare il device"
+-
+-#: plugin.py:111
+-msgid "WARNING: cannot read any mount point"
+-msgstr "WARNING: non leggo nessun punto di mount"
+-
+-#: plugin.py:112
+-msgid "probably no mass storage device inserted"
+-msgstr "forse non è inserito alcun device"
+-
+-#: plugin.py:145
+-msgid "Simple mass storage umounter extension"
+-msgstr "Semplice umounter di supporti di memorizzazione di massa"
+-
+-msgid "Show only removable devices"
+-msgstr "Mostra solo device rimovibili"
+-
+diff -ruN a/plugin/locale/pl.po b/plugin/locale/pl.po
+--- a/plugin/locale/pl.po	2021-08-08 13:57:08.000000000 +0300
++++ b/plugin/locale/pl.po	1970-01-01 03:00:00.000000000 +0300
+@@ -1,65 +0,0 @@
+-# SOME DESCRIPTIVE TITLE.
+-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+-# This file is distributed under the same license as the PACKAGE package.
+-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+-#
+-msgid ""
+-msgstr ""
+-"Project-Id-Version: SimpleUmount\n"
+-"Report-Msgid-Bugs-To: http://openpli.org/forums/forum/55-en-enduser-support/\n"
+-"POT-Creation-Date: 2011-11-12 15:57+0100\n"
+-"PO-Revision-Date: 2011-11-14 17:51+0100\n"
+-"Last-Translator: \n"
+-"Language-Team: LANGUAGE\n"
+-"Language: PL\n"
+-"MIME-Version: 1.0\n"
+-"Content-Type: text/plain; charset=UTF-8\n"
+-"Content-Transfer-Encoding: 8bit\n"
+-
+-#: plugin.py:65
+-msgid "Select device and press OK to umount or EXIT to quit"
+-msgstr "Wybierz i naciśnij OK aby odmontować lub EXIT aby wyjść"
+-
+-#: plugin.py:66
+-msgid "DEVICE"
+-msgstr "URZĄDZENIE"
+-
+-#: plugin.py:67
+-msgid "MOUNTED ON"
+-msgstr "ZAMONTOWANE"
+-
+-#: plugin.py:68
+-msgid "TYPE"
+-msgstr "TYP"
+-
+-#: plugin.py:69
+-msgid "SIZE"
+-msgstr "ROZMIAR"
+-
+-#: plugin.py:90
+-msgid "umount return code"
+-msgstr "umount zwróciło kod"
+-
+-#: plugin.py:93
+-msgid "Cannot umount device"
+-msgstr "Nie można odmontować urządzenia"
+-
+-#: plugin.py:101
+-msgid "Really umount device"
+-msgstr "Na pewno odmontować urządzenie"
+-
+-#: plugin.py:111
+-msgid "WARNING: cannot read any mount point"
+-msgstr "UWAGA: nie można odczytać żadnego punktu montowania"
+-
+-#: plugin.py:112
+-msgid "probably no mass storage device inserted"
+-msgstr "prawdopodobnie nie podłączono żadnego urządzenia pamięci masowej "
+-
+-#: plugin.py:145
+-msgid "Simple mass storage umounter extension"
+-msgstr "Proste rozszerzenie do odmontowywania urządzeń przenośnych"
+-
+-msgid "Show only removable devices"
+-msgstr "Pokazuj tylko urządzenia przenośne"
+-
+diff -ruN a/plugin/locale/ru.po b/plugin/locale/ru.po
+--- a/plugin/locale/ru.po	2021-08-08 13:57:08.000000000 +0300
++++ b/plugin/locale/ru.po	1970-01-01 03:00:00.000000000 +0300
+@@ -1,51 +0,0 @@
+-msgid ""
+-msgstr ""
+-"Project-Id-Version: PACKAGE VERSION\n"
+-"Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2008-02-28 19:54+0100\n"
+-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+-"Language-Team: LANGUAGE <Dima-73@inbox.lv>\n"
+-"MIME-Version: 1.0\n"
+-"Content-Type: text/plain; charset=UTF-8\n"
+-"Content-Transfer-Encoding: 8bit\n"
+-
+-msgid "SimpleUmount"
+-msgstr "Отмонтирование HDD/USB"
+-
+-msgid "Simple mass storage umounter extension"
+-msgstr "Простое отмонтирование накопителей"
+-
+-msgid "Select device and press OK to umount or EXIT to quit"
+-msgstr "Нажмите ОК для отмонтирования выбранного устройства"
+-
+-msgid "WARNING: cannot read any mount point"
+-msgstr "ВНИМАНИЕ:не могу считать любую точку монтирования"
+-
+-msgid "probably no mass storage device inserted"
+-msgstr "вероятно нет подключенных устройств..."
+-
+-msgid "DEVICE"
+-msgstr "DEVICE"
+-
+-msgid "MOUNTED ON"
+-msgstr "MOUNTED ON"
+-
+-msgid "TYPE"
+-msgstr "TYPE"
+-
+-msgid "SIZE"
+-msgstr "SIZE"
+-
+-msgid "umount return code"
 -msgstr "код возврата отмонтирования"
-+msgstr "Код возврата отмонтирования"
- 
- msgid "Cannot umount device"
+-
+-msgid "Cannot umount device"
 -msgstr "Не может отмонтировать устройство"
-+msgstr "Невозможно отмонтировать устройство"
- 
- msgid "Really umount device"
- msgstr "Действительно отмонтировать устройство"
- 
- msgid "Show only removable devices"
- msgstr "Показывать только съемные устройства"
+-
+-msgid "Really umount device"
+-msgstr "Действительно отмонтировать устройство"
+-
+-msgid "Show only removable devices"
+-msgstr "Показывать только съемные устройства"
+-
+diff -ruN a/plugin/locale/SimpleUmount.pot b/plugin/locale/SimpleUmount.pot
+--- a/plugin/locale/SimpleUmount.pot	2021-08-08 13:57:08.000000000 +0300
++++ b/plugin/locale/SimpleUmount.pot	1970-01-01 03:00:00.000000000 +0300
+@@ -1,67 +0,0 @@
+-# SOME DESCRIPTIVE TITLE.
+-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+-# This file is distributed under the same license as the PACKAGE package.
+-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+-#
+-#, fuzzy
+-msgid ""
+-msgstr ""
+-"Project-Id-Version: PACKAGE VERSION\n"
+-"Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2011-11-12 15:57+0100\n"
+-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+-"Language-Team: LANGUAGE <LL@li.org>\n"
+-"Language: \n"
+-"MIME-Version: 1.0\n"
+-"Content-Type: text/plain; charset=UTF-8\n"
+-"Content-Transfer-Encoding: 8bit\n"
+-
+-#: plugin.py:65
+-msgid "Select device and press OK to umount or EXIT to quit"
+-msgstr ""
+-
+-#: plugin.py:66
+-msgid "DEVICE"
+-msgstr ""
+-
+-#: plugin.py:67
+-msgid "MOUNTED ON"
+-msgstr ""
+-
+-#: plugin.py:68
+-msgid "TYPE"
+-msgstr ""
+-
+-#: plugin.py:69
+-msgid "SIZE"
+-msgstr ""
+-
+-#: plugin.py:90
+-msgid "umount return code"
+-msgstr ""
+-
+-#: plugin.py:93
+-msgid "Cannot umount device"
+-msgstr ""
+-
+-#: plugin.py:101
+-msgid "Really umount device"
+-msgstr ""
+-
+-#: plugin.py:111
+-msgid "WARNING: cannot read any mount point"
+-msgstr ""
+-
+-#: plugin.py:112
+-msgid "probably no mass storage device inserted"
+-msgstr ""
+-
+-#: plugin.py:145
+-msgid "Simple mass storage umounter extension"
+-msgstr ""
+-
+-msgid "Show only removable devices"
+-msgstr ""
+-
 -
 diff -ruN a/plugin/plugin.py b/plugin/plugin.py
 --- a/plugin/plugin.py	2021-08-08 13:57:08.000000000 +0300
-+++ b/plugin/plugin.py	2022-10-14 22:12:34.152434390 +0300
++++ b/plugin/plugin.py	2023-09-23 13:57:50.456674219 +0300
 @@ -1,5 +1,3 @@
 -# -*- coding: utf-8 -*-
 -
@@ -94,20 +431,482 @@ diff -ruN a/plugin/plugin.py b/plugin/plugin.py
  PLUGIN_VERSION = "0.11"
  from . import _
  from Screens.Screen import Screen
+diff -ruN a/po/de.po b/po/de.po
+--- a/po/de.po	1970-01-01 03:00:00.000000000 +0300
++++ b/po/de.po	2021-08-08 13:57:08.000000000 +0300
+@@ -0,0 +1,65 @@
++# SOME DESCRIPTIVE TITLE.
++# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the PACKAGE package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: PACKAGE VERSION\n"
++"Report-Msgid-Bugs-To: \n"
++"POT-Creation-Date: 2011-11-12 15:57+0100\n"
++"PO-Revision-Date: 2011-11-13 09:09+0100\n"
++"Last-Translator: Free User <free@user.de>\n"
++"Language-Team: LANGUAGE <LL@li.org>\n"
++"Language: \n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=UTF-8\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: plugin.py:65
++msgid "Select device and press OK to umount or EXIT to quit"
++msgstr "Wähle Laufwerk und drücke OK zum Unmounten oder EXIT zum Beenden"
++
++#: plugin.py:66
++msgid "DEVICE"
++msgstr "LAUFWERK"
++
++#: plugin.py:67
++msgid "MOUNTED ON"
++msgstr "GEMOUNTED EIN"
++
++#: plugin.py:68
++msgid "TYPE"
++msgstr "TYP"
++
++#: plugin.py:69
++msgid "SIZE"
++msgstr "GRÖSSE"
++
++#: plugin.py:90
++msgid "umount return code"
++msgstr "Unmount liefert Code"
++
++#: plugin.py:93
++msgid "Cannot umount device"
++msgstr "Kann Laufwerk nicht unmounten"
++
++#: plugin.py:101
++msgid "Really umount device"
++msgstr "Laufwerk wirklich unmounten"
++
++#: plugin.py:111
++msgid "WARNING: cannot read any mount point"
++msgstr "WARNUNG: kann keine Mountpoints lesen"
++
++#: plugin.py:112
++msgid "probably no mass storage device inserted"
++msgstr "wahrscheinlich kein Massenspeicher eingesteckt"
++
++#: plugin.py:145
++msgid "Simple mass storage umounter extension"
++msgstr "Einfache Massenspeicher-Unmount Erweiterung"
++
++msgid "Show only removable devices"
++msgstr "Zeige nur entfernbare Laufwerke"
++
+diff -ruN a/po/en.po b/po/en.po
+--- a/po/en.po	1970-01-01 03:00:00.000000000 +0300
++++ b/po/en.po	2021-08-08 13:57:08.000000000 +0300
+@@ -0,0 +1,67 @@
++# SOME DESCRIPTIVE TITLE.
++# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the PACKAGE package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++#, fuzzy
++msgid ""
++msgstr ""
++"Project-Id-Version: PACKAGE VERSION\n"
++"Report-Msgid-Bugs-To: \n"
++"POT-Creation-Date: 2011-11-12 15:57+0100\n"
++"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
++"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
++"Language-Team: LANGUAGE <LL@li.org>\n"
++"Language: \n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=UTF-8\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: plugin.py:65
++msgid "Select device and press OK to umount or EXIT to quit"
++msgstr "Select device and press OK to umount or EXIT to quit"
++
++#: plugin.py:66
++msgid "DEVICE"
++msgstr "DEVICE"
++
++#: plugin.py:67
++msgid "MOUNTED ON"
++msgstr "MOUNTED ON"
++
++#: plugin.py:68
++msgid "TYPE"
++msgstr "TYPE"
++
++#: plugin.py:69
++msgid "SIZE"
++msgstr "SIZE"
++
++#: plugin.py:90
++msgid "umount return code"
++msgstr "umount return code"
++
++#: plugin.py:93
++msgid "Cannot umount device"
++msgstr "Cannot umount device"
++
++#: plugin.py:101
++msgid "Really umount device"
++msgstr "Really umount device"
++
++#: plugin.py:111
++msgid "WARNING: cannot read any mount point"
++msgstr "WARNING: cannot read any mount point"
++
++#: plugin.py:112
++msgid "probably no mass storage device inserted"
++msgstr "probably no mass storage device inserted"
++
++#: plugin.py:145
++msgid "Simple mass storage umounter extension"
++msgstr "Simple mass storage umounter extension"
++
++msgid "Show only removable devices"
++msgstr "Show only removable devices"
++
++
+diff -ruN a/po/it.po b/po/it.po
+--- a/po/it.po	1970-01-01 03:00:00.000000000 +0300
++++ b/po/it.po	2021-08-08 13:57:08.000000000 +0300
+@@ -0,0 +1,66 @@
++# SOME DESCRIPTIVE TITLE.
++# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the PACKAGE package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++#, fuzzy
++msgid ""
++msgstr ""
++"Project-Id-Version: PACKAGE VERSION\n"
++"Report-Msgid-Bugs-To: \n"
++"POT-Creation-Date: 2011-11-12 15:57+0100\n"
++"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
++"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
++"Language-Team: LANGUAGE <LL@li.org>\n"
++"Language: \n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=UTF-8\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: plugin.py:65
++msgid "Select device and press OK to umount or EXIT to quit"
++msgstr "Seleziona device e premi OK o premi EXIT per uscire"
++
++#: plugin.py:66
++msgid "DEVICE"
++msgstr "DEVICE"
++
++#: plugin.py:67
++msgid "MOUNTED ON"
++msgstr "MONTATO IN"
++
++#: plugin.py:68
++msgid "TYPE"
++msgstr "TIPO"
++
++#: plugin.py:69
++msgid "SIZE"
++msgstr "DIMENSIONE"
++
++#: plugin.py:90
++msgid "umount return code"
++msgstr "errore umount nr."
++
++#: plugin.py:93
++msgid "Cannot umount device"
++msgstr "Impossibile smontare il device"
++
++#: plugin.py:101
++msgid "Really umount device"
++msgstr "Vuoi veramente smontare il device"
++
++#: plugin.py:111
++msgid "WARNING: cannot read any mount point"
++msgstr "WARNING: non leggo nessun punto di mount"
++
++#: plugin.py:112
++msgid "probably no mass storage device inserted"
++msgstr "forse non è inserito alcun device"
++
++#: plugin.py:145
++msgid "Simple mass storage umounter extension"
++msgstr "Semplice umounter di supporti di memorizzazione di massa"
++
++msgid "Show only removable devices"
++msgstr "Mostra solo device rimovibili"
++
+diff -ruN a/po/pl.po b/po/pl.po
+--- a/po/pl.po	1970-01-01 03:00:00.000000000 +0300
++++ b/po/pl.po	2021-08-08 13:57:08.000000000 +0300
+@@ -0,0 +1,65 @@
++# SOME DESCRIPTIVE TITLE.
++# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the PACKAGE package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: SimpleUmount\n"
++"Report-Msgid-Bugs-To: http://openpli.org/forums/forum/55-en-enduser-support/\n"
++"POT-Creation-Date: 2011-11-12 15:57+0100\n"
++"PO-Revision-Date: 2011-11-14 17:51+0100\n"
++"Last-Translator: \n"
++"Language-Team: LANGUAGE\n"
++"Language: PL\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=UTF-8\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: plugin.py:65
++msgid "Select device and press OK to umount or EXIT to quit"
++msgstr "Wybierz i naciśnij OK aby odmontować lub EXIT aby wyjść"
++
++#: plugin.py:66
++msgid "DEVICE"
++msgstr "URZĄDZENIE"
++
++#: plugin.py:67
++msgid "MOUNTED ON"
++msgstr "ZAMONTOWANE"
++
++#: plugin.py:68
++msgid "TYPE"
++msgstr "TYP"
++
++#: plugin.py:69
++msgid "SIZE"
++msgstr "ROZMIAR"
++
++#: plugin.py:90
++msgid "umount return code"
++msgstr "umount zwróciło kod"
++
++#: plugin.py:93
++msgid "Cannot umount device"
++msgstr "Nie można odmontować urządzenia"
++
++#: plugin.py:101
++msgid "Really umount device"
++msgstr "Na pewno odmontować urządzenie"
++
++#: plugin.py:111
++msgid "WARNING: cannot read any mount point"
++msgstr "UWAGA: nie można odczytać żadnego punktu montowania"
++
++#: plugin.py:112
++msgid "probably no mass storage device inserted"
++msgstr "prawdopodobnie nie podłączono żadnego urządzenia pamięci masowej "
++
++#: plugin.py:145
++msgid "Simple mass storage umounter extension"
++msgstr "Proste rozszerzenie do odmontowywania urządzeń przenośnych"
++
++msgid "Show only removable devices"
++msgstr "Pokazuj tylko urządzenia przenośne"
++
+diff -ruN a/po/ru.po b/po/ru.po
+--- a/po/ru.po	1970-01-01 03:00:00.000000000 +0300
++++ b/po/ru.po	2023-09-23 13:57:50.456674219 +0300
+@@ -0,0 +1,52 @@
++msgid ""
++msgstr ""
++"Project-Id-Version: \n"
++"Report-Msgid-Bugs-To: \n"
++"POT-Creation-Date: 2008-02-28 19:54+0100\n"
++"PO-Revision-Date: 2019-07-09 15:58+0300\n"
++"Language-Team: LANGUAGE <Dima-73@inbox.lv>\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=UTF-8\n"
++"Content-Transfer-Encoding: 8bit\n"
++"Last-Translator: \n"
++"Language: ru\n"
++"X-Generator: Poedit 2.2.1\n"
++
++msgid "SimpleUmount"
++msgstr "Отмонтирование HDD и USB"
++
++msgid "Simple mass storage umounter extension"
++msgstr "Простое отмонтирование накопителей"
++
++msgid "Select device and press OK to umount or EXIT to quit"
++msgstr "Нажмите ОК для отмонтирования выбранного устройства"
++
++msgid "WARNING: cannot read any mount point"
++msgstr "ВНИМАНИЕ: сбой чтения точки монтирования"
++
++msgid "probably no mass storage device inserted"
++msgstr "Вероятно, нет подключенных устройств"
++
++msgid "DEVICE"
++msgstr "НОСИТЕЛЬ"
++
++msgid "MOUNTED ON"
++msgstr "МОНТИРОВАН"
++
++msgid "TYPE"
++msgstr "ТИП"
++
++msgid "SIZE"
++msgstr "РАЗМЕР"
++
++msgid "umount return code"
++msgstr "Код возврата отмонтирования"
++
++msgid "Cannot umount device"
++msgstr "Невозможно отмонтировать устройство"
++
++msgid "Really umount device"
++msgstr "Действительно отмонтировать устройство"
++
++msgid "Show only removable devices"
++msgstr "Показывать только съемные устройства"
+diff -ruN a/po/SimpleUmount.pot b/po/SimpleUmount.pot
+--- a/po/SimpleUmount.pot	1970-01-01 03:00:00.000000000 +0300
++++ b/po/SimpleUmount.pot	2021-08-08 13:57:08.000000000 +0300
+@@ -0,0 +1,67 @@
++# SOME DESCRIPTIVE TITLE.
++# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the PACKAGE package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++#, fuzzy
++msgid ""
++msgstr ""
++"Project-Id-Version: PACKAGE VERSION\n"
++"Report-Msgid-Bugs-To: \n"
++"POT-Creation-Date: 2011-11-12 15:57+0100\n"
++"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
++"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
++"Language-Team: LANGUAGE <LL@li.org>\n"
++"Language: \n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=UTF-8\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: plugin.py:65
++msgid "Select device and press OK to umount or EXIT to quit"
++msgstr ""
++
++#: plugin.py:66
++msgid "DEVICE"
++msgstr ""
++
++#: plugin.py:67
++msgid "MOUNTED ON"
++msgstr ""
++
++#: plugin.py:68
++msgid "TYPE"
++msgstr ""
++
++#: plugin.py:69
++msgid "SIZE"
++msgstr ""
++
++#: plugin.py:90
++msgid "umount return code"
++msgstr ""
++
++#: plugin.py:93
++msgid "Cannot umount device"
++msgstr ""
++
++#: plugin.py:101
++msgid "Really umount device"
++msgstr ""
++
++#: plugin.py:111
++msgid "WARNING: cannot read any mount point"
++msgstr ""
++
++#: plugin.py:112
++msgid "probably no mass storage device inserted"
++msgstr ""
++
++#: plugin.py:145
++msgid "Simple mass storage umounter extension"
++msgstr ""
++
++msgid "Show only removable devices"
++msgstr ""
++
++
+diff -ruN a/setup.py b/setup.py
+--- a/setup.py	2021-08-08 13:57:08.000000000 +0300
++++ b/setup.py	2023-09-23 13:58:50.725558591 +0300
+@@ -7,7 +7,7 @@
+ 	description = 'Simple umounter mass storage device',
+ 	packages = [pkg],
+ 	package_dir = {pkg: 'plugin'},
+-	package_data = {pkg: ['locale/*/LC_MESSAGES/*.mo', 'simpleumount.png']},
++	package_data = {pkg: ['simpleumount.png']},
+ 	cmdclass = setup_translate.cmdclass, # for translation
+ 	)
+ 
 diff -ruN a/setup_translate.py b/setup_translate.py
 --- a/setup_translate.py	2021-08-08 13:57:08.000000000 +0300
-+++ b/setup_translate.py	2022-10-14 19:15:13.280668829 +0300
-@@ -1,4 +1,3 @@
++++ b/setup_translate.py	2023-09-23 13:54:58.322330969 +0300
+@@ -1,4 +1,4 @@
 -from __future__ import print_function
++
  # Language extension for distutils Python scripts. Based on this concept:
  # http://wiki.maemo.org/Internationalize_a_Python_application
  from distutils import cmd
-@@ -30,7 +29,7 @@
+@@ -6,8 +6,10 @@
+ import glob
+ import os
+ 
++
+ class build_trans(cmd.Command):
+ 	description = 'Compile .po files into .mo files'
++
+ 	def initialize_options(self):
+ 		pass
+ 
+@@ -15,30 +17,34 @@
+ 		pass
+ 
+ 	def run(self):
+-		s = os.path.join('plugin', 'locale')
++		s = os.path.join('po')
+ 		lang_domains = glob.glob(os.path.join(s, '*.pot'))
+ 		if len(lang_domains):
+ 			for lang in os.listdir(s):
+ 				if lang.endswith('.po'):
+-					src = os.path.join(s, lang)
++					plugin = os.path.join(s, lang)
+ 					lang = lang[:-3]
+-					destdir = os.path.join(s, lang, 'LC_MESSAGES')
++					destdir = os.path.join('build', 'lib', 'Extensions',
++						'SimpleUmount', 'locale', lang, 'LC_MESSAGES')
+ 					if not os.path.exists(destdir):
+ 						os.makedirs(destdir)
+ 					for lang_domain in lang_domains:
+ 						lang_domain = lang_domain.rsplit('/', 1)[1]
  						dest = os.path.join(destdir, lang_domain[:-3] + 'mo')
- 						print("Language compile %s -> %s" % (src, dest))
- 						if os.system("msgfmt '%s' -o '%s'" % (src, dest)) != 0:
+-						print("Language compile %s -> %s" % (src, dest))
+-						if os.system("msgfmt '%s' -o '%s'" % (src, dest)) != 0:
 -							raise (Exception, "Failed to compile: " + src)
-+							raise Exception("Failed to compile: " + src)
++						print("Language compile %s -> %s" % (plugin, dest))
++						if os.system("msgfmt '%s' -o '%s'" % (plugin, dest)) != 0:
++							raise Exception("Failed to compile: " + plugin)
  		else:
  			print("we got no domain -> no translation was compiled")
  
++
+ class build(_build):
+ 	sub_commands = _build.sub_commands + [('build_trans', None)]
++
+ 	def run(self):
+ 		_build.run(self)
+ 
++
+ cmdclass = {
+ 	'build': build,
+ 	'build_trans': build_trans,

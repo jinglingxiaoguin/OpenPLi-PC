@@ -123,6 +123,7 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 		echo ""
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
+
 		PKG="e2openplugin-StreamInterface"
 		PKG_="StreamInterface"
 		if [ -d $PKG ]; then
@@ -135,7 +136,10 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 		unzip python3.zip
 		rm python3.zip
 		mv $PKG-python3 $PKG
-		cd $PKG
+		cd ../..
+		cp patches/$PKG_.patch plugins/e2openplugin/$PKG
+		cd plugins/e2openplugin/$PKG
+		patch -p1 < $PKG_.patch
 		/home/$(logname)/.venv/e2pc/bin/pip install $prefix2/$PKG
 		ln -s -f /home/$(logname)/.venv/e2pc/lib/python3.11/site-packages/Extensions/$PKG_ $prefix1
 		cd ..
@@ -237,31 +241,31 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 	# Build e2openplugin-SetPicon
 	if [ ! -d e2openplugin-OpenWebif ]; then
 		set -e
-	set -o pipefail
+		set -o pipefail
 	else
-	echo ""
-	echo "**************************** OK. Go to the next step. ******************************"
-	echo ""
-	PKG="e2openplugin-SetPicon"
-	PKG_="SetPicon"
-	VER="6b777ed10fba7a825ba99ca8a27f6c381dee6d16"
+		echo ""
+		echo "**************************** OK. Go to the next step. ******************************"
+		echo ""
+		PKG="e2openplugin-SetPicon"
+		PKG_="SetPicon"
+		VER="6b777ed10fba7a825ba99ca8a27f6c381dee6d16"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
 		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
-	wget https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
-	unzip $VER.zip
-	rm $VER.zip
-	mv $PKG-$VER $PKG
-	cd ../..
-	cp -fv patches/$PKG_.patch plugins/e2openplugin/$PKG
-	cd plugins/e2openplugin/$PKG
-	patch -p1 < $PKG_.patch
+		wget https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
+		unzip $VER.zip
+		rm $VER.zip
+		mv $PKG-$VER $PKG
+		cd ../..
+		cp -fv patches/$PKG_.patch plugins/e2openplugin/$PKG
+		cd plugins/e2openplugin/$PKG
+		patch -p1 < $PKG_.patch
 		/home/$(logname)/.venv/e2pc/bin/pip install $prefix2/$PKG
 		ln -s -f /home/$(logname)/.venv/e2pc/lib/python3.11/site-packages/Extensions/$PKG_ $prefix1
-	cd ..
+		cd ..
 	fi
 
 	# Build e2openplugin-SnmpAgent
@@ -270,7 +274,7 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 #		set -o pipefail
 #	else
 #		echo ""
-#	echo "**************************** OK. Go to the next step. ******************************"
+#		echo "**************************** OK. Go to the next step. ******************************"
 #		echo ""
 #		PKG="e2openplugin-SnmpAgent"
 #		PKG_="SnmpAgent"
@@ -315,7 +319,7 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 		wget https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
 		unzip $VER.zip
 		rm $VER.zip
-			mv $PKG-$VER $PKG
+		mv $PKG-$VER $PKG
 		cd ../..
 		cp -fv patches/$PKG_.patch plugins/e2openplugin/$PKG
 		cd plugins/e2openplugin/$PKG

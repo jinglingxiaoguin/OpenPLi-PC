@@ -1,258 +1,2339 @@
 diff -ruN a/plugin/__init__.py b/plugin/__init__.py
 --- a/plugin/__init__.py	2022-07-21 04:39:04.000000000 +0300
-+++ b/plugin/__init__.py	2022-10-14 15:26:20.640614303 +0300
++++ b/plugin/__init__.py	2023-09-23 13:40:14.123318845 +0300
 @@ -1,5 +1,3 @@
 -# -*- coding: utf-8 -*-
 -from __future__ import print_function
  from Components.Language import language
  from Tools.Directories import resolveFilename, SCOPE_PLUGINS, SCOPE_LANGUAGE
  from os import environ as os_environ
+diff -ruN a/plugin/locale/cs/LC_MESSAGES/SetPicon.po b/plugin/locale/cs/LC_MESSAGES/SetPicon.po
+--- a/plugin/locale/cs/LC_MESSAGES/SetPicon.po	2022-07-21 04:39:04.000000000 +0300
++++ b/plugin/locale/cs/LC_MESSAGES/SetPicon.po	1970-01-01 03:00:00.000000000 +0300
+@@ -1,399 +0,0 @@
+-# Czech translations for enigma package.
+-# Copyright (C) 2009 THE enigma'S COPYRIGHT HOLDER
+-# This file is distributed under the same license as the enigma package.
+-# Automatically generated, 2012.
+-#
+-msgid ""
+-msgstr ""
+-"Project-Id-Version: Enigma 2 SetPicon Plugin\n"
+-"Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2009-02-16 23:05+0100\n"
+-"PO-Revision-Date: 2012-11-13 17:29+0100\n"
+-"Last-Translator: ims <ims21@users.sourceforge.net>\n"
+-"Language-Team: ims\n"
+-"MIME-Version: 1.0\n"
+-"Content-Type: text/plain; charset=utf-8\n"
+-"Content-Transfer-Encoding: 8bit\n"
+-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+-"X-Poedit-Language: Czech\n"
+-"X-Poedit-Country: CZECH REPUBLIC\n"
+-
+-#
+-msgid "SetPicon Setup"
+-msgstr "SetPicon - Nastavení"
+-
+-#
+-msgid "Input directory"
+-msgstr "Vstupní adresář"
+-
+-#
+-msgid "Output directory"
+-msgstr "Výstupní adresář"
+-
+-#
+-msgid "Save picon as"
+-msgstr "Ukládat pikony jako"
+-
+-#
+-msgid "Saving current picons from"
+-msgstr "Ukládat aktuální pikony"
+-
+-#
+-msgid "Input directory of Picons"
+-msgstr "Vstupní adresář s pikonami"
+-
+-#
+-msgid "Output directory for created Picons"
+-msgstr "Adresář pro ukládání pikon"
+-
+-#
+-msgid "set picon to service"
+-msgstr "Přiřadit pikonu programu"
+-
+-#
+-msgid "No picons found!"
+-msgstr "Žádné pikony nenalezeny!"
+-
+-#
+-msgid "current:"
+-msgstr "Aktuální:"
+-
+-#
+-msgid "Select picon and press OK to assign to current service:"
+-msgstr "Vyberte ikonu a stiskem OK ji přiřaďte aktuálnímu programu:"
+-
+-#
+-msgid "Reading picons..."
+-msgstr "Načítání pikon..."
+-
+-#
+-msgid "Please wait to finishing picon's list..."
+-msgstr "Čekejte na dokončení načtení seznamu pikon..."
+-
+-#
+-msgid "Save current"
+-msgstr "Ulož aktuální"
+-
+-#
+-msgid "Search"
+-msgstr "Najít"
+-
+-#
+-msgid "name"
+-msgstr "Název programu"
+-
+-#
+-msgid "all picon's directories"
+-msgstr "Ze všech adresářů s pikonami"
+-
+-#
+-msgid "input directory only"
+-msgstr "Pouze ze vstupního adresáře"
+-
+-#
+-msgid "exit plugin"
+-msgstr "Zavřít plugin"
+-
+-#
+-msgid "set and save selected picon"
+-msgstr "Nastavit a uložit vybranou pikonu"
+-
+-#
+-msgid "service reference"
+-msgstr "Service reference"
+-
+-#
+-msgid "configuration"
+-msgstr "Konfigurace"
+-
+-#
+-msgid "go to previous picon"
+-msgstr "Předchozí pikona"
+-
+-#
+-msgid "go to next picon"
+-msgstr "Následující pikona"
+-
+-#
+-msgid "go to next service"
+-msgstr "Následující program"
+-
+-#
+-msgid "go to previous service"
+-msgstr "Předchozí program"
+-
+-#
+-msgid "save service's picon"
+-msgstr "Uložit pikonu programu"
+-
+-#
+-msgid "save bouquet's picons"
+-msgstr "uložit všechny picony z přehledu"
+-
+-#
+-msgid "go to first picon"
+-msgstr "Na první pikonu"
+-
+-#
+-msgid "go to last picon"
+-msgstr "Na poslední pikonu"
+-
+-#
+-msgid "go to -5 picons"
+-msgstr "Zpět o 5 pikon"
+-
+-#
+-msgid "go to -100 picons"
+-msgstr "Zpět o 100 pikon"
+-
+-#
+-msgid "go to -1000 picons"
+-msgstr "Zpět o -1000 pikon"
+-
+-#
+-msgid "go to +5 picons"
+-msgstr "Vpřed o 5 pikon"
+-
+-#
+-msgid "go to +100 picons"
+-msgstr "Vpřed o 100 pikon"
+-
+-#
+-msgid "go to +1000 picons"
+-msgstr "Vpřed o 1000 pikon"
+-
+-#
+-msgid "Save name with orbital position"
+-msgstr "Přidat k názvu i orbitální pozici"
+-
+-#
+-msgid "Display picon's name"
+-msgstr "Zobrazovat názvy pikon"
+-
+-#
+-msgid "no"
+-msgstr "Ne"
+-
+-#
+-msgid "filename"
+-msgstr "Název souboru"
+-
+-#
+-msgid "full path"
+-msgstr "Celá cesta"
+-
+-#
+-msgid "Not found"
+-msgstr "Nenalezeno"
+-
+-#
+-msgid "Select picon and save it with OK to output directory:"
+-msgstr "Vyberte ikonu a stiskem OK ji uložte do výstupního adresáře:"
+-
+-#
+-msgid "Save %s bouquet's picons to %s"
+-msgstr "Uložit pikony z přehledu %s do %s"
+-
+-#
+-msgid "Copy all picons from %s to %s"
+-msgstr "Zkopírovat všechny pikony z %s do %s"
+-
+-#
+-msgid "Delete all picons in %s"
+-msgstr "Smazat všechny pikony v %s"
+-
+-#
+-msgid "Operations with picons"
+-msgstr "Operace s pikonami"
+-
+-#
+-msgid "Input directory and output directory are same!"
+-msgstr "Vstupní a výstupní adresáře jsou stejné!"
+-
+-#
+-msgid "Are You sure delete all picons in %s ?"
+-msgstr "Skutečně chcete smazat všechny pikony v %s ?"
+-
+-#
+-msgid "In menu change input directory or save picons from bouquet."
+-msgstr "Změňte vstupní adresář nebo uložte pikony z přehledu."
+-
+-#
+-msgid "Options"
+-msgstr "Možnosti"
+-
+-#
+-msgid "options"
+-msgstr "Možnosti"
+-
+-#
+-msgid "menu"
+-msgstr "Menu"
+-
+-#
+-msgid ""
+-"Do you want set both directory as:\n"
+-" %s"
+-msgstr ""
+-"Chcete nastavit oba adresáře jako:\n"
+-" %s"
+-
+-#
+-msgid "Swap Dirs"
+-msgstr "Prohodit"
+-
+-#
+-msgid "Same Dirs"
+-msgstr "Stejné"
+-
+-#
+-msgid "SetPicon in E-menu"
+-msgstr "SetPicon v E-menu"
+-
+-#
+-msgid "SetPicon in Channel's menu"
+-msgstr "SetPicon v menu přehledu kanálů"
+-
+-#
+-msgid "Search: picons"
+-msgstr "Hledat: pikony"
+-
+-#
+-msgid "Search: service"
+-msgstr "Hledat: program"
+-
+-#
+-msgid "search picons or service"
+-msgstr "Vyhledat pikony nebo program"
+-
+-#
+-msgid "switch searching to service"
+-msgstr "Přepnout hledání na program"
+-
+-#
+-msgid "switch searching to picons"
+-msgstr "Přepnout hledání na pikony"
+-
+-#
+-msgid "Service not found"
+-msgstr "Program nenalezen"
+-
+-#
+-msgid "refresh"
+-msgstr "Obnovit"
+-
+-#
+-msgid "Backup directory cannot be same as Input or Output directories !"
+-msgstr "Záložní adresář nemůže být shodný se vstupním nebo výstupním adresářem !"
+-
+-#
+-msgid "Backup directory for Picons"
+-msgstr "Záložní adresář pro pikony"
+-
+-#
+-msgid "Saving too to backup directory"
+-msgstr "Ukládat též do záložního adresáře"
+-
+-#
+-msgid "Backup directory"
+-msgstr "Záložní adresář"
+-
+-#
+-msgid "Delete picons in backup directory %s"
+-msgstr "Smazat pikony v záložním adresáři %s"
+-
+-#
+-msgid "ZAP when is changed service"
+-msgstr "Přepnout při změně programu"
+-
+-#
+-msgid "Sorting picons in backup directory"
+-msgstr "Třídit pikony v záložním adresáři"
+-
+-#
+-msgid "by providers"
+-msgstr "Podle poskytovatele"
+-
+-#
+-msgid "by orbital position"
+-msgstr "Podle orbitální pozice"
+-
+-#
+-msgid "Save %s bouquet's picons to backup directory only"
+-msgstr "Uložit pikony z přehledu %s pouze do záložního adresáře"
+-
+-#
+-msgid "Display picons"
+-msgstr "Zobrazovat pikony"
+-
+-#
+-msgid "unsorted"
+-msgstr "Netříděně"
+-
+-#
+-msgid "sorted"
+-msgstr "Setříděné"
+-
+-#
+-msgid "sorted in reverse order"
+-msgstr "Setříděné v opačném pořadí"
+-
+-#
+-msgid "Accept picons"
+-msgstr "Akceptovat pikony"
+-
+-#
+-msgid "all"
+-msgstr "Všechny"
+-
+-#
+-msgid "as service reference only"
+-msgstr "Pouze jako service reference"
+-
+-#
+-msgid "as names only"
+-msgstr "Pouze jako názvy"
+-
+-#
+-msgid "delete selected picon"
+-msgstr "Smazat vybranou pikonu"
+-
+-#
+-msgid "Terrestrial"
+-msgstr "Pozemní"
+-
+-#
+-msgid "Cable"
+-msgstr "Kabelová"
+-
+-#
+-msgid "Cancel"
+-msgstr "Zavřít"
+-
+-#
+-msgid "Save"
+-msgstr "Uložit"
+-
+-#
+-msgid "Stream"
+-msgstr ""
+-
+-#
+-msgid "SetPicon"
+-msgstr ""
+-
+-#
+-msgid "Fully fill rectangles with picons"
+-msgstr "Maximálně zvětšit pikony"
+-
+-#
+-msgid "Are You sure delete picon?\n%s"
+-msgstr "Opravdu smazat pikonu?\n%s"
+-
+-#
+-msgid "Move to directory"
+-msgstr "Přesunout do adresáře"
+-
+-#
+-msgid "Move instead delete"
+-msgstr "Přesunout místo smazat"
+diff -ruN a/plugin/locale/fa/LC_MESSAGES/SetPicon.po b/plugin/locale/fa/LC_MESSAGES/SetPicon.po
+--- a/plugin/locale/fa/LC_MESSAGES/SetPicon.po	2022-07-21 04:39:04.000000000 +0300
++++ b/plugin/locale/fa/LC_MESSAGES/SetPicon.po	1970-01-01 03:00:00.000000000 +0300
+@@ -1,391 +0,0 @@
+-msgid ""
+-msgstr ""
+-"Project-Id-Version: set picon Persian Translation\n"
+-"Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2009-02-16 23:05+0100\n"
+-"PO-Revision-Date: 2012-07-24 00:42+0330\n"
+-"Last-Translator: mehdi <mehdi_ar_yekta@yahoo.com>\n"
+-"Language-Team: Persian Professionals <persianpros@yahoo.com>\n"
+-"MIME-Version: 1.0\n"
+-"Content-Type: text/plain; charset=utf-8\n"
+-"Content-Transfer-Encoding: 8bit\n"
+-"X-Poedit-Language: Persian\n"
+-"X-Poedit-Country: IRAN, ISLAMIC REPUBLIC OF\n"
+-
+-#
+-msgid "SetPicon Setup"
+-msgstr "راه اندازی آیکون های تصویری"
+-
+-#
+-msgid "Input directory"
+-msgstr "وراد نمودن یک دایرکتوری "
+-
+-#
+-msgid "Output directory"
+-msgstr "خارج نمودن یک دایرکتوری"
+-
+-#
+-msgid "Save picon as"
+-msgstr "ذخیره سازی یک آیکون تصویری به عنوان"
+-
+-#
+-msgid "Saving current picons from"
+-msgstr "ذخیره سازی آیکون های تصویری موجود از "
+-
+-#
+-msgid "Input directory of Picons"
+-msgstr "وارد نمودن دایرکتوری آیکون های تصویری"
+-
+-#
+-msgid "Output directory for created Picons"
+-msgstr "خارج نمودن دایرکتوری برای آیکون های تصویری ساخته شده"
+-
+-#
+-msgid "set picon to service"
+-msgstr "فرستادن آیکون های تصویری به حالت سرویس و نمایش"
+-
+-#
+-msgid "No picons found!"
+-msgstr "هیچ آیکون تصویری یافت نشد !"
+-
+-#
+-msgid "current:"
+-msgstr "وضعیت موجود"
+-
+-#
+-msgid "Select picon and press OK to assign to current service:"
+-msgstr "آیکون تصویری مد نظرتان را انتخاب کنید و دکمه اوکی را بزنید و آنها را به حالت سرویس منتقل کنید"
+-
+-#
+-msgid "Reading picons..."
+-msgstr "در حال خواندن آیکون های تصویری ..."
+-
+-#
+-msgid "Please wait to finishing picon's list..."
+-msgstr "لطفا تا ایجاد لیست نهایی آیکون های تصویری صبر نمایید "
+-
+-#
+-msgid "Save current"
+-msgstr "ذخیره سازی وضعیت موجود"
+-
+-#
+-msgid "Search"
+-msgstr "جستجو کردن"
+-
+-#
+-msgid "name"
+-msgstr "نام"
+-
+-#
+-msgid "all picon's directories"
+-msgstr "همه دایرکتوری آیکون های تصویری"
+-
+-#
+-msgid "input directory only"
+-msgstr "وارد کردن دایرکتوری"
+-
+-#
+-msgid "exit plugin"
+-msgstr "خروج از پلاگین"
+-
+-#
+-msgid "set and save selected picon"
+-msgstr "تنظیم و ذخیره سازی آیکون های تصویری"
+-
+-#
+-msgid "service reference"
+-msgstr "مراجعه به منابع"
+-
+-#
+-msgid "configuration"
+-msgstr "پیکربندی"
+-
+-#
+-msgid "go to previous picon"
+-msgstr "برگشت به آیکون تصویری قبلی"
+-
+-#
+-msgid "go to next picon"
+-msgstr "رفتن به آیکون تصویری بعدی"
+-
+-#
+-msgid "go to next service"
+-msgstr "رفتن به سرویس بعدی"
+-
+-#
+-msgid "go to previous service"
+-msgstr "رفتن به سرویس قبلی"
+-
+-#
+-msgid "save service's picon"
+-msgstr "ذخیره سازی آیکون تصویری سرویس ها"
+-
+-#
+-msgid "save bouquet's picons"
+-msgstr "ذخیره سازی آیکون تصویری دسته های انتخابی"
+-
+-#
+-msgid "go to first picon"
+-msgstr "برگشت به اولین آیکون تصویری"
+-
+-#
+-msgid "go to last picon"
+-msgstr "برگشت به آخرین آیکون تصویری"
+-
+-#
+-msgid "go to -5 picons"
+-msgstr "برگشت به 5 آیکون تصویری آخر"
+-
+-#
+-msgid "go to -100 picons"
+-msgstr "برگشت به 100 آیکون تصویری آخر"
+-
+-#
+-msgid "go to -1000 picons"
+-msgstr "برگشت به 1000 آیکون تصویری آخر"
+-
+-#
+-msgid "go to +5 picons"
+-msgstr "برگشت به 5 آیکون تصویری اول"
+-
+-#
+-msgid "go to +100 picons"
+-msgstr "برگشت به 100 آیکون تصویری اول"
+-
+-#
+-msgid "go to +1000 picons"
+-msgstr "برگشت به 1000 آیکون تصویری اول"
+-
+-#
+-msgid "Save name with orbital position"
+-msgstr "ذخیره سازی نام با موقعیت قرار گیری آیکون های تصویری"
+-
+-#
+-msgid "Display picon's name"
+-msgstr "نمایش نام آیکون های تصویری"
+-
+-#
+-msgid "no"
+-msgstr "نه"
+-
+-#
+-msgid "filename"
+-msgstr "نام فایل ها "
+-
+-#
+-msgid "full path"
+-msgstr "مسیر کامل "
+-
+-#
+-msgid "Not found"
+-msgstr "پیدا نشد"
+-
+-#
+-msgid "Select picon and save it with OK to output directory:"
+-msgstr "آیکون تصویری را انتخاب و در دایرکتوری خارجی ذخیره سازی کنید "
+-
+-#
+-msgid "Save %s bouquet's picons to %s"
+-msgstr ""
+-
+-#
+-msgid "Copy all picons from %s to %s"
+-msgstr ""
+-
+-#
+-msgid "Delete all picons in %s"
+-msgstr ""
+-
+-#
+-msgid "Operations with picons"
+-msgstr "عملیاتی کردن آیکون های تصویری"
+-
+-#
+-msgid "Input directory and output directory are same!"
+-msgstr "آیا دایرکتوری داخلی و خارجی یکی هستند "
+-
+-#
+-msgid "Are You sure delete all picons in %s ?"
+-msgstr ""
+-
+-#
+-msgid "In menu change input directory or save picons from bouquet."
+-msgstr "از منو دایرکتوری های داخلی را تغییر دهید یا آنها را در دسته دیگری ذخیره کنید"
+-
+-#
+-msgid "Options"
+-msgstr "گزینه ها"
+-
+-#
+-msgid "options"
+-msgstr "گزینه ها"
+-
+-#
+-msgid "menu"
+-msgstr "منو"
+-
+-#
+-msgid ""
+-"Do you want set both directory as:\n"
+-" %s"
+-msgstr ""
+-
+-#
+-msgid "Swap Dirs"
+-msgstr ""
+-
+-#
+-msgid "Same Dirs"
+-msgstr ""
+-
+-#
+-msgid "SetPicon in E-menu"
+-msgstr "تنظیم آیکون های تصویری در یک منو الکترونیکی"
+-
+-#
+-msgid "SetPicon in Channel's menu"
+-msgstr ""
+-
+-#
+-msgid "Search: picons"
+-msgstr "جستجوی آیکون های تصویری"
+-
+-#
+-msgid "Search: service"
+-msgstr "جستجوی تصویری"
+-
+-#
+-msgid "search picons or service"
+-msgstr "جستجوی آیکون های تصویری یا سرویس ها"
+-
+-#
+-msgid "switch searching to service"
+-msgstr "سوئیچ کردن از حالت جستجو کردن به سرویس"
+-
+-#
+-msgid "switch searching to picons"
+-msgstr "سوئیچ کردن از حالت جستجو کردن به آیکون های تصویری"
+-
+-#
+-msgid "Service not found"
+-msgstr "هیچ سرویس پیدا نشد"
+-
+-#
+-msgid "refresh"
+-msgstr "روشن سازی مجدد"
+-
+-#
+-msgid "Backup directory cannot be same as Input or Output directories !"
+-msgstr "دایرکتوری پشتیبان نمی تواند همانند دایرکتوریهای داخلی یا خارجی باشد"
+-
+-#
+-msgid "Backup directory for Picons"
+-msgstr "ایجاد یک دایرکتوری پشتیبان برای آیکون های تصویری"
+-
+-#
+-msgid "Saving too to backup directory"
+-msgstr "ذخیره سازی در دایرکتوری پشتیبان"
+-
+-#
+-msgid "Backup directory"
+-msgstr "دایرکتوری پشتیبان"
+-
+-#
+-msgid "Delete picons in backup directory %s"
+-msgstr ""
+-
+-#
+-msgid "ZAP when is changed service"
+-msgstr "جابجایی کانال  به محض تغییر سرویس"
+-
+-#
+-msgid "Sorting picons in backup directory"
+-msgstr "دسته بندی آیکون های تصویری در دایرکتوری پشتیبان"
+-
+-#
+-msgid "by providers"
+-msgstr "بر اساس ارائه دهندگان"
+-
+-#
+-msgid "by orbital position"
+-msgstr "بر اساس موقعیت قرار گیری آیکون های تصویری"
+-
+-#
+-msgid "Save %s bouquet's picons to backup directory only"
+-msgstr ""
+-
+-#
+-msgid "Display picons"
+-msgstr ""
+-
+-#
+-msgid "unsorted"
+-msgstr ""
+-
+-#
+-msgid "sorted"
+-msgstr ""
+-
+-#
+-msgid "sorted in reverse order"
+-msgstr ""
+-
+-#
+-msgid "Accept picons"
+-msgstr ""
+-
+-#
+-msgid "all"
+-msgstr ""
+-
+-#
+-msgid "as service reference only"
+-msgstr ""
+-
+-#
+-msgid "as names only"
+-msgstr ""
+-
+-#
+-msgid "delete selected picon"
+-msgstr "حذف آیکون تصویری انتخاب شده "
+-
+-#
+-msgid "Terrestrial"
+-msgstr "زمینی"
+-
+-#
+-msgid "Cable"
+-msgstr "کابل"
+-
+-#
+-msgid "Cancel"
+-msgstr "لغو کردن"
+-
+-#
+-msgid "Save"
+-msgstr "ذخیره کردن"
+-
+-#
+-msgid "Stream"
+-msgstr ""
+-
+-#
+-msgid "SetPicon"
+-msgstr ""
+-
+-#
+-msgid "Fully fill rectangles with picons"
+-msgstr ""
+-
+-#
+-msgid "Are You sure delete picon?\n%s"
+-msgstr ""
+-
+-#
+-msgid "Move to directory"
+-msgstr ""
+-
+-#
+-msgid "Move instead delete"
+-msgstr ""
+diff -ruN a/plugin/locale/fr/LC_MESSAGES/SetPicon.po b/plugin/locale/fr/LC_MESSAGES/SetPicon.po
+--- a/plugin/locale/fr/LC_MESSAGES/SetPicon.po	2022-07-21 04:39:04.000000000 +0300
++++ b/plugin/locale/fr/LC_MESSAGES/SetPicon.po	1970-01-01 03:00:00.000000000 +0300
+@@ -1,430 +0,0 @@
+-# Language fr/LC translations for e package.
+-# Copyright (C) 2018 THE e'S COPYRIGHT HOLDER
+-# This file is distributed under the same license as the e package.
+-# Automatically generated, 2018.
+-#
+-msgid ""
+-msgstr ""
+-"Project-Id-Version: e 2openplugin-SetPicon\n"
+-"Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2018-07-15 21:40+0200\n"
+-"PO-Revision-Date: 2018-07-15 22:04+0200\n"
+-"Last-Translator: Automatically generated\n"
+-"Language-Team: none\n"
+-"Language: fr\n"
+-"MIME-Version: 1.0\n"
+-"Content-Type: text/plain; charset=UTF-8\n"
+-"Content-Transfer-Encoding: 8bit\n"
+-"X-Generator: Poedit 2.0.9\n"
+-
+-#: ../ui.py:1003
+-msgid "Accept picons"
+-msgstr "Accepter les picons"
+-
+-#: ../ui.py:588
+-#, python-format
+-msgid "Are You sure delete all picons in %s ?"
+-msgstr "Voulez-vous vraiment supprimer tous les picons dans %s ?"
+-
+-#: ../ui.py:767
+-#, python-format
+-msgid ""
+-"Are You sure delete picon?\n"
+-"%s"
+-msgstr ""
+-"Voulez-vous vraiment supprimer le picon ?\n"
+-"%s"
+-
+-#: ../ui.py:999
+-msgid "Backup directory"
+-msgstr "Répertoire de sauvegarde:"
+-
+-#: ../ui.py:1096
+-msgid "Backup directory cannot be same as Input or Output directories !"
+-msgstr "Le répertoire de sauvegarde ne peut pas être le même que les répertoires d'entrée ou de sortie!"
+-
+-#: ../ui.py:1061
+-msgid "Backup directory for Picons"
+-msgstr "Répertoire de sauvegarde pour les Picons"
+-
+-#: ../ui.py:746 ../ui.py:756
+-msgid "Cable"
+-msgstr "Câble"
+-
+-#: ../ui.py:168 ../ui.py:973
+-msgid "Cancel"
+-msgstr "Annuler"
+-
+-#: ../ui.py:236
+-#, python-format
+-msgid "Copy all picons from %s to %s"
+-msgstr "Copiez tous les picons de %s à %s"
+-
+-#: ../ui.py:237 ../ui.py:239
+-#, python-format
+-msgid "Delete all picons in %s"
+-msgstr "Supprimer tous les picons dans %s"
+-
+-#: ../ui.py:242
+-#, python-format
+-msgid "Delete picons in backup directory %s"
+-msgstr "Supprimer les picons dans le répertoire de sauvegarde %s"
+-
+-#: ../ui.py:1066
+-msgid "Directory for removed Picons"
+-msgstr "Répertoire pour les picons supprimés"
+-
+-#: ../ui.py:1015
+-msgid "Display picon's name"
+-msgstr "Afficher nom du picon"
+-
+-#: ../ui.py:1017
+-msgid "Display picons"
+-msgstr "Afficher les picons"
+-
+-#: ../ui.py:1106
+-#, python-format
+-msgid ""
+-"Do you want set both directory as:\n"
+-" %s"
+-msgstr ""
+-"Voulez-vous définir les deux répertoires comme:\n"
+-"%s"
+-
+-#: ../ui.py:1016
+-msgid "Fully fill rectangles with picons"
+-msgstr "Remplir entièrement les rectangles avec les picons"
+-
+-#: ../ui.py:415
+-msgid "In menu change input directory or save picons from bouquet."
+-msgstr "Dans le menu modifier le répertoire d’entrée ou sauver les picons du bouquet."
+-
+-#: ../ui.py:997
+-msgid "Input directory"
+-msgstr "Répertoire d’entrée"
+-
+-#: ../ui.py:340 ../ui.py:567
+-msgid "Input directory and output directory are same!"
+-msgstr "Répertoire d’entrée et le répertoire de sortie sont les mêmes !"
+-
+-#: ../ui.py:1051
+-msgid "Input directory of Picons"
+-msgstr "Répertoire d’entrée des Picons"
+-
+-#: ../ui.py:1157
+-msgid "MB"
+-msgstr "Mo"
+-
+-#: ../ui.py:1011
+-msgid "Move instead delete"
+-msgstr "Déplacer au lieu de supprimer"
+-
+-#: ../ui.py:1000
+-msgid "Move to directory"
+-msgstr "Déplacer vers le répertoire"
+-
+-#: ../ui.py:677
+-msgid "No picons found!"
+-msgstr "Aucun picon trouvé!"
+-
+-#: ../ui.py:436 ../ui.py:537
+-msgid "Not found"
+-msgstr "Pas trouvé"
+-
+-#: ../ui.py:244
+-msgid "Operations with picons"
+-msgstr "Opérations sur les picons"
+-
+-#: ../ui.py:171
+-msgid "Options"
+-msgstr "Options"
+-
+-#: ../ui.py:998
+-msgid "Output directory"
+-msgstr "Répertoire de sortie"
+-
+-#: ../ui.py:1056
+-msgid "Output directory for created Picons"
+-msgstr "Répertoire de sortie pour les Picons créés"
+-
+-#: ../ui.py:281 ../ui.py:741 ../ui.py:756
+-msgid "Playback"
+-msgstr "Lecture"
+-
+-#: ../ui.py:181
+-msgid "Please wait to finishing picon's list..."
+-msgstr "Patientez pendant la création de la liste des picons…"
+-
+-#: ../ui.py:228
+-msgid "Reading picons..."
+-msgstr "Lecture des pions…"
+-
+-#: ../ui.py:975
+-msgid "Same Dirs"
+-msgstr "Même répertoire"
+-
+-#: ../ui.py:972
+-msgid "Save"
+-msgstr "Sauver"
+-
+-#: ../ui.py:235
+-#, python-format
+-msgid "Save %s bouquet's picons to %s"
+-msgstr "Enregistrer les picons du bouquet %s sur %s"
+-
+-#: ../ui.py:241
+-#, python-format
+-msgid "Save %s bouquet's picons to backup directory only"
+-msgstr "Enregistrer les picons du bouquet %s dans le répertoire de sauvegarde uniquement"
+-
+-#: ../ui.py:169
+-msgid "Save current"
+-msgstr "Enregistrer l’actuel"
+-
+-#: ../ui.py:1007
+-msgid "Save name with orbital position"
+-msgstr "Sauvegarder le nom avec la position orbitale"
+-
+-#: ../ui.py:1004
+-msgid "Save picon as"
+-msgstr "Enregistrer le picon sous"
+-
+-#: ../ui.py:1014
+-msgid "Saving current picons from"
+-msgstr "Enregistrement les picons actuels depuis"
+-
+-#: ../ui.py:1021
+-msgid "Saving too to backup directory"
+-msgstr "Sauvegarde également vers le répertoire de sauvegarde"
+-
+-#: ../ui.py:170 ../ui.py:448 ../ui.py:536 ../ui.py:540
+-msgid "Search"
+-msgstr "Recherche"
+-
+-#: ../ui.py:470
+-msgid "Search: picons"
+-msgstr "Rechercher : picons"
+-
+-#: ../ui.py:472
+-msgid "Search: service"
+-msgstr "Rechercher: service"
+-
+-#: ../ui.py:411
+-msgid "Select picon and press OK to assign to current service:"
+-msgstr "Sélectionnez le picon et appuyez sur OK pour affecter au service courant:"
+-
+-#: ../ui.py:413
+-msgid "Select picon and save it with OK to output directory:"
+-msgstr "Sélectionnez le picon et enregistrez-le avec OK vers le répertoire de sortie :"
+-
+-#: ../ui.py:441
+-msgid "Service not found"
+-msgstr "Service non trouvé"
+-
+-#: ../plugin.py:42 ../ui.py:131 ../ui.py:404
+-msgid "SetPicon"
+-msgstr "DéfinirPicon"
+-
+-#: ../ui.py:970 ../ui.py:1041
+-msgid "SetPicon Setup"
+-msgstr "Configurer DéfinirPicon"
+-
+-#: ../ui.py:1019
+-msgid "SetPicon in Channel's menu"
+-msgstr "DéfinirPicon dans le menu des chaînes"
+-
+-#: ../ui.py:1018
+-msgid "SetPicon in E-menu"
+-msgstr "DéfinirPicon dans le E-menu"
+-
+-#: ../ui.py:1022
+-msgid "Sorting picons in backup directory"
+-msgstr "Trier les picons dans le répertoire de sauvegarde"
+-
+-#: ../ui.py:739 ../ui.py:756
+-msgid "Stream"
+-msgstr "Stream"
+-
+-#: ../ui.py:974
+-msgid "Swap Dirs"
+-msgstr "Échanger les répertoires"
+-
+-#: ../ui.py:744 ../ui.py:756
+-msgid "Terrestrial"
+-msgstr "Terrestre"
+-
+-#: ../ui.py:1020
+-msgid "ZAP when is changed service"
+-msgstr "ZAP lorsque le service est modifié"
+-
+-#: ../ui.py:59
+-msgid "all"
+-msgstr "tous"
+-
+-#: ../ui.py:52
+-msgid "all picon's directories"
+-msgstr "Répertoires de tous les pions"
+-
+-#: ../ui.py:59
+-msgid "as names only"
+-msgstr "en tant que noms seulement"
+-
+-#: ../ui.py:59
+-msgid "as service reference only"
+-msgstr "seulement comme la référence du service"
+-
+-#: ../ui.py:58
+-msgid "by orbital position"
+-msgstr "par position orbitale"
+-
+-#: ../ui.py:58
+-msgid "by providers"
+-msgstr "par fournisseurs"
+-
+-#: ../ui.py:230
+-msgid "current:"
+-msgstr "actuel :"
+-
+-#: ../ui.py:162
+-msgid "delete selected picon"
+-msgstr "supprimer les picons sélectionnés"
+-
+-#: ../ui.py:139 ../ui.py:150
+-msgid "exit plugin"
+-msgstr "Quitter le plugin"
+-
+-#: ../ui.py:54
+-msgid "filename"
+-msgstr "nom du fichier"
+-
+-#: ../ui.py:1161
+-msgid "free:"
+-msgstr "libre:"
+-
+-#: ../ui.py:54
+-msgid "full path"
+-msgstr "chemin complet"
+-
+-#: ../ui.py:160
+-msgid "go to +100 picons"
+-msgstr "allez à +100 picons"
+-
+-#: ../ui.py:161
+-msgid "go to +1000 picons"
+-msgstr "allez à +1000 picons"
+-
+-#: ../ui.py:159
+-msgid "go to +5 picons"
+-msgstr "aller à +5 picons"
+-
+-#: ../ui.py:157
+-msgid "go to -100 picons"
+-msgstr "aller à -100 picons"
+-
+-#: ../ui.py:158
+-msgid "go to -1000 picons"
+-msgstr "aller à -1000 picons"
+-
+-#: ../ui.py:156
+-msgid "go to -5 picons"
+-msgstr "aller à -5 picons"
+-
+-#: ../ui.py:154
+-msgid "go to first picon"
+-msgstr "aller au premier picon"
+-
+-#: ../ui.py:155
+-msgid "go to last picon"
+-msgstr "aller au dernier picon"
+-
+-#: ../ui.py:147
+-msgid "go to next picon"
+-msgstr "aller au picon suivant"
+-
+-#: ../ui.py:148
+-msgid "go to next service"
+-msgstr "Aller au service suivant"
+-
+-#: ../ui.py:146
+-msgid "go to previous picon"
+-msgstr "aller au picon précédent"
+-
+-#: ../ui.py:149
+-msgid "go to previous service"
+-msgstr "Aller au service précédent"
+-
+-#: ../ui.py:52
+-msgid "input directory only"
+-msgstr "Répertoire d’entrée uniquement"
+-
+-#: ../ui.py:1157
+-msgid "mem:"
+-msgstr "mem:"
+-
+-#: ../ui.py:145
+-msgid "menu"
+-msgstr "menu"
+-
+-#: ../ui.py:49
+-msgid "name"
+-msgstr "nom"
+-
+-#: ../ui.py:54 ../ui.py:58
+-msgid "no"
+-msgstr "non"
+-
+-#: ../ui.py:153
+-msgid "options"
+-msgstr "options"
+-
+-#: ../ui.py:163
+-msgid "refresh"
+-msgstr "actualiser"
+-
+-#: ../ui.py:151
+-msgid "save service's picon"
+-msgstr "sauver le picon du service"
+-
+-#: ../ui.py:152
+-msgid "search picons or service"
+-msgstr "rechercher des picons ou un service"
+-
+-#: ../ui.py:49
+-msgid "service reference"
+-msgstr "référence du service"
+-
+-#: ../ui.py:140
+-msgid "set and save selected picon"
+-msgstr "définir et enregistrer le picon sélectionné"
+-
+-#: ../plugin.py:43
+-msgid "set picon to service"
+-msgstr "définir le picon du service"
+-
+-#: ../ui.py:61
+-msgid "sorted"
+-msgstr "trié"
+-
+-#: ../ui.py:61
+-msgid "sorted in reverse order"
+-msgstr "trié en ordre inverse"
+-
+-#: ../ui.py:165
+-msgid "switch searching to picons"
+-msgstr "passer à la recherche de picons"
+-
+-#: ../ui.py:164
+-msgid "switch searching to service"
+-msgstr "passer à la recherche de service"
+-
+-#: ../ui.py:797
+-msgid "unknown"
+-msgstr "inconnu"
+-
+-#: ../ui.py:61
+-msgid "unsorted"
+-msgstr "non trié"
+-
+-#: ../ui.py:1159
+-msgid "used:"
+-msgstr "utilisé:"
+diff -ruN a/plugin/locale/lt/LC_MESSAGES/SetPicon.po b/plugin/locale/lt/LC_MESSAGES/SetPicon.po
+--- a/plugin/locale/lt/LC_MESSAGES/SetPicon.po	2022-07-21 04:39:04.000000000 +0300
++++ b/plugin/locale/lt/LC_MESSAGES/SetPicon.po	1970-01-01 03:00:00.000000000 +0300
+@@ -1,302 +0,0 @@
+-msgid ""
+-msgstr ""
+-"Project-Id-Version: SetPicon\n"
+-"Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2009-02-16 23:05+0100\n"
+-"PO-Revision-Date: 2017-11-15 11:58+0200\n"
+-"Last-Translator: Vytenis P. <vyteniui@gmail.com>\n"
+-"Language-Team: Vytenis P. vyteniui@gmail.com\n"
+-"MIME-Version: 1.0\n"
+-"Content-Type: text/plain; charset=UTF-8\n"
+-"Content-Transfer-Encoding: 8bit\n"
+-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+-"Language: lt\n"
+-"X-Generator: Poedit 2.0.4\n"
+-"X-Poedit-SourceCharset: UTF-8\n"
+-
+-msgid "Are You sure delete all picons in %s ?"
+-msgstr "Ar tikrai norite pašalinti visas piktogramas iš %s?"
+-
+-msgid "Backup directory"
+-msgstr "Atsarginės kopijos katalogas"
+-
+-msgid "Backup directory cannot be same as Input or Output directories !"
+-msgstr "Atsarginių kopijų katalogas negali būti toks pat, kaip įvesties/išvesties katalogai!"
+-
+-msgid "Backup directory for Picons"
+-msgstr "Piktogramų atsarginės kopijos katalogas"
+-
+-msgid "Cable"
+-msgstr "Kabelinė"
+-
+-msgid "Cancel"
+-msgstr "Atšaukti"
+-
+-msgid "Copy all picons from %s to %s"
+-msgstr "Kopijuoti visas piktogramas iš %s į %s"
+-
+-msgid "Delete all picons in %s"
+-msgstr "Pašalinti visas piktogramas iš %s"
+-
+-msgid "Delete picons in backup directory %s"
+-msgstr "Pašalinti piktogramas iš atsarginės kopijos katalogo %s"
+-
+-msgid "Display picon's name"
+-msgstr "Rodyti piktogramos pavadinimą"
+-
+-msgid ""
+-"Do you want set both directory as:\n"
+-" %s"
+-msgstr ""
+-"Ar norite nustatyti abu katalogus, kaip:\n"
+-" %s"
+-
+-msgid "In menu change input directory or save picons from bouquet."
+-msgstr "Meniu pakeiskite įvesties katalogą, arba išsaugokite bukieto piktogramas."
+-
+-msgid "Input directory"
+-msgstr "Įvesties katalogas"
+-
+-msgid "Input directory and output directory are same!"
+-msgstr "Įvesties ir išvesties katalogas tas pats!"
+-
+-msgid "Input directory of Picons"
+-msgstr "Įvesties katalogas piktogramoms"
+-
+-msgid "No picons found!"
+-msgstr "Piktogramų neaptikta!"
+-
+-msgid "Not found"
+-msgstr "Nerasta"
+-
+-msgid "Operations with picons"
+-msgstr "Operacijos su piktogramomis"
+-
+-msgid "Options"
+-msgstr "Parinktys"
+-
+-msgid "Output directory"
+-msgstr "Išvesties katalogas"
+-
+-msgid "Output directory for created Picons"
+-msgstr "Piktogramų išvesties katalogas"
+-
+-msgid "Display picons"
+-msgstr "Rodyti piktogramas"
+-
+-msgid "unsorted"
+-msgstr "nerūšiuoti"
+-
+-msgid "sorted"
+-msgstr "rūšiuoti"
+-
+-msgid "sorted in reverse order"
+-msgstr "rūšiuoti atvirkštine tvarka"
+-
+-msgid "Accept picons"
+-msgstr "Priimti piktogramas"
+-
+-msgid "all"
+-msgstr "viską"
+-
+-msgid "as service reference only"
+-msgstr "tik kaip kanalo nuorodą"
+-
+-msgid "as names only"
+-msgstr "tik kaip pavadinimus"
+-
+-msgid "Please wait to finishing picon's list..."
+-msgstr "Palaukite piktogramų sąrašo pabaigos..."
+-
+-msgid "Reading picons..."
+-msgstr "Skaitomos piktogramos..."
+-
+-msgid "Same Dirs"
+-msgstr "Tie patys katalogai"
+-
+-msgid "Save"
+-msgstr "Įrašyti"
+-
+-msgid "Save %s bouquet's picons to %s"
+-msgstr "%s bukieto piktogramas išsaugoti %s"
+-
+-msgid "Save %s bouquet's picons to backup directory only"
+-msgstr "Bukieto %s piktogramas išsaugoti tik į atsarg. kopjijos katalogą"
+-
+-msgid "Save current"
+-msgstr "Išsaugoti dabartinę"
+-
+-msgid "Save name with orbital position"
+-msgstr "Išsaugoti pavadinimą su padėtimi orbitoje"
+-
+-msgid "Save picon as"
+-msgstr "Piktogramą išsaugoti, kaip"
+-
+-msgid "Saving current picons from"
+-msgstr "Išsaugoti dabartines piktogramas iš"
+-
+-msgid "Saving too to backup directory"
+-msgstr "Išsaugoti ir į atsarginės kopijos katalogą"
+-
+-msgid "Search"
+-msgstr "Paieška"
+-
+-msgid "Search: picons"
+-msgstr "Paieška: piktogramos"
+-
+-msgid "Search: service"
+-msgstr "Paieška: kanalai"
+-
+-msgid "Select picon and press OK to assign to current service:"
+-msgstr "Pasirinkite piktogramą ir spauskite 'OK', kad priskirti šiam kanalui:"
+-
+-msgid "Select picon and save it with OK to output directory:"
+-msgstr "Pasirinkite piktogramą ir spauskite 'OK', kad išsaugoti išeities kataloge:"
+-
+-msgid "Service not found"
+-msgstr "Kanalo nerasta"
+-
+-msgid "SetPicon Setup"
+-msgstr "Piktogramų diegėjo sąranka"
+-
+-msgid "SetPicon"
+-msgstr "Piktogramų diegėjas"
+-
+-msgid "SetPicon in E-menu"
+-msgstr "Piktogramų diegėjas plėtinių naršyklėje"
+-
+-msgid "SetPicon in Channel's menu"
+-msgstr "Piktogramų diegėjas kanalų meniu"
+-
+-msgid "Sorting picons in backup directory"
+-msgstr "Piktogramų rūšiavimas atsarginių kopijų kataloge"
+-
+-msgid "Swap Dirs"
+-msgstr "Sukeisti katalogus"
+-
+-msgid "Terrestrial"
+-msgstr "Antžeminė"
+-
+-msgid "ZAP when is changed service"
+-msgstr "Perjungti, pasikeitus kanalui"
+-
+-msgid "all picon's directories"
+-msgstr "visi piktogramų katalogai"
+-
+-msgid "by orbital position"
+-msgstr "pagal padėtį orbitoje"
+-
+-msgid "by providers"
+-msgstr "pagal tiekėjus"
+-
+-msgid "configuration"
+-msgstr "konfigūracija"
+-
+-msgid "current:"
+-msgstr "dabartinis:"
+-
+-msgid "delete selected picon"
+-msgstr "ištrinti pasirinktą piktogramą"
+-
+-msgid "exit plugin"
+-msgstr "užverti įskiepį"
+-
+-msgid "filename"
+-msgstr "failo pavadinimas"
+-
+-msgid "full path"
+-msgstr "visas kelias"
+-
+-msgid "go to +100 picons"
+-msgstr "100 piktogramų pirmyn"
+-
+-msgid "go to +1000 picons"
+-msgstr "1000 piktogramų pirmyn"
+-
+-msgid "go to +5 picons"
+-msgstr "5 piktogramomis pirmyn"
+-
+-msgid "go to -100 picons"
+-msgstr "100 piktogramų atgal"
+-
+-msgid "go to -1000 picons"
+-msgstr "1000 piktogramų atgal"
+-
+-msgid "go to -5 picons"
+-msgstr "5 piktogramomis atgal"
+-
+-msgid "go to first picon"
+-msgstr "prie pirmos piktogramos"
+-
+-msgid "go to last picon"
+-msgstr "prie paskutinės piktogramos"
+-
+-msgid "go to next picon"
+-msgstr "prie sekančios piktogramos"
+-
+-msgid "go to next service"
+-msgstr "prie sekančio kanalo"
+-
+-msgid "go to previous picon"
+-msgstr "prie ankstesnės piktogramos"
+-
+-msgid "go to previous service"
+-msgstr "prie ankstesnio kanalo"
+-
+-msgid "input directory only"
+-msgstr "tik įvesties katalogas"
+-
+-msgid "menu"
+-msgstr "meniu"
+-
+-msgid "name"
+-msgstr "pavadinimas"
+-
+-msgid "no"
+-msgstr "ne"
+-
+-msgid "options"
+-msgstr "nustatymai"
+-
+-msgid "refresh"
+-msgstr "atnaujinti"
+-
+-msgid "save bouquet's picons"
+-msgstr "išsaugoti bukieto piktogramas"
+-
+-msgid "save service's picon"
+-msgstr "išsaugoti dabartinę piktogramą"
+-
+-msgid "search picons or service"
+-msgstr "ieškoti piktogramų/kanalų"
+-
+-msgid "service reference"
+-msgstr "kanalo nuoroda"
+-
+-msgid "set and save selected picon"
+-msgstr "nustatyti ir išsaugoti pasirinktą piktogramą"
+-
+-msgid "set picon to service"
+-msgstr "nustatyti piktogramą kanalui"
+-
+-msgid "switch searching to picons"
+-msgstr "perjungti į piktogramų paiešką"
+-
+-msgid "switch searching to service"
+-msgstr "perjungti į kanalų paiešką"
+-
+-msgid "Fully fill rectangles with picons"
+-msgstr "Užpildyti stačiakampius piktogramomis"
+-
+-msgid ""
+-"Are You sure delete picon?\n"
+-"%s"
+-msgstr ""
+-"Ar tikrai norite pašalinti piktogramą?\n"
+-"%s"
+-
+-msgid "Move to directory"
+-msgstr "Perkelti į katalogą"
+-
+-msgid "Move instead delete"
+-msgstr "Perkelti, o ne ištrinti"
 diff -ruN a/plugin/locale/ru/LC_MESSAGES/SetPicon.po b/plugin/locale/ru/LC_MESSAGES/SetPicon.po
---- a/plugin/locale/ru/LC_MESSAGES/SetPicon.po	2022-10-12 23:10:26.447989600 +0300
-+++ b/plugin/locale/ru/LC_MESSAGES/SetPicon.po	2022-10-14 15:25:43.664614156 +0300
-@@ -1,17 +1,22 @@
-+# SOME DESCRIPTIVE TITLE.
-+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-+# This file is distributed under the same license as the PACKAGE package.
-+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-+#
- msgid ""
- msgstr ""
+--- a/plugin/locale/ru/LC_MESSAGES/SetPicon.po	2022-07-21 04:39:04.000000000 +0300
++++ b/plugin/locale/ru/LC_MESSAGES/SetPicon.po	1970-01-01 03:00:00.000000000 +0300
+@@ -1,297 +0,0 @@
+-msgid ""
+-msgstr ""
 -"Project-Id-Version: Dima 73\n"
-+"Project-Id-Version: \n"
- "Report-Msgid-Bugs-To: \n"
- "POT-Creation-Date: 2009-02-16 23:05+0100\n"
+-"Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2009-02-16 23:05+0100\n"
 -"PO-Revision-Date: 2012-04-19 20:59+0100\n"
 -"Last-Translator:  Dima73\n"
 -"Language-Team: Dima73\n"
-+"PO-Revision-Date: 2018-01-03 22:42+0300\n"
-+"Last-Translator: Александр Кольцов <a.g.prosat@gmail.com>\n"
-+"Language-Team: http://www.forum.free-x.de\n"
- "MIME-Version: 1.0\n"
- "Content-Type: text/plain; charset=utf-8\n"
- "Content-Transfer-Encoding: 8bit\n"
- "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+-"MIME-Version: 1.0\n"
+-"Content-Type: text/plain; charset=utf-8\n"
+-"Content-Transfer-Encoding: 8bit\n"
+-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 -"X-Poedit-Language: Russian\n"
 -"X-Poedit-Country: RUSSIAN FEDERATION\n"
-+"Language: ru\n"
-+"X-Generator: Poedit 2.0.1\n"
- 
- msgid "Are You sure delete all picons in %s ?"
- msgstr "Вы уверены, что хотите удалить все пиконы из %s ?"
-@@ -20,16 +25,16 @@
- msgstr "Каталог бекапа"
- 
- msgid "Backup directory cannot be same as Input or Output directories !"
+-
+-msgid "Are You sure delete all picons in %s ?"
+-msgstr "Вы уверены, что хотите удалить все пиконы из %s ?"
+-
+-msgid "Backup directory"
+-msgstr "Каталог бекапа"
+-
+-msgid "Backup directory cannot be same as Input or Output directories !"
 -msgstr "Бекап каталога не состоится, оба каталога одинаковы!"
-+msgstr "Бекап каталога не состоится. Это один и тот же каталог!"
- 
- msgid "Backup directory for Picons"
+-
+-msgid "Backup directory for Picons"
 -msgstr "Резервное копирование каталога пиконов"
-+msgstr "Резервное копирование папки пиконов"
- 
- msgid "Cable"
+-
+-msgid "Cable"
 -msgstr "Кабельное тв"
-+msgstr "Кабельное"
- 
- msgid "Cancel"
+-
+-msgid "Cancel"
 -msgstr "Отменить"
-+msgstr "Отмена"
- 
- msgid "Copy all picons from %s to %s"
- msgstr "Копир. все пиконы из %s в %s"
-@@ -38,7 +43,7 @@
- msgstr "Удалить все пиконы из %s"
- 
- msgid "Delete picons in backup directory %s"
+-
+-msgid "Copy all picons from %s to %s"
+-msgstr "Копир. все пиконы из %s в %s"
+-
+-msgid "Delete all picons in %s"
+-msgstr "Удалить все пиконы из %s"
+-
+-msgid "Delete picons in backup directory %s"
 -msgstr "Удаление пиконов в каталоге бекапа %s"
-+msgstr "Удаление пиконов в папке бекапа %s"
- 
- msgid "Display picon's name"
- msgstr "Показать имена пиконов"
-@@ -51,19 +56,19 @@
- " %s"
- 
- msgid "In menu change input directory or save picons from bouquet."
+-
+-msgid "Display picon's name"
+-msgstr "Показать имена пиконов"
+-
+-msgid ""
+-"Do you want set both directory as:\n"
+-" %s"
+-msgstr ""
+-"Вы хотите установить оба каталога как:\n"
+-" %s"
+-
+-msgid "In menu change input directory or save picons from bouquet."
 -msgstr "В меню измените входной каталог или сохр. пиконы букета"
-+msgstr "В меню измените входную папку или сохр. пиконы букета."
- 
- msgid "Input directory"
+-
+-msgid "Input directory"
 -msgstr "Входной каталог"
-+msgstr "Входная папка"
- 
- msgid "Input directory and output directory are same!"
- msgstr "Входной и выходной каталог одинаковы!"
- 
- msgid "Input directory of Picons"
+-
+-msgid "Input directory and output directory are same!"
+-msgstr "Входной и выходной каталог одинаковы!"
+-
+-msgid "Input directory of Picons"
 -msgstr "Входной каталог для пиконов"
-+msgstr "Входная папка для пиконов"
- 
- msgid "No picons found!"
+-
+-msgid "No picons found!"
 -msgstr "Нет найденных пиконов!"
-+msgstr "Пиконы не найдены!"
- 
- msgid "Not found"
- msgstr "Не найдено"
-@@ -72,10 +77,10 @@
- msgstr "Операции с пиконами"
- 
- msgid "Options"
+-
+-msgid "Not found"
+-msgstr "Не найдено"
+-
+-msgid "Operations with picons"
+-msgstr "Операции с пиконами"
+-
+-msgid "Options"
 -msgstr "Настройки"
-+msgstr "Опции"
- 
- msgid "Output directory"
+-
+-msgid "Output directory"
 -msgstr "Выходной каталог"
-+msgstr "Выходная папка"
- 
- msgid "Output directory for created Picons"
- msgstr "Выходной каталог для пиконов"
-@@ -93,25 +98,25 @@
- msgstr "сортировать в обратном порядке"
- 
- msgid "Accept picons"
+-
+-msgid "Output directory for created Picons"
+-msgstr "Выходной каталог для пиконов"
+-
+-msgid "Display picons"
+-msgstr "Показать пиконы"
+-
+-msgid "unsorted"
+-msgstr "не сортировать"
+-
+-msgid "sorted"
+-msgstr "сортировать"
+-
+-msgid "sorted in reverse order"
+-msgstr "сортировать в обратном порядке"
+-
+-msgid "Accept picons"
 -msgstr "Принять пиконы"
-+msgstr "Закрепить пиконы"
- 
- msgid "all"
- msgstr "все"
- 
- msgid "as service reference only"
+-
+-msgid "all"
+-msgstr "все"
+-
+-msgid "as service reference only"
 -msgstr "только как референс сервиса"
-+msgstr "только, как референс сервиса"
- 
- msgid "as names only"
+-
+-msgid "as names only"
 -msgstr "только как имена"
-+msgstr "только, как имена"
- 
- msgid "Please wait to finishing picon's list..."
+-
+-msgid "Please wait to finishing picon's list..."
 -msgstr "Подождите полного списка пиконов..."
-+msgstr "Подождите окончания поиска пиконов."
- 
- msgid "Reading picons..."
+-
+-msgid "Reading picons..."
 -msgstr "Чтение пиконов..."
-+msgstr "Чтение пиконов."
- 
- msgid "Same Dirs"
+-
+-msgid "Same Dirs"
 -msgstr "Одинаковые каталоги"
-+msgstr "Та же папка"
- 
- msgid "Save"
- msgstr "Сохранить"
-@@ -123,13 +128,13 @@
- msgstr "Сохр. пиконы пакета %s только в каталог бекапа"
- 
- msgid "Save current"
+-
+-msgid "Save"
+-msgstr "Сохранить"
+-
+-msgid "Save %s bouquet's picons to %s"
+-msgstr "Сохр. пиконы пакета %s в %s"
+-
+-msgid "Save %s bouquet's picons to backup directory only"
+-msgstr "Сохр. пиконы пакета %s только в каталог бекапа"
+-
+-msgid "Save current"
 -msgstr "Сохр. текущий"
-+msgstr "Сохранить"
- 
- msgid "Save name with orbital position"
- msgstr "Сохранить имя с орбитальной позицией"
- 
- msgid "Save picon as"
+-
+-msgid "Save name with orbital position"
+-msgstr "Сохранить имя с орбитальной позицией"
+-
+-msgid "Save picon as"
 -msgstr "Сохранить пикон как"
-+msgstr "Сохранить пикон, как"
- 
- msgid "Saving current picons from"
- msgstr "Сохранение текущего пикона в"
-@@ -144,34 +149,34 @@
- msgstr "Поиск: пиконы"
- 
- msgid "Search: service"
+-
+-msgid "Saving current picons from"
+-msgstr "Сохранение текущего пикона в"
+-
+-msgid "Saving too to backup directory"
+-msgstr "Сохранять и в каталог бекапа"
+-
+-msgid "Search"
+-msgstr "Поиск"
+-
+-msgid "Search: picons"
+-msgstr "Поиск: пиконы"
+-
+-msgid "Search: service"
 -msgstr "Поиск: сервисы"
-+msgstr "Поик: сервисы"
- 
- msgid "Select picon and press OK to assign to current service:"
+-
+-msgid "Select picon and press OK to assign to current service:"
 -msgstr "Выберите пикон. ОК для установки к текущему сервису:"
-+msgstr "Выберите пикон. \"ОК\" для установки к текущему сервису:"
- 
- msgid "Select picon and save it with OK to output directory:"
+-
+-msgid "Select picon and save it with OK to output directory:"
 -msgstr "Выберите пикон и нажмите ОК для сохр. в выходной каталог:"
-+msgstr "Выберите пикон и нажмите ОК для сохр. в выходную папку:"
- 
- msgid "Service not found"
- msgstr "Сервис не найден"
- 
- msgid "SetPicon Setup"
+-
+-msgid "Service not found"
+-msgstr "Сервис не найден"
+-
+-msgid "SetPicon Setup"
 -msgstr "Установщик пиконов - настройки"
-+msgstr "Настройки SetPicon"
- 
- msgid "SetPicon"
- msgstr "Установщик пиконов"
- 
- msgid "SetPicon in E-menu"
+-
+-msgid "SetPicon"
+-msgstr "Установщик пиконов"
+-
+-msgid "SetPicon in E-menu"
 -msgstr "Установщик пиконов в меню дополнений"
-+msgstr "Установщик пиконов в E-menu"
- 
- msgid "SetPicon in Channel's menu"
- msgstr "Установщик пиконов в меню каналов"
- 
- msgid "Sorting picons in backup directory"
+-
+-msgid "SetPicon in Channel's menu"
+-msgstr "Установщик пиконов в меню каналов"
+-
+-msgid "Sorting picons in backup directory"
 -msgstr "Сортировка пиконов в каталоге бекупа"
-+msgstr "Сортировка пиконов в папке бекапа"
- 
- msgid "Swap Dirs"
+-
+-msgid "Swap Dirs"
 -msgstr "Обмен каталогов"
-+msgstr "Обмен папок"
- 
- msgid "Terrestrial"
- msgstr "Наземный"
-@@ -180,7 +185,7 @@
- msgstr "Переключить при смене сервиса"
- 
- msgid "all picon's directories"
+-
+-msgid "Terrestrial"
+-msgstr "Наземный"
+-
+-msgid "ZAP when is changed service"
+-msgstr "Переключить при смене сервиса"
+-
+-msgid "all picon's directories"
 -msgstr "в оба каталога пиконов"
-+msgstr "в обе папки пиконов"
- 
- msgid "by orbital position"
- msgstr "по орбитальной позиции"
-@@ -201,28 +206,28 @@
- msgstr "закрыть плагин"
- 
- msgid "filename"
+-
+-msgid "by orbital position"
+-msgstr "по орбитальной позиции"
+-
+-msgid "by providers"
+-msgstr "по провайдерам"
+-
+-msgid "configuration"
+-msgstr "конфигурация"
+-
+-msgid "current:"
+-msgstr "текущий:"
+-
+-msgid "delete selected picon"
+-msgstr "удалить выбранный пикон"
+-
+-msgid "exit plugin"
+-msgstr "закрыть плагин"
+-
+-msgid "filename"
 -msgstr "название файла"
-+msgstr "имя файла"
- 
- msgid "full path"
- msgstr "полный путь"
- 
- msgid "go to +100 picons"
+-
+-msgid "full path"
+-msgstr "полный путь"
+-
+-msgid "go to +100 picons"
 -msgstr "вперед на 100 пиконов"
-+msgstr "100 пиконов вперёд"
- 
- msgid "go to +1000 picons"
+-
+-msgid "go to +1000 picons"
 -msgstr "вперед на 1000 пиконов"
-+msgstr "1000 пиконов вперёд"
- 
- msgid "go to +5 picons"
+-
+-msgid "go to +5 picons"
 -msgstr "вперед на 5 пиконов"
-+msgstr "5 пиконов вперёд"
- 
- msgid "go to -100 picons"
+-
+-msgid "go to -100 picons"
 -msgstr "назад на 100 пиконов"
-+msgstr "100 пиконов назад"
- 
- msgid "go to -1000 picons"
+-
+-msgid "go to -1000 picons"
 -msgstr "назад на 1000 пиконов"
-+msgstr "1000 пиконов назад"
- 
- msgid "go to -5 picons"
+-
+-msgid "go to -5 picons"
 -msgstr "назад на 5 пиконов"
-+msgstr "5 пиконов назад"
- 
- msgid "go to first picon"
- msgstr "перейти к первому пикону"
-@@ -285,7 +290,7 @@
- msgstr "переключить на поиск сервисов"
- 
- msgid "Fully fill rectangles with picons"
+-
+-msgid "go to first picon"
+-msgstr "перейти к первому пикону"
+-
+-msgid "go to last picon"
+-msgstr "перейти к последнему пикону"
+-
+-msgid "go to next picon"
+-msgstr "перейти к следующему пикону"
+-
+-msgid "go to next service"
+-msgstr "перейти к следующему сервису"
+-
+-msgid "go to previous picon"
+-msgstr "перейти к предыдущему пикону"
+-
+-msgid "go to previous service"
+-msgstr "перейти к предыдущему сервису"
+-
+-msgid "input directory only"
+-msgstr "только входной каталог"
+-
+-msgid "menu"
+-msgstr "меню"
+-
+-msgid "name"
+-msgstr "имя"
+-
+-msgid "no"
+-msgstr "нет"
+-
+-msgid "options"
+-msgstr "настройки"
+-
+-msgid "refresh"
+-msgstr "обновление"
+-
+-msgid "save bouquet's picons"
+-msgstr "сохранить пиконы пакета"
+-
+-msgid "save service's picon"
+-msgstr "сохранение текущего пикона"
+-
+-msgid "search picons or service"
+-msgstr "поиск пиконов или сервисов"
+-
+-msgid "service reference"
+-msgstr "референс сервиса"
+-
+-msgid "set and save selected picon"
+-msgstr "установить и сохр. выбранный пикон"
+-
+-msgid "set picon to service"
+-msgstr "установить пикон к сервису"
+-
+-msgid "switch searching to picons"
+-msgstr "переключить на поиск пиконов"
+-
+-msgid "switch searching to service"
+-msgstr "переключить на поиск сервисов"
+-
+-msgid "Fully fill rectangles with picons"
 -msgstr "Полностью заполнять прямоугольники с пиконами"
-+msgstr "Полное заполнение прямоугольников с пиконами"
- 
- msgid "Are You sure delete picon?\n%s"
- msgstr "Вы уверены, что хотите удалить пикон?\n%s"
+-
+-msgid "Are You sure delete picon?\n%s"
+-msgstr "Вы уверены, что хотите удалить пикон?\n%s"
+-
+-msgid "Move to directory"
+-msgstr "Перемещение в каталог"
+-
+-msgid "Move instead delete"
+-msgstr "Перемещение вместо удаления"
+diff -ruN a/plugin/locale/SetPicon.pot b/plugin/locale/SetPicon.pot
+--- a/plugin/locale/SetPicon.pot	2022-07-21 04:39:04.000000000 +0300
++++ b/plugin/locale/SetPicon.pot	1970-01-01 03:00:00.000000000 +0300
+@@ -1,426 +0,0 @@
+-# SOME DESCRIPTIVE TITLE.
+-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+-# This file is distributed under the same license as the PACKAGE package.
+-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+-#
+-#, fuzzy
+-msgid ""
+-msgstr ""
+-"Project-Id-Version: PACKAGE VERSION\n"
+-"Report-Msgid-Bugs-To: \n"
+-"POT-Creation-Date: 2018-07-15 22:05+0200\n"
+-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+-"Language-Team: LANGUAGE <LL@li.org>\n"
+-"Language: \n"
+-"MIME-Version: 1.0\n"
+-"Content-Type: text/plain; charset=UTF-8\n"
+-"Content-Transfer-Encoding: 8bit\n"
+-
+-#: ../ui.py:1003
+-msgid "Accept picons"
+-msgstr ""
+-
+-#: ../ui.py:588
+-#, python-format
+-msgid "Are You sure delete all picons in %s ?"
+-msgstr ""
+-
+-#: ../ui.py:767
+-#, python-format
+-msgid ""
+-"Are You sure delete picon?\n"
+-"%s"
+-msgstr ""
+-
+-#: ../ui.py:999
+-msgid "Backup directory"
+-msgstr ""
+-
+-#: ../ui.py:1096
+-msgid "Backup directory cannot be same as Input or Output directories !"
+-msgstr ""
+-
+-#: ../ui.py:1061
+-msgid "Backup directory for Picons"
+-msgstr ""
+-
+-#: ../ui.py:746 ../ui.py:756
+-msgid "Cable"
+-msgstr ""
+-
+-#: ../ui.py:168 ../ui.py:973
+-msgid "Cancel"
+-msgstr ""
+-
+-#: ../ui.py:236
+-#, python-format
+-msgid "Copy all picons from %s to %s"
+-msgstr ""
+-
+-#: ../ui.py:237 ../ui.py:239
+-#, python-format
+-msgid "Delete all picons in %s"
+-msgstr ""
+-
+-#: ../ui.py:242
+-#, python-format
+-msgid "Delete picons in backup directory %s"
+-msgstr ""
+-
+-#: ../ui.py:1066
+-msgid "Directory for removed Picons"
+-msgstr ""
+-
+-#: ../ui.py:1015
+-msgid "Display picon's name"
+-msgstr ""
+-
+-#: ../ui.py:1017
+-msgid "Display picons"
+-msgstr ""
+-
+-#: ../ui.py:1106
+-#, python-format
+-msgid ""
+-"Do you want set both directory as:\n"
+-" %s"
+-msgstr ""
+-
+-#: ../ui.py:1016
+-msgid "Fully fill rectangles with picons"
+-msgstr ""
+-
+-#: ../ui.py:415
+-msgid "In menu change input directory or save picons from bouquet."
+-msgstr ""
+-
+-#: ../ui.py:997
+-msgid "Input directory"
+-msgstr ""
+-
+-#: ../ui.py:340 ../ui.py:567
+-msgid "Input directory and output directory are same!"
+-msgstr ""
+-
+-#: ../ui.py:1051
+-msgid "Input directory of Picons"
+-msgstr ""
+-
+-#: ../ui.py:1157
+-msgid "MB"
+-msgstr ""
+-
+-#: ../ui.py:1011
+-msgid "Move instead delete"
+-msgstr ""
+-
+-#: ../ui.py:1000
+-msgid "Move to directory"
+-msgstr ""
+-
+-#: ../ui.py:677
+-msgid "No picons found!"
+-msgstr ""
+-
+-#: ../ui.py:436 ../ui.py:537
+-msgid "Not found"
+-msgstr ""
+-
+-#: ../ui.py:244
+-msgid "Operations with picons"
+-msgstr ""
+-
+-#: ../ui.py:171
+-msgid "Options"
+-msgstr ""
+-
+-#: ../ui.py:998
+-msgid "Output directory"
+-msgstr ""
+-
+-#: ../ui.py:1056
+-msgid "Output directory for created Picons"
+-msgstr ""
+-
+-#: ../ui.py:281 ../ui.py:741 ../ui.py:756
+-msgid "Playback"
+-msgstr ""
+-
+-#: ../ui.py:181
+-msgid "Please wait to finishing picon's list..."
+-msgstr ""
+-
+-#: ../ui.py:228
+-msgid "Reading picons..."
+-msgstr ""
+-
+-#: ../ui.py:975
+-msgid "Same Dirs"
+-msgstr ""
+-
+-#: ../ui.py:972
+-msgid "Save"
+-msgstr ""
+-
+-#: ../ui.py:235
+-#, python-format
+-msgid "Save %s bouquet's picons to %s"
+-msgstr ""
+-
+-#: ../ui.py:241
+-#, python-format
+-msgid "Save %s bouquet's picons to backup directory only"
+-msgstr ""
+-
+-#: ../ui.py:169
+-msgid "Save current"
+-msgstr ""
+-
+-#: ../ui.py:1007
+-msgid "Save name with orbital position"
+-msgstr ""
+-
+-#: ../ui.py:1004
+-msgid "Save picon as"
+-msgstr ""
+-
+-#: ../ui.py:1014
+-msgid "Saving current picons from"
+-msgstr ""
+-
+-#: ../ui.py:1021
+-msgid "Saving too to backup directory"
+-msgstr ""
+-
+-#: ../ui.py:170 ../ui.py:448 ../ui.py:536 ../ui.py:540
+-msgid "Search"
+-msgstr ""
+-
+-#: ../ui.py:470
+-msgid "Search: picons"
+-msgstr ""
+-
+-#: ../ui.py:472
+-msgid "Search: service"
+-msgstr ""
+-
+-#: ../ui.py:411
+-msgid "Select picon and press OK to assign to current service:"
+-msgstr ""
+-
+-#: ../ui.py:413
+-msgid "Select picon and save it with OK to output directory:"
+-msgstr ""
+-
+-#: ../ui.py:441
+-msgid "Service not found"
+-msgstr ""
+-
+-#: ../plugin.py:42 ../ui.py:131 ../ui.py:404
+-msgid "SetPicon"
+-msgstr ""
+-
+-#: ../ui.py:970 ../ui.py:1041
+-msgid "SetPicon Setup"
+-msgstr ""
+-
+-#: ../ui.py:1019
+-msgid "SetPicon in Channel's menu"
+-msgstr ""
+-
+-#: ../ui.py:1018
+-msgid "SetPicon in E-menu"
+-msgstr ""
+-
+-#: ../ui.py:1022
+-msgid "Sorting picons in backup directory"
+-msgstr ""
+-
+-#: ../ui.py:739 ../ui.py:756
+-msgid "Stream"
+-msgstr ""
+-
+-#: ../ui.py:974
+-msgid "Swap Dirs"
+-msgstr ""
+-
+-#: ../ui.py:744 ../ui.py:756
+-msgid "Terrestrial"
+-msgstr ""
+-
+-#: ../ui.py:1020
+-msgid "ZAP when is changed service"
+-msgstr ""
+-
+-#: ../ui.py:59
+-msgid "all"
+-msgstr ""
+-
+-#: ../ui.py:52
+-msgid "all picon's directories"
+-msgstr ""
+-
+-#: ../ui.py:59
+-msgid "as names only"
+-msgstr ""
+-
+-#: ../ui.py:59
+-msgid "as service reference only"
+-msgstr ""
+-
+-#: ../ui.py:58
+-msgid "by orbital position"
+-msgstr ""
+-
+-#: ../ui.py:58
+-msgid "by providers"
+-msgstr ""
+-
+-#: ../ui.py:230
+-msgid "current:"
+-msgstr ""
+-
+-#: ../ui.py:162
+-msgid "delete selected picon"
+-msgstr ""
+-
+-#: ../ui.py:139 ../ui.py:150
+-msgid "exit plugin"
+-msgstr ""
+-
+-#: ../ui.py:54
+-msgid "filename"
+-msgstr ""
+-
+-#: ../ui.py:1161
+-msgid "free:"
+-msgstr ""
+-
+-#: ../ui.py:54
+-msgid "full path"
+-msgstr ""
+-
+-#: ../ui.py:160
+-msgid "go to +100 picons"
+-msgstr ""
+-
+-#: ../ui.py:161
+-msgid "go to +1000 picons"
+-msgstr ""
+-
+-#: ../ui.py:159
+-msgid "go to +5 picons"
+-msgstr ""
+-
+-#: ../ui.py:157
+-msgid "go to -100 picons"
+-msgstr ""
+-
+-#: ../ui.py:158
+-msgid "go to -1000 picons"
+-msgstr ""
+-
+-#: ../ui.py:156
+-msgid "go to -5 picons"
+-msgstr ""
+-
+-#: ../ui.py:154
+-msgid "go to first picon"
+-msgstr ""
+-
+-#: ../ui.py:155
+-msgid "go to last picon"
+-msgstr ""
+-
+-#: ../ui.py:147
+-msgid "go to next picon"
+-msgstr ""
+-
+-#: ../ui.py:148
+-msgid "go to next service"
+-msgstr ""
+-
+-#: ../ui.py:146
+-msgid "go to previous picon"
+-msgstr ""
+-
+-#: ../ui.py:149
+-msgid "go to previous service"
+-msgstr ""
+-
+-#: ../ui.py:52
+-msgid "input directory only"
+-msgstr ""
+-
+-#: ../ui.py:1157
+-msgid "mem:"
+-msgstr ""
+-
+-#: ../ui.py:145
+-msgid "menu"
+-msgstr ""
+-
+-#: ../ui.py:49
+-msgid "name"
+-msgstr ""
+-
+-#: ../ui.py:54 ../ui.py:58
+-msgid "no"
+-msgstr ""
+-
+-#: ../ui.py:153
+-msgid "options"
+-msgstr ""
+-
+-#: ../ui.py:163
+-msgid "refresh"
+-msgstr ""
+-
+-#: ../ui.py:151
+-msgid "save service's picon"
+-msgstr ""
+-
+-#: ../ui.py:152
+-msgid "search picons or service"
+-msgstr ""
+-
+-#: ../ui.py:49
+-msgid "service reference"
+-msgstr ""
+-
+-#: ../ui.py:140
+-msgid "set and save selected picon"
+-msgstr ""
+-
+-#: ../plugin.py:43
+-msgid "set picon to service"
+-msgstr ""
+-
+-#: ../ui.py:61
+-msgid "sorted"
+-msgstr ""
+-
+-#: ../ui.py:61
+-msgid "sorted in reverse order"
+-msgstr ""
+-
+-#: ../ui.py:165
+-msgid "switch searching to picons"
+-msgstr ""
+-
+-#: ../ui.py:164
+-msgid "switch searching to service"
+-msgstr ""
+-
+-#: ../ui.py:797
+-msgid "unknown"
+-msgstr ""
+-
+-#: ../ui.py:61
+-msgid "unsorted"
+-msgstr ""
+-
+-#: ../ui.py:1159
+-msgid "used:"
+-msgstr ""
+diff -ruN a/plugin/locale/updateallpo.sh b/plugin/locale/updateallpo.sh
+--- a/plugin/locale/updateallpo.sh	2022-07-21 04:39:04.000000000 +0300
++++ b/plugin/locale/updateallpo.sh	1970-01-01 03:00:00.000000000 +0300
+@@ -1,51 +0,0 @@
+-#!/bin/bash
+-# Script to generate po files outside of the normal build process
+-#  
+-# Pre-requisite:
+-# The following tools must be installed on your system and accessible from path
+-# gawk, find, xgettext, gsed, python, msguniq, msgmerge, msgattrib, msgfmt, msginit
+-#
+-# Run this script from within the locale folder.
+-#
+-# Author: Pr2
+-# Version: 1.0
+-#
+-Plugin=SetPicon
+-FilePath=/LC_MESSAGES/
+-printf "Po files update/creation from script starting.\n"
+-languages=($(ls -d ./*/ | gsed 's/\/$//g; s/.*\///g'))
+-
+-#
+-# Arguments to generate the pot and po files are not retrieved from the Makefile.
+-# So if parameters are changed in Makefile please report the same changes in this script.
+-#
+-
+-printf "Creating temporary file $Plugin-py.pot\n"
+-find -s -X .. -name "*.py" -exec xgettext --no-wrap -L Python --from-code=UTF-8 -kpgettext:1c,2 --add-comments="TRANSLATORS:" -d $Plugin -s -o $Plugin-py.pot {} \+
+-gsed --in-place $Plugin-py.pot --expression=s/CHARSET/UTF-8/
+-printf "Creating temporary file $Plugin-xml.pot\n"
+-find -s -X .. -name "*.xml" -exec python xml2po.py {} \+ > $Plugin-xml.pot
+-printf "Merging pot files to create: $Plugin.pot\n"
+-cat $Plugin-py.pot $Plugin-xml.pot | msguniq --no-wrap -o $Plugin.pot -
+-OLDIFS=$IFS
+-IFS=" "
+-for lang in "${languages[@]}" ; do
+-	if [ -f $lang$FilePath$Plugin.po ]; then 
+-		printf "Updating existing translation file %s.po\n" $lang
+-		msgmerge --backup=none --no-wrap -s -U $lang$FilePath$Plugin.po $Plugin.pot && touch $lang$FilePath$Plugin.po
+-		msgattrib --no-wrap --no-obsolete $lang$FilePath$Plugin.po -o $lang$FilePath$Plugin.po
+-		msgfmt -o $lang$FilePath$Plugin.mo $lang$FilePath$Plugin.po
+-	else
+-		if [ ! -d $lang$FilePath ]; then
+-			mkdir $lang$FilePath
+-		fi
+-		printf "New file created: %s, please add it to github before commit\n" $lang$FilePath$Plugin.po
+-		msginit -l $lang$FilePath$Plugin.po -o $lang$FilePath$Plugin.po -i $Plugin.pot --no-translator
+-		msgfmt -o $lang$FilePath$Plugin.mo $lang$FilePath$Plugin.po
+-	fi
+-done
+-rm $Plugin-py.pot $Plugin-xml.pot
+-IFS=$OLDIFS
+-printf "Po files update/creation from script finished!\n"
+-
+-
 diff -ruN a/plugin/plugin.py b/plugin/plugin.py
 --- a/plugin/plugin.py	2022-07-21 04:39:04.000000000 +0300
-+++ b/plugin/plugin.py	2022-10-14 15:26:50.476614421 +0300
++++ b/plugin/plugin.py	2023-09-23 13:40:14.123318845 +0300
 @@ -1,4 +1,3 @@
 -from __future__ import absolute_import
  # for localized messages  	 
@@ -260,26 +2341,2416 @@ diff -ruN a/plugin/plugin.py b/plugin/plugin.py
  #
 diff -ruN a/plugin/ui.py b/plugin/ui.py
 --- a/plugin/ui.py	2022-07-21 04:39:04.000000000 +0300
-+++ b/plugin/ui.py	2022-10-14 15:26:33.776614355 +0300
++++ b/plugin/ui.py	2023-09-23 13:40:14.123318845 +0300
 @@ -1,4 +1,3 @@
 -from __future__ import print_function
  # for localized messages  	 
  from . import _
  #
+diff -ruN a/po/cs.po b/po/cs.po
+--- a/po/cs.po	1970-01-01 03:00:00.000000000 +0300
++++ b/po/cs.po	2023-09-23 13:41:12.495985772 +0300
+@@ -0,0 +1,399 @@
++# Czech translations for enigma package.
++# Copyright (C) 2009 THE enigma'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the enigma package.
++# Automatically generated, 2012.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: Enigma 2 SetPicon Plugin\n"
++"Report-Msgid-Bugs-To: \n"
++"POT-Creation-Date: 2009-02-16 23:05+0100\n"
++"PO-Revision-Date: 2012-11-13 17:29+0100\n"
++"Last-Translator: ims <ims21@users.sourceforge.net>\n"
++"Language-Team: ims\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=utf-8\n"
++"Content-Transfer-Encoding: 8bit\n"
++"Plural-Forms: nplurals=2; plural=(n != 1);\n"
++"X-Poedit-Language: Czech\n"
++"X-Poedit-Country: CZECH REPUBLIC\n"
++
++#
++msgid "SetPicon Setup"
++msgstr "SetPicon - Nastavení"
++
++#
++msgid "Input directory"
++msgstr "Vstupní adresář"
++
++#
++msgid "Output directory"
++msgstr "Výstupní adresář"
++
++#
++msgid "Save picon as"
++msgstr "Ukládat pikony jako"
++
++#
++msgid "Saving current picons from"
++msgstr "Ukládat aktuální pikony"
++
++#
++msgid "Input directory of Picons"
++msgstr "Vstupní adresář s pikonami"
++
++#
++msgid "Output directory for created Picons"
++msgstr "Adresář pro ukládání pikon"
++
++#
++msgid "set picon to service"
++msgstr "Přiřadit pikonu programu"
++
++#
++msgid "No picons found!"
++msgstr "Žádné pikony nenalezeny!"
++
++#
++msgid "current:"
++msgstr "Aktuální:"
++
++#
++msgid "Select picon and press OK to assign to current service:"
++msgstr "Vyberte ikonu a stiskem OK ji přiřaďte aktuálnímu programu:"
++
++#
++msgid "Reading picons..."
++msgstr "Načítání pikon..."
++
++#
++msgid "Please wait to finishing picon's list..."
++msgstr "Čekejte na dokončení načtení seznamu pikon..."
++
++#
++msgid "Save current"
++msgstr "Ulož aktuální"
++
++#
++msgid "Search"
++msgstr "Najít"
++
++#
++msgid "name"
++msgstr "Název programu"
++
++#
++msgid "all picon's directories"
++msgstr "Ze všech adresářů s pikonami"
++
++#
++msgid "input directory only"
++msgstr "Pouze ze vstupního adresáře"
++
++#
++msgid "exit plugin"
++msgstr "Zavřít plugin"
++
++#
++msgid "set and save selected picon"
++msgstr "Nastavit a uložit vybranou pikonu"
++
++#
++msgid "service reference"
++msgstr "Service reference"
++
++#
++msgid "configuration"
++msgstr "Konfigurace"
++
++#
++msgid "go to previous picon"
++msgstr "Předchozí pikona"
++
++#
++msgid "go to next picon"
++msgstr "Následující pikona"
++
++#
++msgid "go to next service"
++msgstr "Následující program"
++
++#
++msgid "go to previous service"
++msgstr "Předchozí program"
++
++#
++msgid "save service's picon"
++msgstr "Uložit pikonu programu"
++
++#
++msgid "save bouquet's picons"
++msgstr "uložit všechny picony z přehledu"
++
++#
++msgid "go to first picon"
++msgstr "Na první pikonu"
++
++#
++msgid "go to last picon"
++msgstr "Na poslední pikonu"
++
++#
++msgid "go to -5 picons"
++msgstr "Zpět o 5 pikon"
++
++#
++msgid "go to -100 picons"
++msgstr "Zpět o 100 pikon"
++
++#
++msgid "go to -1000 picons"
++msgstr "Zpět o -1000 pikon"
++
++#
++msgid "go to +5 picons"
++msgstr "Vpřed o 5 pikon"
++
++#
++msgid "go to +100 picons"
++msgstr "Vpřed o 100 pikon"
++
++#
++msgid "go to +1000 picons"
++msgstr "Vpřed o 1000 pikon"
++
++#
++msgid "Save name with orbital position"
++msgstr "Přidat k názvu i orbitální pozici"
++
++#
++msgid "Display picon's name"
++msgstr "Zobrazovat názvy pikon"
++
++#
++msgid "no"
++msgstr "Ne"
++
++#
++msgid "filename"
++msgstr "Název souboru"
++
++#
++msgid "full path"
++msgstr "Celá cesta"
++
++#
++msgid "Not found"
++msgstr "Nenalezeno"
++
++#
++msgid "Select picon and save it with OK to output directory:"
++msgstr "Vyberte ikonu a stiskem OK ji uložte do výstupního adresáře:"
++
++#
++msgid "Save %s bouquet's picons to %s"
++msgstr "Uložit pikony z přehledu %s do %s"
++
++#
++msgid "Copy all picons from %s to %s"
++msgstr "Zkopírovat všechny pikony z %s do %s"
++
++#
++msgid "Delete all picons in %s"
++msgstr "Smazat všechny pikony v %s"
++
++#
++msgid "Operations with picons"
++msgstr "Operace s pikonami"
++
++#
++msgid "Input directory and output directory are same!"
++msgstr "Vstupní a výstupní adresáře jsou stejné!"
++
++#
++msgid "Are You sure delete all picons in %s ?"
++msgstr "Skutečně chcete smazat všechny pikony v %s ?"
++
++#
++msgid "In menu change input directory or save picons from bouquet."
++msgstr "Změňte vstupní adresář nebo uložte pikony z přehledu."
++
++#
++msgid "Options"
++msgstr "Možnosti"
++
++#
++msgid "options"
++msgstr "Možnosti"
++
++#
++msgid "menu"
++msgstr "Menu"
++
++#
++msgid ""
++"Do you want set both directory as:\n"
++" %s"
++msgstr ""
++"Chcete nastavit oba adresáře jako:\n"
++" %s"
++
++#
++msgid "Swap Dirs"
++msgstr "Prohodit"
++
++#
++msgid "Same Dirs"
++msgstr "Stejné"
++
++#
++msgid "SetPicon in E-menu"
++msgstr "SetPicon v E-menu"
++
++#
++msgid "SetPicon in Channel's menu"
++msgstr "SetPicon v menu přehledu kanálů"
++
++#
++msgid "Search: picons"
++msgstr "Hledat: pikony"
++
++#
++msgid "Search: service"
++msgstr "Hledat: program"
++
++#
++msgid "search picons or service"
++msgstr "Vyhledat pikony nebo program"
++
++#
++msgid "switch searching to service"
++msgstr "Přepnout hledání na program"
++
++#
++msgid "switch searching to picons"
++msgstr "Přepnout hledání na pikony"
++
++#
++msgid "Service not found"
++msgstr "Program nenalezen"
++
++#
++msgid "refresh"
++msgstr "Obnovit"
++
++#
++msgid "Backup directory cannot be same as Input or Output directories !"
++msgstr "Záložní adresář nemůže být shodný se vstupním nebo výstupním adresářem !"
++
++#
++msgid "Backup directory for Picons"
++msgstr "Záložní adresář pro pikony"
++
++#
++msgid "Saving too to backup directory"
++msgstr "Ukládat též do záložního adresáře"
++
++#
++msgid "Backup directory"
++msgstr "Záložní adresář"
++
++#
++msgid "Delete picons in backup directory %s"
++msgstr "Smazat pikony v záložním adresáři %s"
++
++#
++msgid "ZAP when is changed service"
++msgstr "Přepnout při změně programu"
++
++#
++msgid "Sorting picons in backup directory"
++msgstr "Třídit pikony v záložním adresáři"
++
++#
++msgid "by providers"
++msgstr "Podle poskytovatele"
++
++#
++msgid "by orbital position"
++msgstr "Podle orbitální pozice"
++
++#
++msgid "Save %s bouquet's picons to backup directory only"
++msgstr "Uložit pikony z přehledu %s pouze do záložního adresáře"
++
++#
++msgid "Display picons"
++msgstr "Zobrazovat pikony"
++
++#
++msgid "unsorted"
++msgstr "Netříděně"
++
++#
++msgid "sorted"
++msgstr "Setříděné"
++
++#
++msgid "sorted in reverse order"
++msgstr "Setříděné v opačném pořadí"
++
++#
++msgid "Accept picons"
++msgstr "Akceptovat pikony"
++
++#
++msgid "all"
++msgstr "Všechny"
++
++#
++msgid "as service reference only"
++msgstr "Pouze jako service reference"
++
++#
++msgid "as names only"
++msgstr "Pouze jako názvy"
++
++#
++msgid "delete selected picon"
++msgstr "Smazat vybranou pikonu"
++
++#
++msgid "Terrestrial"
++msgstr "Pozemní"
++
++#
++msgid "Cable"
++msgstr "Kabelová"
++
++#
++msgid "Cancel"
++msgstr "Zavřít"
++
++#
++msgid "Save"
++msgstr "Uložit"
++
++#
++msgid "Stream"
++msgstr ""
++
++#
++msgid "SetPicon"
++msgstr ""
++
++#
++msgid "Fully fill rectangles with picons"
++msgstr "Maximálně zvětšit pikony"
++
++#
++msgid "Are You sure delete picon?\n%s"
++msgstr "Opravdu smazat pikonu?\n%s"
++
++#
++msgid "Move to directory"
++msgstr "Přesunout do adresáře"
++
++#
++msgid "Move instead delete"
++msgstr "Přesunout místo smazat"
+diff -ruN a/po/fa.po b/po/fa.po
+--- a/po/fa.po	1970-01-01 03:00:00.000000000 +0300
++++ b/po/fa.po	2023-09-23 13:41:36.872267472 +0300
+@@ -0,0 +1,391 @@
++msgid ""
++msgstr ""
++"Project-Id-Version: set picon Persian Translation\n"
++"Report-Msgid-Bugs-To: \n"
++"POT-Creation-Date: 2009-02-16 23:05+0100\n"
++"PO-Revision-Date: 2012-07-24 00:42+0330\n"
++"Last-Translator: mehdi <mehdi_ar_yekta@yahoo.com>\n"
++"Language-Team: Persian Professionals <persianpros@yahoo.com>\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=utf-8\n"
++"Content-Transfer-Encoding: 8bit\n"
++"X-Poedit-Language: Persian\n"
++"X-Poedit-Country: IRAN, ISLAMIC REPUBLIC OF\n"
++
++#
++msgid "SetPicon Setup"
++msgstr "راه اندازی آیکون های تصویری"
++
++#
++msgid "Input directory"
++msgstr "وراد نمودن یک دایرکتوری "
++
++#
++msgid "Output directory"
++msgstr "خارج نمودن یک دایرکتوری"
++
++#
++msgid "Save picon as"
++msgstr "ذخیره سازی یک آیکون تصویری به عنوان"
++
++#
++msgid "Saving current picons from"
++msgstr "ذخیره سازی آیکون های تصویری موجود از "
++
++#
++msgid "Input directory of Picons"
++msgstr "وارد نمودن دایرکتوری آیکون های تصویری"
++
++#
++msgid "Output directory for created Picons"
++msgstr "خارج نمودن دایرکتوری برای آیکون های تصویری ساخته شده"
++
++#
++msgid "set picon to service"
++msgstr "فرستادن آیکون های تصویری به حالت سرویس و نمایش"
++
++#
++msgid "No picons found!"
++msgstr "هیچ آیکون تصویری یافت نشد !"
++
++#
++msgid "current:"
++msgstr "وضعیت موجود"
++
++#
++msgid "Select picon and press OK to assign to current service:"
++msgstr "آیکون تصویری مد نظرتان را انتخاب کنید و دکمه اوکی را بزنید و آنها را به حالت سرویس منتقل کنید"
++
++#
++msgid "Reading picons..."
++msgstr "در حال خواندن آیکون های تصویری ..."
++
++#
++msgid "Please wait to finishing picon's list..."
++msgstr "لطفا تا ایجاد لیست نهایی آیکون های تصویری صبر نمایید "
++
++#
++msgid "Save current"
++msgstr "ذخیره سازی وضعیت موجود"
++
++#
++msgid "Search"
++msgstr "جستجو کردن"
++
++#
++msgid "name"
++msgstr "نام"
++
++#
++msgid "all picon's directories"
++msgstr "همه دایرکتوری آیکون های تصویری"
++
++#
++msgid "input directory only"
++msgstr "وارد کردن دایرکتوری"
++
++#
++msgid "exit plugin"
++msgstr "خروج از پلاگین"
++
++#
++msgid "set and save selected picon"
++msgstr "تنظیم و ذخیره سازی آیکون های تصویری"
++
++#
++msgid "service reference"
++msgstr "مراجعه به منابع"
++
++#
++msgid "configuration"
++msgstr "پیکربندی"
++
++#
++msgid "go to previous picon"
++msgstr "برگشت به آیکون تصویری قبلی"
++
++#
++msgid "go to next picon"
++msgstr "رفتن به آیکون تصویری بعدی"
++
++#
++msgid "go to next service"
++msgstr "رفتن به سرویس بعدی"
++
++#
++msgid "go to previous service"
++msgstr "رفتن به سرویس قبلی"
++
++#
++msgid "save service's picon"
++msgstr "ذخیره سازی آیکون تصویری سرویس ها"
++
++#
++msgid "save bouquet's picons"
++msgstr "ذخیره سازی آیکون تصویری دسته های انتخابی"
++
++#
++msgid "go to first picon"
++msgstr "برگشت به اولین آیکون تصویری"
++
++#
++msgid "go to last picon"
++msgstr "برگشت به آخرین آیکون تصویری"
++
++#
++msgid "go to -5 picons"
++msgstr "برگشت به 5 آیکون تصویری آخر"
++
++#
++msgid "go to -100 picons"
++msgstr "برگشت به 100 آیکون تصویری آخر"
++
++#
++msgid "go to -1000 picons"
++msgstr "برگشت به 1000 آیکون تصویری آخر"
++
++#
++msgid "go to +5 picons"
++msgstr "برگشت به 5 آیکون تصویری اول"
++
++#
++msgid "go to +100 picons"
++msgstr "برگشت به 100 آیکون تصویری اول"
++
++#
++msgid "go to +1000 picons"
++msgstr "برگشت به 1000 آیکون تصویری اول"
++
++#
++msgid "Save name with orbital position"
++msgstr "ذخیره سازی نام با موقعیت قرار گیری آیکون های تصویری"
++
++#
++msgid "Display picon's name"
++msgstr "نمایش نام آیکون های تصویری"
++
++#
++msgid "no"
++msgstr "نه"
++
++#
++msgid "filename"
++msgstr "نام فایل ها "
++
++#
++msgid "full path"
++msgstr "مسیر کامل "
++
++#
++msgid "Not found"
++msgstr "پیدا نشد"
++
++#
++msgid "Select picon and save it with OK to output directory:"
++msgstr "آیکون تصویری را انتخاب و در دایرکتوری خارجی ذخیره سازی کنید "
++
++#
++msgid "Save %s bouquet's picons to %s"
++msgstr ""
++
++#
++msgid "Copy all picons from %s to %s"
++msgstr ""
++
++#
++msgid "Delete all picons in %s"
++msgstr ""
++
++#
++msgid "Operations with picons"
++msgstr "عملیاتی کردن آیکون های تصویری"
++
++#
++msgid "Input directory and output directory are same!"
++msgstr "آیا دایرکتوری داخلی و خارجی یکی هستند "
++
++#
++msgid "Are You sure delete all picons in %s ?"
++msgstr ""
++
++#
++msgid "In menu change input directory or save picons from bouquet."
++msgstr "از منو دایرکتوری های داخلی را تغییر دهید یا آنها را در دسته دیگری ذخیره کنید"
++
++#
++msgid "Options"
++msgstr "گزینه ها"
++
++#
++msgid "options"
++msgstr "گزینه ها"
++
++#
++msgid "menu"
++msgstr "منو"
++
++#
++msgid ""
++"Do you want set both directory as:\n"
++" %s"
++msgstr ""
++
++#
++msgid "Swap Dirs"
++msgstr ""
++
++#
++msgid "Same Dirs"
++msgstr ""
++
++#
++msgid "SetPicon in E-menu"
++msgstr "تنظیم آیکون های تصویری در یک منو الکترونیکی"
++
++#
++msgid "SetPicon in Channel's menu"
++msgstr ""
++
++#
++msgid "Search: picons"
++msgstr "جستجوی آیکون های تصویری"
++
++#
++msgid "Search: service"
++msgstr "جستجوی تصویری"
++
++#
++msgid "search picons or service"
++msgstr "جستجوی آیکون های تصویری یا سرویس ها"
++
++#
++msgid "switch searching to service"
++msgstr "سوئیچ کردن از حالت جستجو کردن به سرویس"
++
++#
++msgid "switch searching to picons"
++msgstr "سوئیچ کردن از حالت جستجو کردن به آیکون های تصویری"
++
++#
++msgid "Service not found"
++msgstr "هیچ سرویس پیدا نشد"
++
++#
++msgid "refresh"
++msgstr "روشن سازی مجدد"
++
++#
++msgid "Backup directory cannot be same as Input or Output directories !"
++msgstr "دایرکتوری پشتیبان نمی تواند همانند دایرکتوریهای داخلی یا خارجی باشد"
++
++#
++msgid "Backup directory for Picons"
++msgstr "ایجاد یک دایرکتوری پشتیبان برای آیکون های تصویری"
++
++#
++msgid "Saving too to backup directory"
++msgstr "ذخیره سازی در دایرکتوری پشتیبان"
++
++#
++msgid "Backup directory"
++msgstr "دایرکتوری پشتیبان"
++
++#
++msgid "Delete picons in backup directory %s"
++msgstr ""
++
++#
++msgid "ZAP when is changed service"
++msgstr "جابجایی کانال  به محض تغییر سرویس"
++
++#
++msgid "Sorting picons in backup directory"
++msgstr "دسته بندی آیکون های تصویری در دایرکتوری پشتیبان"
++
++#
++msgid "by providers"
++msgstr "بر اساس ارائه دهندگان"
++
++#
++msgid "by orbital position"
++msgstr "بر اساس موقعیت قرار گیری آیکون های تصویری"
++
++#
++msgid "Save %s bouquet's picons to backup directory only"
++msgstr ""
++
++#
++msgid "Display picons"
++msgstr ""
++
++#
++msgid "unsorted"
++msgstr ""
++
++#
++msgid "sorted"
++msgstr ""
++
++#
++msgid "sorted in reverse order"
++msgstr ""
++
++#
++msgid "Accept picons"
++msgstr ""
++
++#
++msgid "all"
++msgstr ""
++
++#
++msgid "as service reference only"
++msgstr ""
++
++#
++msgid "as names only"
++msgstr ""
++
++#
++msgid "delete selected picon"
++msgstr "حذف آیکون تصویری انتخاب شده "
++
++#
++msgid "Terrestrial"
++msgstr "زمینی"
++
++#
++msgid "Cable"
++msgstr "کابل"
++
++#
++msgid "Cancel"
++msgstr "لغو کردن"
++
++#
++msgid "Save"
++msgstr "ذخیره کردن"
++
++#
++msgid "Stream"
++msgstr ""
++
++#
++msgid "SetPicon"
++msgstr ""
++
++#
++msgid "Fully fill rectangles with picons"
++msgstr ""
++
++#
++msgid "Are You sure delete picon?\n%s"
++msgstr ""
++
++#
++msgid "Move to directory"
++msgstr ""
++
++#
++msgid "Move instead delete"
++msgstr ""
+diff -ruN a/po/fr.po b/po/fr.po
+--- a/po/fr.po	1970-01-01 03:00:00.000000000 +0300
++++ b/po/fr.po	2023-09-23 13:41:52.876453428 +0300
+@@ -0,0 +1,430 @@
++# Language fr/LC translations for e package.
++# Copyright (C) 2018 THE e'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the e package.
++# Automatically generated, 2018.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: e 2openplugin-SetPicon\n"
++"Report-Msgid-Bugs-To: \n"
++"POT-Creation-Date: 2018-07-15 21:40+0200\n"
++"PO-Revision-Date: 2018-07-15 22:04+0200\n"
++"Last-Translator: Automatically generated\n"
++"Language-Team: none\n"
++"Language: fr\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=UTF-8\n"
++"Content-Transfer-Encoding: 8bit\n"
++"X-Generator: Poedit 2.0.9\n"
++
++#: ../ui.py:1003
++msgid "Accept picons"
++msgstr "Accepter les picons"
++
++#: ../ui.py:588
++#, python-format
++msgid "Are You sure delete all picons in %s ?"
++msgstr "Voulez-vous vraiment supprimer tous les picons dans %s ?"
++
++#: ../ui.py:767
++#, python-format
++msgid ""
++"Are You sure delete picon?\n"
++"%s"
++msgstr ""
++"Voulez-vous vraiment supprimer le picon ?\n"
++"%s"
++
++#: ../ui.py:999
++msgid "Backup directory"
++msgstr "Répertoire de sauvegarde:"
++
++#: ../ui.py:1096
++msgid "Backup directory cannot be same as Input or Output directories !"
++msgstr "Le répertoire de sauvegarde ne peut pas être le même que les répertoires d'entrée ou de sortie!"
++
++#: ../ui.py:1061
++msgid "Backup directory for Picons"
++msgstr "Répertoire de sauvegarde pour les Picons"
++
++#: ../ui.py:746 ../ui.py:756
++msgid "Cable"
++msgstr "Câble"
++
++#: ../ui.py:168 ../ui.py:973
++msgid "Cancel"
++msgstr "Annuler"
++
++#: ../ui.py:236
++#, python-format
++msgid "Copy all picons from %s to %s"
++msgstr "Copiez tous les picons de %s à %s"
++
++#: ../ui.py:237 ../ui.py:239
++#, python-format
++msgid "Delete all picons in %s"
++msgstr "Supprimer tous les picons dans %s"
++
++#: ../ui.py:242
++#, python-format
++msgid "Delete picons in backup directory %s"
++msgstr "Supprimer les picons dans le répertoire de sauvegarde %s"
++
++#: ../ui.py:1066
++msgid "Directory for removed Picons"
++msgstr "Répertoire pour les picons supprimés"
++
++#: ../ui.py:1015
++msgid "Display picon's name"
++msgstr "Afficher nom du picon"
++
++#: ../ui.py:1017
++msgid "Display picons"
++msgstr "Afficher les picons"
++
++#: ../ui.py:1106
++#, python-format
++msgid ""
++"Do you want set both directory as:\n"
++" %s"
++msgstr ""
++"Voulez-vous définir les deux répertoires comme:\n"
++"%s"
++
++#: ../ui.py:1016
++msgid "Fully fill rectangles with picons"
++msgstr "Remplir entièrement les rectangles avec les picons"
++
++#: ../ui.py:415
++msgid "In menu change input directory or save picons from bouquet."
++msgstr "Dans le menu modifier le répertoire d’entrée ou sauver les picons du bouquet."
++
++#: ../ui.py:997
++msgid "Input directory"
++msgstr "Répertoire d’entrée"
++
++#: ../ui.py:340 ../ui.py:567
++msgid "Input directory and output directory are same!"
++msgstr "Répertoire d’entrée et le répertoire de sortie sont les mêmes !"
++
++#: ../ui.py:1051
++msgid "Input directory of Picons"
++msgstr "Répertoire d’entrée des Picons"
++
++#: ../ui.py:1157
++msgid "MB"
++msgstr "Mo"
++
++#: ../ui.py:1011
++msgid "Move instead delete"
++msgstr "Déplacer au lieu de supprimer"
++
++#: ../ui.py:1000
++msgid "Move to directory"
++msgstr "Déplacer vers le répertoire"
++
++#: ../ui.py:677
++msgid "No picons found!"
++msgstr "Aucun picon trouvé!"
++
++#: ../ui.py:436 ../ui.py:537
++msgid "Not found"
++msgstr "Pas trouvé"
++
++#: ../ui.py:244
++msgid "Operations with picons"
++msgstr "Opérations sur les picons"
++
++#: ../ui.py:171
++msgid "Options"
++msgstr "Options"
++
++#: ../ui.py:998
++msgid "Output directory"
++msgstr "Répertoire de sortie"
++
++#: ../ui.py:1056
++msgid "Output directory for created Picons"
++msgstr "Répertoire de sortie pour les Picons créés"
++
++#: ../ui.py:281 ../ui.py:741 ../ui.py:756
++msgid "Playback"
++msgstr "Lecture"
++
++#: ../ui.py:181
++msgid "Please wait to finishing picon's list..."
++msgstr "Patientez pendant la création de la liste des picons…"
++
++#: ../ui.py:228
++msgid "Reading picons..."
++msgstr "Lecture des pions…"
++
++#: ../ui.py:975
++msgid "Same Dirs"
++msgstr "Même répertoire"
++
++#: ../ui.py:972
++msgid "Save"
++msgstr "Sauver"
++
++#: ../ui.py:235
++#, python-format
++msgid "Save %s bouquet's picons to %s"
++msgstr "Enregistrer les picons du bouquet %s sur %s"
++
++#: ../ui.py:241
++#, python-format
++msgid "Save %s bouquet's picons to backup directory only"
++msgstr "Enregistrer les picons du bouquet %s dans le répertoire de sauvegarde uniquement"
++
++#: ../ui.py:169
++msgid "Save current"
++msgstr "Enregistrer l’actuel"
++
++#: ../ui.py:1007
++msgid "Save name with orbital position"
++msgstr "Sauvegarder le nom avec la position orbitale"
++
++#: ../ui.py:1004
++msgid "Save picon as"
++msgstr "Enregistrer le picon sous"
++
++#: ../ui.py:1014
++msgid "Saving current picons from"
++msgstr "Enregistrement les picons actuels depuis"
++
++#: ../ui.py:1021
++msgid "Saving too to backup directory"
++msgstr "Sauvegarde également vers le répertoire de sauvegarde"
++
++#: ../ui.py:170 ../ui.py:448 ../ui.py:536 ../ui.py:540
++msgid "Search"
++msgstr "Recherche"
++
++#: ../ui.py:470
++msgid "Search: picons"
++msgstr "Rechercher : picons"
++
++#: ../ui.py:472
++msgid "Search: service"
++msgstr "Rechercher: service"
++
++#: ../ui.py:411
++msgid "Select picon and press OK to assign to current service:"
++msgstr "Sélectionnez le picon et appuyez sur OK pour affecter au service courant:"
++
++#: ../ui.py:413
++msgid "Select picon and save it with OK to output directory:"
++msgstr "Sélectionnez le picon et enregistrez-le avec OK vers le répertoire de sortie :"
++
++#: ../ui.py:441
++msgid "Service not found"
++msgstr "Service non trouvé"
++
++#: ../plugin.py:42 ../ui.py:131 ../ui.py:404
++msgid "SetPicon"
++msgstr "DéfinirPicon"
++
++#: ../ui.py:970 ../ui.py:1041
++msgid "SetPicon Setup"
++msgstr "Configurer DéfinirPicon"
++
++#: ../ui.py:1019
++msgid "SetPicon in Channel's menu"
++msgstr "DéfinirPicon dans le menu des chaînes"
++
++#: ../ui.py:1018
++msgid "SetPicon in E-menu"
++msgstr "DéfinirPicon dans le E-menu"
++
++#: ../ui.py:1022
++msgid "Sorting picons in backup directory"
++msgstr "Trier les picons dans le répertoire de sauvegarde"
++
++#: ../ui.py:739 ../ui.py:756
++msgid "Stream"
++msgstr "Stream"
++
++#: ../ui.py:974
++msgid "Swap Dirs"
++msgstr "Échanger les répertoires"
++
++#: ../ui.py:744 ../ui.py:756
++msgid "Terrestrial"
++msgstr "Terrestre"
++
++#: ../ui.py:1020
++msgid "ZAP when is changed service"
++msgstr "ZAP lorsque le service est modifié"
++
++#: ../ui.py:59
++msgid "all"
++msgstr "tous"
++
++#: ../ui.py:52
++msgid "all picon's directories"
++msgstr "Répertoires de tous les pions"
++
++#: ../ui.py:59
++msgid "as names only"
++msgstr "en tant que noms seulement"
++
++#: ../ui.py:59
++msgid "as service reference only"
++msgstr "seulement comme la référence du service"
++
++#: ../ui.py:58
++msgid "by orbital position"
++msgstr "par position orbitale"
++
++#: ../ui.py:58
++msgid "by providers"
++msgstr "par fournisseurs"
++
++#: ../ui.py:230
++msgid "current:"
++msgstr "actuel :"
++
++#: ../ui.py:162
++msgid "delete selected picon"
++msgstr "supprimer les picons sélectionnés"
++
++#: ../ui.py:139 ../ui.py:150
++msgid "exit plugin"
++msgstr "Quitter le plugin"
++
++#: ../ui.py:54
++msgid "filename"
++msgstr "nom du fichier"
++
++#: ../ui.py:1161
++msgid "free:"
++msgstr "libre:"
++
++#: ../ui.py:54
++msgid "full path"
++msgstr "chemin complet"
++
++#: ../ui.py:160
++msgid "go to +100 picons"
++msgstr "allez à +100 picons"
++
++#: ../ui.py:161
++msgid "go to +1000 picons"
++msgstr "allez à +1000 picons"
++
++#: ../ui.py:159
++msgid "go to +5 picons"
++msgstr "aller à +5 picons"
++
++#: ../ui.py:157
++msgid "go to -100 picons"
++msgstr "aller à -100 picons"
++
++#: ../ui.py:158
++msgid "go to -1000 picons"
++msgstr "aller à -1000 picons"
++
++#: ../ui.py:156
++msgid "go to -5 picons"
++msgstr "aller à -5 picons"
++
++#: ../ui.py:154
++msgid "go to first picon"
++msgstr "aller au premier picon"
++
++#: ../ui.py:155
++msgid "go to last picon"
++msgstr "aller au dernier picon"
++
++#: ../ui.py:147
++msgid "go to next picon"
++msgstr "aller au picon suivant"
++
++#: ../ui.py:148
++msgid "go to next service"
++msgstr "Aller au service suivant"
++
++#: ../ui.py:146
++msgid "go to previous picon"
++msgstr "aller au picon précédent"
++
++#: ../ui.py:149
++msgid "go to previous service"
++msgstr "Aller au service précédent"
++
++#: ../ui.py:52
++msgid "input directory only"
++msgstr "Répertoire d’entrée uniquement"
++
++#: ../ui.py:1157
++msgid "mem:"
++msgstr "mem:"
++
++#: ../ui.py:145
++msgid "menu"
++msgstr "menu"
++
++#: ../ui.py:49
++msgid "name"
++msgstr "nom"
++
++#: ../ui.py:54 ../ui.py:58
++msgid "no"
++msgstr "non"
++
++#: ../ui.py:153
++msgid "options"
++msgstr "options"
++
++#: ../ui.py:163
++msgid "refresh"
++msgstr "actualiser"
++
++#: ../ui.py:151
++msgid "save service's picon"
++msgstr "sauver le picon du service"
++
++#: ../ui.py:152
++msgid "search picons or service"
++msgstr "rechercher des picons ou un service"
++
++#: ../ui.py:49
++msgid "service reference"
++msgstr "référence du service"
++
++#: ../ui.py:140
++msgid "set and save selected picon"
++msgstr "définir et enregistrer le picon sélectionné"
++
++#: ../plugin.py:43
++msgid "set picon to service"
++msgstr "définir le picon du service"
++
++#: ../ui.py:61
++msgid "sorted"
++msgstr "trié"
++
++#: ../ui.py:61
++msgid "sorted in reverse order"
++msgstr "trié en ordre inverse"
++
++#: ../ui.py:165
++msgid "switch searching to picons"
++msgstr "passer à la recherche de picons"
++
++#: ../ui.py:164
++msgid "switch searching to service"
++msgstr "passer à la recherche de service"
++
++#: ../ui.py:797
++msgid "unknown"
++msgstr "inconnu"
++
++#: ../ui.py:61
++msgid "unsorted"
++msgstr "non trié"
++
++#: ../ui.py:1159
++msgid "used:"
++msgstr "utilisé:"
+diff -ruN a/po/lt.po b/po/lt.po
+--- a/po/lt.po	1970-01-01 03:00:00.000000000 +0300
++++ b/po/lt.po	2023-09-23 13:42:09.244644407 +0300
+@@ -0,0 +1,302 @@
++msgid ""
++msgstr ""
++"Project-Id-Version: SetPicon\n"
++"Report-Msgid-Bugs-To: \n"
++"POT-Creation-Date: 2009-02-16 23:05+0100\n"
++"PO-Revision-Date: 2017-11-15 11:58+0200\n"
++"Last-Translator: Vytenis P. <vyteniui@gmail.com>\n"
++"Language-Team: Vytenis P. vyteniui@gmail.com\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=UTF-8\n"
++"Content-Transfer-Encoding: 8bit\n"
++"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
++"Language: lt\n"
++"X-Generator: Poedit 2.0.4\n"
++"X-Poedit-SourceCharset: UTF-8\n"
++
++msgid "Are You sure delete all picons in %s ?"
++msgstr "Ar tikrai norite pašalinti visas piktogramas iš %s?"
++
++msgid "Backup directory"
++msgstr "Atsarginės kopijos katalogas"
++
++msgid "Backup directory cannot be same as Input or Output directories !"
++msgstr "Atsarginių kopijų katalogas negali būti toks pat, kaip įvesties/išvesties katalogai!"
++
++msgid "Backup directory for Picons"
++msgstr "Piktogramų atsarginės kopijos katalogas"
++
++msgid "Cable"
++msgstr "Kabelinė"
++
++msgid "Cancel"
++msgstr "Atšaukti"
++
++msgid "Copy all picons from %s to %s"
++msgstr "Kopijuoti visas piktogramas iš %s į %s"
++
++msgid "Delete all picons in %s"
++msgstr "Pašalinti visas piktogramas iš %s"
++
++msgid "Delete picons in backup directory %s"
++msgstr "Pašalinti piktogramas iš atsarginės kopijos katalogo %s"
++
++msgid "Display picon's name"
++msgstr "Rodyti piktogramos pavadinimą"
++
++msgid ""
++"Do you want set both directory as:\n"
++" %s"
++msgstr ""
++"Ar norite nustatyti abu katalogus, kaip:\n"
++" %s"
++
++msgid "In menu change input directory or save picons from bouquet."
++msgstr "Meniu pakeiskite įvesties katalogą, arba išsaugokite bukieto piktogramas."
++
++msgid "Input directory"
++msgstr "Įvesties katalogas"
++
++msgid "Input directory and output directory are same!"
++msgstr "Įvesties ir išvesties katalogas tas pats!"
++
++msgid "Input directory of Picons"
++msgstr "Įvesties katalogas piktogramoms"
++
++msgid "No picons found!"
++msgstr "Piktogramų neaptikta!"
++
++msgid "Not found"
++msgstr "Nerasta"
++
++msgid "Operations with picons"
++msgstr "Operacijos su piktogramomis"
++
++msgid "Options"
++msgstr "Parinktys"
++
++msgid "Output directory"
++msgstr "Išvesties katalogas"
++
++msgid "Output directory for created Picons"
++msgstr "Piktogramų išvesties katalogas"
++
++msgid "Display picons"
++msgstr "Rodyti piktogramas"
++
++msgid "unsorted"
++msgstr "nerūšiuoti"
++
++msgid "sorted"
++msgstr "rūšiuoti"
++
++msgid "sorted in reverse order"
++msgstr "rūšiuoti atvirkštine tvarka"
++
++msgid "Accept picons"
++msgstr "Priimti piktogramas"
++
++msgid "all"
++msgstr "viską"
++
++msgid "as service reference only"
++msgstr "tik kaip kanalo nuorodą"
++
++msgid "as names only"
++msgstr "tik kaip pavadinimus"
++
++msgid "Please wait to finishing picon's list..."
++msgstr "Palaukite piktogramų sąrašo pabaigos..."
++
++msgid "Reading picons..."
++msgstr "Skaitomos piktogramos..."
++
++msgid "Same Dirs"
++msgstr "Tie patys katalogai"
++
++msgid "Save"
++msgstr "Įrašyti"
++
++msgid "Save %s bouquet's picons to %s"
++msgstr "%s bukieto piktogramas išsaugoti %s"
++
++msgid "Save %s bouquet's picons to backup directory only"
++msgstr "Bukieto %s piktogramas išsaugoti tik į atsarg. kopjijos katalogą"
++
++msgid "Save current"
++msgstr "Išsaugoti dabartinę"
++
++msgid "Save name with orbital position"
++msgstr "Išsaugoti pavadinimą su padėtimi orbitoje"
++
++msgid "Save picon as"
++msgstr "Piktogramą išsaugoti, kaip"
++
++msgid "Saving current picons from"
++msgstr "Išsaugoti dabartines piktogramas iš"
++
++msgid "Saving too to backup directory"
++msgstr "Išsaugoti ir į atsarginės kopijos katalogą"
++
++msgid "Search"
++msgstr "Paieška"
++
++msgid "Search: picons"
++msgstr "Paieška: piktogramos"
++
++msgid "Search: service"
++msgstr "Paieška: kanalai"
++
++msgid "Select picon and press OK to assign to current service:"
++msgstr "Pasirinkite piktogramą ir spauskite 'OK', kad priskirti šiam kanalui:"
++
++msgid "Select picon and save it with OK to output directory:"
++msgstr "Pasirinkite piktogramą ir spauskite 'OK', kad išsaugoti išeities kataloge:"
++
++msgid "Service not found"
++msgstr "Kanalo nerasta"
++
++msgid "SetPicon Setup"
++msgstr "Piktogramų diegėjo sąranka"
++
++msgid "SetPicon"
++msgstr "Piktogramų diegėjas"
++
++msgid "SetPicon in E-menu"
++msgstr "Piktogramų diegėjas plėtinių naršyklėje"
++
++msgid "SetPicon in Channel's menu"
++msgstr "Piktogramų diegėjas kanalų meniu"
++
++msgid "Sorting picons in backup directory"
++msgstr "Piktogramų rūšiavimas atsarginių kopijų kataloge"
++
++msgid "Swap Dirs"
++msgstr "Sukeisti katalogus"
++
++msgid "Terrestrial"
++msgstr "Antžeminė"
++
++msgid "ZAP when is changed service"
++msgstr "Perjungti, pasikeitus kanalui"
++
++msgid "all picon's directories"
++msgstr "visi piktogramų katalogai"
++
++msgid "by orbital position"
++msgstr "pagal padėtį orbitoje"
++
++msgid "by providers"
++msgstr "pagal tiekėjus"
++
++msgid "configuration"
++msgstr "konfigūracija"
++
++msgid "current:"
++msgstr "dabartinis:"
++
++msgid "delete selected picon"
++msgstr "ištrinti pasirinktą piktogramą"
++
++msgid "exit plugin"
++msgstr "užverti įskiepį"
++
++msgid "filename"
++msgstr "failo pavadinimas"
++
++msgid "full path"
++msgstr "visas kelias"
++
++msgid "go to +100 picons"
++msgstr "100 piktogramų pirmyn"
++
++msgid "go to +1000 picons"
++msgstr "1000 piktogramų pirmyn"
++
++msgid "go to +5 picons"
++msgstr "5 piktogramomis pirmyn"
++
++msgid "go to -100 picons"
++msgstr "100 piktogramų atgal"
++
++msgid "go to -1000 picons"
++msgstr "1000 piktogramų atgal"
++
++msgid "go to -5 picons"
++msgstr "5 piktogramomis atgal"
++
++msgid "go to first picon"
++msgstr "prie pirmos piktogramos"
++
++msgid "go to last picon"
++msgstr "prie paskutinės piktogramos"
++
++msgid "go to next picon"
++msgstr "prie sekančios piktogramos"
++
++msgid "go to next service"
++msgstr "prie sekančio kanalo"
++
++msgid "go to previous picon"
++msgstr "prie ankstesnės piktogramos"
++
++msgid "go to previous service"
++msgstr "prie ankstesnio kanalo"
++
++msgid "input directory only"
++msgstr "tik įvesties katalogas"
++
++msgid "menu"
++msgstr "meniu"
++
++msgid "name"
++msgstr "pavadinimas"
++
++msgid "no"
++msgstr "ne"
++
++msgid "options"
++msgstr "nustatymai"
++
++msgid "refresh"
++msgstr "atnaujinti"
++
++msgid "save bouquet's picons"
++msgstr "išsaugoti bukieto piktogramas"
++
++msgid "save service's picon"
++msgstr "išsaugoti dabartinę piktogramą"
++
++msgid "search picons or service"
++msgstr "ieškoti piktogramų/kanalų"
++
++msgid "service reference"
++msgstr "kanalo nuoroda"
++
++msgid "set and save selected picon"
++msgstr "nustatyti ir išsaugoti pasirinktą piktogramą"
++
++msgid "set picon to service"
++msgstr "nustatyti piktogramą kanalui"
++
++msgid "switch searching to picons"
++msgstr "perjungti į piktogramų paiešką"
++
++msgid "switch searching to service"
++msgstr "perjungti į kanalų paiešką"
++
++msgid "Fully fill rectangles with picons"
++msgstr "Užpildyti stačiakampius piktogramomis"
++
++msgid ""
++"Are You sure delete picon?\n"
++"%s"
++msgstr ""
++"Ar tikrai norite pašalinti piktogramą?\n"
++"%s"
++
++msgid "Move to directory"
++msgstr "Perkelti į katalogą"
++
++msgid "Move instead delete"
++msgstr "Perkelti, o ne ištrinti"
+diff -ruN a/po/ru.po b/po/ru.po
+--- a/po/ru.po	1970-01-01 03:00:00.000000000 +0300
++++ b/po/ru.po	2023-09-23 13:42:26.844850650 +0300
+@@ -0,0 +1,302 @@
++# SOME DESCRIPTIVE TITLE.
++# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the PACKAGE package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: \n"
++"Report-Msgid-Bugs-To: \n"
++"POT-Creation-Date: 2009-02-16 23:05+0100\n"
++"PO-Revision-Date: 2018-01-03 22:42+0300\n"
++"Last-Translator: Александр Кольцов <a.g.prosat@gmail.com>\n"
++"Language-Team: http://www.forum.free-x.de\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=utf-8\n"
++"Content-Transfer-Encoding: 8bit\n"
++"Plural-Forms: nplurals=2; plural=(n != 1);\n"
++"Language: ru\n"
++"X-Generator: Poedit 2.0.1\n"
++
++msgid "Are You sure delete all picons in %s ?"
++msgstr "Вы уверены, что хотите удалить все пиконы из %s ?"
++
++msgid "Backup directory"
++msgstr "Каталог бекапа"
++
++msgid "Backup directory cannot be same as Input or Output directories !"
++msgstr "Бекап каталога не состоится. Это один и тот же каталог!"
++
++msgid "Backup directory for Picons"
++msgstr "Резервное копирование папки пиконов"
++
++msgid "Cable"
++msgstr "Кабельное"
++
++msgid "Cancel"
++msgstr "Отмена"
++
++msgid "Copy all picons from %s to %s"
++msgstr "Копир. все пиконы из %s в %s"
++
++msgid "Delete all picons in %s"
++msgstr "Удалить все пиконы из %s"
++
++msgid "Delete picons in backup directory %s"
++msgstr "Удаление пиконов в папке бекапа %s"
++
++msgid "Display picon's name"
++msgstr "Показать имена пиконов"
++
++msgid ""
++"Do you want set both directory as:\n"
++" %s"
++msgstr ""
++"Вы хотите установить оба каталога как:\n"
++" %s"
++
++msgid "In menu change input directory or save picons from bouquet."
++msgstr "В меню измените входную папку или сохр. пиконы букета."
++
++msgid "Input directory"
++msgstr "Входная папка"
++
++msgid "Input directory and output directory are same!"
++msgstr "Входной и выходной каталог одинаковы!"
++
++msgid "Input directory of Picons"
++msgstr "Входная папка для пиконов"
++
++msgid "No picons found!"
++msgstr "Пиконы не найдены!"
++
++msgid "Not found"
++msgstr "Не найдено"
++
++msgid "Operations with picons"
++msgstr "Операции с пиконами"
++
++msgid "Options"
++msgstr "Опции"
++
++msgid "Output directory"
++msgstr "Выходная папка"
++
++msgid "Output directory for created Picons"
++msgstr "Выходной каталог для пиконов"
++
++msgid "Display picons"
++msgstr "Показать пиконы"
++
++msgid "unsorted"
++msgstr "не сортировать"
++
++msgid "sorted"
++msgstr "сортировать"
++
++msgid "sorted in reverse order"
++msgstr "сортировать в обратном порядке"
++
++msgid "Accept picons"
++msgstr "Закрепить пиконы"
++
++msgid "all"
++msgstr "все"
++
++msgid "as service reference only"
++msgstr "только, как референс сервиса"
++
++msgid "as names only"
++msgstr "только, как имена"
++
++msgid "Please wait to finishing picon's list..."
++msgstr "Подождите окончания поиска пиконов."
++
++msgid "Reading picons..."
++msgstr "Чтение пиконов."
++
++msgid "Same Dirs"
++msgstr "Та же папка"
++
++msgid "Save"
++msgstr "Сохранить"
++
++msgid "Save %s bouquet's picons to %s"
++msgstr "Сохр. пиконы пакета %s в %s"
++
++msgid "Save %s bouquet's picons to backup directory only"
++msgstr "Сохр. пиконы пакета %s только в каталог бекапа"
++
++msgid "Save current"
++msgstr "Сохранить"
++
++msgid "Save name with orbital position"
++msgstr "Сохранить имя с орбитальной позицией"
++
++msgid "Save picon as"
++msgstr "Сохранить пикон, как"
++
++msgid "Saving current picons from"
++msgstr "Сохранение текущего пикона в"
++
++msgid "Saving too to backup directory"
++msgstr "Сохранять и в каталог бекапа"
++
++msgid "Search"
++msgstr "Поиск"
++
++msgid "Search: picons"
++msgstr "Поиск: пиконы"
++
++msgid "Search: service"
++msgstr "Поик: сервисы"
++
++msgid "Select picon and press OK to assign to current service:"
++msgstr "Выберите пикон. \"ОК\" для установки к текущему сервису:"
++
++msgid "Select picon and save it with OK to output directory:"
++msgstr "Выберите пикон и нажмите ОК для сохр. в выходную папку:"
++
++msgid "Service not found"
++msgstr "Сервис не найден"
++
++msgid "SetPicon Setup"
++msgstr "Настройки SetPicon"
++
++msgid "SetPicon"
++msgstr "Установщик пиконов"
++
++msgid "SetPicon in E-menu"
++msgstr "Установщик пиконов в E-menu"
++
++msgid "SetPicon in Channel's menu"
++msgstr "Установщик пиконов в меню каналов"
++
++msgid "Sorting picons in backup directory"
++msgstr "Сортировка пиконов в папке бекапа"
++
++msgid "Swap Dirs"
++msgstr "Обмен папок"
++
++msgid "Terrestrial"
++msgstr "Наземный"
++
++msgid "ZAP when is changed service"
++msgstr "Переключить при смене сервиса"
++
++msgid "all picon's directories"
++msgstr "в обе папки пиконов"
++
++msgid "by orbital position"
++msgstr "по орбитальной позиции"
++
++msgid "by providers"
++msgstr "по провайдерам"
++
++msgid "configuration"
++msgstr "конфигурация"
++
++msgid "current:"
++msgstr "текущий:"
++
++msgid "delete selected picon"
++msgstr "удалить выбранный пикон"
++
++msgid "exit plugin"
++msgstr "закрыть плагин"
++
++msgid "filename"
++msgstr "имя файла"
++
++msgid "full path"
++msgstr "полный путь"
++
++msgid "go to +100 picons"
++msgstr "100 пиконов вперёд"
++
++msgid "go to +1000 picons"
++msgstr "1000 пиконов вперёд"
++
++msgid "go to +5 picons"
++msgstr "5 пиконов вперёд"
++
++msgid "go to -100 picons"
++msgstr "100 пиконов назад"
++
++msgid "go to -1000 picons"
++msgstr "1000 пиконов назад"
++
++msgid "go to -5 picons"
++msgstr "5 пиконов назад"
++
++msgid "go to first picon"
++msgstr "перейти к первому пикону"
++
++msgid "go to last picon"
++msgstr "перейти к последнему пикону"
++
++msgid "go to next picon"
++msgstr "перейти к следующему пикону"
++
++msgid "go to next service"
++msgstr "перейти к следующему сервису"
++
++msgid "go to previous picon"
++msgstr "перейти к предыдущему пикону"
++
++msgid "go to previous service"
++msgstr "перейти к предыдущему сервису"
++
++msgid "input directory only"
++msgstr "только входной каталог"
++
++msgid "menu"
++msgstr "меню"
++
++msgid "name"
++msgstr "имя"
++
++msgid "no"
++msgstr "нет"
++
++msgid "options"
++msgstr "настройки"
++
++msgid "refresh"
++msgstr "обновление"
++
++msgid "save bouquet's picons"
++msgstr "сохранить пиконы пакета"
++
++msgid "save service's picon"
++msgstr "сохранение текущего пикона"
++
++msgid "search picons or service"
++msgstr "поиск пиконов или сервисов"
++
++msgid "service reference"
++msgstr "референс сервиса"
++
++msgid "set and save selected picon"
++msgstr "установить и сохр. выбранный пикон"
++
++msgid "set picon to service"
++msgstr "установить пикон к сервису"
++
++msgid "switch searching to picons"
++msgstr "переключить на поиск пиконов"
++
++msgid "switch searching to service"
++msgstr "переключить на поиск сервисов"
++
++msgid "Fully fill rectangles with picons"
++msgstr "Полное заполнение прямоугольников с пиконами"
++
++msgid "Are You sure delete picon?\n%s"
++msgstr "Вы уверены, что хотите удалить пикон?\n%s"
++
++msgid "Move to directory"
++msgstr "Перемещение в каталог"
++
++msgid "Move instead delete"
++msgstr "Перемещение вместо удаления"
+diff -ruN a/po/SetPicon.pot b/po/SetPicon.pot
+--- a/po/SetPicon.pot	1970-01-01 03:00:00.000000000 +0300
++++ b/po/SetPicon.pot	2022-07-21 04:39:04.000000000 +0300
+@@ -0,0 +1,426 @@
++# SOME DESCRIPTIVE TITLE.
++# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the PACKAGE package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++#, fuzzy
++msgid ""
++msgstr ""
++"Project-Id-Version: PACKAGE VERSION\n"
++"Report-Msgid-Bugs-To: \n"
++"POT-Creation-Date: 2018-07-15 22:05+0200\n"
++"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
++"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
++"Language-Team: LANGUAGE <LL@li.org>\n"
++"Language: \n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=UTF-8\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: ../ui.py:1003
++msgid "Accept picons"
++msgstr ""
++
++#: ../ui.py:588
++#, python-format
++msgid "Are You sure delete all picons in %s ?"
++msgstr ""
++
++#: ../ui.py:767
++#, python-format
++msgid ""
++"Are You sure delete picon?\n"
++"%s"
++msgstr ""
++
++#: ../ui.py:999
++msgid "Backup directory"
++msgstr ""
++
++#: ../ui.py:1096
++msgid "Backup directory cannot be same as Input or Output directories !"
++msgstr ""
++
++#: ../ui.py:1061
++msgid "Backup directory for Picons"
++msgstr ""
++
++#: ../ui.py:746 ../ui.py:756
++msgid "Cable"
++msgstr ""
++
++#: ../ui.py:168 ../ui.py:973
++msgid "Cancel"
++msgstr ""
++
++#: ../ui.py:236
++#, python-format
++msgid "Copy all picons from %s to %s"
++msgstr ""
++
++#: ../ui.py:237 ../ui.py:239
++#, python-format
++msgid "Delete all picons in %s"
++msgstr ""
++
++#: ../ui.py:242
++#, python-format
++msgid "Delete picons in backup directory %s"
++msgstr ""
++
++#: ../ui.py:1066
++msgid "Directory for removed Picons"
++msgstr ""
++
++#: ../ui.py:1015
++msgid "Display picon's name"
++msgstr ""
++
++#: ../ui.py:1017
++msgid "Display picons"
++msgstr ""
++
++#: ../ui.py:1106
++#, python-format
++msgid ""
++"Do you want set both directory as:\n"
++" %s"
++msgstr ""
++
++#: ../ui.py:1016
++msgid "Fully fill rectangles with picons"
++msgstr ""
++
++#: ../ui.py:415
++msgid "In menu change input directory or save picons from bouquet."
++msgstr ""
++
++#: ../ui.py:997
++msgid "Input directory"
++msgstr ""
++
++#: ../ui.py:340 ../ui.py:567
++msgid "Input directory and output directory are same!"
++msgstr ""
++
++#: ../ui.py:1051
++msgid "Input directory of Picons"
++msgstr ""
++
++#: ../ui.py:1157
++msgid "MB"
++msgstr ""
++
++#: ../ui.py:1011
++msgid "Move instead delete"
++msgstr ""
++
++#: ../ui.py:1000
++msgid "Move to directory"
++msgstr ""
++
++#: ../ui.py:677
++msgid "No picons found!"
++msgstr ""
++
++#: ../ui.py:436 ../ui.py:537
++msgid "Not found"
++msgstr ""
++
++#: ../ui.py:244
++msgid "Operations with picons"
++msgstr ""
++
++#: ../ui.py:171
++msgid "Options"
++msgstr ""
++
++#: ../ui.py:998
++msgid "Output directory"
++msgstr ""
++
++#: ../ui.py:1056
++msgid "Output directory for created Picons"
++msgstr ""
++
++#: ../ui.py:281 ../ui.py:741 ../ui.py:756
++msgid "Playback"
++msgstr ""
++
++#: ../ui.py:181
++msgid "Please wait to finishing picon's list..."
++msgstr ""
++
++#: ../ui.py:228
++msgid "Reading picons..."
++msgstr ""
++
++#: ../ui.py:975
++msgid "Same Dirs"
++msgstr ""
++
++#: ../ui.py:972
++msgid "Save"
++msgstr ""
++
++#: ../ui.py:235
++#, python-format
++msgid "Save %s bouquet's picons to %s"
++msgstr ""
++
++#: ../ui.py:241
++#, python-format
++msgid "Save %s bouquet's picons to backup directory only"
++msgstr ""
++
++#: ../ui.py:169
++msgid "Save current"
++msgstr ""
++
++#: ../ui.py:1007
++msgid "Save name with orbital position"
++msgstr ""
++
++#: ../ui.py:1004
++msgid "Save picon as"
++msgstr ""
++
++#: ../ui.py:1014
++msgid "Saving current picons from"
++msgstr ""
++
++#: ../ui.py:1021
++msgid "Saving too to backup directory"
++msgstr ""
++
++#: ../ui.py:170 ../ui.py:448 ../ui.py:536 ../ui.py:540
++msgid "Search"
++msgstr ""
++
++#: ../ui.py:470
++msgid "Search: picons"
++msgstr ""
++
++#: ../ui.py:472
++msgid "Search: service"
++msgstr ""
++
++#: ../ui.py:411
++msgid "Select picon and press OK to assign to current service:"
++msgstr ""
++
++#: ../ui.py:413
++msgid "Select picon and save it with OK to output directory:"
++msgstr ""
++
++#: ../ui.py:441
++msgid "Service not found"
++msgstr ""
++
++#: ../plugin.py:42 ../ui.py:131 ../ui.py:404
++msgid "SetPicon"
++msgstr ""
++
++#: ../ui.py:970 ../ui.py:1041
++msgid "SetPicon Setup"
++msgstr ""
++
++#: ../ui.py:1019
++msgid "SetPicon in Channel's menu"
++msgstr ""
++
++#: ../ui.py:1018
++msgid "SetPicon in E-menu"
++msgstr ""
++
++#: ../ui.py:1022
++msgid "Sorting picons in backup directory"
++msgstr ""
++
++#: ../ui.py:739 ../ui.py:756
++msgid "Stream"
++msgstr ""
++
++#: ../ui.py:974
++msgid "Swap Dirs"
++msgstr ""
++
++#: ../ui.py:744 ../ui.py:756
++msgid "Terrestrial"
++msgstr ""
++
++#: ../ui.py:1020
++msgid "ZAP when is changed service"
++msgstr ""
++
++#: ../ui.py:59
++msgid "all"
++msgstr ""
++
++#: ../ui.py:52
++msgid "all picon's directories"
++msgstr ""
++
++#: ../ui.py:59
++msgid "as names only"
++msgstr ""
++
++#: ../ui.py:59
++msgid "as service reference only"
++msgstr ""
++
++#: ../ui.py:58
++msgid "by orbital position"
++msgstr ""
++
++#: ../ui.py:58
++msgid "by providers"
++msgstr ""
++
++#: ../ui.py:230
++msgid "current:"
++msgstr ""
++
++#: ../ui.py:162
++msgid "delete selected picon"
++msgstr ""
++
++#: ../ui.py:139 ../ui.py:150
++msgid "exit plugin"
++msgstr ""
++
++#: ../ui.py:54
++msgid "filename"
++msgstr ""
++
++#: ../ui.py:1161
++msgid "free:"
++msgstr ""
++
++#: ../ui.py:54
++msgid "full path"
++msgstr ""
++
++#: ../ui.py:160
++msgid "go to +100 picons"
++msgstr ""
++
++#: ../ui.py:161
++msgid "go to +1000 picons"
++msgstr ""
++
++#: ../ui.py:159
++msgid "go to +5 picons"
++msgstr ""
++
++#: ../ui.py:157
++msgid "go to -100 picons"
++msgstr ""
++
++#: ../ui.py:158
++msgid "go to -1000 picons"
++msgstr ""
++
++#: ../ui.py:156
++msgid "go to -5 picons"
++msgstr ""
++
++#: ../ui.py:154
++msgid "go to first picon"
++msgstr ""
++
++#: ../ui.py:155
++msgid "go to last picon"
++msgstr ""
++
++#: ../ui.py:147
++msgid "go to next picon"
++msgstr ""
++
++#: ../ui.py:148
++msgid "go to next service"
++msgstr ""
++
++#: ../ui.py:146
++msgid "go to previous picon"
++msgstr ""
++
++#: ../ui.py:149
++msgid "go to previous service"
++msgstr ""
++
++#: ../ui.py:52
++msgid "input directory only"
++msgstr ""
++
++#: ../ui.py:1157
++msgid "mem:"
++msgstr ""
++
++#: ../ui.py:145
++msgid "menu"
++msgstr ""
++
++#: ../ui.py:49
++msgid "name"
++msgstr ""
++
++#: ../ui.py:54 ../ui.py:58
++msgid "no"
++msgstr ""
++
++#: ../ui.py:153
++msgid "options"
++msgstr ""
++
++#: ../ui.py:163
++msgid "refresh"
++msgstr ""
++
++#: ../ui.py:151
++msgid "save service's picon"
++msgstr ""
++
++#: ../ui.py:152
++msgid "search picons or service"
++msgstr ""
++
++#: ../ui.py:49
++msgid "service reference"
++msgstr ""
++
++#: ../ui.py:140
++msgid "set and save selected picon"
++msgstr ""
++
++#: ../plugin.py:43
++msgid "set picon to service"
++msgstr ""
++
++#: ../ui.py:61
++msgid "sorted"
++msgstr ""
++
++#: ../ui.py:61
++msgid "sorted in reverse order"
++msgstr ""
++
++#: ../ui.py:165
++msgid "switch searching to picons"
++msgstr ""
++
++#: ../ui.py:164
++msgid "switch searching to service"
++msgstr ""
++
++#: ../ui.py:797
++msgid "unknown"
++msgstr ""
++
++#: ../ui.py:61
++msgid "unsorted"
++msgstr ""
++
++#: ../ui.py:1159
++msgid "used:"
++msgstr ""
+diff -ruN a/po/updateallpo.sh b/po/updateallpo.sh
+--- a/po/updateallpo.sh	1970-01-01 03:00:00.000000000 +0300
++++ b/po/updateallpo.sh	2022-07-21 04:39:04.000000000 +0300
+@@ -0,0 +1,51 @@
++#!/bin/bash
++# Script to generate po files outside of the normal build process
++#  
++# Pre-requisite:
++# The following tools must be installed on your system and accessible from path
++# gawk, find, xgettext, gsed, python, msguniq, msgmerge, msgattrib, msgfmt, msginit
++#
++# Run this script from within the locale folder.
++#
++# Author: Pr2
++# Version: 1.0
++#
++Plugin=SetPicon
++FilePath=/LC_MESSAGES/
++printf "Po files update/creation from script starting.\n"
++languages=($(ls -d ./*/ | gsed 's/\/$//g; s/.*\///g'))
++
++#
++# Arguments to generate the pot and po files are not retrieved from the Makefile.
++# So if parameters are changed in Makefile please report the same changes in this script.
++#
++
++printf "Creating temporary file $Plugin-py.pot\n"
++find -s -X .. -name "*.py" -exec xgettext --no-wrap -L Python --from-code=UTF-8 -kpgettext:1c,2 --add-comments="TRANSLATORS:" -d $Plugin -s -o $Plugin-py.pot {} \+
++gsed --in-place $Plugin-py.pot --expression=s/CHARSET/UTF-8/
++printf "Creating temporary file $Plugin-xml.pot\n"
++find -s -X .. -name "*.xml" -exec python xml2po.py {} \+ > $Plugin-xml.pot
++printf "Merging pot files to create: $Plugin.pot\n"
++cat $Plugin-py.pot $Plugin-xml.pot | msguniq --no-wrap -o $Plugin.pot -
++OLDIFS=$IFS
++IFS=" "
++for lang in "${languages[@]}" ; do
++	if [ -f $lang$FilePath$Plugin.po ]; then 
++		printf "Updating existing translation file %s.po\n" $lang
++		msgmerge --backup=none --no-wrap -s -U $lang$FilePath$Plugin.po $Plugin.pot && touch $lang$FilePath$Plugin.po
++		msgattrib --no-wrap --no-obsolete $lang$FilePath$Plugin.po -o $lang$FilePath$Plugin.po
++		msgfmt -o $lang$FilePath$Plugin.mo $lang$FilePath$Plugin.po
++	else
++		if [ ! -d $lang$FilePath ]; then
++			mkdir $lang$FilePath
++		fi
++		printf "New file created: %s, please add it to github before commit\n" $lang$FilePath$Plugin.po
++		msginit -l $lang$FilePath$Plugin.po -o $lang$FilePath$Plugin.po -i $Plugin.pot --no-translator
++		msgfmt -o $lang$FilePath$Plugin.mo $lang$FilePath$Plugin.po
++	fi
++done
++rm $Plugin-py.pot $Plugin-xml.pot
++IFS=$OLDIFS
++printf "Po files update/creation from script finished!\n"
++
++
+diff -ruN a/setup.py b/setup.py
+--- a/setup.py	2022-07-21 04:39:04.000000000 +0300
++++ b/setup.py	2023-09-23 13:42:55.261185547 +0300
+@@ -7,6 +7,6 @@
+ 	description = 'assignment picons for services',
+ 	packages = [pkg],
+ 	package_dir = {pkg: 'plugin'},
+-	package_data = {pkg: ['*.xml', 'setpicon.png', '*/*.png', 'locale/*/LC_MESSAGES/*.mo']},
++	package_data = {pkg: ['*.xml', 'setpicon.png', '*/*.png']},
+ 	cmdclass = setup_translate.cmdclass, # for translation
+ 	)
 diff -ruN a/setup_translate.py b/setup_translate.py
 --- a/setup_translate.py	2022-07-21 04:39:04.000000000 +0300
-+++ b/setup_translate.py	2022-10-14 19:48:33.984676773 +0300
-@@ -1,4 +1,3 @@
++++ b/setup_translate.py	2023-09-23 13:44:02.569987827 +0300
+@@ -1,12 +1,16 @@
 -from __future__ import print_function
++# -*- coding: utf-8 -*-
++
  # Language extension for distutils Python scripts. Based on this concept:
  # http://wiki.maemo.org/Internationalize_a_Python_application
  from distutils import cmd
-@@ -24,7 +23,7 @@
- 						dest = os.path.join(lc, f[:-2] + 'mo')
- 						print("Language compile %s -> %s" % (src, dest))
- 						if os.system("msgfmt '%s' -o '%s'" % (src, dest)) != 0:
+ from distutils.command.build import build as _build
++import glob
+ import os
+ 
++
+ class build_trans(cmd.Command):
+ 	description = 'Compile .po files into .mo files'
++
+ 	def initialize_options(self):
+ 		pass
+ 
+@@ -14,23 +18,34 @@
+ 		pass
+ 
+ 	def run(self):
+-		s = os.path.join('plugin', 'locale')
+-		for lang in os.listdir(s):
+-			lc = os.path.join(s, lang, 'LC_MESSAGES')
+-			if os.path.isdir(lc):
+-				for f in os.listdir(lc):
+-					if f.endswith('.po'):
+-						src = os.path.join(lc, f)
+-						dest = os.path.join(lc, f[:-2] + 'mo')
+-						print("Language compile %s -> %s" % (src, dest))
+-						if os.system("msgfmt '%s' -o '%s'" % (src, dest)) != 0:
 -							raise (Exception, "Failed to compile: " + src)
-+							raise Exception("Failed to compile: " + src)
++		s = os.path.join('po')
++		lang_domains = glob.glob(os.path.join(s, '*.pot'))
++		if len(lang_domains):
++			for lang in os.listdir(s):
++				if lang.endswith('.po'):
++					plugin = os.path.join(s, lang)
++					lang = lang[:-3]
++					destdir = os.path.join('build', 'lib', 'Extensions',
++						'SetPicon', 'locale', lang, 'LC_MESSAGES')
++					if not os.path.exists(destdir):
++						os.makedirs(destdir)
++					for lang_domain in lang_domains:
++						lang_domain = lang_domain.rsplit('/', 1)[1]
++						dest = os.path.join(destdir, lang_domain[:-3] + 'mo')
++						print("Language compile %s -> %s" % (plugin, dest))
++						if os.system("msgfmt '%s' -o '%s'" % (plugin, dest)) != 0:
++							raise Exception("Failed to compile: " + plugin)
++		else:
++			print("we got no domain -> no translation was compiled")
++
  
  class build(_build):
  	sub_commands = _build.sub_commands + [('build_trans', None)]
++
+ 	def run(self):
+ 		_build.run(self)
+ 
++
+ cmdclass = {
+ 	'build': build,
+ 	'build_trans': build_trans,

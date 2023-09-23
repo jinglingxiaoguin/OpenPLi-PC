@@ -1,29 +1,42 @@
 diff -ruN a/plugin/__init__.py b/plugin/__init__.py
 --- a/plugin/__init__.py	2022-07-20 21:10:51.000000000 +0300
-+++ b/plugin/__init__.py	2022-10-15 13:14:08.212484523 +0300
-@@ -0,0 +1,19 @@
++++ b/plugin/__init__.py	2023-09-23 15:41:54.388260930 +0300
+@@ -0,0 +1,16 @@
 +from Components.Language import language
 +from Tools.Directories import resolveFilename, SCOPE_PLUGINS, SCOPE_LANGUAGE
-+import os, gettext
-+
-+PluginLanguageDomain = "AddStreamUrl"
-+PluginLanguagePath = "Extensions/AddStreamUrl/locale"
++from os import environ as os_environ
++import gettext
 +
 +def localeInit():
-+	gettext.bindtextdomain(PluginLanguageDomain, resolveFilename(SCOPE_PLUGINS, PluginLanguagePath))
++	gettext.bindtextdomain("AddStreamUrl", resolveFilename(SCOPE_PLUGINS, "Extensions/AddStreamUrl/locale"))
 +
 +def _(txt):
-+	if gettext.dgettext(PluginLanguageDomain, txt):
-+		return gettext.dgettext(PluginLanguageDomain, txt)
-+	else:
-+		print("[" + PluginLanguageDomain + "] fallback to default translation for " + txt)
-+		return gettext.gettext(txt)
++	t = gettext.dgettext("AddStreamUrl", txt)
++	if t == txt:
++		t = gettext.gettext(txt)
++	return t
 +
-+language.addCallback(localeInit)
 +localeInit()
-diff -ruN a/plugin/locale/AddStreamUrl.pot b/plugin/locale/AddStreamUrl.pot
---- a/plugin/locale/AddStreamUrl.pot	1970-01-01 03:00:00.000000000 +0300
-+++ b/plugin/locale/AddStreamUrl.pot	2022-10-15 12:34:07.772474992 +0300
++language.addCallback(localeInit)
+diff -ruN a/plugin/plugin.py b/plugin/plugin.py
+--- a/plugin/plugin.py	2023-09-23 14:53:28.007605073 +0300
++++ b/plugin/plugin.py	2023-09-23 14:34:54.847367212 +0300
+@@ -1,3 +1,4 @@
++from . import _
+ from Plugins.Plugin import PluginDescriptor
+ from Screens.Screen import Screen
+ from Screens.MessageBox import MessageBox
+@@ -8,6 +9,7 @@
+ from Screens.VirtualKeyBoard import VirtualKeyBoard
+ from urllib.parse import quote
+ from enigma import eDVBDB
++import os
+ 
+ class LiveStreamingLinksHeader(Screen):
+ 	skin = """
+diff -ruN a/po/AddStreamUrl.pot b/po/AddStreamUrl.pot
+--- a/po/AddStreamUrl.pot	1970-01-01 03:00:00.000000000 +0300
++++ b/po/AddStreamUrl.pot	2023-09-23 14:34:54.847367212 +0300
 @@ -0,0 +1,42 @@
 +# SOME DESCRIPTIVE TITLE.
 +# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -67,9 +80,9 @@ diff -ruN a/plugin/locale/AddStreamUrl.pot b/plugin/locale/AddStreamUrl.pot
 +
 +msgid "Select a bouquet to add a channel to"
 +msgstr ""
-diff -ruN a/plugin/locale/ru.po b/plugin/locale/ru.po
---- a/plugin/locale/ru.po	1970-01-01 03:00:00.000000000 +0300
-+++ b/plugin/locale/ru.po	2022-10-15 13:10:51.040483740 +0300
+diff -ruN a/po/ru.po b/po/ru.po
+--- a/po/ru.po	1970-01-01 03:00:00.000000000 +0300
++++ b/po/ru.po	2023-09-23 14:34:54.847367212 +0300
 @@ -0,0 +1,43 @@
 +# SOME DESCRIPTIVE TITLE.
 +# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -114,46 +127,30 @@ diff -ruN a/plugin/locale/ru.po b/plugin/locale/ru.po
 +
 +msgid "Select a bouquet to add a channel to"
 +msgstr "Выбор и добавление буклета"
-diff -ruN a/plugin/plugin.py b/plugin/plugin.py
---- a/plugin/plugin.py	2022-07-20 21:10:51.000000000 +0300
-+++ b/plugin/plugin.py	2022-10-15 13:19:57.340485910 +0300
-@@ -1,3 +1,4 @@
-+from . import _
- from Plugins.Plugin import PluginDescriptor
- from Screens.Screen import Screen
- from Screens.MessageBox import MessageBox
-@@ -8,6 +9,7 @@
- from Screens.VirtualKeyBoard import VirtualKeyBoard
- from urllib.parse import quote
- from enigma import eDVBDB
-+import os
- 
- class LiveStreamingLinksHeader(Screen):
- 	skin = """
 diff -ruN a/setup.py b/setup.py
---- a/setup.py	2022-07-20 21:10:51.000000000 +0300
-+++ b/setup.py	2022-10-15 13:40:20.492490766 +0300
-@@ -1,10 +1,12 @@
+--- a/setup.py	2023-09-23 14:53:32.283677983 +0300
++++ b/setup.py	2023-09-23 15:39:53.021732296 +0300
+@@ -1,10 +1,13 @@
  from distutils.core import setup
 +import setup_translate
  
  pkg = 'Extensions.AddStreamUrl'
--setup (name = 'enigma2-plugin-extensions-addstreamurl',
--	version = '1.0',
-+setup (name = 'e2openplugin-AddStreamUrl',
-+	version = '1.1',
+ setup (name = 'enigma2-plugin-extensions-addstreamurl',
+ 	version = '1.0',
  	description = 'Add a stream url to channel list',
  	packages = [pkg],
 -	package_dir = {pkg: 'plugin'}
+-)
 +	package_dir = {pkg: 'plugin'},
-+	package_data = {pkg: ['locale/*/LC_MESSAGES/*.mo']},
++	package_data = {pkg: ['*.*']},
 +	cmdclass = setup_translate.cmdclass, # for translation
- )
--
++	)
+ 
 diff -ruN a/setup_translate.py b/setup_translate.py
 --- a/setup_translate.py	1970-01-01 03:00:00.000000000 +0300
-+++ b/setup_translate.py	2022-10-15 13:18:02.380485453 +0300
-@@ -0,0 +1,44 @@
++++ b/setup_translate.py	2023-09-23 14:34:54.847367212 +0300
+@@ -0,0 +1,51 @@
++
 +# Language extension for distutils Python scripts. Based on this concept:
 +# http://wiki.maemo.org/Internationalize_a_Python_application
 +from distutils import cmd
@@ -161,8 +158,10 @@ diff -ruN a/setup_translate.py b/setup_translate.py
 +import glob
 +import os
 +
++
 +class build_trans(cmd.Command):
 +	description = 'Compile .po files into .mo files'
++
 +	def initialize_options(self):
 +		pass
 +
@@ -170,29 +169,33 @@ diff -ruN a/setup_translate.py b/setup_translate.py
 +		pass
 +
 +	def run(self):
-+		s = os.path.join('plugin', 'locale')
++		s = os.path.join('po')
 +		lang_domains = glob.glob(os.path.join(s, '*.pot'))
 +		if len(lang_domains):
 +			for lang in os.listdir(s):
 +				if lang.endswith('.po'):
-+					src = os.path.join(s, lang)
++					plugin = os.path.join(s, lang)
 +					lang = lang[:-3]
-+					destdir = os.path.join(s, lang, 'LC_MESSAGES')
++					destdir = os.path.join('build', 'lib', 'Extensions',
++						'AddStreamUrl', 'locale', lang, 'LC_MESSAGES')
 +					if not os.path.exists(destdir):
 +						os.makedirs(destdir)
 +					for lang_domain in lang_domains:
 +						lang_domain = lang_domain.rsplit('/', 1)[1]
 +						dest = os.path.join(destdir, lang_domain[:-3] + 'mo')
-+						print("Language compile %s -> %s" % (src, dest))
-+						if os.system("msgfmt '%s' -o '%s'" % (src, dest)) != 0:
-+							raise Exception("Failed to compile: " + src)
++						print("Language compile %s -> %s" % (plugin, dest))
++						if os.system("msgfmt '%s' -o '%s'" % (plugin, dest)) != 0:
++							raise Exception("Failed to compile: " + plugin)
 +		else:
 +			print("we got no domain -> no translation was compiled")
 +
++
 +class build(_build):
 +	sub_commands = _build.sub_commands + [('build_trans', None)]
++
 +	def run(self):
 +		_build.run(self)
++
 +
 +cmdclass = {
 +	'build': build,
