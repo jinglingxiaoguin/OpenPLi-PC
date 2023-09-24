@@ -8224,35 +8224,8 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/Makefile.am pc/lib/python
 +	plugin.py VideoFinetune.py
 diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py pc/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py
 --- o/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py	2023-09-21 11:06:54.900252715 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py	2023-09-21 11:14:55.356501266 +0300
-@@ -1,8 +1,6 @@
- from Screens.Screen import Screen
--from Components.config import config
- from Components.Sources.CanvasSource import CanvasSource
- from Components.ActionMap import ActionMap, NumberActionMap
--from Components.Console import Console
- from Components.SystemInfo import SystemInfo
- from Tools.Directories import fileExists, resolveFilename, SCOPE_PLUGINS
- from enigma import gFont, getDesktop, gMainDC, eSize, RT_HALIGN_RIGHT, RT_WRAP
-@@ -28,8 +26,6 @@
- 			"4": self.keyNumber,
- 			"5": self.keyNumber,
- 			"7": self.keyNumber,
--			"8": self.keyNumber,
--			"9": self.keyNumber,
- 			"ok": self.ok,
- 			"cancel": self.cancel
- 		})
-@@ -68,8 +64,6 @@
- 			"4": self.keyNumber,
- 			"5": self.keyNumber,
- 			"6": self.keyNumber,
--			"8": self.keyNumber,
--			"9": self.keyNumber,
- 			"ok": self.ok,
- 			"cancel": self.cancel
- 		})
-@@ -78,37 +72,6 @@
++++ pc/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py	2023-09-24 13:16:46.732345712 +0300
+@@ -78,37 +78,6 @@
  		gMainDC.getInstance().setResolution(self.xres, self.yres)
  		getDesktop(0).resize(eSize(self.xres, self.yres))
  
@@ -8290,7 +8263,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py pc/lib/p
  class VideoFinetune(Screen):
  	skin = """
  		<screen position="fill">
-@@ -117,10 +80,6 @@
+@@ -117,10 +86,6 @@
  
  	def __init__(self, session):
  		Screen.__init__(self, session)
@@ -8301,38 +8274,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py pc/lib/p
  		self["Canvas"] = CanvasSource()
  
  		self.basic_colors = [RGB(255, 255, 255), RGB(255, 255, 0), RGB(0, 255, 255), RGB(0, 255, 0), RGB(255, 0, 255), RGB(255, 0, 0), RGB(0, 0, 255), RGB(0, 0, 0)]
-@@ -147,8 +106,6 @@
- 			"5": self.keyNumber,
- 			"6": self.keyNumber,
- 			"7": self.keyNumber,
--			"8": self.keyNumber,
--			"9": self.keyNumber,
- 			"ok": self.callNext,
- 			"cancel": self.close,
- 		})
-@@ -161,11 +118,11 @@
- 		open("/proc/stb/fb/dst_height", "w").write(self.height)
- 
- 	def keyNumber(self, key):
--		(self.testpic_brightness, self.testpic_contrast, self.testpic_colors, self.testpic_filter, self.testpic_gamma, self.testpic_overscan, self.testpic_fullhd, self.testpic_uhd, self.testpic_pixels)[key - 1]()
-+		(self.testpic_brightness, self.testpic_contrast, self.testpic_colors, self.testpic_filter, self.testpic_gamma, self.testpic_overscan, self.testpic_fullhd)[key-1]()
- 
- 	def callNext(self):
--		if self.next:
--			self.next()
-+		if self.__next__:
-+			next(self)
- 
- 	def bbox(self, x, y, width, height, col, xx, yy):
- 		c = self["Canvas"]
-@@ -377,120 +334,23 @@
- 		c.flush()
- 
- 	def testpic_overscan(self):
--		self.next = SystemInfo["HasFullHDSkinSupport"] and self.testpic_fullhd or self.testpic_pixels
-+		self.next = SystemInfo["HasFullHDSkinSupport"] and self.testpic_fullhd or self.testpic_brightness
- 		self.hide()
- 		self.session.openWithCallback(self.testpicCallback, OverscanTestScreen)
+@@ -383,24 +348,11 @@
  
  	def testpic_fullhd(self):
  		if SystemInfo["HasFullHDSkinSupport"]:
@@ -8359,10 +8301,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py pc/lib/p
  
  	def testpicCallback(self, key):
  		if key:
- 			if key == True:
--				self.next()
-+				next(self)
- 			else:
+@@ -410,87 +362,3 @@
  				self.keyNumber(key)
  		else:
  			self.close()

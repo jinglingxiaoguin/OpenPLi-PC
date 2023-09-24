@@ -50,14 +50,14 @@ echo "********************************************************"
 echo ""
 
 # Prevention of damage your old data
-if [ -f $INSTALL_E2DIR/etc/enigma2/lamedb ]; then
+if [[ -f $INSTALL_E2DIR/etc/enigma2/lamedb ]]; then
 	cp -fv $INSTALL_E2DIR/etc/enigma2/lamedb $INSTALL_E2DIR/etc/enigma2/lamedb~
 	cp -fv $INSTALL_E2DIR/etc/enigma2/lamedb5 $INSTALL_E2DIR/etc/enigma2/lamedb5~
 	cp -fv $INSTALL_E2DIR/etc/enigma2/settings $INSTALL_E2DIR/etc/enigma2/settings~
 	cp -fv $INSTALL_E2DIR/etc/enigma2/profile $INSTALL_E2DIR/etc/enigma2/profile~
 fi
 
-if [ -d $INSTALL_E2DIR ]; then
+if [[ -d $INSTALL_E2DIR ]]; then
 	tar -C $INSTALL_E2DIR -vczf e2backup.tgz $BACKUP_E2
 	echo ""
 	echo "********************************************************"
@@ -80,7 +80,7 @@ echo "                 RESTORE OLD E2 CONFIG."
 echo "********************************************************"
 echo ""
 
-if [ -f e2backup.tgz ]; then
+if [[ -f e2backup.tgz ]]; then
 	tar -C $INSTALL_E2DIR -vxzf e2backup.tgz
 fi
 }
@@ -117,7 +117,7 @@ while [ "$1" != "" ]; do
 	-ni ) DO_MAKEINSTALL=0
 		shift
 		;;
-	-p* ) if [ "`expr substr "$1" 3 3`" = "" ]; then
+	-p* ) if [[ "`expr substr "$1" 3 3`" = "" ]]; then
 		echo "Number threads is missing"
 		usage
 		exit
@@ -136,11 +136,11 @@ while [ "$1" != "" ]; do
 	esac
 done
 
-if [ "$DO_BACKUP" -eq "1" ]; then
+if [[ "$DO_BACKUP" -eq "1" ]]; then
 	e2_backup
 fi
 
-if [ -d $PKG ]; then
+if [[ -d $PKG ]]; then
 	cd $PKG
 	make uninstall
 	cd ..
@@ -163,7 +163,7 @@ cp -fv pre/dvb/* $INCLUDE
 cp -fv pre/dvb/* $HEADERS
 
 # Create symlinks in /usr diectory before compile enigma2
-if [ ! -d /usr/include/netlink ]; then
+if [[ ! -d /usr/include/netlink ]]; then
 	ln -s /usr/include/libnl3/netlink /usr/include
 fi
 
@@ -172,7 +172,7 @@ cd $PKG
 patch -p1 < patch-e071dcf6-to-PC.patch
 
 # Configure
-if [ "$DO_CONFIGURE" -eq "1" ]; then
+if [[ "$DO_CONFIGURE" -eq "1" ]]; then
 	echo ""
 	echo "********************************************************"
 	echo "     Configuring $PKG with native lirc support."
@@ -188,9 +188,9 @@ if [ "$DO_CONFIGURE" -eq "1" ]; then
 	#./configure --prefix=$INSTALL_E2DIR --with-xlib --with-debug --with-po
 fi
 
-if [ "$DO_MAKEINSTALL" -eq "0" ]; then
+if [[ "$DO_MAKEINSTALL" -eq "0" ]]; then
 	make -j"$DO_PARALLEL" CXXFLAGS=-std=c++11
-	if [ ! $? -eq 0 ]; then
+	if [[ ! $? -eq 0 ]]; then
 		echo ""
 		echo "*********************************************************"
 		echo "AN ERROR OCCURED WHILE BUILDING OpenPliPC - SECTION MAKE!"
@@ -206,7 +206,7 @@ if [ "$DO_MAKEINSTALL" -eq "0" ]; then
 		echo ""
 		make uninstall
 		make -j"$DO_PARALLEL" install
-	if [ ! $? -eq 0 ]; then
+	if [[ ! $? -eq 0 ]]; then
 		echo ""
 		echo "*****************************************************************"
 		echo "AN ERROR OCCURED WHILE BUILDING OpenPliPC - SECTION MAKE INSTALL!"
@@ -218,18 +218,18 @@ fi
 
 # Make dvbsoftwareca module
 modprobe -r $CA
-if [ -f /lib/modules/`uname -r`/kernel/drivers/media/dvb-frontends/$CA.ko ]; then
+if [[ -f /lib/modules/`uname -r`/kernel/drivers/media/dvb-frontends/$CA.ko ]]; then
 	rm -f /lib/modules/`uname -r`/kernel/drivers/media/dvb-frontends/$CA.ko
 fi
-if [ ! -d $KDIR ]; then
+if [[ ! -d $KDIR ]]; then
 	mkdir -p $KDIR
 fi
 cd ../$CA-5x
-if [ -f $CA.ko ]; then
+if [[ -f $CA.ko ]]; then
 	make clean
 fi
 make -C /lib/modules/`uname -r`/build M=`pwd` -j"$DO_PARALLEL"
-if [ ! $? -eq 0 ]; then
+if [[ ! $? -eq 0 ]]; then
 	echo ""
 	echo "******************************************************************"
 	echo "AN ERROR OCCURED WHILE BUILDING OpenPliPC - SECTION DVBSOFTWARECA!"
@@ -243,19 +243,19 @@ depmod -a
 cd ..
 
 # Create symlink
-#	if [ ! $(ls $DVB_DEV | grep -w demux1) ]; then
+#	if [[ ! $(ls $DVB_DEV | grep -w demux1) ]]; then
 #		ln -s $DVB_DEV/demux0 $DVB_DEV/demux1
 #	else
 #		echo "Symlink demux1 already exists"
 #	fi
-#	if [ ! $(ls $DVB_DEV | grep -w dvr1) ]; then
+#	if [[ ! $(ls $DVB_DEV | grep -w dvr1) ]]; then
 #		ln -s $DVB_DEV/dvr0 $DVB_DEV/dvr1
 #	else
 #		echo "Symlink dvr1 already exists"
 #	fi
 
 # Insert module dvbsoftwareca
-if [ $(lsmod | grep -c $CA) -eq 0 ]; then
+if [[ $(lsmod | grep -c $CA) -eq 0 ]]; then
 	modprobe -v $CA
 fi
 
@@ -270,67 +270,67 @@ rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/SystemPlugins/VideoEnhancement
 rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/SystemPlugins/SoftwareManager
 
 # Creating symlinks after installing enigma2 and copying the necessary files
-if [ ! -d $INSTALL_E2DIR/etc ]; then
+if [[ ! -d $INSTALL_E2DIR/etc ]]; then
 	mkdir -p $INSTALL_E2DIR/etc
 fi
-if [ ! -d /home/hdd/timeshift ]; then
+if [[ ! -d /home/hdd/timeshift ]]; then
 	mkdir -p /home/hdd/timeshift
 fi
-if [ ! -d /home/hdd/movies ]; then
+if [[ ! -d /home/hdd/movies ]]; then
 	mkdir -p /home/hdd/movies
 fi
-if [ ! -d /home/hdd/movie ]; then
+if [[ ! -d /home/hdd/movie ]]; then
 	ln -s /home/hdd/movies /home/hdd/movie
 fi
-if [ ! -d /media/hdd ]; then
+if [[ ! -d /media/hdd ]]; then
 	ln -s /home/hdd /media
 fi
-if [ -d  /usr/local/etc/stb ]; then
+if [[ -d  /usr/local/etc/stb ]]; then
 	rm -f /usr/local/etc/stb
 fi
-if [ ! -d /etc/enigma2 ]; then
+if [[ ! -d /etc/enigma2 ]]; then
 	ln -s $INSTALL_E2DIR/etc/enigma2 /etc
 fi
-if [ ! -d /etc/tuxbox ]; then
+if [[ ! -d /etc/tuxbox ]]; then
 	ln -s $INSTALL_E2DIR/etc/tuxbox /etc
 fi
-if [ ! -d /usr/local/lib/enigma2 ]; then
+if [[ ! -d /usr/local/lib/enigma2 ]]; then
 	ln -s $INSTALL_E2DIR/lib/enigma2 /usr/local/lib
 fi
-if [ ! -d /usr/lib/enigma2 ]; then
+if [[ ! -d /usr/lib/enigma2 ]]; then
 	ln -s $INSTALL_E2DIR/lib/enigma2 /usr/lib
 fi
-if [ ! -d /usr/local/share/enigma2 ]; then
+if [[ ! -d /usr/local/share/enigma2 ]]; then
 	ln -s $INSTALL_E2DIR/share/enigma2 /usr/local/share
 fi
-if [ ! -d /usr/share/enigma2 ]; then
+if [[ ! -d /usr/share/enigma2 ]]; then
 	ln -s $INSTALL_E2DIR/share/enigma2 /usr/share
 fi
-if [ ! -d /usr/include/enigma2 ]; then
+if [[ ! -d /usr/include/enigma2 ]]; then
 	ln -s $INSTALL_E2DIR/include/enigma2 /usr/include
 fi
-if [ ! -f /usr/local/bin/enigma2.sh ]; then
+if [[ ! -f /usr/local/bin/enigma2.sh ]]; then
 	ln -sf $INSTALL_E2DIR/bin/enigma2.sh /usr/local/bin
 fi
-if [ ! -f ./e2bin ]; then
+if [[ ! -f ./e2bin ]]; then
 	ln -sf $INSTALL_E2DIR/bin/enigma2 ./e2bin
 fi
-if [ ! -d $INSTALL_E2DIR/include/enigma2/lib/dvbsoftwareca ]; then
+if [[ ! -d $INSTALL_E2DIR/include/enigma2/lib/dvbsoftwareca ]]; then
 	mkdir $INSTALL_E2DIR/include/enigma2/lib/dvbsoftwareca
 	cp -fv dvbsoftwareca/ca.h $INSTALL_E2DIR/include/enigma2/lib/dvbsoftwareca
 fi
-if [ ! -f $INSTALL_E2DIR/share/fonts/tuxtxt.otb ]; then
+if [[ ! -f $INSTALL_E2DIR/share/fonts/tuxtxt.otb ]]; then
 	ln -s /usr/share/fonts/tuxtxt.otb $INSTALL_E2DIR/share/fonts/tuxtxt.otb
 fi
-if [ ! -f $INSTALL_E2DIR/share/fonts/tuxtxt.ttf ]; then
+if [[ ! -f $INSTALL_E2DIR/share/fonts/tuxtxt.ttf ]]; then
 	ln -s /usr/share/fonts/tuxtxt.otb $INSTALL_E2DIR/share/fonts/tuxtxt.ttf
 fi
-if [ ! -f /lib/libc.so.6 ]; then
+if [[ ! -f /lib/libc.so.6 ]]; then
 	ARCH_MY=`uname -i`
 	ln -s `ls /lib/"$ARCH_MY"-linux-gnu/libc-2.??.so` /lib/libc.so.6
 fi
-if [ -d /lib/i386-linux-gnu ]; then
-	if [ ! -d /lib/i686-linux-gnu ]; then
+if [[ -d /lib/i386-linux-gnu ]]; then
+	if [[ ! -d /lib/i686-linux-gnu ]]; then
 	ln -s /lib/i386-linux-gnu /lib/i686-linux-gnu
 	fi
 fi
@@ -347,10 +347,10 @@ cp -fv pre/kill_e2pc.desktop /home/$(logname)/.local/share/applications
 cp -fv scripts/* $INSTALL_E2DIR/bin
 cp -fv enigma2/lib/gdi/*.h $INSTALL_E2DIR/include/enigma2/lib/gdi
 cp -fv /etc/NetworkManager/NetworkManager.conf /etc/NetworkManager/NetworkManager.conf~
-if [ -f /etc/network/interfaces ]; then
+if [[ -f /etc/network/interfaces ]]; then
 cp -fv /etc/network/interfaces /etc/network/interfaces~
 fi
-if [ -d $DVB_DEV ]; then
+if [[ -d $DVB_DEV ]]; then
 	cp -fv pre/rc.local /etc
 else
 	# Preventing stopping boot your PC without a dvb card.
@@ -363,7 +363,7 @@ GPU1=`lspci 2>/dev/null | grep -E "VGA|3D" | grep -Eiwo "NVIDIA"`
 GPU2=`lspci 2>/dev/null | grep -E "VGA|3D" | grep -Eiwo "Intel"`
 GPU3=`lspci 2>/dev/null | grep -E "VGA|3D" | grep -Eiwo "ATI"`
 
-if [ $GPU1 ]; then
+if [[ $GPU1 ]]; then
 	echo ""
 	echo "********************************************************"
 	echo "                  Your have nVidia GPU."
@@ -374,7 +374,7 @@ if [ $GPU1 ]; then
 	echo ""
 fi
 
-if [ $GPU2 ]; then
+if [[ $GPU2 ]]; then
 	echo ""
 	echo "********************************************************"
 	echo "                   Your have intel GPU."
@@ -385,7 +385,7 @@ if [ $GPU2 ]; then
 	echo ""
 fi
 
-if [ $GPU3 ]; then
+if [[ $GPU3 ]]; then
 	echo ""
 	echo "********************************************************"
 	echo "                   Your have ATI GPU."
@@ -405,7 +405,7 @@ strip $INSTALL_E2DIR/bin/enigma2
 find $INSTALL_E2DIR/lib/enigma2/python/ -name "*.py[c]" -exec rm {} \;
 
 # Restore
-if [ "$DO_RESTORE" -eq "1" ]; then
+if [[ "$DO_RESTORE" -eq "1" ]]; then
 	e2_restore
 fi
 

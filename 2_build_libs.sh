@@ -116,7 +116,7 @@ wget --no-check-certificate https://github.com/crazycat69/media_build/releases/d
 tar -xvjf dvb-firmwares.tar.bz2 -C /lib/firmware
 rm -f dvb-firmwares.tar.bz2
 
-if [ -d $BUILD_DIR ]; then
+if [[ -d $BUILD_DIR ]]; then
 	rm -rf $BUILD_DIR
 fi
 mkdir -v $BUILD_DIR
@@ -130,12 +130,12 @@ echo ""
 echo "                    *** Build and install $PKG ***"
 echo ""
 dpkg -s $PKG-dev | grep -iw ok > /dev/null
-if [ $? -eq 0 ]; then
+if [[ $? -eq 0 ]]; then
 	dpkg -r $LB $LB-dbgsym $PKG-dev
 else
 	echo "$PKG not installed"
 fi
-if [ -d $PKG ]; then
+if [[ -d $PKG ]]; then
 	rm -rf $PKG
 fi
 git clone https://git.code.sf.net/p/tuxbox-cvs/$PKG
@@ -152,7 +152,7 @@ make distclean
 cd ..
 
 # Build and install libxmlccwrap-git:
-if [ ! -d libdvbsi++ ]; then
+if [[ ! -d libdvbsi++ ]]; then
 	set -e
 	set -o pipefail
 else
@@ -163,12 +163,12 @@ else
 	echo "                     *** Build and install $PKG ***"
 	echo ""
 	dpkg -s $PKG | grep -iw ok > /dev/null
-	if [ $? -eq 0 ]; then
+	if [[ $? -eq 0 ]]; then
 		dpkg -r $PKG $PKG-dev $PKG-dbgsym
 	else
 		echo "$PKG not installed"
 	fi
-	if [ -d $PKG ]; then
+	if [[ -d $PKG ]]; then
 		rm -rf $PKG
 	fi
 	git clone https://github.com/OpenDMM/$PKG.git
@@ -190,7 +190,7 @@ else
 fi
 
 # Build and install libdvbcsa-git:
-if [ ! -d libxmlccwrap ]; then
+if [[ ! -d libxmlccwrap ]]; then
 	set -e
 	set -o pipefail
 else
@@ -203,18 +203,18 @@ else
 	echo "                       *** Build and install $PKG ***"
 	echo ""
 	dpkg -s $PKG | grep -iw ok > /dev/null
-	if [ $? -eq 0 ]; then
+	if [[ $? -eq 0 ]]; then
 		dpkg -r $PKG $PKG-dev $PKG1 tsdecrypt
 	else
 		echo "$PKG not installed"
 	fi
 	dpkg -s $PKG1 | grep -iw ok > /dev/null
-	if [ $? -eq 0 ]; then
+	if [[ $? -eq 0 ]]; then
 		dpkg -r $PKG1 $PKG-dev tsdecrypt
 	else
 		echo "$PKG not installed"
 	fi
-	if [ -d $PKG ]; then
+	if [[ -d $PKG ]]; then
 		rm -rf $PKG
 	fi
 	wget --no-check-certificate https://code.videolan.org/videolan/$PKG/-/archive/$VER/$PKG-$VER.zip
@@ -231,7 +231,7 @@ else
 fi
 
 # Build and install libtuxtxt:
-if [ ! -d libdvbcsa ]; then
+if [[ ! -d libdvbcsa ]]; then
 	set -e
 	set -o pipefail
 else
@@ -246,23 +246,23 @@ else
 	echo "                       *** Build and install $PKG ***"
 	echo ""
 	dpkg -s $PKG | grep -iw ok > /dev/null
-	if [ $? -eq 0 ]; then
+	if [[ $? -eq 0 ]]; then
 		dpkg -r $PKG
 	else
 		echo "$PKG not installed"
 	fi
-	if [ ! -d $INSTALL_E2DIR ]; then
+	if [[ ! -d $INSTALL_E2DIR ]]; then
 		mkdir -p $INSTALL_E2DIR/lib/enigma2
 	fi
-	if [ -d $SOURCE ]; then
+	if [[ -d $SOURCE ]]; then
 		dpkg -r $PKG $PKG_
 		rm -rf $SOURCE
 	fi
-	if [ ! -d $INSTALL_E2DIR/lib/enigma2 ]; then
+	if [[ ! -d $INSTALL_E2DIR/lib/enigma2 ]]; then
 		mkdir -p $INSTALL_E2DIR/lib/enigma2
 		ln -s -f $INSTALL_E2DIR/lib/enigma2 /usr/lib
 	fi
-	if [ -d $SOURCE ]; then
+	if [[ -d $SOURCE ]]; then
 		rm -rf $SOURCE
 	fi
 	wget --no-check-certificate https://github.com/OpenPLi/$PKG_/archive/$VER.zip
@@ -287,7 +287,7 @@ else
 fi
 
 # Build and install tuxtxt:
-if [ ! -d libtuxtxt ]; then
+if [[ ! -d libtuxtxt ]]; then
 	set -e
 	set -o pipefail
 else
@@ -298,7 +298,7 @@ else
 	echo "                        *** Build and install $PKG ***"
 	echo ""
 	dpkg -s $PKG | grep -iw ok > /dev/null
-	if [ $? -eq 0 ]; then
+	if [[ $? -eq 0 ]]; then
 		dpkg -r $PKG
 	else
 		echo "$PKG not installed"
@@ -315,7 +315,7 @@ else
 fi
 
 # Build and install aio-grab-git:
-if [ ! -d tuxtxt-git/tuxtxt ]; then
+if [[ ! -d tuxtxt-git/tuxtxt ]]; then
 	set -e
 	set -o pipefail
 else
@@ -327,12 +327,12 @@ else
 	echo "                       *** Build and install $PKG ***"
 	echo ""
 	dpkg -s $PKG | grep -iw ok > /dev/null
-	if [ $? -eq 0 ]; then
+	if [[ $? -eq 0 ]]; then
 		dpkg -r $PKG
 	else
 		echo "$PKG not installed"
 	fi
-	if [ -d $PKG ]; then
+	if [[ -d $PKG ]]; then
 		rm -rf $PKG
 	fi
 	wget --no-check-certificate https://github.com/OpenPLi/$PKG/archive/$VER.zip
@@ -349,7 +349,7 @@ else
 fi
 
 # Build and install gst-plugin-dvbmediasink-git:
-if [ ! -d aio-grab ]; then
+if [[ ! -d aio-grab ]]; then
 	set -e
 	set -o pipefail
 else
@@ -362,12 +362,12 @@ else
 	echo "                 *** Build and install $PKG ***"
 	echo ""
 	dpkg -s $LB | grep -iw ok > /dev/null
-	if [ $? -eq 0 ]; then
+	if [[ $? -eq 0 ]]; then
 		dpkg -r $LB
 	else
 		echo "$LB not installed"
 	fi
-	if [ -d $PKG ]; then
+	if [[ -d $PKG ]]; then
 		rm -rf $PKG
 	fi
 	wget --no-check-certificate https://github.com/OpenPLi/$PKG/archive/$VER.zip
@@ -385,7 +385,7 @@ else
 fi
 
 # Build and install gst-plugin-subsink-git:
-if [ ! -d gst-plugin-dvbmediasink ]; then
+if [[ ! -d gst-plugin-dvbmediasink ]]; then
 	set -e
 	set -o pipefail
 else
@@ -398,12 +398,12 @@ else
 	echo "                    *** Build and install $PKG ***"
 	echo ""
 	dpkg -s $LB | grep -iw ok > /dev/null
-	if [ $? -eq 0 ]; then
+	if [[ $? -eq 0 ]]; then
 		dpkg -r $LB
 	else
 		echo "$LB not installed"
 	fi
-	if [ -d $PKG ]; then
+	if [[ -d $PKG ]]; then
 		rm -rf $PKG
 	fi
 	wget --no-check-certificate https://github.com/OpenPLi/$PKG/archive/$VER.zip
@@ -432,7 +432,7 @@ prefix2="/usr/src/OpenPLi-PC_Python3/libs"
 prefix3="/home/$(logname)/.venv/e2pc/lib/python3.11/site-packages"
 
 # Build and install twistedsnmp-python3:
-if [ ! -d gst-plugin-subsink ]; then
+if [[ ! -d gst-plugin-subsink ]]; then
 	set -e
 	set -o pipefail
 else
@@ -443,7 +443,7 @@ else
 	echo ""
 	echo "                    *** Build and install $PKG ***"
 	echo ""
-	if [ -d $PKG ]; then
+	if [[ -d $PKG ]]; then
 		rm -rf $PKG
 	fi
 	wget --no-check-certificate https://github.com/mcfletch/twistedsnmp/archive/caab5fb520ee8f1535a1500324a0254df268d0ba.zip
@@ -463,7 +463,7 @@ else
 fi
 
 # Build and install python3-pythonwifi:
-if [ ! -d twistedsnmp ]; then
+if [[ ! -d twistedsnmp ]]; then
 	set -e
 	set -o pipefail
 else
@@ -473,7 +473,7 @@ else
 	echo ""
 	echo "                    *** Build and install $PKG ***"
 	echo ""
-	if [ -d $PKG ]; then
+	if [[ -d $PKG ]]; then
 		rm -rf $PKG
 	fi
 	wget --no-check-certificate https://github.com/athoik/pythonwifi/archive/refs/heads/master.zip
@@ -487,7 +487,7 @@ else
 fi
 
 # Build and install python3-Js2Py:
-if [ ! -d pythonwifi ]; then
+if [[ ! -d pythonwifi ]]; then
 	set -e
 	set -o pipefail
 else
@@ -499,7 +499,7 @@ else
 	echo ""
 	echo "                    *** Build and install $PKG ***"
 	echo ""
-	if [ -d $PKG ]; then
+	if [[ -d $PKG ]]; then
 		rm -rf $PKG
 	fi
 	wget --no-check-certificate https://github.com/PiotrDabkowski/Js2Py/archive/$VER.zip
@@ -516,7 +516,7 @@ else
 fi
 
 # Build and install python3-ipaddress:
-if [ ! -d Js2Py ]; then
+if [[ ! -d Js2Py ]]; then
 	set -e
 	set -o pipefail
 else
@@ -527,7 +527,7 @@ else
 	echo ""
 	echo "                    *** Build and install $PKG ***"
 	echo ""
-	if [ -d $PKG ]; then
+	if [[ -d $PKG ]]; then
 		rm -rf $PKG
 	fi
 	wget --no-check-certificate https://github.com/phihag/ipaddress/archive/$VER.zip
@@ -544,7 +544,7 @@ else
 fi
 
 # Build and install PythonDaap:
-#if [ ! -d ipaddress ]; then
+#if [[ ! -d ipaddress ]]; then
 #	set -e
 #	set -o pipefail
 #else
@@ -554,7 +554,7 @@ fi
 #	echo ""
 #	echo "                    *** Build and install $PKG ***"
 #	echo ""
-#	if [ -d $PKG ]; then
+#	if [[ -d $PKG ]]; then
 #		rm -rf $PKG
 #	fi
 #	wget --no-check-certificate https://github.com/abdelgmartinezl/PythonDaap/archive/refs/heads/master.zip
@@ -571,7 +571,7 @@ fi
 #fi
 
 # Build and install python3-pyload:
-if [ ! -d ipaddress ]; then
+if [[ ! -d ipaddress ]]; then
 	set -e
 	set -o pipefail
 else
@@ -581,7 +581,7 @@ else
 	echo ""
 	echo "                    *** Build and install $PKG ***"
 	echo ""
-	if [ -d $PKG ]; then
+	if [[ -d $PKG ]]; then
 		rm -rf $PKG
 	fi
 	wget --no-check-certificate https://github.com/$PKG/$PKG/archive/refs/heads/main.zip
@@ -598,7 +598,7 @@ else
 fi
 
 # Build and install python3-livestreamersrv:
-if [ ! -d pyload ]; then
+if [[ ! -d pyload ]]; then
 	set -e
 	set -o pipefail
 else
@@ -609,7 +609,7 @@ else
 	echo ""
 	echo "                    *** Build and install $PKG ***"
 	echo ""
-	if [ -d $PKG ]; then
+	if [[ -d $PKG ]]; then
 		rm -rf $PKG
 	fi
 	wget --no-check-certificate https://github.com/oe-mirrors/livestreamersrv/archive/$VER.zip
@@ -621,7 +621,7 @@ else
 fi
 
 # Message if error at any point of script
-if [ ! -d livestreamersrv ]; then
+if [[ ! -d livestreamersrv ]]; then
 	set -e
 	set -o pipefail
 	echo ""
@@ -631,7 +631,7 @@ if [ ! -d livestreamersrv ]; then
 	echo ""
 else
 	cd ..
-	if [ ! -f /usr/lib/python3/dist-packages/fix-writing-after-channel-is-closed.patch ]; then
+	if [[ ! -f /usr/lib/python3/dist-packages/fix-writing-after-channel-is-closed.patch ]]; then
 		cp patches/fix-writing-after-channel-is-closed.patch /usr/lib/python3/dist-packages
 		cd /usr/lib/python3/dist-packages
 		patch -p1 < fix-writing-after-channel-is-closed.patch

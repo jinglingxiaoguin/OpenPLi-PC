@@ -9,12 +9,12 @@ prefix2="/usr/src/OpenPLi-PC_Python3/plugins/e2openplugin"
 prefix3="/usr/local/e2/lib/enigma2/python/Plugins/SystemPlugins"
 MAKE_J="8"
 
-if [ -d plugins ]; then # This is the lock from the unpredictable script actions in the root directory in the absence of the plugins folder.
+if [[ -d plugins ]]; then # This is the lock from the unpredictable script actions in the root directory in the absence of the plugins folder.
 
 	# Removing old compiled pyc files
-	find $INSTALL_E2DIR/lib/enigma2/python/ -name "*.py[c]" -exec rm {} \;
+	find $INSTALL_E2DIR/lib/enigma2/python/ -name "*.py[[c]]" -exec rm {} \;
 
-	if [ "$release" = "23.04" ]; then
+	if [[ "$release" = "23.04" ]]; then
 		echo ""
 		echo "************************************************************************************"
 		echo "                             *** release 23.04 ***"
@@ -25,7 +25,7 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 		export PYTHON_VERSION=3.11
 		export PYTHON_CPPFLAGS=-I/usr/include/python3.11
 		export PYTHON_LDFLAGS="-L/usr/lib/python3.11 -lpython3.11"
-		if [ ! -f plugins/third-party-plugins/Plugins/Extensions/navibar/navibar-311.patch ]; then
+		if [[ ! -f plugins/third-party-plugins/Plugins/Extensions/navibar/navibar-311.patch ]]; then
 			cp patches/navibar-311.patch plugins/third-party-plugins/Plugins/Extensions/navibar
 			cd plugins/third-party-plugins/Plugins/Extensions/navibar
 			patch -p1 < navibar-311.patch
@@ -33,7 +33,7 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 		fi
 	fi
 
-	if [ "$release" = "22.04" ]; then
+	if [[ "$release" = "22.04" ]]; then
 		echo ""
 		echo "************************************************************************************"
 		echo "                             *** release 22.04 ***"
@@ -58,10 +58,14 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 	echo ""
 	PKG="servicemp3"
 	VER="a6b2178d0ebe5831aca5e8ba8d2da0f790e7b63a"
-	if [ -d $PKG ]; then
+	if [[ -d $PKG ]]; then
 		rm -rf $PKG
 	fi
-	if [ -d $PKG-$VER ]; then
+	# Case of download error or process interruption
+	if [[ -f $PKG ]]; then
+		rm -rf $PKG
+	fi
+	if [[ -d $PKG-$VER ]]; then
 		rm -rf $PKG-$VER
 	fi
 	wget https://github.com/OpenPLi/$PKG/archive/$VER.zip
@@ -80,12 +84,12 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 	make install
 	cd ..
 
-	if [ ! -d e2openplugin ]; then
+	if [[ ! -d e2openplugin ]]; then
 		mkdir e2openplugin
 	fi
 
 	# Build enigma2-plugin-extensions-ts-sateditor:
-	if [ ! -d enigma2-plugins/servicemp3 ]; then
+	if [[ ! -d enigma2-plugins/servicemp3 ]]; then
 		set -e
 		set -o pipefail
 	else
@@ -96,10 +100,10 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 		PKG="enigma2-plugin-extensions-ts-sateditor"
 		PKG_="TSsatEditor"
 		VER="d4a10ebbc7ef8e8349b218f48dbeab43f5685180"
-		if [ -d $PKG ]; then
+		if [[ -d $PKG ]]; then
 			rm -rf $PKG
 		fi
-		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/SystemPlugins/$PKG_ ]; then
+		if [[ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/SystemPlugins/$PKG_ ]]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/SystemPlugins/$PKG_
 		fi
 		wget https://github.com/Dima73/$PKG/archive/$VER.zip
@@ -116,7 +120,7 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 	fi
 
 	# Build e2openplugin-StreamInterface:
-	if [ ! -d enigma2-plugin-extensions-ts-sateditor ]; then
+	if [[ ! -d enigma2-plugin-extensions-ts-sateditor ]]; then
 		set -e
 		set -o pipefail
 	else
@@ -126,10 +130,10 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 
 		PKG="e2openplugin-StreamInterface"
 		PKG_="StreamInterface"
-		if [ -d $PKG ]; then
+		if [[ -d $PKG ]]; then
 			rm -rf $PKG
 		fi
-		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
+		if [[ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
 		wget https://github.com/E2OpenPlugins/$PKG/archive/refs/heads/python3.zip
@@ -146,7 +150,7 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 	fi
 
 	# Build e2openplugin-SystemTools
-	if [ ! -d e2openplugin-StreamInterface ]; then
+	if [[ ! -d e2openplugin-StreamInterface ]]; then
 		set -e
 		set -o pipefail
 	else
@@ -156,10 +160,10 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 		PKG="e2openplugin-SystemTools"
 		PKG_="SystemTools"
 		VER="88dbcac49202a4d850221841b8f16891f684a375"
-		if [ -d $PKG ]; then
+		if [[ -d $PKG ]]; then
 			rm -rf $PKG
 		fi
-		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
+		if [[ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
 		wget https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
@@ -176,7 +180,7 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 	fi
 
 	# Build e2openplugin-AddStreamUrl
-	if [ ! -d e2openplugin-SystemTools ]; then
+	if [[ ! -d e2openplugin-SystemTools ]]; then
 		set -e
 		set -o pipefail
 	else
@@ -185,10 +189,10 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 		echo ""
 		PKG="e2openplugin-AddStreamUrl"
 		PKG_="AddStreamUrl"
-		if [ -d $PKG ]; then
+		if [[ -d $PKG ]]; then
 			rm -rf $PKG
 		fi
-		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
+		if [[ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
 		wget https://github.com/E2OpenPlugins/$PKG/archive/refs/heads/python3.zip
@@ -205,7 +209,7 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 	fi
 
 	# Build e2openplugin-OpenWebif
-	if [ ! -d e2openplugin-AddStreamUrl ]; then
+	if [[ ! -d e2openplugin-AddStreamUrl ]]; then
 		set -e
 		set -o pipefail
 	else
@@ -215,10 +219,10 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 		PKG="e2openplugin-OpenWebif"
 		PKG_="OpenWebif"
 		VER="4c4a1cea5bcc2f52629a9820ab34d4747d2a24bf"
-		if [ -d $PKG ]; then
+		if [[ -d $PKG ]]; then
 			rm -rf $PKG
 		fi
-		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
+		if [[ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
 		wget https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
@@ -239,7 +243,7 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 	fi
 
 	# Build e2openplugin-SetPicon
-	if [ ! -d e2openplugin-OpenWebif ]; then
+	if [[ ! -d e2openplugin-OpenWebif ]]; then
 		set -e
 		set -o pipefail
 	else
@@ -249,10 +253,10 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 		PKG="e2openplugin-SetPicon"
 		PKG_="SetPicon"
 		VER="6b777ed10fba7a825ba99ca8a27f6c381dee6d16"
-		if [ -d $PKG ]; then
+		if [[ -d $PKG ]]; then
 			rm -rf $PKG
 		fi
-		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
+		if [[ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
 		wget https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
@@ -269,7 +273,7 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 	fi
 
 	# Build e2openplugin-SnmpAgent
-#	if [ ! -d e2openplugin-SetPicon ]; then
+#	if [[ ! -d e2openplugin-SetPicon ]]; then
 #		set -e
 #		set -o pipefail
 #	else
@@ -279,10 +283,10 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 #		PKG="e2openplugin-SnmpAgent"
 #		PKG_="SnmpAgent"
 #		VER="450ed959a78918a08a3df5a58acb99d2bdc90f5b"
-#		if [ -d $PKG ]; then
+#		if [[ -d $PKG ]]; then
 #			rm -rf $PKG
 #		fi
-#		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
+#		if [[ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]]; then
 #			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 #		fi
 #		wget https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
@@ -299,8 +303,8 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 #	fi
 
 	# Build e2openplugin-SimpleUmount
-	if [ ! -d e2openplugin-SetPicon ]; then
-#	if [ ! -d e2openplugin-SnmpAgent ]; then
+	if [[ ! -d e2openplugin-SetPicon ]]; then
+#	if [[ ! -d e2openplugin-SnmpAgent ]]; then
 		set -e
 		set -o pipefail
 	else
@@ -310,10 +314,10 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 		PKG="e2openplugin-SimpleUmount"
 		PKG_="SimpleUmount"
 		VER="c8517274748ebe7789b03cfcb4ff142332e7ea02"
-		if [ -d $PKG ]; then
+		if [[ -d $PKG ]]; then
 			rm -rf $PKG
 		fi
-		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
+		if [[ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
 		wget https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
@@ -330,7 +334,7 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 	fi
 
 	# Build e2openplugin-Foreca
-	if [ ! -d e2openplugin-SimpleUmount ]; then
+	if [[ ! -d e2openplugin-SimpleUmount ]]; then
 		set -e
 		set -o pipefail
 	else
@@ -339,10 +343,10 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 		echo ""
 		PKG="e2openplugin-Foreca"
 		PKG_="Foreca"
-		if [ -d $PKG ]; then
+		if [[ -d $PKG ]]; then
 			rm -rf $PKG
 		fi
-		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
+		if [[ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
 		wget https://github.com/E2OpenPlugins/$PKG/archive/refs/heads/python3.zip
@@ -359,7 +363,7 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 	fi
 
 	# Build enigma2-plugin-youtube
-	if [ ! -d e2openplugin-Foreca ]; then
+	if [[ ! -d e2openplugin-Foreca ]]; then
 		set -e
 		set -o pipefail
 	else
@@ -368,10 +372,10 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 		echo ""
 		PKG="enigma2-plugin-youtube"
 		PKG_="YouTube"
-		if [ -d $PKG ]; then
+		if [[ -d $PKG ]]; then
 			rm -rf $PKG
 		fi
-		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
+		if [[ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
 		wget https://github.com/Taapat/$PKG/archive/refs/heads/master.zip
@@ -385,7 +389,7 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 	fi
 
 	# Build e2openplugin-OscamStatus
-	if [ ! -d enigma2-plugin-youtube ]; then
+	if [[ ! -d enigma2-plugin-youtube ]]; then
 		set -e
 		set -o pipefail
 	else
@@ -394,10 +398,10 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 		echo ""
 		PKG="e2openplugin-OscamStatus"
 		PKG_="OscamStatus"
-		if [ -d $PKG ]; then
+		if [[ -d $PKG ]]; then
 			rm -rf $PKG
 		fi
-		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
+		if [[ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
 		wget https://github.com/E2OpenPlugins/$PKG/archive/refs/heads/master.zip
@@ -414,7 +418,7 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 	fi
 
 	# Build enigma2-plugin-extensions-epgimport
-#	if [ ! -d e2openplugin-OscamStatus ]; then
+#	if [[ ! -d e2openplugin-OscamStatus ]]; then
 #		set -e
 #		set -o pipefail
 #	else
@@ -424,10 +428,10 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 #		PKG="enigma2-plugin-extensions-epgimport"
 #		PKG_="EPGImport"
 #		VER="a82a48233dad402a7e5ed69edfa2720a793f3dcd"
-#		if [ -d $PKG ]; then
+#		if [[ -d $PKG ]]; then
 #			rm -rf $PKG
 #		fi
-#		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
+#		if [[ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]]; then
 #			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 #		fi
 #		wget https://github.com/OpenPLi/$PKG/archive/$VER.zip
@@ -444,8 +448,8 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 #	fi
 
 	# Build enigma2-plugin-mountmanager
-	if [ ! -d e2openplugin-OscamStatus ]; then
-#	if [ ! -d enigma2-plugin-extensions-epgimport ]; then
+	if [[ ! -d e2openplugin-OscamStatus ]]; then
+#	if [[ ! -d enigma2-plugin-extensions-epgimport ]]; then
 		set -e
 		set -o pipefail
 	else
@@ -455,10 +459,10 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 		PKG="enigma2-plugin-mountmanager"
 		PKG_="MountManager"
 		VER="342ac9a126533a8582f5f45ed2e0c8ac9c322fa0"
-		if [ -d $PKG ]; then
+		if [[ -d $PKG ]]; then
 			rm -rf $PKG
 		fi
-		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/SystemPlugins/$PKG_ ]; then
+		if [[ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/SystemPlugins/$PKG_ ]]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/SystemPlugins/$PKG_
 		fi
 		wget https://github.com/Dima73/$PKG/archive/$VER.zip
@@ -472,7 +476,7 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 	fi
 
 	# Build e2iplayer
-	if [ ! -d enigma2-plugin-mountmanager ]; then
+	if [[ ! -d enigma2-plugin-mountmanager ]]; then
 		set -e
 		set -o pipefail
 		# Message if error at any point of script
@@ -489,10 +493,10 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 		PKG_="IPTVPlayer"
 		PKG__="E2IPlayer"
 		VER="127bf43f863ce46beeee6505299fc017351cf22b"
-		if [ -d $PKG ]; then
+		if [[ -d $PKG ]]; then
 			rm -rf $PKG
 		fi
-		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
+		if [[ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
 		rm -f /usr/lib/librtmp.so.1
@@ -531,7 +535,7 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 		chmod 755 wget_openssl.1.0.2
 		mv wget_openssl.1.0.2 $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/bin/fullwget
 		cd ..
-		if [ -d e2iplayer ]; then
+		if [[ -d e2iplayer ]]; then
 			wget http://iptvplayer.vline.pl/resources/bin/i686/gstplayer_gstreamer1.0
 			mv gstplayer_gstreamer1.0 gstplayer
 			chmod 755 gstplayer
@@ -568,16 +572,16 @@ if [ -d plugins ]; then # This is the lock from the unpredictable script actions
 	cp -rfv pre/epgimport $INSTALL_E2DIR/etc
 	cp -rfv pre/xmltvimport $INSTALL_E2DIR/etc
 	cp -rfv skins/* $INSTALL_E2DIR
-	if [ ! -f /usr/local/bin/bitrate ]; then
+	if [[ ! -f /usr/local/bin/bitrate ]]; then
 		ln -sf $INSTALL_E2DIR/bin/bitrate /usr/local/bin
 	fi
 
 	# Create folder for softam keys and symlink for plugin 'navibar'
-	if [ ! -d /var/keys ]; then
+	if [[ ! -d /var/keys ]]; then
 		mkdir -p /var/keys
 	fi
 
-#	if [ ! -d /home/hdd/icons ]; then
+#	if [[ ! -d /home/hdd/icons ]]; then
 #		ln -s $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/navibar/icons /home/hdd
 #	fi
 

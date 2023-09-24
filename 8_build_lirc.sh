@@ -1,3 +1,4 @@
+#!/bin/bash
 
 # Script for install patched lirc-0.10.1-7.2-e2pc on Ubuntu-22.04 only.
 
@@ -25,7 +26,7 @@ pip install -U PyCryptodome
 wget https://neurodebian.g-node.org/pool/main/d/debhelper/$DH
 dpkg -i $DH
 rm -f $DH
-if [ -d $DIR ]; then
+if [[ -d $DIR ]]; then
 	rm -fr $DIR
 fi
 mkdir $DIR
@@ -62,13 +63,13 @@ cp -rfv pre/lirc/lircd.conf.d /etc
 cp -rfv pre/lirc/lirc_options.conf.example /etc
 mv /etc/lirc/lirc_options.conf.example lirc_options.conf
 cp -fv pre/99-lirc-symlinks.rules /etc/udev/rules.d
-if [ -f $CONF/lircd.conf.d/devinput.lircd.conf ]; then
+if [[ -f $CONF/lircd.conf.d/devinput.lircd.conf ]]; then
 	mv -b $CONF/lircd.conf.d/devinput.lircd.conf /etc/lirc/lircd.conf.d/devinput.lircd.conf.dist
 fi
-if [ -f $CONF/irexec.lircrc ]; then
+if [[ -f $CONF/irexec.lircrc ]]; then
 	mv -b $CONF/irexec.lircrc $CONF/irexec.lircrc.dist
 fi
-if [ -f $CONF/irexec.lircrc ];then
+if [[ -f $CONF/irexec.lircrc ]]; then
 	rm -f $CONF/irexec.lircrc
 fi
 

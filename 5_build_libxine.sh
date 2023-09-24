@@ -4,13 +4,13 @@ OLDDEB="libxine2"
 dpkg -s $OLDDEB | grep -iw ok > /dev/null
 
 # Remove old package DEBxine2
-if [ $? -eq 0 ]; then
+if [[ $? -eq 0 ]]; then
 	apt-get -y purge $OLDDEB*
 else
 	echo "$OLDDEB not installed"
 fi
 
-# Case failure
+# Case of download error or process interruption
 if [[ -f xine-lib* ]]; then
 	rm -rf xine-lib*
 fi
@@ -44,7 +44,7 @@ if [[ "$release" = "23.04" ]]; then
 	wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/xine-lib-1.2/1.2.13-1/$DEB
 fi
 
-if [ -f $PKG1.orig.tar.xz ]; then
+if [[ -f $PKG1.orig.tar.xz ]]; then
 	# Remove old source DEBxine2
 	if [[ -d $PKG ]]; then
 		rm -rf $PKG
