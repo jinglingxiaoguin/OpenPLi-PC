@@ -57,7 +57,7 @@ if [[ -d plugins ]]; then # This is the lock from the unpredictable script actio
 	echo "************************** OK. Let's build the plugins. ****************************"
 	echo ""
 	PKG="servicemp3"
-	VER="a6b2178d0ebe5831aca5e8ba8d2da0f790e7b63a"
+	VER="837df79a8d39235ebc9666b0e44260db0ca6d1b3"
 	if [[ -d $PKG ]]; then
 		rm -rf $PKG
 	fi
@@ -492,7 +492,7 @@ if [[ -d plugins ]]; then # This is the lock from the unpredictable script actio
 		PKG="e2iplayer"
 		PKG_="IPTVPlayer"
 		PKG__="E2IPlayer"
-		VER="36e4eea002656d6b3e0b419f88d33617ff989a16"
+		VER="57ac512cba32b95d0761608f4bc5b29f653bf120"
 		if [[ -d $PKG ]]; then
 			rm -rf $PKG
 		fi
@@ -507,8 +507,32 @@ if [[ -d plugins ]]; then # This is the lock from the unpredictable script actio
 		cd ../..
 		cp -rv pre/icons plugins/e2openplugin/$PKG/$PKG_
 		cp -fv patches/$PKG__.patch plugins/e2openplugin/$PKG
+		cp -fv patches/E2IPlayer_4k_dimension.patch plugins/e2openplugin/$PKG
 		cd plugins/e2openplugin/$PKG
 		patch -p1 < $PKG__.patch
+
+		# Patch and resize if you have intel VAAPI on 4K display.
+		# Q: whats AMD name?
+		GPU=`lspci 2>/dev/null | grep -E "VGA|3D" | grep -Eiwo "Intel"`
+		DSP=`xdpyinfo -display :0.0 2>/dev/null | grep dimensions | egrep -o "[0-9]+x[0-9]+ pixels" | egrep -o "[0-9]+x[0-9]+"`
+		if [[ $GPU ]]; then
+			if [[ "$DSP" = "3840x2160" ]]; then
+			echo ""
+			echo "*********************************** 4K display *************************************"
+			echo ""
+			if [[ -f resize.sh ]]; then
+				rm -f resize.sh
+			fi
+			patch -p1 < E2IPlayer_4k_dimension.patch
+			chmod 755 resize.sh
+			./resize.sh
+		else
+			echo ""
+			echo "*********************************** HD display *************************************"
+			echo ""
+		fi
+	fi
+
 		rm -f IPTVPlayer/locale/ru/LC_MESSAGES/.gitkeep
 		/home/$(logname)/.venv/e2pc/bin/pip install $prefix2/$PKG
 		ln -s -f /home/$(logname)/.venv/e2pc/lib/python3.11/site-packages/Extensions/$PKG_ $prefix1

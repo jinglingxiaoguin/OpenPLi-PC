@@ -74,13 +74,13 @@ if [[ "$release" = "23.04" ]]; then
 	echo "************************************************************************************"
 	echo ""
 	REQPKG2="flake8 gcc-12 g++-12 libdav1d-dev libssl3 libdca-dev libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev libffi8 libfuture-perl \
-	ntpsec pycodestyle sqlite3 sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 libsigc++-3.0-dev streamlink yamllint ntpsec-ntpdate pkg-kde-tools \
-	neurodebian-popularity-contest popularity-contest pylint python3-full python3-transmissionrpc python3-sabyenc python3-flickrapi python3-demjson python3-mechanize python3-sendfile \
-	python3-blessings python3-httpretty python3-mutagen python3-urllib3 python3-pymysql python3-sphinxcontrib.websupport python3-sphinxcontrib.httpdomain python3-langdetect \
-	python3-restructuredtext-lint python3-ntplib python3-ntp python3-pysnmp4 python3-asn1crypto python3-attr python3-autobahn python3-biplist python3-cheroot python3-cheetah \
-	python3-cherrypy3 python3-circuits python3-cssselect python3-dnspython python3-feedparser python3-fuzzywuzzy python3-guessit python3-icalendar python3-isodate \
-	python3-ndg-httpsclient python3-notify2 python3-pbkdf2 python3-puremagic python3-pycountry python3-pytest python3-singledispatch python3-sphinx-rtd-theme python3-streamlink \
-	python3-levenshtein python3-sgmllib3k python3-ujson python3-willow python3-num2words python3-pprintpp  \
+	ntpsec pycodestyle sqlite3 sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 libv4l-dev dh-exec gnutls-dev libaom-dev libsdl1.2-dev swig swig3.0 libsigc++-3.0-dev \
+	streamlink yamllint ntpsec-ntpdate pkg-kde-tools neurodebian-popularity-contest popularity-contest pylint python3-full python3-transmissionrpc python3-sabyenc python3-flickrapi \
+	python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 python3-pymysql python3-sphinxcontrib.websupport \
+	python3-sphinxcontrib.httpdomain python3-langdetect python3-restructuredtext-lint python3-ntplib python3-ntp python3-pysnmp4 python3-asn1crypto python3-attr python3-autobahn \
+	python3-biplist python3-cheroot python3-cheetah python3-cherrypy3 python3-circuits python3-cssselect python3-dnspython python3-feedparser python3-fuzzywuzzy python3-guessit \
+	python3-icalendar python3-isodate python3-ndg-httpsclient python3-notify2 python3-pbkdf2 python3-puremagic python3-pycountry python3-pytest python3-singledispatch \
+	python3-sphinx-rtd-theme python3-streamlink python3-levenshtein python3-sgmllib3k python3-ujson python3-willow python3-num2words python3-pprintpp  \
 	"
 
 	for p in $REQPKG2; do
