@@ -155,7 +155,7 @@ rpl "//#define XINE_TEXTDOMAIN" "#define XINE_TEXTDOMAIN" /usr/include/xine/xine
 
 git clone https://github.com/OpenPLi/$PKG.git
 cd $PKG
-git reset --hard 52d1aeb2
+git reset --hard 736d5eed
 cd ..
 
 # Copy headers
@@ -167,9 +167,9 @@ if [[ ! -d /usr/include/netlink ]]; then
 	ln -s /usr/include/libnl3/netlink /usr/include
 fi
 
-cp -fv patches/patch-52d1aeb2-to-PC.patch $PKG
+cp -fv patches/patch-736d5eed-to-PC.patch $PKG
 cd $PKG
-patch -p1 < patch-52d1aeb2-to-PC.patch
+patch -p1 < patch-736d5eed-to-PC.patch
 
 # Configure
 if [[ "$DO_CONFIGURE" -eq "1" ]]; then
