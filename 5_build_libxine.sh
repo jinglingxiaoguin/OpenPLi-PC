@@ -1,71 +1,57 @@
 #!/bin/bash
 
-OLDDEB="libxine2"
-dpkg -s $OLDDEB | grep -iw ok > /dev/null
+# Build and install xine-lib:
+LIB="libxine2"
+PKG="xine-lib-1.2-1.2.13+hg-e2pc"
+VER="85482244af8f"
 
-# Remove old package DEBxine2
-if [[ $? -eq 0 ]]; then
-	apt-get -y purge $OLDDEB*
+I=`dpkg -s $LIB | grep "Status"`
+
+# Remove old package libxine2.
+if [ -n "$I" ]; then
+	apt-get -y purge libxine2*
 else
-	echo "$OLDDEB not installed"
+	echo "$LIB not installed"
 fi
 
-# Case of download error or process interruption
-if [[ -f xine-lib* ]]; then
-	rm -rf xine-lib*
+# Remove old source libxine2.
+if [ -d xine-lib-* ]; then
+	rm -rf xine-lib-*
 fi
 
-release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
-
-if [[ "$release" = "20.04" ]]; then
-	PKG="xine-lib-1.2.9"
-	PKG1="xine-lib-1.2_1.2.9"
-	DEB="xine-lib-1.2_1.2.9-1build5.debian.tar.xz"
-	# This is release 1.2.9
-	wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/xine-lib-1.2/1.2.9-1build5/$PKG1.orig.tar.xz
-	wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/xine-lib-1.2/1.2.9-1build5/$DEB
+# Case of failure.
+if [ -f xine-lib-* ]; then
+	rm -f xine-lib-*
 fi
 
-if [[ "$release" = "22.04" ]]; then
-	PKG="xine-lib-1.2.11"
-	PKG1="xine-lib-1.2_1.2.11"
-	DEB="xine-lib-1.2_1.2.11-2.debian.tar.xz"
-	# This is release 1.2.11
-	wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/xine-lib-1.2/1.2.11-2/$PKG1.orig.tar.xz
-	wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/xine-lib-1.2/1.2.11-2/$DEB
-fi
+# This is hg 1.2.12
+wget --no-check-certificate http://hg.code.sf.net/p/xine/xine-lib-1.2/archive/$VER.tar.bz2
+tar -xvjf $VER.tar.bz2
+rm $VER.tar.bz2
+mv xine-lib-1-2-$VER $PKG
 
-if [[ "$release" = "23.04" ]]; then
-	PKG="xine-lib.1.2.13"
-	PKG1="xine-lib-1.2_1.2.13"
-	DEB="xine-lib-1.2_1.2.13-1.debian.tar.xz"
-	# This is release 1.2.13
-	wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/xine-lib-1.2/1.2.13-1/$PKG1.orig.tar.xz
-	wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/xine-lib-1.2/1.2.13-1/$DEB
-fi
-
-if [[ -f $PKG1.orig.tar.xz ]]; then
-	# Remove old source DEBxine2
-	if [[ -d $PKG ]]; then
-		rm -rf $PKG
-	fi
-	tar -xf $PKG1.orig.tar.xz
-	rm $PKG1.orig.tar.xz
-	mv $DEB $PKG
-	cp -fv patches/$PKG+e2pc.patch $PKG
-	cd $PKG
-	tar -xf $DEB
-	rm $DEB
-	patch -p1 < $PKG+e2pc.patch
+if [ -d "$PKG" ]; then
 	echo "-----------------------------------------"
-	echo "       patch for xine-lib applied"
+	echo "         head now on $VER"
 	echo "-----------------------------------------"
-	dpkg-buildpackage -b -d -uc -us
-	cd ..
-	dpkg -i *.deb
-	mv *.deb *.ddeb *.changes *.buildinfo $PKG
+	cp -fv patches/xine-lib-1.2-$VER.patch $PKG
 else
 	echo "-----------------------------------------"
 	echo "        CHECK INTERNET CONNECTION!"
 	echo "-----------------------------------------"
 fi
+
+cd $PKG
+patch -p1 < xine-lib-1.2-$VER.patch
+echo "-----------------------------------------"
+echo "       patch for xine-lib applied"
+echo "-----------------------------------------"
+dpkg-buildpackage -b -d -uc -us
+
+cd ..
+mv *.deb $PKG
+rm -f xine-lib-1.2*
+
+cd $PKG
+dpkg -i *.deb
+cd ..
