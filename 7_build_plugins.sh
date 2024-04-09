@@ -492,7 +492,7 @@ if [[ -d plugins ]]; then # This is the lock from the unpredictable script actio
 		PKG="e2iplayer"
 		PKG_="IPTVPlayer"
 		PKG__="E2IPlayer"
-		VER="f17e4ffadbda9c6614159bdd6050a9621e269f08"
+		VER="d6af9d2983bf821f2b46a2bb59f250a8b90d2b2"
 		if [[ -d $PKG ]]; then
 			rm -rf $PKG
 		fi
