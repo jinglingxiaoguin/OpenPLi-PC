@@ -14,14 +14,14 @@ if [[ -d plugins ]]; then # This is the lock from the unpredictable script actio
 	# Removing old compiled pyc files
 	find $INSTALL_E2DIR/lib/enigma2/python/ -name "*.py[[c]]" -exec rm {} \;
 
-	if [[ "$release" = "23.04" ]]; then
+	if [[ "$release" = "23.10" ]]; then
 		echo ""
 		echo "************************************************************************************"
-		echo "                             *** release 23.04 ***"
-		echo "                              *** used g++-12 ***"
+		echo "                             *** release 23.10 ***"
+		echo "                              *** used g++-13 ***"
 		echo "************************************************************************************"
 		echo ""
-		export CXX=/usr/bin/g++-12
+		export CXX=/usr/bin/g++-13
 		export PYTHON_VERSION=3.11
 		export PYTHON_CPPFLAGS=-I/usr/include/python3.11
 		export PYTHON_LDFLAGS="-L/usr/lib/python3.11 -lpython3.11"
@@ -31,19 +31,6 @@ if [[ -d plugins ]]; then # This is the lock from the unpredictable script actio
 			patch -p1 < navibar-311.patch
 			cd ../../../../..
 		fi
-	fi
-
-	if [[ "$release" = "22.04" ]]; then
-		echo ""
-		echo "************************************************************************************"
-		echo "                             *** release 22.04 ***"
-		echo "                              *** used g++-11 ***"
-		echo "************************************************************************************"
-		echo ""
-		export CXX=/usr/bin/g++-11
-		export PYTHON_VERSION=3.10
-		export PYTHON_CPPFLAGS=-I/usr/include/python3.10
-		export PYTHON_LDFLAGS="-L/usr/lib/python3.10 -lpython3.10"
 	fi
 
 	export PYTHON_EXTRA_LIBS="-lpthread -ldl -lutil -lm"
@@ -492,7 +479,7 @@ if [[ -d plugins ]]; then # This is the lock from the unpredictable script actio
 		PKG="e2iplayer"
 		PKG_="IPTVPlayer"
 		PKG__="E2IPlayer"
-		VER="d6af9d2983bf821f2b46a2bb59f250a8b90d2b2"
+		VER="da06d284cbff976845f9ad28eb26c26fa1257472"
 		if [[ -d $PKG ]]; then
 			rm -rf $PKG
 		fi

@@ -1,5 +1,7 @@
 #!/bin/sh
 
+apt install make gcc
+
 M="e2_procfs"
 
 cp -fv pre/$M.conf /lib/modules-load.d

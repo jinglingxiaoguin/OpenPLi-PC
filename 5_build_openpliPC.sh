@@ -13,27 +13,18 @@ DO_MAKEINSTALL=1
 INSTALL_E2DIR="/usr/local/e2"
 PKG="enigma2"
 DVB_DEV="/dev/dvb/adapter0"
-HEADERS="/usr/src/linux-headers-`uname -r`/include/uapi/linux/dvb"
-INCLUDE="/usr/include/linux/dvb"
 KDIR="/lib/modules/`uname -r`/kernel/extra"
 CA="dvbsoftwareca"
 
 	echo ""
 	echo "********************************************************"
-if [[ "$release" = "23.04" ]]; then
-	echo "                 *** RELEASE 23.04 ***"
-	echo "                  *** USED g++-12 ***"
-	export CXX=/usr/bin/g++-12
+if [[ "$release" = "23.10" ]]; then
+	echo "                 *** RELEASE 23.10 ***"
+	echo "                  *** USED g++-13 ***"
+	export CXX=/usr/bin/g++-13
 	export PYTHON_VERSION=3.11
 	export PYTHON_CPPFLAGS=-I/usr/include/python3.11
 	export PYTHON_LDFLAGS="-L/usr/lib/python3.11 -lpython3.11"
-elif [[ "$release" = "22.04" ]]; then
-	echo "                 *** RELEASE 22.04 ***"
-	echo "                  *** USED g++-11 ***"
-	export CXX=/usr/bin/g++-11
-	export PYTHON_VERSION=3.10
-	export PYTHON_CPPFLAGS=-I/usr/include/python3.10
-	export PYTHON_LDFLAGS="-L/usr/lib/python3.10 -lpython3.10"
 fi
 	echo "********************************************************"
 	echo ""
@@ -157,10 +148,6 @@ git clone https://github.com/OpenPLi/$PKG.git
 cd $PKG
 git reset --hard ef677ca9
 cd ..
-
-# Copy headers
-cp -fv pre/dvb/* $INCLUDE
-cp -fv pre/dvb/* $HEADERS
 
 # Create symlinks in /usr diectory before compile enigma2
 if [[ ! -d /usr/include/netlink ]]; then
@@ -327,7 +314,7 @@ if [[ ! -f $INSTALL_E2DIR/share/fonts/tuxtxt.ttf ]]; then
 fi
 if [[ ! -f /lib/libc.so.6 ]]; then
 	ARCH_MY=`uname -i`
-	ln -s `ls /lib/"$ARCH_MY"-linux-gnu/libc-2.??.so` /lib/libc.so.6
+	ln -s `ls /lib/"$ARCH_MY"-linux-gnu/libc.so.6` /lib/libc.so.6
 fi
 if [[ -d /lib/i386-linux-gnu ]]; then
 	if [[ ! -d /lib/i686-linux-gnu ]]; then

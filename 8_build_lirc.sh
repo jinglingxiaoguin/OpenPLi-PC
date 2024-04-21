@@ -36,12 +36,7 @@ tar -xvf lirc_0.10.1.orig.tar.gz
 rm -f lirc_0.10.1.orig.tar.gz
 cd ..
 
-if [[ "$release" = "22.04" ]]; then
-	cp -v patches/$P1 $DIR/$PKG
-	cd $DIR/$PKG
-	patch -p1 < $P1
-fi
-if [[ "$release" = "23.04" ]]; then
+if [[ "$release" = "23.10" ]]; then
 	cp -v patches/$P2 $DIR/$PKG
 	cd $DIR/$PKG
 	patch -p1 < $P2
@@ -86,5 +81,5 @@ echo ""
 echo "NOW THE SYSTEM WILL BE RESTARTED!"
 echo ""
 
-sleep 5
-reboot # Need to restart system!
+#sleep 5
+#reboot # Need to restart system!

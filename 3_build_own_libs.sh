@@ -1,115 +1,18 @@
 #!/bin/bash
 
-# To build enigma2 on Ubuntu 22.04 with startup option "Ubuntu on Xorg".
-
-dpkg --configure -a
-
-echo ""
-echo "                       *** INSTALL REQUIRED PACKAGES ***"
-echo ""
-
-release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
-
-REQPKG_ALL="ant aptitude autoconf automake autopoint avahi-daemon bash build-essential checkinstall chrpath cmake coreutils cvs debhelper desktop-file-utils docbook-utils \
-	diffstat dvb-apps dvdbackup ethtool fakeroot flex ffmpeg gawk gettext git help2man linux-headers-`uname -r` libdvdnav-dev libfreetype6-dev libfribidi-dev libsigc++-2.0-dev \
-	libpcsclite-dev libjpeg8-dev libgif-dev libjpeg-turbo8-dev libgiftiio0 libaio-dev libxinerama-dev libxt-dev libasound2-dev libcaca-dev libpulse-dev libvorbis-dev \
-	libgtk2.0-dev libtool libxml2-dev libxml2-utils libxslt1-dev libssl-dev libvdpau-dev libcdio-dev libcrypto++-dev libudf-dev libvcdinfo-dev libusb-1.0-0-dev \
-	libavcodec-dev libavformat-dev libpostproc-dev libavutil-dev libnl-3-dev libbluray-dev libmpcdec-dev libvpx-dev libnl-genl-3-dev libavahi-client3 libavahi-client-dev \
-	libflac-dev libogg-dev libxcb-xv0-dev libxcb-shape0-dev libxv-dev libxvmc-dev libaa1-dev libmodplug-dev libjack-jackd2-dev libdirectfb-dev libmagickwand-dev \
-	libwavpack-dev libspeex-dev libmng-dev libmad0-dev librsvg2-bin libtheora-dev libsmbclient-dev liblircclient-dev librtmp1 libmng2 libx11-6 libxext6 libglib2.0-dev \
-	libelf-dev libmysqlclient-dev libupnp-dev libgiftiio-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev gstreamer1.0-libav mawk mercurial mingetty mjpegtools \
-	net-tools openssh-sftp-server pmccabe patch pkg-config rpl rsyslog rtmpdump sdparm setserial smartmontools software-properties-common sphinx-common streamripper \
-	subversion texi2html texinfo unclutter unzip uchardet youtube-dl w3m vsftpd xmlto xterm ubuntu-restricted-extras wavpack \
-	"
-
-for p in $REQPKG_ALL; do
-	echo -n ">>> Checking \"$p\" : "
-	dpkg -s $p >/dev/null
-	if [[ "$?" -eq "0" ]]; then
-		echo "package is installed, skip it"
-	else
-		echo "package NOT present, installing it"
-		apt-get -y install $p
-	fi
-done
-
-if [[ "$release" = "22.04" ]]; then
-	dpkg-reconfigure python3
-	echo ""
-	echo "************************************************************************************"
-	echo "                             *** release 22.04 ***"
-	echo "************************************************************************************"
-	echo ""
-	REQPKG1="flake8 gcc-11 g++-11 libdav1d-dev libssl3 libdca-dev libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev libffi7 libfuture-perl \
-	ntpsec pycodestyle sqlite3 sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 streamlink yamllint ntpsec-ntpdate neurodebian-popularity-contest \
-	popularity-contest pylint python3-transmissionrpc python3-sabyenc python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty \
-	python3-mutagen python3-urllib3 python3-pymysql python3-sphinxcontrib.websupport python3-sphinxcontrib.httpdomain python3-langdetect python3-restructuredtext-lint python3-ntplib \
-	python3-ntp python3-pysnmp4 python3-asn1crypto python3-attr python3-autobahn python3-biplist python3-cheroot python3-cheetah python3-cherrypy3 python3-circuits python3-cssselect \
-	python3-dnspython python3-feedparser python3-fuzzywuzzy python3-guessit python3-icalendar python3-isodate python3-ndg-httpsclient python3-notify2 python3-pbkdf2 python3-puremagic \
-	python3-pycountry python3-setuptools-scm-git-archive python3-pytest python3-singledispatch python3-sphinx-rtd-theme python3-streamlink python3-levenshtein python3-sgmllib3k \
-	python3-ujson python3-willow python3-num2words python3-pprintpp python3-full \
-	"
-	for p in $REQPKG1; do
-		echo -n ">>> Checking \"$p\" : "
-		dpkg -s $p >/dev/null
-		if [[ "$?" -eq "0" ]]; then
-			echo "package is installed, skip it"
-		else
-			echo "package NOT present, installing it"
-			apt-get -y install $p
-		fi
-	done
-
-	pip install pysmb zope.interface pycryptodomex pysocks rbtranslations soco tenjin tcpbridge pyserial PyHamcrest pyexecjs py3amf pillow gdata-python3 futures3 cocy circuits-bricks \
-	cfscrape bluetool pyopenssl pyusb
-	pip install -U pyopenssl
-	python3 -m pip install pysha3
-fi
-
-if [[ "$release" = "23.04" ]]; then
-	dpkg-reconfigure python3
-	echo ""
-	echo "************************************************************************************"
-	echo "                             *** release 23.04 ***"
-	echo "************************************************************************************"
-	echo ""
-	REQPKG2="flake8 gcc-12 g++-12 libdav1d-dev libssl3 libdca-dev libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev libffi8 libfuture-perl \
-	ntpsec pycodestyle sqlite3 sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 libv4l-dev dh-exec gnutls-dev libaom-dev libsdl1.2-dev swig swig3.0 libsigc++-3.0-dev \
-	streamlink yamllint ntpsec-ntpdate pkg-kde-tools neurodebian-popularity-contest popularity-contest pylint python3-full python3-transmissionrpc python3-sabyenc python3-flickrapi \
-	python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 python3-pymysql python3-sphinxcontrib.websupport \
-	python3-sphinxcontrib.httpdomain python3-langdetect python3-restructuredtext-lint python3-ntplib python3-ntp python3-pysnmp4 python3-asn1crypto python3-attr python3-autobahn \
-	python3-biplist python3-cheroot python3-cheetah python3-cherrypy3 python3-circuits python3-cssselect python3-dnspython python3-feedparser python3-fuzzywuzzy python3-guessit \
-	python3-icalendar python3-isodate python3-ndg-httpsclient python3-notify2 python3-pbkdf2 python3-puremagic python3-pycountry python3-pytest python3-singledispatch \
-	python3-sphinx-rtd-theme python3-streamlink python3-levenshtein python3-sgmllib3k python3-ujson python3-willow python3-num2words python3-pprintpp  \
-	"
-
-	for p in $REQPKG2; do
-		echo -n ">>> Checking \"$p\" : "
-		dpkg -s $p >/dev/null
-		if [[ "$?" -eq "0" ]]; then
-			echo "package is installed, skip it"
-		else
-			echo "package NOT present, installing it"
-			apt-get -y install $p
-		fi
-	done
-
-	apt install -y python3-venv
-	python3 -m venv /home/$(logname)/.venv/e2pc
-	/home/$(logname)/.venv/e2pc/bin/pip install pysmb zope.interface pycryptodomex pysocks rbtranslations soco tenjin tcpbridge pyserial PyHamcrest pyexecjs py3amf pillow gdata-python3 \
-	futures3 cocy circuits-bricks cfscrape bluetool pyopenssl pyusb
-fi
-
 # Unfortunately e2pc doesn't work with wayland
-#	cp -fv /etc/gdm3/custom.conf /etc/gdm3/custom.conf~
-#	rpl '#WaylandEnable=false' 'WaylandEnable=false' /etc/gdm3/custom.conf
+#cp -fv /etc/gdm3/custom.conf /etc/gdm3/custom.conf~
+#rpl '#WaylandEnable=false' 'WaylandEnable=false' /etc/gdm3/custom.conf
 
 HEADERS="/usr/src/linux-headers-`uname -r`/include/uapi/linux/dvb"
+HEADERSL="/usr/src/linux-lowlatency-headers-`uname -r`/include/uapi/linux/dvb"
 INCLUDE="/usr/include/linux/dvb"
 BUILD_DIR="libs"
 
-#cp -fv pre/dvb/* $INCLUDE
-#cp -fv pre/dvb/* $HEADERS
+# Copy headers
+cp -fv pre/dvb/* $INCLUDE
+cp -fv pre/dvb/* $HEADERS
+cp -fv pre/dvb/* $HEADERSL
 
 # Download dvb-firmwares
 wget --no-check-certificate https://github.com/crazycat69/media_build/releases/download/latest/dvb-firmwares.tar.bz2
@@ -151,7 +54,7 @@ rm -f *.tar.xz
 make distclean
 cd ..
 
-# Build and install libxmlccwrap-git:
+# Build and install libxmlccwrap:
 if [[ ! -d libdvbsi++ ]]; then
 	set -e
 	set -o pipefail
@@ -171,26 +74,18 @@ else
 	if [[ -d $PKG ]]; then
 		rm -rf $PKG
 	fi
-	git clone https://github.com/OpenDMM/$PKG.git
-#	git clone git://git.opendreambox.org/git/obi/$PKG.git
-	cd $PKG
-	rpl '5' '10' debian/compat
-	rpl 'Source-Version' 'binary:Version' debian/control
-	sed -i 's/-$(MAKE) clean//g' debian/rules
-	sed -i 's/-$(MAKE) distclean//g' debian/rules
-#	autoupdate
-	dpkg-buildpackage -b -d -uc -us
-	cd ..
-	mv $PKG*.* $PKG
-	cd $PKG
-	dpkg -i *deb
-	rm -f *.tar.gz
+	wget https://www.i-have-a-dreambox.com/Sources/$PKG-0.0.12.tar.gz
+	tar -xvf $PKG-0.0.12.tar.gz
+	rm -f $PKG-0.0.12.tar.gz
+	cd $PKG-0.0.12
+	./configure --prefix=/usr
+	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.2.0 --maintainer=e2pc@gmail.com --pkggroup=video --gzman=yes
 	make distclean
 	cd ..
 fi
 
 # Build and install libdvbcsa-git:
-if [[ ! -d libxmlccwrap ]]; then
+if [[ ! -d libxmlccwrap-0.0.12 ]]; then
 	set -e
 	set -o pipefail
 else
@@ -353,7 +248,7 @@ if [[ ! -d aio-grab ]]; then
 	set -e
 	set -o pipefail
 else
-	LB="libgstreamer-plugins-dvbmediasink"
+	LIB="libgstreamer-plugins-dvbmediasink"
 	PKG="gst-plugin-dvbmediasink"
 	VER="1d197313832d39fdaf430634f62ad95a33029db0"
 	echo ""
@@ -361,11 +256,11 @@ else
 	echo ""
 	echo "                 *** Build and install $PKG ***"
 	echo ""
-	dpkg -s $LB | grep -iw ok > /dev/null
+	dpkg -s $LIB | grep -iw ok > /dev/null
 	if [[ $? -eq 0 ]]; then
-		dpkg -r $LB
+		dpkg -r $LIB
 	else
-		echo "$LB not installed"
+		echo "$LIB not installed"
 	fi
 	if [[ -d $PKG ]]; then
 		rm -rf $PKG
@@ -378,7 +273,7 @@ else
 #	autoupdate
 	autoreconf -i
 	./configure --prefix=/usr --with-wma --with-wmv --with-pcm --with-dtsdownmix --with-eac3 --with-mpeg4 --with-mpeg4v2 --with-h263 --with-h264 --with-h265
-	checkinstall -D --install=yes --default --pkgname=$LB --pkgversion=1.0.0 --maintainer=e2pc@gmail.com --pkggroup=video --gzman=yes
+	checkinstall -D --install=yes --default --pkgname=$LIB --pkgversion=1.0.0 --maintainer=e2pc@gmail.com --pkggroup=video --gzman=yes
 	rm -f *.tgz
 	make distclean
 	cd ..
@@ -543,33 +438,6 @@ else
 	cd ..
 fi
 
-# Build and install PythonDaap:
-#if [[ ! -d ipaddress ]]; then
-#	set -e
-#	set -o pipefail
-#else
-#	PKG="PythonDaap"
-#	echo ""
-#	echo "**************************** OK. Go to the next step. ******************************"
-#	echo ""
-#	echo "                    *** Build and install $PKG ***"
-#	echo ""
-#	if [[ -d $PKG ]]; then
-#		rm -rf $PKG
-#	fi
-#	wget --no-check-certificate https://github.com/abdelgmartinezl/PythonDaap/archive/refs/heads/master.zip
-#	unzip master.zip
-#	rm -f master.zip
-#	mv $PKG-master $PKG
-#	cd ..
-#	cp patches/$PKG.patch libs/$PKG
-#	cd libs/$PKG
-#	patch -p1 < $PKG.patch
-#	/home/$(logname)/.venv/e2pc/bin/pip install $prefix2/$PKG
-#	ln -s -f $prefix3/$PKG $prefix1
-#	cd ..
-#fi
-
 # Build and install python3-pyload:
 if [[ ! -d ipaddress ]]; then
 	set -e
@@ -597,31 +465,8 @@ else
 	cd ..
 fi
 
-# Build and install python3-livestreamersrv:
-if [[ ! -d pyload ]]; then
-	set -e
-	set -o pipefail
-else
-	PKG="livestreamersrv"
-	VER="d8c0258b178a42c76fadfbddb9ac773646d2557e"
-	echo ""
-	echo "**************************** OK. Go to the next step. ******************************"
-	echo ""
-	echo "                    *** Build and install $PKG ***"
-	echo ""
-	if [[ -d $PKG ]]; then
-		rm -rf $PKG
-	fi
-	wget --no-check-certificate https://github.com/oe-mirrors/livestreamersrv/archive/$VER.zip
-	unzip $VER.zip
-	rm $VER.zip
-	mv $PKG-$VER $PKG
-	cp -fr $PKG $prefix3/$PKG
-	ln -s -f $prefix3/$PKG $prefix1
-fi
-
 # Message if error at any point of script
-if [[ ! -d livestreamersrv ]]; then
+if [[ ! -d pyload ]]; then
 	set -e
 	set -o pipefail
 	echo ""
