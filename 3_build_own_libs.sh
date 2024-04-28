@@ -154,11 +154,7 @@ else
 		rm -rf $SOURCE
 	fi
 	if [[ ! -d $INSTALL_E2DIR/lib/enigma2 ]]; then
-		mkdir -p $INSTALL_E2DIR/lib/enigma2
 		ln -s -f $INSTALL_E2DIR/lib/enigma2 /usr/lib
-	fi
-	if [[ -d $SOURCE ]]; then
-		rm -rf $SOURCE
 	fi
 	wget --no-check-certificate https://github.com/OpenPLi/$PKG_/archive/$VER.zip
 	unzip $VER.zip
@@ -201,6 +197,7 @@ else
 	cd $PKG
 #	autoupdate
 	autoreconf -i
+	mkdir -p $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/Tuxtxt
 	./configure --prefix=/usr --with-boxtype=generic --with-configdir=/usr/etc --with-fbdev=/dev/fb0 --with-textlcd DVB_API_VERSION=5
 	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --gzman=yes
 	find $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/Tuxtxt -name "*.py[o]" -exec rm {} \;

@@ -1,6 +1,6 @@
 diff -ruN o/IPTVPlayer/Web/initiator.py pc/IPTVPlayer/Web/initiator.py
 --- o/IPTVPlayer/Web/initiator.py	2022-07-03 14:10:10.733100820 +0300
-+++ pc/IPTVPlayer/Web/initiator.py	2024-04-21 18:19:07.201431135 +0300
++++ pc/IPTVPlayer/Web/initiator.py	2024-04-28 12:01:53.682261180 +0300
 @@ -55,7 +55,7 @@
      # Old openwebif version (prior July the 14th 2017) has a bug and does not populate links to all properly registered web addons except fancontrol
      # see: https://github.com/E2OpenPlugins/e2openplugin-OpenWebif/pull/629
@@ -12,7 +12,7 @@ diff -ruN o/IPTVPlayer/Web/initiator.py pc/IPTVPlayer/Web/initiator.py
          try:
 diff -ruN o/IPTVPlayer/Web/webSite.py pc/IPTVPlayer/Web/webSite.py
 --- o/IPTVPlayer/Web/webSite.py	2022-07-03 14:10:10.737100894 +0300
-+++ pc/IPTVPlayer/Web/webSite.py	2024-04-21 18:19:07.201431135 +0300
++++ pc/IPTVPlayer/Web/webSite.py	2024-04-28 12:01:53.683261093 +0300
 @@ -29,15 +29,15 @@
      #### Reload scripts if new version of source exists ####
      webPath = GetPluginDir(file='/Web/')
@@ -46,7 +46,7 @@ diff -ruN o/IPTVPlayer/Web/webSite.py pc/IPTVPlayer/Web/webSite.py
          else:
 diff -ruN o/IPTVPlayer/components/iconmenager.py pc/IPTVPlayer/components/iconmenager.py
 --- o/IPTVPlayer/components/iconmenager.py	2024-04-21 18:03:16.611761992 +0300
-+++ pc/IPTVPlayer/components/iconmenager.py	2024-04-21 18:19:07.154433983 +0300
++++ pc/IPTVPlayer/components/iconmenager.py	2024-04-28 12:01:53.684261005 +0300
 @@ -29,7 +29,7 @@
  
  
@@ -67,7 +67,7 @@ diff -ruN o/IPTVPlayer/components/iconmenager.py pc/IPTVPlayer/components/iconme
              params_cfad = {}
 diff -ruN o/IPTVPlayer/components/iptvconfigmenu.py pc/IPTVPlayer/components/iptvconfigmenu.py
 --- o/IPTVPlayer/components/iptvconfigmenu.py	2024-04-21 18:03:16.612761938 +0300
-+++ pc/IPTVPlayer/components/iptvconfigmenu.py	2024-04-21 18:19:07.155433923 +0300
++++ pc/IPTVPlayer/components/iptvconfigmenu.py	2024-04-28 12:01:53.686260829 +0300
 @@ -76,7 +76,7 @@
  config.plugins.iptvplayer.showinMainMenu = ConfigYesNo(default=False)
  config.plugins.iptvplayer.ListaGraficzna = ConfigYesNo(default=True)
@@ -97,7 +97,7 @@ diff -ruN o/IPTVPlayer/components/iptvconfigmenu.py pc/IPTVPlayer/components/ipt
                                                                              ])
 diff -ruN o/IPTVPlayer/components/iptvplayerwidget.py pc/IPTVPlayer/components/iptvplayerwidget.py
 --- o/IPTVPlayer/components/iptvplayerwidget.py	2024-04-21 18:03:16.613761884 +0300
-+++ pc/IPTVPlayer/components/iptvplayerwidget.py	2024-04-21 18:19:07.157433802 +0300
++++ pc/IPTVPlayer/components/iptvplayerwidget.py	2024-04-28 12:01:53.686260829 +0300
 @@ -59,7 +59,6 @@
  
  from Plugins.Extensions.IPTVPlayer.components.iptvplayerinit import TranslateTXT as _, IPTVPlayerNeedInit, GetIPTVPlayerLastHostError, GetIPTVNotify, GetIPTVSleep
@@ -137,7 +137,7 @@ diff -ruN o/IPTVPlayer/components/iptvplayerwidget.py pc/IPTVPlayer/components/i
                      message.append("Please be also informed that users of http://ipab.tv/ will NOT get support, due to same reason.")
 diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 --- o/IPTVPlayer/hosts/hostXXX.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostXXX.py	2024-04-21 18:05:46.779651956 +0300
++++ pc/IPTVPlayer/hosts/hostXXX.py	2024-04-28 12:01:53.696259953 +0300
 @@ -0,0 +1,12475 @@
 +# Modified by Blindspot - 2024.02.09.
 +# Added new host: TEENXY
@@ -12617,7 +12617,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 \ В конце файла нет новой строки
 diff -ruN o/IPTVPlayer/hosts/hosturllist.py pc/IPTVPlayer/hosts/hosturllist.py
 --- o/IPTVPlayer/hosts/hosturllist.py	2022-07-03 14:10:10.773101559 +0300
-+++ pc/IPTVPlayer/hosts/hosturllist.py	2024-04-21 18:19:07.158433741 +0300
++++ pc/IPTVPlayer/hosts/hosturllist.py	2024-04-28 12:01:53.697259865 +0300
 @@ -22,7 +22,7 @@
  ###################################################
  # Config options for HOST
@@ -12629,7 +12629,7 @@ diff -ruN o/IPTVPlayer/hosts/hosturllist.py pc/IPTVPlayer/hosts/hosturllist.py
  
 diff -ruN o/IPTVPlayer/hosts/hostyoutube.py pc/IPTVPlayer/hosts/hostyoutube.py
 --- o/IPTVPlayer/hosts/hostyoutube.py	2024-04-21 18:03:16.626761179 +0300
-+++ pc/IPTVPlayer/hosts/hostyoutube.py	2024-04-21 18:19:07.185432105 +0300
++++ pc/IPTVPlayer/hosts/hostyoutube.py	2024-04-28 12:01:53.697259865 +0300
 @@ -26,7 +26,7 @@
  ###################################################
  # Config options for HOST
@@ -12641,7 +12641,7 @@ diff -ruN o/IPTVPlayer/hosts/hostyoutube.py pc/IPTVPlayer/hosts/hostyoutube.py
  def GetConfigList():
 diff -ruN o/IPTVPlayer/hosts/list.txt pc/IPTVPlayer/hosts/list.txt
 --- o/IPTVPlayer/hosts/list.txt	2024-04-21 18:03:16.626761179 +0300
-+++ pc/IPTVPlayer/hosts/list.txt	2024-04-21 18:19:07.186432044 +0300
++++ pc/IPTVPlayer/hosts/list.txt	2024-04-28 12:01:53.697259865 +0300
 @@ -167,3 +167,4 @@
  hostzaluknijcc
  hostzerioncc
@@ -12649,7 +12649,7 @@ diff -ruN o/IPTVPlayer/hosts/list.txt pc/IPTVPlayer/hosts/list.txt
 +hostXXX
 diff -ruN o/IPTVPlayer/iptvdm/iptvdh.py pc/IPTVPlayer/iptvdm/iptvdh.py
 --- o/IPTVPlayer/iptvdm/iptvdh.py	2024-04-21 18:03:16.626761179 +0300
-+++ pc/IPTVPlayer/iptvdm/iptvdh.py	2024-04-21 18:19:07.187431984 +0300
++++ pc/IPTVPlayer/iptvdm/iptvdh.py	2024-04-28 12:01:53.697259865 +0300
 @@ -104,7 +104,7 @@
  
      @staticmethod
@@ -12661,7 +12661,7 @@ diff -ruN o/IPTVPlayer/iptvdm/iptvdh.py pc/IPTVPlayer/iptvdm/iptvdh.py
          return "ffmpeg"
 diff -ruN o/IPTVPlayer/iptvdm/m3u8downloader.py pc/IPTVPlayer/iptvdm/m3u8downloader.py
 --- o/IPTVPlayer/iptvdm/m3u8downloader.py	2022-10-11 13:36:34.205216568 +0300
-+++ pc/IPTVPlayer/iptvdm/m3u8downloader.py	2024-04-21 18:19:07.188431923 +0300
++++ pc/IPTVPlayer/iptvdm/m3u8downloader.py	2024-04-28 12:01:53.698259777 +0300
 @@ -181,7 +181,7 @@
  
      def _updateM3U8DataAvail(self, data):
@@ -12673,7 +12673,7 @@ diff -ruN o/IPTVPlayer/iptvdm/m3u8downloader.py pc/IPTVPlayer/iptvdm/m3u8downloa
          #newFragments = self.fixFragmentsList(newFragments)
 diff -ruN o/IPTVPlayer/iptvupdate/custom/xxx.sh pc/IPTVPlayer/iptvupdate/custom/xxx.sh
 --- o/IPTVPlayer/iptvupdate/custom/xxx.sh	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/iptvupdate/custom/xxx.sh	2024-04-21 18:19:07.188431923 +0300
++++ pc/IPTVPlayer/iptvupdate/custom/xxx.sh	2024-04-28 12:01:53.698259777 +0300
 @@ -0,0 +1,40 @@
 +#!/bin/sh
 +cp $1/iptvupdate/custom/xxx.sh $2/iptvupdate/custom/xxx.sh
@@ -12717,7 +12717,7 @@ diff -ruN o/IPTVPlayer/iptvupdate/custom/xxx.sh pc/IPTVPlayer/iptvupdate/custom/
 +exit 0
 diff -ruN o/IPTVPlayer/iptvupdate/updatemainwindow.py pc/IPTVPlayer/iptvupdate/updatemainwindow.py
 --- o/IPTVPlayer/iptvupdate/updatemainwindow.py	2022-10-11 13:36:34.209216568 +0300
-+++ pc/IPTVPlayer/iptvupdate/updatemainwindow.py	2024-04-21 18:19:07.189431863 +0300
++++ pc/IPTVPlayer/iptvupdate/updatemainwindow.py	2024-04-28 12:01:53.698259777 +0300
 @@ -312,7 +312,7 @@
          if os_path.isfile(newVerFile):
              verPattern = self.VERSION_PATTERN
@@ -12729,7 +12729,7 @@ diff -ruN o/IPTVPlayer/iptvupdate/updatemainwindow.py pc/IPTVPlayer/iptvupdate/u
          try:
 diff -ruN o/IPTVPlayer/locale/de/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/de/LC_MESSAGES/IPTVPlayer.po
 --- o/IPTVPlayer/locale/de/LC_MESSAGES/IPTVPlayer.po	2023-01-29 18:51:39.040124774 +0300
-+++ pc/IPTVPlayer/locale/de/LC_MESSAGES/IPTVPlayer.po	2024-04-21 18:19:07.191431741 +0300
++++ pc/IPTVPlayer/locale/de/LC_MESSAGES/IPTVPlayer.po	2024-04-28 12:01:53.699259690 +0300
 @@ -2613,13 +2613,11 @@
  msgstr "JDownloader Script Ausführung"
  
@@ -12764,7 +12764,7 @@ diff -ruN o/IPTVPlayer/locale/de/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/
  msgid "MyE2i script finished."
 diff -ruN o/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po
 --- o/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po	2023-01-29 18:51:39.068125541 +0300
-+++ pc/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po	2024-04-21 18:19:07.197431378 +0300
++++ pc/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po	2024-04-28 12:01:53.701259514 +0300
 @@ -4,13 +4,13 @@
  "Report-Msgid-Bugs-To: \n"
  "POT-Creation-Date: 2023-01-28 14:29+0100\n"
@@ -20815,7 +20815,7 @@ diff -ruN o/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/
 +msgstr "Каналы в тренде"
 diff -ruN o/IPTVPlayer/plugin.py pc/IPTVPlayer/plugin.py
 --- o/IPTVPlayer/plugin.py	2024-04-21 18:03:16.631760908 +0300
-+++ pc/IPTVPlayer/plugin.py	2024-04-21 18:19:07.198431317 +0300
++++ pc/IPTVPlayer/plugin.py	2024-04-28 12:01:53.702259427 +0300
 @@ -1,4 +1,3 @@
 -# -*- coding: utf-8 -*-
  ###################################################
@@ -20851,7 +20851,7 @@ diff -ruN o/IPTVPlayer/plugin.py pc/IPTVPlayer/plugin.py
  
 diff -ruN o/IPTVPlayer/setup/iptvsetupimpl.py pc/IPTVPlayer/setup/iptvsetupimpl.py
 --- o/IPTVPlayer/setup/iptvsetupimpl.py	2022-07-03 14:10:10.901103924 +0300
-+++ pc/IPTVPlayer/setup/iptvsetupimpl.py	2024-04-21 18:19:07.199431257 +0300
++++ pc/IPTVPlayer/setup/iptvsetupimpl.py	2024-04-28 12:01:53.702259427 +0300
 @@ -483,7 +483,7 @@
                  return True, False
              else:
@@ -20863,7 +20863,7 @@ diff -ruN o/IPTVPlayer/setup/iptvsetupimpl.py pc/IPTVPlayer/setup/iptvsetupimpl.
      def getFFmpegVerFinished(self, stsTab, dataTab):
 diff -ruN o/IPTVPlayer/tools/iptvsubtitles.py pc/IPTVPlayer/tools/iptvsubtitles.py
 --- o/IPTVPlayer/tools/iptvsubtitles.py	2024-04-21 18:03:16.632760854 +0300
-+++ pc/IPTVPlayer/tools/iptvsubtitles.py	2024-04-21 18:19:07.200431196 +0300
++++ pc/IPTVPlayer/tools/iptvsubtitles.py	2024-04-28 12:01:53.702259427 +0300
 @@ -395,5 +395,5 @@
  
  if __name__ == "__main__":
@@ -20873,7 +20873,7 @@ diff -ruN o/IPTVPlayer/tools/iptvsubtitles.py pc/IPTVPlayer/tools/iptvsubtitles.
      obj.getSubtitles(10000)
 diff -ruN o/IPTVPlayer/tools/iptvtools.py pc/IPTVPlayer/tools/iptvtools.py
 --- o/IPTVPlayer/tools/iptvtools.py	2024-04-21 18:03:16.632760854 +0300
-+++ pc/IPTVPlayer/tools/iptvtools.py	2024-04-21 18:19:07.200431196 +0300
++++ pc/IPTVPlayer/tools/iptvtools.py	2024-04-28 12:01:53.703259340 +0300
 @@ -348,8 +348,8 @@
      baseName = resolveFilename(SCOPE_PLUGINS, 'Extensions/IPTVPlayer/scripts/') + name
      if fileExists(baseName + '.py'):
@@ -20905,7 +20905,7 @@ diff -ruN o/IPTVPlayer/tools/iptvtools.py pc/IPTVPlayer/tools/iptvtools.py
          try:
 diff -ruN o/setup.py pc/setup.py
 --- o/setup.py	2024-04-21 18:03:16.632760854 +0300
-+++ pc/setup.py	2024-04-21 18:19:07.201431135 +0300
++++ pc/setup.py	2024-04-28 12:01:53.703259340 +0300
 @@ -1,4 +1,4 @@
 -from setuptools import setup
 +from distutils.core import setup
@@ -20914,7 +20914,7 @@ diff -ruN o/setup.py pc/setup.py
  pkg = 'Extensions.IPTVPlayer'
 diff -ruN o/setup_translate.py pc/setup_translate.py
 --- o/setup_translate.py	2024-04-21 18:03:16.632760854 +0300
-+++ pc/setup_translate.py	2024-04-21 18:19:07.201431135 +0300
++++ pc/setup_translate.py	2024-04-28 12:01:53.703259340 +0300
 @@ -1,11 +1,11 @@
  # Language extension for distutils Python scripts. Based on this concept:
  # http://wiki.maemo.org/Internationalize_a_Python_application

@@ -281,12 +281,6 @@ fi
 if [[ ! -d /etc/tuxbox ]]; then
 	ln -s $INSTALL_E2DIR/etc/tuxbox /etc
 fi
-if [[ ! -d /usr/local/lib/enigma2 ]]; then
-	ln -s $INSTALL_E2DIR/lib/enigma2 /usr/local/lib
-fi
-if [[ ! -d /usr/lib/enigma2 ]]; then
-	ln -s $INSTALL_E2DIR/lib/enigma2 /usr/lib
-fi
 if [[ ! -d /usr/local/share/enigma2 ]]; then
 	ln -s $INSTALL_E2DIR/share/enigma2 /usr/local/share
 fi
