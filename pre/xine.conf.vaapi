@@ -94,14 +94,6 @@ video.driver:vaapi
 # bool, default: 0
 #video.output.square_pixels:0
 
-# vaapi: ENIGMA osd height workaround.
-# numeric, default: 0
-#video.output.vaapi_enigma_osd_height:0
-
-# vaapi: ENIGMA osd width workaround.
-# numeric, default: 0
-#video.output.vaapi_enigma_osd_width:0
-
 # vaapi: set vaapi_guarded_render to 0 ( no ) 1 ( yes )
 # numeric, default: 1
 video.output.vaapi_guarded_render:1
@@ -141,6 +133,10 @@ video.processing.ffmpeg_direct_rendering:1
 # Enable VAAPI
 # bool, default: 1
 video.processing.ffmpeg_enable_vaapi:1
+
+# vaapi: set deinterlace to 0 ( none ), 1 ( top field ), 2 ( bob ).
+# numeric, default: 0
+video.output.vaapi_deinterlace:2
 
 # MPEG-4 postprocessing quality
 # [0..6], default: 3

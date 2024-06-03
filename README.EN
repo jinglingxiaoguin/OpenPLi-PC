@@ -1,18 +1,18 @@
 Attention! Make a full backup of your system.
 =============================================
 
-This only works on Ubunu 22.04 using Python-3.10 and sigc-3 with the /proc virtual file system.
+This only works on Ubunu 24.04 with the /proc virtual file system.
 Intended for development only. There are few plugins yet, but this will probably help developers.
 
 Supported software
 ==================
-Ubuntu 22.04 LTS "Ubuntu on xorg".
+Ubuntu 24.04 LTS "Ubuntu on xorg".
 E2PC works well with NVIDIA video cards using the "vdpau" video driver.
 Please don't use ppa repositories containing system packages!
 
 Installation
 ============
-If necessary run scripts 1 ... 9 step by step. Either run 0_INSTALL_ALL.sh.
+If necessary run scripts 1 ... 8 step by step. Either run INSTALL_ALL.sh.
 All necessary libraries will be installed automaticly.
 The working folder for the entry now is /media/hdd because often the sda3 drive is mounted in /home. This folder creates a link /media/hdd.
 In this folder: /media/hdd, /media/hdd/movies, /media/hdd/icons, etc.

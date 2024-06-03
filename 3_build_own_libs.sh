@@ -4,10 +4,19 @@
 #cp -fv /etc/gdm3/custom.conf /etc/gdm3/custom.conf~
 #rpl '#WaylandEnable=false' 'WaylandEnable=false' /etc/gdm3/custom.conf
 
+release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
+
 HEADERS="/usr/src/linux-headers-`uname -r`/include/uapi/linux/dvb"
 HEADERSL="/usr/src/linux-lowlatency-headers-`uname -r`/include/uapi/linux/dvb"
 INCLUDE="/usr/include/linux/dvb"
 BUILD_DIR="libs"
+INSTALL_E2DIR="/usr/local/e2"
+prefix2="/usr/src/OpenPLi-PC_Python3/libs"
+
+if [[ "$release" = "24.04" ]]; then
+	prefix1="/usr/local/lib/python3.12/dist-packages"
+	prefix3="/home/$(logname)/.venv/e2pc/lib/python3.12/site-packages"
+fi
 
 # Copy headers
 cp -fv pre/dvb/* $INCLUDE
@@ -22,6 +31,10 @@ rm -f dvb-firmwares.tar.bz2
 if [[ -d $BUILD_DIR ]]; then
 	rm -rf $BUILD_DIR
 fi
+if [[ ! -d $INSTALL_E2DIR ]]; then
+	mkdir -p $INSTALL_E2DIR/lib/enigma2
+fi
+
 mkdir -v $BUILD_DIR
 cd $BUILD_DIR
 
@@ -84,53 +97,11 @@ else
 	cd ..
 fi
 
-# Build and install libdvbcsa-git:
+# Build and install libtuxtxt:
 if [[ ! -d libxmlccwrap-0.0.12 ]]; then
 	set -e
 	set -o pipefail
 else
-	PKG="libdvbcsa"
-	PKG1="libdvbcsa1"
-	VER="bc6c0b164a87ce05e9925785cc6fb3f54c02b026"
-	echo ""
-	echo "**************************** OK. Go to the next step. ******************************"
-	echo ""
-	echo "                       *** Build and install $PKG ***"
-	echo ""
-	dpkg -s $PKG | grep -iw ok > /dev/null
-	if [[ $? -eq 0 ]]; then
-		dpkg -r $PKG $PKG-dev $PKG1 tsdecrypt
-	else
-		echo "$PKG not installed"
-	fi
-	dpkg -s $PKG1 | grep -iw ok > /dev/null
-	if [[ $? -eq 0 ]]; then
-		dpkg -r $PKG1 $PKG-dev tsdecrypt
-	else
-		echo "$PKG not installed"
-	fi
-	if [[ -d $PKG ]]; then
-		rm -rf $PKG
-	fi
-	wget --no-check-certificate https://code.videolan.org/videolan/$PKG/-/archive/$VER/$PKG-$VER.zip
-	unzip $PKG-$VER.zip
-	rm $PKG-$VER.zip
-	mv $PKG-$VER $PKG
-	cd $PKG
-	./bootstrap
-	./configure --prefix=/usr --enable-sse2
-	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.2.0 --maintainer=e2pc@gmail.com --pkggroup=video --gzman=yes
-	rm -f *.tgz
-	make distclean
-	cd ..
-fi
-
-# Build and install libtuxtxt:
-if [[ ! -d libdvbcsa ]]; then
-	set -e
-	set -o pipefail
-else
-	INSTALL_E2DIR="/usr/local/e2"
 	SOURCE="tuxtxt-git"
 	PKG="libtuxtxt"
 	PKG_="tuxtxt"
@@ -146,16 +117,11 @@ else
 	else
 		echo "$PKG not installed"
 	fi
-	if [[ ! -d $INSTALL_E2DIR ]]; then
-		mkdir -p $INSTALL_E2DIR/lib/enigma2
-	fi
 	if [[ -d $SOURCE ]]; then
 		dpkg -r $PKG $PKG_
 		rm -rf $SOURCE
 	fi
-	if [[ ! -d $INSTALL_E2DIR/lib/enigma2 ]]; then
-		ln -s -f $INSTALL_E2DIR/lib/enigma2 /usr/lib
-	fi
+
 	wget --no-check-certificate https://github.com/OpenPLi/$PKG_/archive/$VER.zip
 	unzip $VER.zip
 	rm $VER.zip
@@ -182,7 +148,12 @@ if [[ ! -d libtuxtxt ]]; then
 	set -e
 	set -o pipefail
 else
+	INSTALL_E2DIR="/usr/local/e2"
 	PKG="tuxtxt"
+	DIR="Tuxtxt"
+
+	ln -sf $INSTALL_E2DIR/lib/enigma2 /usr/lib
+
 	echo ""
 	echo "**************************** OK. Go to the next step. ******************************"
 	echo ""
@@ -190,20 +161,19 @@ else
 	echo ""
 	dpkg -s $PKG | grep -iw ok > /dev/null
 	if [[ $? -eq 0 ]]; then
-		dpkg -r $PKG
+		echo "$PKG already installed"
 	else
-		echo "$PKG not installed"
+		mkdir $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$DIR
+		cd $PKG
+
+		#autoupdate
+		autoreconf -i
+		./configure --prefix=/usr --with-boxtype=generic --with-configdir=/usr/etc --with-fbdev=/dev/fb0 --with-textlcd DVB_API_VERSION=5
+		checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --gzman=yes
+		rm -f *.tgz
+		make distclean
+		cd ../..
 	fi
-	cd $PKG
-#	autoupdate
-	autoreconf -i
-	mkdir -p $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/Tuxtxt
-	./configure --prefix=/usr --with-boxtype=generic --with-configdir=/usr/etc --with-fbdev=/dev/fb0 --with-textlcd DVB_API_VERSION=5
-	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --gzman=yes
-	find $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/Tuxtxt -name "*.py[o]" -exec rm {} \;
-	rm -f *.tgz
-	make distclean
-	cd ../..
 fi
 
 # Build and install aio-grab-git:
@@ -266,6 +236,7 @@ else
 	unzip $VER.zip
 	rm $VER.zip
 	mv $PKG-$VER $PKG
+	ln -s /usr/lib/x86_64-linux-gnu/gstreamer-1.0 /usr/lib
 	cd $PKG
 #	autoupdate
 	autoreconf -i
@@ -318,10 +289,6 @@ else
 	make distclean
 	cd ..
 fi
-
-prefix1="/usr/local/lib/python3.11/dist-packages"
-prefix2="/usr/src/OpenPLi-PC_Python3/libs"
-prefix3="/home/$(logname)/.venv/e2pc/lib/python3.11/site-packages"
 
 # Build and install twistedsnmp-python3:
 if [[ ! -d gst-plugin-subsink ]]; then

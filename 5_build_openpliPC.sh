@@ -18,13 +18,13 @@ CA="dvbsoftwareca"
 
 	echo ""
 	echo "********************************************************"
-if [[ "$release" = "23.10" ]]; then
-	echo "                 *** RELEASE 23.10 ***"
+if [[ "$release" = "24.04" ]]; then
+	echo "                 *** RELEASE 24.04 ***"
 	echo "                  *** USED g++-13 ***"
 	export CXX=/usr/bin/g++-13
-	export PYTHON_VERSION=3.11
-	export PYTHON_CPPFLAGS=-I/usr/include/python3.11
-	export PYTHON_LDFLAGS="-L/usr/lib/python3.11 -lpython3.11"
+	export PYTHON_VERSION=3.12
+	export PYTHON_CPPFLAGS=-I/usr/include/python3.12
+	export PYTHON_LDFLAGS="-L/usr/lib -lpython3.12"
 fi
 	echo "********************************************************"
 	echo ""
@@ -146,7 +146,7 @@ rpl "//#define XINE_TEXTDOMAIN" "#define XINE_TEXTDOMAIN" /usr/include/xine/xine
 
 git clone https://github.com/OpenPLi/$PKG.git
 cd $PKG
-git reset --hard ef677ca9
+git reset --hard e35bf166
 cd ..
 
 # Create symlinks in /usr diectory before compile enigma2
@@ -154,9 +154,9 @@ if [[ ! -d /usr/include/netlink ]]; then
 	ln -s /usr/include/libnl3/netlink /usr/include
 fi
 
-cp -fv patches/patch-ef677ca9-to-PC.patch $PKG
+cp -fv patches/patch-e35bf166-to-PC.patch $PKG
 cd $PKG
-patch -p1 < patch-ef677ca9-to-PC.patch
+patch -p1 < patch-e35bf166-to-PC.patch
 
 # Configure
 if [[ "$DO_CONFIGURE" -eq "1" ]]; then
@@ -169,7 +169,6 @@ if [[ "$DO_CONFIGURE" -eq "1" ]]; then
 	autoupdate
 	autoreconf -v -f -i -W all
 #	autoreconf -i
-#	./configure LIBS="-L/usr/lib/python3.10" --prefix=$INSTALL_E2DIR --with-xlib --with-boxtype=nobox --enable-dependency-tracking ac_cv_prog_c_openmp=-fopenmp --with-debug
 	./configure --prefix=$INSTALL_E2DIR --with-xlib --with-boxtype=nobox --enable-dependency-tracking ac_cv_prog_c_openmp=-fopenmp --with-debug
 # Generate pot
 	#./configure --prefix=$INSTALL_E2DIR --with-xlib --with-debug --with-po
@@ -281,6 +280,9 @@ fi
 if [[ ! -d /etc/tuxbox ]]; then
 	ln -s $INSTALL_E2DIR/etc/tuxbox /etc
 fi
+if [[ ! -d /usr/local/lib/enigma2 ]]; then
+	ln -s $INSTALL_E2DIR/lib/enigma2 /usr/local/lib
+fi
 if [[ ! -d /usr/local/share/enigma2 ]]; then
 	ln -s $INSTALL_E2DIR/share/enigma2 /usr/local/share
 fi
@@ -312,7 +314,7 @@ if [[ ! -f /lib/libc.so.6 ]]; then
 fi
 if [[ -d /lib/i386-linux-gnu ]]; then
 	if [[ ! -d /lib/i686-linux-gnu ]]; then
-	ln -s /lib/i386-linux-gnu /lib/i686-linux-gnu
+		ln -s /lib/i386-linux-gnu /lib/i686-linux-gnu
 	fi
 fi
 
@@ -328,8 +330,10 @@ cp -fv pre/kill_e2pc.desktop /home/$(logname)/.local/share/applications
 cp -fv scripts/* $INSTALL_E2DIR/bin
 cp -fv enigma2/lib/gdi/*.h $INSTALL_E2DIR/include/enigma2/lib/gdi
 cp -fv /etc/NetworkManager/NetworkManager.conf /etc/NetworkManager/NetworkManager.conf~
+cp -fv pre/engima.info $INSTALL_E2DIR/lib
+rpl "kernel=''" "kernel='$(uname -r)'" $INSTALL_E2DIR/lib/enigma.info
 if [[ -f /etc/network/interfaces ]]; then
-cp -fv /etc/network/interfaces /etc/network/interfaces~
+	cp -fv /etc/network/interfaces /etc/network/interfaces~
 fi
 if [[ -d $DVB_DEV ]]; then
 	cp -fv pre/rc.local /etc

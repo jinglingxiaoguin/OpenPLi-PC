@@ -7,5 +7,5 @@
 ./4_build_libxine.sh
 ./5_build_openpliPC.sh
 ./6_build_plugins.sh
-./7_build_lirc.sh
-./8_build_oscam.sh
+./7_build_oscam.sh
+./8_install_lirc.sh
