@@ -501,12 +501,9 @@ if [[ -d plugins ]]; then # This is the lock from the unpredictable script actio
 		cd plugins/e2openplugin/$PKG
 		patch -p1 < $PKG__.patch
 
-		# Patch and resize if you have intel VAAPI on 4K display.
-		# Q: whats AMD name?
-		GPU=`lspci 2>/dev/null | grep -E "VGA|3D" | grep -Eiwo "Intel"`
+		# Patch and resize if you have 4K display.
 		DSP=`xdpyinfo -display :0.0 2>/dev/null | grep dimensions | egrep -o "[0-9]+x[0-9]+ pixels" | egrep -o "[0-9]+x[0-9]+"`
-		if [[ $GPU ]]; then
-			if [[ "$DSP" = "3840x2160" ]]; then
+		if [[ "$DSP" = "3840x2160" ]]; then
 			echo ""
 			echo "*********************************** 4K display *************************************"
 			echo ""
@@ -521,7 +518,6 @@ if [[ -d plugins ]]; then # This is the lock from the unpredictable script actio
 			echo "*********************************** HD display *************************************"
 			echo ""
 		fi
-	fi
 
 		rm -f IPTVPlayer/locale/ru/LC_MESSAGES/.gitkeep
 		/home/$(logname)/.venv/e2pc/bin/pip install $prefix2/$PKG
