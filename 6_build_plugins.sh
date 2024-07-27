@@ -14,21 +14,21 @@ if [[ -d plugins ]]; then # This is the lock from the unpredictable script actio
 	# Removing old compiled pyc files
 	find $INSTALL_E2DIR/lib/enigma2/python/ -name "*.py[[c]]" -exec rm {} \;
 
-	if [[ "$release" = "23.10" ]]; then
+	if [[ "$release" = "24.04" ]]; then
 		echo ""
 		echo "************************************************************************************"
-		echo "                             *** release 23.10 ***"
+		echo "                             *** release 24.04 ***"
 		echo "                              *** used g++-13 ***"
 		echo "************************************************************************************"
 		echo ""
 		export CXX=/usr/bin/g++-13
-		export PYTHON_VERSION=3.11
-		export PYTHON_CPPFLAGS=-I/usr/include/python3.11
-		export PYTHON_LDFLAGS="-L/usr/lib/python3.11 -lpython3.11"
-		if [[ ! -f plugins/third-party-plugins/Plugins/Extensions/navibar/navibar-311.patch ]]; then
-			cp patches/navibar-311.patch plugins/third-party-plugins/Plugins/Extensions/navibar
+		export PYTHON_VERSION=3.12
+		export PYTHON_CPPFLAGS=-I/usr/include/python3.12
+		export PYTHON_LDFLAGS="-L/usr/lib/python3.12 -lpython3.12"
+		if [[ ! -f plugins/third-party-plugins/Plugins/Extensions/navibar/navibar-312.patch ]]; then
+			cp patches/navibar-312.patch plugins/third-party-plugins/Plugins/Extensions/navibar
 			cd plugins/third-party-plugins/Plugins/Extensions/navibar
-			patch -p1 < navibar-311.patch
+			patch -p1 < navibar-312.patch
 			cd ../../../../..
 		fi
 	fi
@@ -102,7 +102,7 @@ if [[ -d plugins ]]; then # This is the lock from the unpredictable script actio
 		cd plugins/e2openplugin/$PKG
 		patch -p1 < tssateditor.patch
 		/home/$(logname)/.venv/e2pc/bin/pip install $prefix2/$PKG
-		ln -s -f /home/$(logname)/.venv/e2pc/lib/python3.11/site-packages/SystemPlugins/$PKG_ $prefix3
+		ln -s -f /home/$(logname)/.venv/e2pc/lib/python3.12/site-packages/SystemPlugins/$PKG_ $prefix3
 		cd ..
 	fi
 
@@ -132,7 +132,7 @@ if [[ -d plugins ]]; then # This is the lock from the unpredictable script actio
 		cd plugins/e2openplugin/$PKG
 		patch -p1 < $PKG_.patch
 		/home/$(logname)/.venv/e2pc/bin/pip install $prefix2/$PKG
-		ln -s -f /home/$(logname)/.venv/e2pc/lib/python3.11/site-packages/Extensions/$PKG_ $prefix1
+		ln -s -f /home/$(logname)/.venv/e2pc/lib/python3.12/site-packages/Extensions/$PKG_ $prefix1
 		cd ..
 	fi
 
@@ -162,7 +162,7 @@ if [[ -d plugins ]]; then # This is the lock from the unpredictable script actio
 		cd plugins/e2openplugin/$PKG
 		patch -p1 < $PKG_.patch
 		/home/$(logname)/.venv/e2pc/bin/pip install $prefix2/$PKG
-		ln -s -f /home/$(logname)/.venv/e2pc/lib/python3.11/site-packages/Extensions/$PKG_ $prefix1
+		ln -s -f /home/$(logname)/.venv/e2pc/lib/python3.12/site-packages/Extensions/$PKG_ $prefix1
 		cd ..
 	fi
 
@@ -191,46 +191,49 @@ if [[ -d plugins ]]; then # This is the lock from the unpredictable script actio
 		cd plugins/e2openplugin/$PKG
 		patch -p1 < $PKG_.patch
 		/home/$(logname)/.venv/e2pc/bin/pip install $prefix2/$PKG
-		ln -s -f /home/$(logname)/.venv/e2pc/lib/python3.11/site-packages/Extensions/$PKG_ $prefix1
+		ln -s -f /home/$(logname)/.venv/e2pc/lib/python3.12/site-packages/Extensions/$PKG_ $prefix1
 		cd ..
 	fi
 
 	# Build e2openplugin-OpenWebif
-	if [[ ! -d e2openplugin-AddStreamUrl ]]; then
-		set -e
-		set -o pipefail
-	else
-		echo ""
-		echo "**************************** OK. Go to the next step. ******************************"
-		echo ""
-		PKG="e2openplugin-OpenWebif"
-		PKG_="OpenWebif"
-		VER="4c4a1cea5bcc2f52629a9820ab34d4747d2a24bf"
-		if [[ -d $PKG ]]; then
-			rm -rf $PKG
-		fi
-		if [[ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]]; then
-			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
-		fi
-		wget https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
-		unzip $VER.zip
-		rm $VER.zip
-		mv $PKG-$VER $PKG
-		cd ../..
-		cp -fv patches/$PKG_.patch plugins/e2openplugin/$PKG
-		cd plugins/e2openplugin/$PKG
-		patch -p1 < $PKG_.patch
-		mv CI/create_ipk.sh create_ipk.sh
-		./create_ipk.sh
-		ar -x *.ipk
-		tar -xvf data.tar.gz
-		mv usr/lib/enigma2/python/Plugins/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions # It's right
-		rm -rf debian-binary usr *.gz *.ipk
-		cd ..
-	fi
+	#if [[ ! -d e2openplugin-AddStreamUrl ]]; then
+	#	set -e
+	#	set -o pipefail
+	#else
+	#	echo ""
+	#	echo "**************************** OK. Go to the next step. ******************************"
+	#	echo ""
+	#	PKG="e2openplugin-OpenWebif"
+	#	PKG_="OpenWebif"
+	#	VER="37b1b24b109ad15dd7c3d3d9f6f72adb0220a888"
+	#	if [[ -d $PKG ]]; then
+	#		rm -rf $PKG
+	#	fi
+	#	if [[ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]]; then
+	#		rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
+	#	fi
+	#	wget https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
+	#	unzip $VER.zip
+	#	rm $VER.zip
+	#	mv $PKG-$VER $PKG
+	#	cd ../..
+	#	cp -fv patches/$PKG_.patch plugins/e2openplugin/$PKG
+	#	cd plugins/e2openplugin/$PKG
+	#	patch -p1 < $PKG_.patch
+	#	mv CI/create_ipk.sh create_ipk.sh
+	#	./create_ipk.sh
+	#	ar -x *.ipk
+	#	tar -xvf data.tar.gz
+	#	mv usr/lib/enigma2/python/Plugins/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions # It's right
+	#	rm -rf debian-binary usr *.gz *.ipk
+	#	cd ..
+	#fi
+
+	rm -fr $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/OpenWebif # Python 3.12 does not contain module "imp".
 
 	# Build e2openplugin-SetPicon
-	if [[ ! -d e2openplugin-OpenWebif ]]; then
+	#if [[ ! -d e2openplugin-AddStreamUrl ]]; thenif [[ ! -d e2openplugin-OpenWebif ]]; then
+	if [[ ! -d e2openplugin-AddStreamUrl ]]; then
 		set -e
 		set -o pipefail
 	else
@@ -255,7 +258,7 @@ if [[ -d plugins ]]; then # This is the lock from the unpredictable script actio
 		cd plugins/e2openplugin/$PKG
 		patch -p1 < $PKG_.patch
 		/home/$(logname)/.venv/e2pc/bin/pip install $prefix2/$PKG
-		ln -s -f /home/$(logname)/.venv/e2pc/lib/python3.11/site-packages/Extensions/$PKG_ $prefix1
+		ln -s -f /home/$(logname)/.venv/e2pc/lib/python3.12/site-packages/Extensions/$PKG_ $prefix1
 		cd ..
 	fi
 
@@ -285,7 +288,7 @@ if [[ -d plugins ]]; then # This is the lock from the unpredictable script actio
 #		cd plugins/e2openplugin/$PKG
 #		patch -p1 < $PKG_.patch
 #		/home/$(logname)/.venv/e2pc/bin/pip install $prefix2/$PKG
-#		ln -s -f /home/$(logname)/.venv/e2pc/lib/python3.11/site-packages/Extensions/$PKG_ $prefix1
+#		ln -s -f /home/$(logname)/.venv/e2pc/lib/python3.12/site-packages/Extensions/$PKG_ $prefix1
 #		cd ..
 #	fi
 
@@ -316,7 +319,7 @@ if [[ -d plugins ]]; then # This is the lock from the unpredictable script actio
 		cd plugins/e2openplugin/$PKG
 		patch -p1 < $PKG_.patch
 		/home/$(logname)/.venv/e2pc/bin/pip install $prefix2/$PKG
-		ln -s -f /home/$(logname)/.venv/e2pc/lib/python3.11/site-packages/Extensions/$PKG_ $prefix1
+		ln -s -f /home/$(logname)/.venv/e2pc/lib/python3.12/site-packages/Extensions/$PKG_ $prefix1
 		cd ..
 	fi
 
@@ -345,7 +348,7 @@ if [[ -d plugins ]]; then # This is the lock from the unpredictable script actio
 		cd plugins/e2openplugin/$PKG
 		patch -p1 < $PKG_.patch
 		/home/$(logname)/.venv/e2pc/bin/pip install $prefix2/$PKG
-		ln -s -f /home/$(logname)/.venv/e2pc/lib/python3.11/site-packages/Extensions/$PKG_ $prefix1
+		ln -s -f /home/$(logname)/.venv/e2pc/lib/python3.12/site-packages/Extensions/$PKG_ $prefix1
 		cd ..
 	fi
 
@@ -371,7 +374,7 @@ if [[ -d plugins ]]; then # This is the lock from the unpredictable script actio
 		mv $PKG-master $PKG
 		cd $PKG
 		/home/$(logname)/.venv/e2pc/bin/pip install $prefix2/$PKG
-		ln -s -f /home/$(logname)/.venv/e2pc/lib/python3.11/site-packages/Extensions/$PKG_ $prefix1
+		ln -s -f /home/$(logname)/.venv/e2pc/lib/python3.12/site-packages/Extensions/$PKG_ $prefix1
 		cd ..
 	fi
 
@@ -400,7 +403,7 @@ if [[ -d plugins ]]; then # This is the lock from the unpredictable script actio
 		cd plugins/e2openplugin/$PKG
 		patch -p1 < $PKG_.patch
 		/home/$(logname)/.venv/e2pc/bin/pip install $prefix2/$PKG
-		ln -s -f /home/$(logname)/.venv/e2pc/lib/python3.11/site-packages/Extensions/$PKG_ $prefix1
+		ln -s -f /home/$(logname)/.venv/e2pc/lib/python3.12/site-packages/Extensions/$PKG_ $prefix1
 		cd ..
 	fi
 
@@ -430,7 +433,7 @@ if [[ -d plugins ]]; then # This is the lock from the unpredictable script actio
 #		cd plugins/e2openplugin/$PKG
 #		patch -p1 < $PKG_.patch
 #		/home/$(logname)/.venv/e2pc/bin/pip install $prefix2/$PKG/src
-#		ln -s -f /home/$(logname)/.venv/e2pc/lib/python3.11/site-packages/Extensions/$PKG_ $prefix1
+#		ln -s -f /home/$(logname)/.venv/e2pc/lib/python3.12/site-packages/Extensions/$PKG_ $prefix1
 #		cd ..
 #	fi
 
@@ -458,7 +461,7 @@ if [[ -d plugins ]]; then # This is the lock from the unpredictable script actio
 		mv $PKG-$VER $PKG
 		cd $PKG
 		/home/$(logname)/.venv/e2pc/bin/pip install $prefix2/$PKG
-		ln -s -f /home/$(logname)/.venv/e2pc/lib/python3.11/site-packages/SystemPlugins/$PKG_ $prefix3
+		ln -s -f /home/$(logname)/.venv/e2pc/lib/python3.12/site-packages/SystemPlugins/$PKG_ $prefix3
 		cd ..
 	fi
 
@@ -518,7 +521,7 @@ if [[ -d plugins ]]; then # This is the lock from the unpredictable script actio
 
 		rm -f IPTVPlayer/locale/ru/LC_MESSAGES/.gitkeep
 		/home/$(logname)/.venv/e2pc/bin/pip install $prefix2/$PKG
-		ln -s -f /home/$(logname)/.venv/e2pc/lib/python3.11/site-packages/Extensions/$PKG_ $prefix1
+		ln -s -f /home/$(logname)/.venv/e2pc/lib/python3.12/site-packages/Extensions/$PKG_ $prefix1
 		cp -rfv IPTVPlayer/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		wget http://iptvplayer.vline.pl/resources/bin/i686/_subparser.so
 		chmod 755 _subparser.so
@@ -588,9 +591,9 @@ if [[ -d plugins ]]; then # This is the lock from the unpredictable script actio
 		mkdir -p /var/keys
 	fi
 
-#	if [[ ! -d /home/hdd/icons ]]; then
-#		ln -s $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/navibar/icons /home/hdd
-#	fi
+	if [[ ! -d /home/hdd/icons ]]; then
+		ln -s $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/navibar/icons /media/hdd
+	fi
 
 	# Force compile pyc files
 #	python3 -m compileall -f $INSTALL_E2DIR/lib/enigma2/python
