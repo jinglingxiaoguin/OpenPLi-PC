@@ -146,7 +146,7 @@ rpl "//#define XINE_TEXTDOMAIN" "#define XINE_TEXTDOMAIN" /usr/include/xine/xine
 
 git clone https://github.com/OpenPLi/$PKG.git
 cd $PKG
-git reset --hard e35bf166
+git reset --hard 8c4a772b
 cd ..
 
 # Create symlinks in /usr diectory before compile enigma2
@@ -154,9 +154,9 @@ if [[ ! -d /usr/include/netlink ]]; then
 	ln -s /usr/include/libnl3/netlink /usr/include
 fi
 
-cp -fv patches/patch-e35bf166-to-PC.patch $PKG
+cp -fv patches/patch-8c4a772b-to-PC.patch $PKG
 cd $PKG
-patch -p1 < patch-e35bf166-to-PC.patch
+patch -p1 < patch-8c4a772b-to-PC.patch
 
 # Configure
 if [[ "$DO_CONFIGURE" -eq "1" ]]; then
@@ -327,10 +327,10 @@ cp -fv pre/logo.mvi $INSTALL_E2DIR/share/enigma2
 cp -fv pre/radio.mvi $INSTALL_E2DIR/share/enigma2
 cp -fv pre/e2pc.desktop /home/$(logname)/.local/share/applications
 cp -fv pre/kill_e2pc.desktop /home/$(logname)/.local/share/applications
+cp -fv pre/enigma.info $INSTALL_E2DIR/lib
 cp -fv scripts/* $INSTALL_E2DIR/bin
 cp -fv enigma2/lib/gdi/*.h $INSTALL_E2DIR/include/enigma2/lib/gdi
 cp -fv /etc/NetworkManager/NetworkManager.conf /etc/NetworkManager/NetworkManager.conf~
-cp -fv pre/engima.info $INSTALL_E2DIR/lib
 rpl "kernel=''" "kernel='$(uname -r)'" $INSTALL_E2DIR/lib/enigma.info
 if [[ -f /etc/network/interfaces ]]; then
 	cp -fv /etc/network/interfaces /etc/network/interfaces~
