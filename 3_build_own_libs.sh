@@ -114,14 +114,10 @@ else
 	dpkg -s $PKG | grep -iw ok > /dev/null
 	if [[ $? -eq 0 ]]; then
 		dpkg -r $PKG
-	else
-		echo "$PKG not installed"
 	fi
 	if [[ -d $SOURCE ]]; then
-		dpkg -r $PKG $PKG_
 		rm -rf $SOURCE
 	fi
-
 	wget --no-check-certificate https://github.com/OpenPLi/$PKG_/archive/$VER.zip
 	unzip $VER.zip
 	rm $VER.zip
@@ -148,32 +144,26 @@ if [[ ! -d libtuxtxt ]]; then
 	set -e
 	set -o pipefail
 else
-	INSTALL_E2DIR="/usr/local/e2"
-	PKG="tuxtxt"
 	DIR="Tuxtxt"
-
-	ln -sf $INSTALL_E2DIR/lib/enigma2 /usr/lib
-
 	echo ""
 	echo "**************************** OK. Go to the next step. ******************************"
 	echo ""
-	echo "                        *** Build and install $PKG ***"
+	echo "                        *** Build and install $PKG_ ***"
 	echo ""
-	dpkg -s $PKG | grep -iw ok > /dev/null
+	dpkg -s $PKG_ | grep -iw ok > /dev/null
 	if [[ $? -eq 0 ]]; then
-		echo "$PKG already installed"
-	else
-		mkdir $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$DIR
-		cd $PKG
-
-		#autoupdate
-		autoreconf -i
-		./configure --prefix=/usr --with-boxtype=generic --with-configdir=/usr/etc --with-fbdev=/dev/fb0 --with-textlcd DVB_API_VERSION=5
-		checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --gzman=yes
-		rm -f *.tgz
-		make distclean
-		cd ../..
+		dpkg -r $PKG_
 	fi
+	ln -sf $INSTALL_E2DIR/lib/enigma2 /usr/lib
+	mkdir -p $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$DIR
+	cd $PKG_
+	#autoupdate
+	autoreconf -i
+	./configure --prefix=/usr --with-boxtype=generic --with-configdir=/usr/etc --with-fbdev=/dev/fb0 --with-textlcd DVB_API_VERSION=5
+	checkinstall -D --install=yes --default --pkgname=$PKG_ --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --gzman=yes
+	rm -f *.tgz
+	make distclean
+	cd ../..
 fi
 
 # Build and install aio-grab-git:
