@@ -1,6 +1,6 @@
 diff -ruN a/servicemp3/servicemp3.cpp b/servicemp3/servicemp3.cpp
---- a/servicemp3/servicemp3.cpp	2024-09-05 11:51:45.000000000 +0300
-+++ b/servicemp3/servicemp3.cpp	2024-09-14 23:54:34.312356895 +0300
+--- a/servicemp3/servicemp3.cpp	2024-12-03 11:25:07.000000000 +0300
++++ b/servicemp3/servicemp3.cpp	2024-12-03 11:34:01.257560878 +0300
 @@ -125,6 +125,9 @@
  		extensions.push_back("wv");
  		extensions.push_back("pva");
@@ -11,7 +11,7 @@ diff -ruN a/servicemp3/servicemp3.cpp b/servicemp3/servicemp3.cpp
  		sc->addServiceFactory(eServiceFactoryMP3::id, this, extensions);
  	}
  
-@@ -526,7 +529,7 @@
+@@ -524,7 +527,7 @@
  		m_sourceinfo.containertype = ctMPEGPS;
  		m_sourceinfo.is_video = TRUE;
  	}
@@ -20,7 +20,7 @@ diff -ruN a/servicemp3/servicemp3.cpp b/servicemp3/servicemp3.cpp
  	{
  		m_sourceinfo.containertype = ctMPEGTS;
  		m_sourceinfo.is_video = TRUE;
-@@ -619,10 +622,10 @@
+@@ -617,10 +620,10 @@
  			if ( m_ref.getData(7) & PROGRESSIVE_DOWNLOAD )
  			{
  				/* progressive download buffering */
@@ -33,7 +33,7 @@ diff -ruN a/servicemp3/servicemp3.cpp b/servicemp3/servicemp3.cpp
  				}
  			}
  		}
-@@ -729,6 +732,16 @@
+@@ -727,6 +730,16 @@
  	g_free(uri);
  	if (suburi != NULL)
  		g_free(suburi);
@@ -50,7 +50,7 @@ diff -ruN a/servicemp3/servicemp3.cpp b/servicemp3/servicemp3.cpp
  }
  
  eServiceMP3::~eServiceMP3()
-@@ -866,29 +879,6 @@
+@@ -865,29 +878,6 @@
  {
  	ASSERT(m_state == stIdle);
  
@@ -80,7 +80,7 @@ diff -ruN a/servicemp3/servicemp3.cpp b/servicemp3/servicemp3.cpp
  	if (m_ref.path.find("://") == std::string::npos)
  	{
  		/* read event from .eit file */
-@@ -908,6 +898,8 @@
+@@ -907,6 +897,8 @@
  		}
  	}
  
@@ -89,7 +89,7 @@ diff -ruN a/servicemp3/servicemp3.cpp b/servicemp3/servicemp3.cpp
  	return 0;
  }
  
-@@ -935,6 +927,9 @@
+@@ -934,6 +926,9 @@
  	saveCuesheet();
  	m_nownext_timer->stop();
  
@@ -99,7 +99,7 @@ diff -ruN a/servicemp3/servicemp3.cpp b/servicemp3/servicemp3.cpp
  	return 0;
  }
  
-@@ -967,6 +962,8 @@
+@@ -966,6 +961,8 @@
  	eDebug("[eServiceMP3] pause");
  	trickSeek(0.0);
  
@@ -108,7 +108,7 @@ diff -ruN a/servicemp3/servicemp3.cpp b/servicemp3/servicemp3.cpp
  	return 0;
  }
  
-@@ -975,16 +972,11 @@
+@@ -974,16 +971,11 @@
  	if (!m_gst_playbin || m_state != stRunning)
  		return -1;
  
@@ -127,7 +127,7 @@ diff -ruN a/servicemp3/servicemp3.cpp b/servicemp3/servicemp3.cpp
  	return 0;
  }
  
-@@ -1000,172 +992,41 @@
+@@ -999,172 +991,41 @@
  	if (!m_gst_playbin || m_state != stRunning)
  		return -1;
  
@@ -313,7 +313,7 @@ diff -ruN a/servicemp3/servicemp3.cpp b/servicemp3/servicemp3.cpp
  }
  
  gint eServiceMP3::match_sinktype(const GValue *velement, const gchar *type)
-@@ -1176,29 +1037,12 @@
+@@ -1175,29 +1036,12 @@
  
  RESULT eServiceMP3::getPlayPosition(pts_t &pts)
  {
@@ -346,7 +346,7 @@ diff -ruN a/servicemp3/servicemp3.cpp b/servicemp3/servicemp3.cpp
  	return 0;
  }
  
-@@ -1253,13 +1097,20 @@
+@@ -1252,13 +1096,20 @@
  int eServiceMP3::getInfo(int w)
  {
  	const gchar *tag = 0;
@@ -370,7 +370,7 @@ diff -ruN a/servicemp3/servicemp3.cpp b/servicemp3/servicemp3.cpp
  	case sProgressive: return m_progressive;
  	case sGamma: return m_gamma;
  	case sAspect: return m_aspect;
-@@ -1606,14 +1457,18 @@
+@@ -1605,14 +1456,18 @@
  
  int eServiceMP3::getNumberOfTracks()
  {
@@ -393,7 +393,7 @@ diff -ruN a/servicemp3/servicemp3.cpp b/servicemp3/servicemp3.cpp
  }
  
  RESULT eServiceMP3::selectTrack(unsigned int i)
-@@ -1648,6 +1503,9 @@
+@@ -1652,6 +1507,9 @@
  		return 0;
  	}
  	return -1;
@@ -403,7 +403,7 @@ diff -ruN a/servicemp3/servicemp3.cpp b/servicemp3/servicemp3.cpp
  }
  
  int eServiceMP3::getCurrentChannel()
-@@ -1663,16 +1521,12 @@
+@@ -1667,16 +1525,12 @@
  
  RESULT eServiceMP3::getTrackInfo(struct iAudioTrackInfo &info, unsigned int i)
  {

@@ -44,7 +44,7 @@ if [[ -d plugins ]]; then # This is the lock from the unpredictable script actio
 	echo "************************** OK. Let's build the plugins. ****************************"
 	echo ""
 	PKG="servicemp3"
-	VER="132749933beea2682497f78d9bd98361a1cb1bd2"
+	VER="8e111caaf0ae72e2f5c153d8f02c97dfd8b06e48"
 	if [[ -d $PKG ]]; then
 		rm -rf $PKG
 	fi
@@ -482,7 +482,7 @@ if [[ -d plugins ]]; then # This is the lock from the unpredictable script actio
 		PKG="e2iplayer"
 		PKG_="IPTVPlayer"
 		PKG__="E2IPlayer"
-		VER="b3cb7e9cc610c39d43037d97a426dd2fd0a06a47"
+		VER="c34207d5fca87e07c600953f8dfbf34a6efa6ac3"
 		if [[ -d $PKG ]]; then
 			rm -rf $PKG
 		fi
