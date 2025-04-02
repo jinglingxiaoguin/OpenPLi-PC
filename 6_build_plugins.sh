@@ -196,44 +196,43 @@ if [[ -d plugins ]]; then # This is the lock from the unpredictable script actio
 	fi
 
 	# Build e2openplugin-OpenWebif
-	#if [[ ! -d e2openplugin-AddStreamUrl ]]; then
-	#	set -e
-	#	set -o pipefail
-	#else
-	#	echo ""
-	#	echo "**************************** OK. Go to the next step. ******************************"
-	#	echo ""
-	#	PKG="e2openplugin-OpenWebif"
-	#	PKG_="OpenWebif"
-	#	VER="37b1b24b109ad15dd7c3d3d9f6f72adb0220a888"
-	#	if [[ -d $PKG ]]; then
-	#		rm -rf $PKG
-	#	fi
-	#	if [[ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]]; then
-	#		rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
-	#	fi
-	#	wget https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
-	#	unzip $VER.zip
-	#	rm $VER.zip
-	#	mv $PKG-$VER $PKG
-	#	cd ../..
-	#	cp -fv patches/$PKG_.patch plugins/e2openplugin/$PKG
-	#	cd plugins/e2openplugin/$PKG
-	#	patch -p1 < $PKG_.patch
-	#	mv CI/create_ipk.sh create_ipk.sh
-	#	./create_ipk.sh
-	#	ar -x *.ipk
-	#	tar -xvf data.tar.gz
-	#	mv usr/lib/enigma2/python/Plugins/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions # It's right
-	#	rm -rf debian-binary usr *.gz *.ipk
-	#	cd ..
-	#fi
+	if [[ ! -d e2openplugin-AddStreamUrl ]]; then
+		set -e
+		set -o pipefail
+	else
+		echo ""
+		echo "**************************** OK. Go to the next step. ******************************"
+		echo ""
+		PKG="e2openplugin-OpenWebif"
+		PKG_="OpenWebif"
+		VER="750db9715515c0fadb5f0c64e39dac21a1695bba"
+		if [[ -d $PKG ]]; then
+			rm -rf $PKG
+		fi
+		if [[ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]]; then
+			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
+		fi
+		wget https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
+		unzip $VER.zip
+		rm $VER.zip
+		mv $PKG-$VER $PKG
+		cd ../..
+		cp -fv patches/$PKG_.patch plugins/e2openplugin/$PKG
+		cd plugins/e2openplugin/$PKG
+		patch -p1 < $PKG_.patch
+		mv CI/create_ipk.sh create_ipk.sh
+		./create_ipk.sh
+		ar -x *.ipk
+		tar -xvf data.tar.gz
+		mv usr/lib/enigma2/python/Plugins/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions # It's right
+		rm -rf debian-binary usr *.gz *.ipk
+		cd ..
+	fi
 
-	rm -fr $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/OpenWebif # Python 3.12 does not contain module "imp".
+#	rm -fr $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/OpenWebif # Python 3.12 does not contain module "imp".
 
 	# Build e2openplugin-SetPicon
-	#if [[ ! -d e2openplugin-AddStreamUrl ]]; thenif [[ ! -d e2openplugin-OpenWebif ]]; then
-	if [[ ! -d e2openplugin-AddStreamUrl ]]; then
+	if [[ ! -d e2openplugin-OpenWebif ]]; then
 		set -e
 		set -o pipefail
 	else
@@ -482,7 +481,7 @@ if [[ -d plugins ]]; then # This is the lock from the unpredictable script actio
 		PKG="e2iplayer"
 		PKG_="IPTVPlayer"
 		PKG__="E2IPlayer"
-		VER="c34207d5fca87e07c600953f8dfbf34a6efa6ac3"
+		VER="8f8f7a85a2d22c0c1af0d6d08e8e79ca53a517d9"
 		if [[ -d $PKG ]]; then
 			rm -rf $PKG
 		fi

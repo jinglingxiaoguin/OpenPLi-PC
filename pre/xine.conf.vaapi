@@ -84,7 +84,7 @@ video.driver:vaapi
 
 # disable all video scaling
 # bool, default: 0
-#video.output.disable_scaling:0
+video.output.disable_scaling:0
 
 # Limit output frame rate
 # numeric, default: 0
@@ -92,7 +92,7 @@ video.driver:vaapi
 
 # treat screen pixels as exactly square
 # bool, default: 0
-#video.output.square_pixels:0
+video.output.square_pixels:0
 
 # vaapi: set vaapi_guarded_render to 0 ( no ) 1 ( yes )
 # numeric, default: 1
@@ -124,7 +124,7 @@ video.output.vaapi_guarded_render:1
 
 # Choose speed over specification compliance
 # bool, default: 0
-#video.processing.ffmpeg_choose_speed_over_accuracy:0
+video.processing.ffmpeg_choose_speed_over_accuracy:1
 
 # Enable direct rendering
 # bool, default: 1
@@ -133,10 +133,6 @@ video.processing.ffmpeg_direct_rendering:1
 # Enable VAAPI
 # bool, default: 1
 video.processing.ffmpeg_enable_vaapi:1
-
-# vaapi: set deinterlace to 0 ( none ), 1 ( top field ), 2 ( bob ).
-# numeric, default: 0
-video.output.vaapi_deinterlace:2
 
 # MPEG-4 postprocessing quality
 # [0..6], default: 3
@@ -148,11 +144,11 @@ video.output.vaapi_deinterlace:2
 
 # FFmpeg video decoding thread count
 # numeric, default: 1
-video.processing.ffmpeg_thread_count:4
+video.processing.ffmpeg_thread_count:2
 
 # VAAPI Mpeg2 softdecoding
 # bool, default: 0
-video.processing.vaapi_mpeg_softdec:1
+#video.processing.vaapi_mpeg_softdec:1
 
 # number of audio buffers
 # numeric, default: 700
@@ -164,7 +160,7 @@ engine.buffers.video_num_buffers:800
 
 # default number of video frames
 # numeric, default: 22
-engine.buffers.video_num_frames:22
+engine.buffers.video_num_frames:60
 
 # disable decoder flush at discontinuity
 # bool, default: 0
