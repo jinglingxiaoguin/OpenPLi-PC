@@ -11,7 +11,7 @@ HEADERSL="/usr/src/linux-lowlatency-headers-`uname -r`/include/uapi/linux/dvb"
 INCLUDE="/usr/include/linux/dvb"
 BUILD_DIR="libs"
 INSTALL_E2DIR="/usr/local/e2"
-prefix2="/usr/src/OpenPLi-PC_Python3/libs"
+prefix2="/home/OpenPLi-PC/libs"
 
 if [[ "$release" = "24.04" ]]; then
 	prefix1="/usr/local/lib/python3.12/dist-packages"
