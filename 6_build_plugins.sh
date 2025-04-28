@@ -5,7 +5,7 @@
 release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 INSTALL_E2DIR="/usr/local/e2"
 prefix1="/usr/local/e2/lib/enigma2/python/Plugins/Extensions"
-prefix2="/usr/src/OpenPLi-PC_Python3/plugins/e2openplugin"
+prefix2="/home/OpenPLi-PC/plugins/e2openplugin"
 prefix3="/usr/local/e2/lib/enigma2/python/Plugins/SystemPlugins"
 MAKE_J="8"
 
